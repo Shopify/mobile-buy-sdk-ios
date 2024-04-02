@@ -129,6 +129,7 @@ extension Storefront {
 		}
 
 		/// The customer's most recently updated, incomplete checkout. 
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		@discardableResult
 		open func lastIncompleteCheckout(alias: String? = nil, _ subfields: (CheckoutQuery) -> Void) -> CustomerQuery {
 			let subquery = CheckoutQuery()
@@ -485,6 +486,7 @@ extension Storefront {
 		}
 
 		/// The customer's most recently updated, incomplete checkout. 
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		open var lastIncompleteCheckout: Storefront.Checkout? {
 			return internalGetLastIncompleteCheckout()
 		}

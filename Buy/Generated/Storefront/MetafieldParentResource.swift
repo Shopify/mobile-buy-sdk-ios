@@ -78,6 +78,24 @@ extension Storefront {
 
 		/// A resource that the metafield belongs to. 
 		@discardableResult
+		open func onCompany(subfields: (CompanyQuery) -> Void) -> MetafieldParentResourceQuery {
+			let subquery = CompanyQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Company", subfields: subquery)
+			return self
+		}
+
+		/// A resource that the metafield belongs to. 
+		@discardableResult
+		open func onCompanyLocation(subfields: (CompanyLocationQuery) -> Void) -> MetafieldParentResourceQuery {
+			let subquery = CompanyLocationQuery()
+			subfields(subquery)
+			addInlineFragment(on: "CompanyLocation", subfields: subquery)
+			return self
+		}
+
+		/// A resource that the metafield belongs to. 
+		@discardableResult
 		open func onCustomer(subfields: (CustomerQuery) -> Void) -> MetafieldParentResourceQuery {
 			let subquery = CustomerQuery()
 			subfields(subquery)
@@ -173,6 +191,10 @@ extension Storefront {
 				case "Cart": return try Cart.init(fields: fields)
 
 				case "Collection": return try Collection.init(fields: fields)
+
+				case "Company": return try Company.init(fields: fields)
+
+				case "CompanyLocation": return try CompanyLocation.init(fields: fields)
 
 				case "Customer": return try Customer.init(fields: fields)
 

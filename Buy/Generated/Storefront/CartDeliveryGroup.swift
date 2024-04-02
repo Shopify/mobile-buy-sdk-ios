@@ -94,6 +94,13 @@ extension Storefront {
 			return self
 		}
 
+		/// The type of merchandise in the delivery group. 
+		@discardableResult
+		open func groupType(alias: String? = nil) -> CartDeliveryGroupQuery {
+			addField(field: "groupType", aliasSuffix: alias)
+			return self
+		}
+
 		/// The ID for the delivery group. 
 		@discardableResult
 		open func id(alias: String? = nil) -> CartDeliveryGroupQuery {
@@ -137,6 +144,12 @@ extension Storefront {
 					throw SchemaViolationError(type: CartDeliveryGroup.self, field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try CartDeliveryOption(fields: $0) }
+
+				case "groupType":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: CartDeliveryGroup.self, field: fieldName, value: fieldValue)
+				}
+				return CartDeliveryGroupType(rawValue: value) ?? .unknownValue
 
 				case "id":
 				guard let value = value as? String else {
@@ -185,6 +198,15 @@ extension Storefront {
 
 		func internalGetDeliveryOptions(alias: String? = nil) -> [Storefront.CartDeliveryOption] {
 			return field(field: "deliveryOptions", aliasSuffix: alias) as! [Storefront.CartDeliveryOption]
+		}
+
+		/// The type of merchandise in the delivery group. 
+		open var groupType: Storefront.CartDeliveryGroupType {
+			return internalGetGroupType()
+		}
+
+		func internalGetGroupType(alias: String? = nil) -> Storefront.CartDeliveryGroupType {
+			return field(field: "groupType", aliasSuffix: alias) as! Storefront.CartDeliveryGroupType
 		}
 
 		/// The ID for the delivery group. 

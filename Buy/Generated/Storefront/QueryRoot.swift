@@ -973,7 +973,7 @@ extension Storefront {
 		///     - types: The types of resources to search for.
 		///        
 		///        The input must not contain more than `250` values.
-		///     - unavailableProducts: Specifies how unavailable products are displayed in the search results.
+		///     - unavailableProducts: Specifies how unavailable products or variants are displayed in the search results.
 		///
 		@discardableResult
 		open func search(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: SearchSortKeys? = nil, query: String, `prefix`: SearchPrefixQueryType? = nil, productFilters: [ProductFilter]? = nil, types: [SearchType]? = nil, unavailableProducts: SearchUnavailableProductsType? = nil, _ subfields: (SearchResultItemConnectionQuery) -> Void) -> QueryRootQuery {

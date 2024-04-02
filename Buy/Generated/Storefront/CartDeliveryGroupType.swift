@@ -1,5 +1,5 @@
 //
-//  SDK.swift
+//  CartDeliveryGroupType.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -26,6 +26,16 @@
 
 import Foundation
 
-internal enum SDK {
-    static let version = "12.0.0"
+extension Storefront {
+	/// Defines what type of merchandise is in the delivery group. 
+	public enum CartDeliveryGroupType: String {
+		/// The delivery group only contains merchandise that is either a one time 
+		/// purchase or a first delivery of subscription merchandise. 
+		case oneTimePurchase = "ONE_TIME_PURCHASE"
+
+		/// The delivery group only contains subscription merchandise. 
+		case subscription = "SUBSCRIPTION"
+
+		case unknownValue = ""
+	}
 }

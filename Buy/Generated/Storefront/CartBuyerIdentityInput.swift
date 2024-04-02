@@ -38,6 +38,9 @@ extension Storefront {
 		/// The phone number of the buyer that is interacting with the cart. 
 		open var phone: Input<String>
 
+		/// The company location of the buyer that is interacting with the cart. 
+		open var companyLocationId: Input<GraphQL.ID>
+
 		/// The country where the buyer is located. 
 		open var countryCode: Input<CountryCode>
 
@@ -62,18 +65,20 @@ extension Storefront {
 		/// - parameters:
 		///     - email: The email address of the buyer that is interacting with the cart.
 		///     - phone: The phone number of the buyer that is interacting with the cart.
+		///     - companyLocationId: The company location of the buyer that is interacting with the cart.
 		///     - countryCode: The country where the buyer is located.
 		///     - customerAccessToken: The access token used to identify the customer associated with the cart.
 		///     - deliveryAddressPreferences: An ordered set of delivery addresses tied to the buyer that is interacting with the cart. The rank of the preferences is determined by the order of the addresses in the array. Preferences can be used to populate relevant fields in the checkout flow.  The input must not contain more than `250` values.
 		///     - walletPreferences: A set of wallet preferences tied to the buyer that is interacting with the cart. Preferences can be used to populate relevant payment fields in the checkout flow.   Accepted value: `["shop_pay"]`.  The input must not contain more than `250` values.
 		///
-		public static func create(email: Input<String> = .undefined, phone: Input<String> = .undefined, countryCode: Input<CountryCode> = .undefined, customerAccessToken: Input<String> = .undefined, deliveryAddressPreferences: Input<[DeliveryAddressInput]> = .undefined, walletPreferences: Input<[String]> = .undefined) -> CartBuyerIdentityInput {
-			return CartBuyerIdentityInput(email: email, phone: phone, countryCode: countryCode, customerAccessToken: customerAccessToken, deliveryAddressPreferences: deliveryAddressPreferences, walletPreferences: walletPreferences)
+		public static func create(email: Input<String> = .undefined, phone: Input<String> = .undefined, companyLocationId: Input<GraphQL.ID> = .undefined, countryCode: Input<CountryCode> = .undefined, customerAccessToken: Input<String> = .undefined, deliveryAddressPreferences: Input<[DeliveryAddressInput]> = .undefined, walletPreferences: Input<[String]> = .undefined) -> CartBuyerIdentityInput {
+			return CartBuyerIdentityInput(email: email, phone: phone, companyLocationId: companyLocationId, countryCode: countryCode, customerAccessToken: customerAccessToken, deliveryAddressPreferences: deliveryAddressPreferences, walletPreferences: walletPreferences)
 		}
 
-		private init(email: Input<String> = .undefined, phone: Input<String> = .undefined, countryCode: Input<CountryCode> = .undefined, customerAccessToken: Input<String> = .undefined, deliveryAddressPreferences: Input<[DeliveryAddressInput]> = .undefined, walletPreferences: Input<[String]> = .undefined) {
+		private init(email: Input<String> = .undefined, phone: Input<String> = .undefined, companyLocationId: Input<GraphQL.ID> = .undefined, countryCode: Input<CountryCode> = .undefined, customerAccessToken: Input<String> = .undefined, deliveryAddressPreferences: Input<[DeliveryAddressInput]> = .undefined, walletPreferences: Input<[String]> = .undefined) {
 			self.email = email
 			self.phone = phone
+			self.companyLocationId = companyLocationId
 			self.countryCode = countryCode
 			self.customerAccessToken = customerAccessToken
 			self.deliveryAddressPreferences = deliveryAddressPreferences
@@ -85,14 +90,15 @@ extension Storefront {
 		/// - parameters:
 		///     - email: The email address of the buyer that is interacting with the cart.
 		///     - phone: The phone number of the buyer that is interacting with the cart.
+		///     - companyLocationId: The company location of the buyer that is interacting with the cart.
 		///     - countryCode: The country where the buyer is located.
 		///     - customerAccessToken: The access token used to identify the customer associated with the cart.
 		///     - deliveryAddressPreferences: An ordered set of delivery addresses tied to the buyer that is interacting with the cart. The rank of the preferences is determined by the order of the addresses in the array. Preferences can be used to populate relevant fields in the checkout flow.  The input must not contain more than `250` values.
 		///     - walletPreferences: A set of wallet preferences tied to the buyer that is interacting with the cart. Preferences can be used to populate relevant payment fields in the checkout flow.   Accepted value: `["shop_pay"]`.  The input must not contain more than `250` values.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
-		public convenience init(email: String? = nil, phone: String? = nil, countryCode: CountryCode? = nil, customerAccessToken: String? = nil, deliveryAddressPreferences: [DeliveryAddressInput]? = nil, walletPreferences: [String]? = nil) {
-			self.init(email: email.orUndefined, phone: phone.orUndefined, countryCode: countryCode.orUndefined, customerAccessToken: customerAccessToken.orUndefined, deliveryAddressPreferences: deliveryAddressPreferences.orUndefined, walletPreferences: walletPreferences.orUndefined)
+		public convenience init(email: String? = nil, phone: String? = nil, companyLocationId: GraphQL.ID? = nil, countryCode: CountryCode? = nil, customerAccessToken: String? = nil, deliveryAddressPreferences: [DeliveryAddressInput]? = nil, walletPreferences: [String]? = nil) {
+			self.init(email: email.orUndefined, phone: phone.orUndefined, companyLocationId: companyLocationId.orUndefined, countryCode: countryCode.orUndefined, customerAccessToken: customerAccessToken.orUndefined, deliveryAddressPreferences: deliveryAddressPreferences.orUndefined, walletPreferences: walletPreferences.orUndefined)
 		}
 
 		internal func serialize() -> String {
@@ -115,6 +121,16 @@ extension Storefront {
 					break
 				}
 				fields.append("phone:\(GraphQL.quoteString(input: phone))")
+				case .undefined: break
+			}
+
+			switch companyLocationId {
+				case .value(let companyLocationId): 
+				guard let companyLocationId = companyLocationId else {
+					fields.append("companyLocationId:null")
+					break
+				}
+				fields.append("companyLocationId:\(GraphQL.quoteString(input: "\(companyLocationId.rawValue)"))")
 				case .undefined: break
 			}
 

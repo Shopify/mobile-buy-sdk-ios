@@ -181,6 +181,53 @@ extension Storefront {
 			return self
 		}
 
+		/// A list of quantity breaks for the product variant. 
+		///
+		/// - parameters:
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///
+		@discardableResult
+		open func quantityPriceBreaks(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, _ subfields: (QuantityPriceBreakConnectionQuery) -> Void) -> ProductVariantQuery {
+			var args: [String] = []
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = QuantityPriceBreakConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "quantityPriceBreaks", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// The quantity rule for the product variant in a given context. 
+		@discardableResult
+		open func quantityRule(alias: String? = nil, _ subfields: (QuantityRuleQuery) -> Void) -> ProductVariantQuery {
+			let subquery = QuantityRuleQuery()
+			subfields(subquery)
+
+			addField(field: "quantityRule", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// Whether a customer needs to provide a shipping address when placing an 
 		/// order for the product variant. 
 		@discardableResult
@@ -443,6 +490,18 @@ extension Storefront {
 				}
 				return Int32(value)
 
+				case "quantityPriceBreaks":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
+				}
+				return try QuantityPriceBreakConnection(fields: value)
+
+				case "quantityRule":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
+				}
+				return try QuantityRule(fields: value)
+
 				case "requiresShipping":
 				guard let value = value as? Bool else {
 					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
@@ -650,6 +709,28 @@ extension Storefront {
 			return field(field: "quantityAvailable", aliasSuffix: alias) as! Int32?
 		}
 
+		/// A list of quantity breaks for the product variant. 
+		open var quantityPriceBreaks: Storefront.QuantityPriceBreakConnection {
+			return internalGetQuantityPriceBreaks()
+		}
+
+		open func aliasedQuantityPriceBreaks(alias: String) -> Storefront.QuantityPriceBreakConnection {
+			return internalGetQuantityPriceBreaks(alias: alias)
+		}
+
+		func internalGetQuantityPriceBreaks(alias: String? = nil) -> Storefront.QuantityPriceBreakConnection {
+			return field(field: "quantityPriceBreaks", aliasSuffix: alias) as! Storefront.QuantityPriceBreakConnection
+		}
+
+		/// The quantity rule for the product variant in a given context. 
+		open var quantityRule: Storefront.QuantityRule {
+			return internalGetQuantityRule()
+		}
+
+		func internalGetQuantityRule(alias: String? = nil) -> Storefront.QuantityRule {
+			return field(field: "quantityRule", aliasSuffix: alias) as! Storefront.QuantityRule
+		}
+
 		/// Whether a customer needs to provide a shipping address when placing an 
 		/// order for the product variant. 
 		open var requiresShipping: Bool {
@@ -808,6 +889,14 @@ extension Storefront {
 					case "product":
 					response.append(internalGetProduct())
 					response.append(contentsOf: internalGetProduct().childResponseObjectMap())
+
+					case "quantityPriceBreaks":
+					response.append(internalGetQuantityPriceBreaks())
+					response.append(contentsOf: internalGetQuantityPriceBreaks().childResponseObjectMap())
+
+					case "quantityRule":
+					response.append(internalGetQuantityRule())
+					response.append(contentsOf: internalGetQuantityRule().childResponseObjectMap())
 
 					case "selectedOptions":
 					internalGetSelectedOptions().forEach {

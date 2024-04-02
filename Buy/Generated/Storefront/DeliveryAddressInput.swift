@@ -32,6 +32,9 @@ extension Storefront {
 		/// A delivery address preference of a buyer that is interacting with the cart. 
 		open var deliveryAddress: Input<MailingAddressInput>
 
+		/// Defines what kind of address validation is requested. 
+		open var deliveryAddressValidationStrategy: Input<DeliveryAddressValidationStrategy>
+
 		/// The ID of a customer address that is associated with the buyer that is 
 		/// interacting with the cart. 
 		open var customerAddressId: Input<GraphQL.ID>
@@ -40,14 +43,16 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - deliveryAddress: A delivery address preference of a buyer that is interacting with the cart.
+		///     - deliveryAddressValidationStrategy: Defines what kind of address validation is requested.
 		///     - customerAddressId: The ID of a customer address that is associated with the buyer that is interacting with the cart. 
 		///
-		public static func create(deliveryAddress: Input<MailingAddressInput> = .undefined, customerAddressId: Input<GraphQL.ID> = .undefined) -> DeliveryAddressInput {
-			return DeliveryAddressInput(deliveryAddress: deliveryAddress, customerAddressId: customerAddressId)
+		public static func create(deliveryAddress: Input<MailingAddressInput> = .undefined, deliveryAddressValidationStrategy: Input<DeliveryAddressValidationStrategy> = .undefined, customerAddressId: Input<GraphQL.ID> = .undefined) -> DeliveryAddressInput {
+			return DeliveryAddressInput(deliveryAddress: deliveryAddress, deliveryAddressValidationStrategy: deliveryAddressValidationStrategy, customerAddressId: customerAddressId)
 		}
 
-		private init(deliveryAddress: Input<MailingAddressInput> = .undefined, customerAddressId: Input<GraphQL.ID> = .undefined) {
+		private init(deliveryAddress: Input<MailingAddressInput> = .undefined, deliveryAddressValidationStrategy: Input<DeliveryAddressValidationStrategy> = .undefined, customerAddressId: Input<GraphQL.ID> = .undefined) {
 			self.deliveryAddress = deliveryAddress
+			self.deliveryAddressValidationStrategy = deliveryAddressValidationStrategy
 			self.customerAddressId = customerAddressId
 		}
 
@@ -55,11 +60,12 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - deliveryAddress: A delivery address preference of a buyer that is interacting with the cart.
+		///     - deliveryAddressValidationStrategy: Defines what kind of address validation is requested.
 		///     - customerAddressId: The ID of a customer address that is associated with the buyer that is interacting with the cart. 
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
-		public convenience init(deliveryAddress: MailingAddressInput? = nil, customerAddressId: GraphQL.ID? = nil) {
-			self.init(deliveryAddress: deliveryAddress.orUndefined, customerAddressId: customerAddressId.orUndefined)
+		public convenience init(deliveryAddress: MailingAddressInput? = nil, deliveryAddressValidationStrategy: DeliveryAddressValidationStrategy? = nil, customerAddressId: GraphQL.ID? = nil) {
+			self.init(deliveryAddress: deliveryAddress.orUndefined, deliveryAddressValidationStrategy: deliveryAddressValidationStrategy.orUndefined, customerAddressId: customerAddressId.orUndefined)
 		}
 
 		internal func serialize() -> String {
@@ -72,6 +78,16 @@ extension Storefront {
 					break
 				}
 				fields.append("deliveryAddress:\(deliveryAddress.serialize())")
+				case .undefined: break
+			}
+
+			switch deliveryAddressValidationStrategy {
+				case .value(let deliveryAddressValidationStrategy): 
+				guard let deliveryAddressValidationStrategy = deliveryAddressValidationStrategy else {
+					fields.append("deliveryAddressValidationStrategy:null")
+					break
+				}
+				fields.append("deliveryAddressValidationStrategy:\(deliveryAddressValidationStrategy.rawValue)")
 				case .undefined: break
 			}
 

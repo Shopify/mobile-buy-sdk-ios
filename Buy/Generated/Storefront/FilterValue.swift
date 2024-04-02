@@ -45,6 +45,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The visual representation when the filter's presentation is `IMAGE`. 
+		@discardableResult
+		open func image(alias: String? = nil, _ subfields: (MediaImageQuery) -> Void) -> FilterValueQuery {
+			let subquery = MediaImageQuery()
+			subfields(subquery)
+
+			addField(field: "image", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// An input object that can be used to filter by this value on the parent 
 		/// field. The value is provided as a helper for building dynamic filtering UI. 
 		/// For example, if you have a list of selected `FilterValue` objects, you can 
@@ -59,6 +69,16 @@ extension Storefront {
 		@discardableResult
 		open func label(alias: String? = nil) -> FilterValueQuery {
 			addField(field: "label", aliasSuffix: alias)
+			return self
+		}
+
+		/// The visual representation when the filter's presentation is `SWATCH`. 
+		@discardableResult
+		open func swatch(alias: String? = nil, _ subfields: (SwatchQuery) -> Void) -> FilterValueQuery {
+			let subquery = SwatchQuery()
+			subfields(subquery)
+
+			addField(field: "swatch", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 	}
@@ -82,6 +102,13 @@ extension Storefront {
 				}
 				return value
 
+				case "image":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: FilterValue.self, field: fieldName, value: fieldValue)
+				}
+				return try MediaImage(fields: value)
+
 				case "input":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: FilterValue.self, field: fieldName, value: fieldValue)
@@ -93,6 +120,13 @@ extension Storefront {
 					throw SchemaViolationError(type: FilterValue.self, field: fieldName, value: fieldValue)
 				}
 				return value
+
+				case "swatch":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: FilterValue.self, field: fieldName, value: fieldValue)
+				}
+				return try Swatch(fields: value)
 
 				default:
 				throw SchemaViolationError(type: FilterValue.self, field: fieldName, value: fieldValue)
@@ -117,6 +151,15 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! String
 		}
 
+		/// The visual representation when the filter's presentation is `IMAGE`. 
+		open var image: Storefront.MediaImage? {
+			return internalGetImage()
+		}
+
+		func internalGetImage(alias: String? = nil) -> Storefront.MediaImage? {
+			return field(field: "image", aliasSuffix: alias) as! Storefront.MediaImage?
+		}
+
 		/// An input object that can be used to filter by this value on the parent 
 		/// field. The value is provided as a helper for building dynamic filtering UI. 
 		/// For example, if you have a list of selected `FilterValue` objects, you can 
@@ -138,8 +181,36 @@ extension Storefront {
 			return field(field: "label", aliasSuffix: alias) as! String
 		}
 
+		/// The visual representation when the filter's presentation is `SWATCH`. 
+		open var swatch: Storefront.Swatch? {
+			return internalGetSwatch()
+		}
+
+		func internalGetSwatch(alias: String? = nil) -> Storefront.Swatch? {
+			return field(field: "swatch", aliasSuffix: alias) as! Storefront.Swatch?
+		}
+
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
-			return []
+			var response: [GraphQL.AbstractResponse] = []
+			objectMap.keys.forEach {
+				switch($0) {
+					case "image":
+					if let value = internalGetImage() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "swatch":
+					if let value = internalGetSwatch() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					default:
+					break
+				}
+			}
+			return response
 		}
 	}
 }

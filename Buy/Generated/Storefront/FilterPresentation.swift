@@ -1,5 +1,5 @@
 //
-//  SDK.swift
+//  FilterPresentation.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -26,6 +26,19 @@
 
 import Foundation
 
-internal enum SDK {
-    static let version = "12.0.0"
+extension Storefront {
+	/// Defines how to present the filter values, specifies the presentation of the 
+	/// filter. 
+	public enum FilterPresentation: String {
+		/// Image presentation, filter values display an image. 
+		case image = "IMAGE"
+
+		/// Swatch presentation, filter values display color or image patterns. 
+		case swatch = "SWATCH"
+
+		/// Text presentation, no additional visual display for filter values. 
+		case text = "TEXT"
+
+		case unknownValue = ""
+	}
 }

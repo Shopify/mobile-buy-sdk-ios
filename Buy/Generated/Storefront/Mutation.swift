@@ -264,16 +264,14 @@ extension Storefront {
 		///     - note: The note on the cart.
 		///
 		@discardableResult
-		open func cartNoteUpdate(alias: String? = nil, cartId: GraphQL.ID, note: String? = nil, _ subfields: (CartNoteUpdatePayloadQuery) -> Void) -> MutationQuery {
+		open func cartNoteUpdate(alias: String? = nil, cartId: GraphQL.ID, note: String, _ subfields: (CartNoteUpdatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
 			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
 
-			if let note = note {
-				args.append("note:\(GraphQL.quoteString(input: note))")
-			}
+			args.append("note:\(GraphQL.quoteString(input: note))")
 
-			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+			let argsString = "(\(args.joined(separator: ",")))"
 
 			let subquery = CartNoteUpdatePayloadQuery()
 			subfields(subquery)
@@ -360,6 +358,7 @@ extension Storefront {
 		///     - checkoutId: The ID of the checkout.
 		///     - input: The checkout attributes to update.
 		///
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		@discardableResult
 		open func checkoutAttributesUpdateV2(alias: String? = nil, checkoutId: GraphQL.ID, input: CheckoutAttributesUpdateV2Input, _ subfields: (CheckoutAttributesUpdateV2PayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -384,6 +383,7 @@ extension Storefront {
 		/// - parameters:
 		///     - checkoutId: The ID of the checkout.
 		///
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		@discardableResult
 		open func checkoutCompleteFree(alias: String? = nil, checkoutId: GraphQL.ID, _ subfields: (CheckoutCompleteFreePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -408,6 +408,7 @@ extension Storefront {
 		///     - checkoutId: The ID of the checkout.
 		///     - payment: The credit card info to apply as a payment.
 		///
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		@discardableResult
 		open func checkoutCompleteWithCreditCardV2(alias: String? = nil, checkoutId: GraphQL.ID, payment: CreditCardPaymentInputV2, _ subfields: (CheckoutCompleteWithCreditCardV2PayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -431,6 +432,7 @@ extension Storefront {
 		///     - checkoutId: The ID of the checkout.
 		///     - payment: The info to apply as a tokenized payment.
 		///
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		@discardableResult
 		open func checkoutCompleteWithTokenizedPaymentV3(alias: String? = nil, checkoutId: GraphQL.ID, payment: TokenizedPaymentInputV3, _ subfields: (CheckoutCompleteWithTokenizedPaymentV3PayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -454,6 +456,7 @@ extension Storefront {
 		///     - input: The fields used to create a checkout.
 		///     - queueToken: The checkout queue token. Available only to selected stores.
 		///
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		@discardableResult
 		open func checkoutCreate(alias: String? = nil, input: CheckoutCreateInput, queueToken: String? = nil, _ subfields: (CheckoutCreatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -479,6 +482,7 @@ extension Storefront {
 		///     - checkoutId: The ID of the checkout.
 		///     - customerAccessToken: The customer access token of the customer to associate.
 		///
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		@discardableResult
 		open func checkoutCustomerAssociateV2(alias: String? = nil, checkoutId: GraphQL.ID, customerAccessToken: String, _ subfields: (CheckoutCustomerAssociateV2PayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -501,6 +505,7 @@ extension Storefront {
 		/// - parameters:
 		///     - checkoutId: The ID of the checkout.
 		///
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		@discardableResult
 		open func checkoutCustomerDisassociateV2(alias: String? = nil, checkoutId: GraphQL.ID, _ subfields: (CheckoutCustomerDisassociateV2PayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -522,6 +527,7 @@ extension Storefront {
 		///     - discountCode: The discount code to apply to the checkout.
 		///     - checkoutId: The ID of the checkout.
 		///
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		@discardableResult
 		open func checkoutDiscountCodeApplyV2(alias: String? = nil, discountCode: String, checkoutId: GraphQL.ID, _ subfields: (CheckoutDiscountCodeApplyV2PayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -544,6 +550,7 @@ extension Storefront {
 		/// - parameters:
 		///     - checkoutId: The ID of the checkout.
 		///
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		@discardableResult
 		open func checkoutDiscountCodeRemove(alias: String? = nil, checkoutId: GraphQL.ID, _ subfields: (CheckoutDiscountCodeRemovePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -565,6 +572,7 @@ extension Storefront {
 		///     - checkoutId: The ID of the checkout.
 		///     - email: The email to update the checkout with.
 		///
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		@discardableResult
 		open func checkoutEmailUpdateV2(alias: String? = nil, checkoutId: GraphQL.ID, email: String, _ subfields: (CheckoutEmailUpdateV2PayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -588,6 +596,7 @@ extension Storefront {
 		///     - appliedGiftCardId: The ID of the Applied Gift Card to remove from the Checkout.
 		///     - checkoutId: The ID of the checkout.
 		///
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		@discardableResult
 		open func checkoutGiftCardRemoveV2(alias: String? = nil, appliedGiftCardId: GraphQL.ID, checkoutId: GraphQL.ID, _ subfields: (CheckoutGiftCardRemoveV2PayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -613,6 +622,7 @@ extension Storefront {
 		///        The input must not contain more than `250` values.
 		///     - checkoutId: The ID of the checkout.
 		///
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		@discardableResult
 		open func checkoutGiftCardsAppend(alias: String? = nil, giftCardCodes: [String], checkoutId: GraphQL.ID, _ subfields: (CheckoutGiftCardsAppendPayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -638,6 +648,7 @@ extension Storefront {
 		///        The input must not contain more than `250` values.
 		///     - checkoutId: The ID of the checkout.
 		///
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		@discardableResult
 		open func checkoutLineItemsAdd(alias: String? = nil, lineItems: [CheckoutLineItemInput], checkoutId: GraphQL.ID, _ subfields: (CheckoutLineItemsAddPayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -663,6 +674,7 @@ extension Storefront {
 		///        
 		///        The input must not contain more than `250` values.
 		///
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		@discardableResult
 		open func checkoutLineItemsRemove(alias: String? = nil, checkoutId: GraphQL.ID, lineItemIds: [GraphQL.ID], _ subfields: (CheckoutLineItemsRemovePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -688,6 +700,7 @@ extension Storefront {
 		///        The input must not contain more than `250` values.
 		///     - checkoutId: The ID of the checkout.
 		///
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		@discardableResult
 		open func checkoutLineItemsReplace(alias: String? = nil, lineItems: [CheckoutLineItemInput], checkoutId: GraphQL.ID, _ subfields: (CheckoutLineItemsReplacePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -713,6 +726,7 @@ extension Storefront {
 		///        
 		///        The input must not contain more than `250` values.
 		///
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		@discardableResult
 		open func checkoutLineItemsUpdate(alias: String? = nil, checkoutId: GraphQL.ID, lineItems: [CheckoutLineItemUpdateInput], _ subfields: (CheckoutLineItemsUpdatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -736,6 +750,7 @@ extension Storefront {
 		///     - shippingAddress: The shipping address to where the line items will be shipped.
 		///     - checkoutId: The ID of the checkout.
 		///
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		@discardableResult
 		open func checkoutShippingAddressUpdateV2(alias: String? = nil, shippingAddress: MailingAddressInput, checkoutId: GraphQL.ID, _ subfields: (CheckoutShippingAddressUpdateV2PayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -759,6 +774,7 @@ extension Storefront {
 		///     - checkoutId: The ID of the checkout.
 		///     - shippingRateHandle: A unique identifier to a Checkout’s shipping provider, price, and title combination, enabling the customer to select the availableShippingRates.
 		///
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		@discardableResult
 		open func checkoutShippingLineUpdate(alias: String? = nil, checkoutId: GraphQL.ID, shippingRateHandle: String, _ subfields: (CheckoutShippingLineUpdatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -1642,9 +1658,12 @@ extension Storefront {
 		}
 
 		/// Updates the attributes of a checkout if `allowPartialAddresses` is `true`. 
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		open var checkoutAttributesUpdateV2: Storefront.CheckoutAttributesUpdateV2Payload? {
 			return internalGetCheckoutAttributesUpdateV2()
 		}
+
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 
 		open func aliasedCheckoutAttributesUpdateV2(alias: String) -> Storefront.CheckoutAttributesUpdateV2Payload? {
 			return internalGetCheckoutAttributesUpdateV2(alias: alias)
@@ -1657,9 +1676,12 @@ extension Storefront {
 		/// Completes a checkout without providing payment information. You can use 
 		/// this mutation for free items or items whose purchase price is covered by a 
 		/// gift card. 
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		open var checkoutCompleteFree: Storefront.CheckoutCompleteFreePayload? {
 			return internalGetCheckoutCompleteFree()
 		}
+
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 
 		open func aliasedCheckoutCompleteFree(alias: String) -> Storefront.CheckoutCompleteFreePayload? {
 			return internalGetCheckoutCompleteFree(alias: alias)
@@ -1673,9 +1695,12 @@ extension Storefront {
 		/// Before you can complete checkouts using CheckoutCompleteWithCreditCardV2, 
 		/// you need to [_request payment 
 		/// processing_](https://shopify.dev/apps/channels/getting-started#request-payment-processing). 
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		open var checkoutCompleteWithCreditCardV2: Storefront.CheckoutCompleteWithCreditCardV2Payload? {
 			return internalGetCheckoutCompleteWithCreditCardV2()
 		}
+
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 
 		open func aliasedCheckoutCompleteWithCreditCardV2(alias: String) -> Storefront.CheckoutCompleteWithCreditCardV2Payload? {
 			return internalGetCheckoutCompleteWithCreditCardV2(alias: alias)
@@ -1686,9 +1711,12 @@ extension Storefront {
 		}
 
 		/// Completes a checkout with a tokenized payment. 
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		open var checkoutCompleteWithTokenizedPaymentV3: Storefront.CheckoutCompleteWithTokenizedPaymentV3Payload? {
 			return internalGetCheckoutCompleteWithTokenizedPaymentV3()
 		}
+
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 
 		open func aliasedCheckoutCompleteWithTokenizedPaymentV3(alias: String) -> Storefront.CheckoutCompleteWithTokenizedPaymentV3Payload? {
 			return internalGetCheckoutCompleteWithTokenizedPaymentV3(alias: alias)
@@ -1699,9 +1727,12 @@ extension Storefront {
 		}
 
 		/// Creates a new checkout. 
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		open var checkoutCreate: Storefront.CheckoutCreatePayload? {
 			return internalGetCheckoutCreate()
 		}
+
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 
 		open func aliasedCheckoutCreate(alias: String) -> Storefront.CheckoutCreatePayload? {
 			return internalGetCheckoutCreate(alias: alias)
@@ -1712,9 +1743,12 @@ extension Storefront {
 		}
 
 		/// Associates a customer to the checkout. 
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		open var checkoutCustomerAssociateV2: Storefront.CheckoutCustomerAssociateV2Payload? {
 			return internalGetCheckoutCustomerAssociateV2()
 		}
+
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 
 		open func aliasedCheckoutCustomerAssociateV2(alias: String) -> Storefront.CheckoutCustomerAssociateV2Payload? {
 			return internalGetCheckoutCustomerAssociateV2(alias: alias)
@@ -1725,9 +1759,12 @@ extension Storefront {
 		}
 
 		/// Disassociates the current checkout customer from the checkout. 
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		open var checkoutCustomerDisassociateV2: Storefront.CheckoutCustomerDisassociateV2Payload? {
 			return internalGetCheckoutCustomerDisassociateV2()
 		}
+
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 
 		open func aliasedCheckoutCustomerDisassociateV2(alias: String) -> Storefront.CheckoutCustomerDisassociateV2Payload? {
 			return internalGetCheckoutCustomerDisassociateV2(alias: alias)
@@ -1738,9 +1775,12 @@ extension Storefront {
 		}
 
 		/// Applies a discount to an existing checkout using a discount code. 
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		open var checkoutDiscountCodeApplyV2: Storefront.CheckoutDiscountCodeApplyV2Payload? {
 			return internalGetCheckoutDiscountCodeApplyV2()
 		}
+
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 
 		open func aliasedCheckoutDiscountCodeApplyV2(alias: String) -> Storefront.CheckoutDiscountCodeApplyV2Payload? {
 			return internalGetCheckoutDiscountCodeApplyV2(alias: alias)
@@ -1751,9 +1791,12 @@ extension Storefront {
 		}
 
 		/// Removes the applied discounts from an existing checkout. 
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		open var checkoutDiscountCodeRemove: Storefront.CheckoutDiscountCodeRemovePayload? {
 			return internalGetCheckoutDiscountCodeRemove()
 		}
+
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 
 		open func aliasedCheckoutDiscountCodeRemove(alias: String) -> Storefront.CheckoutDiscountCodeRemovePayload? {
 			return internalGetCheckoutDiscountCodeRemove(alias: alias)
@@ -1764,9 +1807,12 @@ extension Storefront {
 		}
 
 		/// Updates the email on an existing checkout. 
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		open var checkoutEmailUpdateV2: Storefront.CheckoutEmailUpdateV2Payload? {
 			return internalGetCheckoutEmailUpdateV2()
 		}
+
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 
 		open func aliasedCheckoutEmailUpdateV2(alias: String) -> Storefront.CheckoutEmailUpdateV2Payload? {
 			return internalGetCheckoutEmailUpdateV2(alias: alias)
@@ -1777,9 +1823,12 @@ extension Storefront {
 		}
 
 		/// Removes an applied gift card from the checkout. 
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		open var checkoutGiftCardRemoveV2: Storefront.CheckoutGiftCardRemoveV2Payload? {
 			return internalGetCheckoutGiftCardRemoveV2()
 		}
+
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 
 		open func aliasedCheckoutGiftCardRemoveV2(alias: String) -> Storefront.CheckoutGiftCardRemoveV2Payload? {
 			return internalGetCheckoutGiftCardRemoveV2(alias: alias)
@@ -1790,9 +1839,12 @@ extension Storefront {
 		}
 
 		/// Appends gift cards to an existing checkout. 
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		open var checkoutGiftCardsAppend: Storefront.CheckoutGiftCardsAppendPayload? {
 			return internalGetCheckoutGiftCardsAppend()
 		}
+
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 
 		open func aliasedCheckoutGiftCardsAppend(alias: String) -> Storefront.CheckoutGiftCardsAppendPayload? {
 			return internalGetCheckoutGiftCardsAppend(alias: alias)
@@ -1803,9 +1855,12 @@ extension Storefront {
 		}
 
 		/// Adds a list of line items to a checkout. 
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		open var checkoutLineItemsAdd: Storefront.CheckoutLineItemsAddPayload? {
 			return internalGetCheckoutLineItemsAdd()
 		}
+
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 
 		open func aliasedCheckoutLineItemsAdd(alias: String) -> Storefront.CheckoutLineItemsAddPayload? {
 			return internalGetCheckoutLineItemsAdd(alias: alias)
@@ -1816,9 +1871,12 @@ extension Storefront {
 		}
 
 		/// Removes line items from an existing checkout. 
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		open var checkoutLineItemsRemove: Storefront.CheckoutLineItemsRemovePayload? {
 			return internalGetCheckoutLineItemsRemove()
 		}
+
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 
 		open func aliasedCheckoutLineItemsRemove(alias: String) -> Storefront.CheckoutLineItemsRemovePayload? {
 			return internalGetCheckoutLineItemsRemove(alias: alias)
@@ -1829,9 +1887,12 @@ extension Storefront {
 		}
 
 		/// Sets a list of line items to a checkout. 
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		open var checkoutLineItemsReplace: Storefront.CheckoutLineItemsReplacePayload? {
 			return internalGetCheckoutLineItemsReplace()
 		}
+
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 
 		open func aliasedCheckoutLineItemsReplace(alias: String) -> Storefront.CheckoutLineItemsReplacePayload? {
 			return internalGetCheckoutLineItemsReplace(alias: alias)
@@ -1842,9 +1903,12 @@ extension Storefront {
 		}
 
 		/// Updates line items on a checkout. 
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		open var checkoutLineItemsUpdate: Storefront.CheckoutLineItemsUpdatePayload? {
 			return internalGetCheckoutLineItemsUpdate()
 		}
+
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 
 		open func aliasedCheckoutLineItemsUpdate(alias: String) -> Storefront.CheckoutLineItemsUpdatePayload? {
 			return internalGetCheckoutLineItemsUpdate(alias: alias)
@@ -1855,9 +1919,12 @@ extension Storefront {
 		}
 
 		/// Updates the shipping address of an existing checkout. 
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		open var checkoutShippingAddressUpdateV2: Storefront.CheckoutShippingAddressUpdateV2Payload? {
 			return internalGetCheckoutShippingAddressUpdateV2()
 		}
+
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 
 		open func aliasedCheckoutShippingAddressUpdateV2(alias: String) -> Storefront.CheckoutShippingAddressUpdateV2Payload? {
 			return internalGetCheckoutShippingAddressUpdateV2(alias: alias)
@@ -1868,9 +1935,12 @@ extension Storefront {
 		}
 
 		/// Updates the shipping lines on an existing checkout. 
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 		open var checkoutShippingLineUpdate: Storefront.CheckoutShippingLineUpdatePayload? {
 			return internalGetCheckoutShippingLineUpdate()
 		}
+
+		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
 
 		open func aliasedCheckoutShippingLineUpdate(alias: String) -> Storefront.CheckoutShippingLineUpdatePayload? {
 			return internalGetCheckoutShippingLineUpdate(alias: alias)
