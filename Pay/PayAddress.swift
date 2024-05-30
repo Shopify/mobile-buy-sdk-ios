@@ -79,7 +79,7 @@ public struct PayPostalAddress {
         if let zip = zip {
             
             let trimmedZip = zip.trimmingCharacters(in: .whitespacesAndNewlines)
-            if trimmedZip.count < 4 {
+            if trimmedZip.count < 5 {
                 let (zip, isPadded) = PayPostalAddress.paddedPostalCode(trimmedZip, for: countryCode)
                 self.zip      = zip
                 self.isPadded = isPadded
