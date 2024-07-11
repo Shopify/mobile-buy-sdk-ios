@@ -128,17 +128,6 @@ extension Storefront {
 			return self
 		}
 
-		/// The customer's most recently updated, incomplete checkout. 
-		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
-		@discardableResult
-		open func lastIncompleteCheckout(alias: String? = nil, _ subfields: (CheckoutQuery) -> Void) -> CustomerQuery {
-			let subquery = CheckoutQuery()
-			subfields(subquery)
-
-			addField(field: "lastIncompleteCheckout", aliasSuffix: alias, subfields: subquery)
-			return self
-		}
-
 		/// The customer’s last name. 
 		@discardableResult
 		open func lastName(alias: String? = nil) -> CustomerQuery {
@@ -341,13 +330,6 @@ extension Storefront {
 				}
 				return GraphQL.ID(rawValue: value)
 
-				case "lastIncompleteCheckout":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
-				}
-				return try Checkout(fields: value)
-
 				case "lastName":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
@@ -485,16 +467,6 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The customer's most recently updated, incomplete checkout. 
-		@available(*, deprecated, message:"The Storefront GraphQL Checkout API is deprecated and will be removed in a future version. Please see https://shopify.dev/changelog/deprecation-of-checkout-apis for more information.")
-		open var lastIncompleteCheckout: Storefront.Checkout? {
-			return internalGetLastIncompleteCheckout()
-		}
-
-		func internalGetLastIncompleteCheckout(alias: String? = nil) -> Storefront.Checkout? {
-			return field(field: "lastIncompleteCheckout", aliasSuffix: alias) as! Storefront.Checkout?
-		}
-
 		/// The customer’s last name. 
 		open var lastName: String? {
 			return internalGetLastName()
@@ -592,12 +564,6 @@ extension Storefront {
 
 					case "defaultAddress":
 					if let value = internalGetDefaultAddress() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
-					case "lastIncompleteCheckout":
-					if let value = internalGetLastIncompleteCheckout() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

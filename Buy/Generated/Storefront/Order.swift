@@ -101,6 +101,18 @@ extension Storefront {
 			return self
 		}
 
+		/// The total cost of shipping, excluding shipping lines that have been 
+		/// refunded or removed. Taxes aren't included unless the order is a 
+		/// taxes-included order. 
+		@discardableResult
+		open func currentTotalShippingPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "currentTotalShippingPrice", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The total of all taxes applied to the order, excluding taxes for returned 
 		/// line items. 
 		@discardableResult
@@ -569,6 +581,12 @@ extension Storefront {
 				}
 				return try MoneyV2(fields: value)
 
+				case "currentTotalShippingPrice":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2(fields: value)
+
 				case "currentTotalTax":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
@@ -856,6 +874,17 @@ extension Storefront {
 
 		func internalGetCurrentTotalPrice(alias: String? = nil) -> Storefront.MoneyV2 {
 			return field(field: "currentTotalPrice", aliasSuffix: alias) as! Storefront.MoneyV2
+		}
+
+		/// The total cost of shipping, excluding shipping lines that have been 
+		/// refunded or removed. Taxes aren't included unless the order is a 
+		/// taxes-included order. 
+		open var currentTotalShippingPrice: Storefront.MoneyV2 {
+			return internalGetCurrentTotalShippingPrice()
+		}
+
+		func internalGetCurrentTotalShippingPrice(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "currentTotalShippingPrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
 		/// The total of all taxes applied to the order, excluding taxes for returned 
@@ -1212,6 +1241,10 @@ extension Storefront {
 					case "currentTotalPrice":
 					response.append(internalGetCurrentTotalPrice())
 					response.append(contentsOf: internalGetCurrentTotalPrice().childResponseObjectMap())
+
+					case "currentTotalShippingPrice":
+					response.append(internalGetCurrentTotalShippingPrice())
+					response.append(contentsOf: internalGetCurrentTotalShippingPrice().childResponseObjectMap())
 
 					case "currentTotalTax":
 					response.append(internalGetCurrentTotalTax())

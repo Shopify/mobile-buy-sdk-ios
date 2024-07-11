@@ -226,6 +226,16 @@ extension Storefront {
 		/// Represents information about the metafields associated to the specified 
 		/// resource. 
 		@discardableResult
+		open func onSellingPlan(subfields: (SellingPlanQuery) -> Void) -> HasMetafieldsQuery {
+			let subquery = SellingPlanQuery()
+			subfields(subquery)
+			addInlineFragment(on: "SellingPlan", subfields: subquery)
+			return self
+		}
+
+		/// Represents information about the metafields associated to the specified 
+		/// resource. 
+		@discardableResult
 		open func onShop(subfields: (ShopQuery) -> Void) -> HasMetafieldsQuery {
 			let subquery = ShopQuery()
 			subfields(subquery)
@@ -294,6 +304,8 @@ extension Storefront {
 				case "Product": return try Product.init(fields: fields)
 
 				case "ProductVariant": return try ProductVariant.init(fields: fields)
+
+				case "SellingPlan": return try SellingPlan.init(fields: fields)
 
 				case "Shop": return try Shop.init(fields: fields)
 

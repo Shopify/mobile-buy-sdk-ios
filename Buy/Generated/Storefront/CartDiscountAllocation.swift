@@ -29,6 +29,8 @@ import Foundation
 /// The discounts that have been applied to the cart line. 
 public protocol CartDiscountAllocation {
 	var discountedAmount: Storefront.MoneyV2 { get }
+
+	var targetType: Storefront.DiscountApplicationTargetType { get }
 }
 
 extension Storefront {
@@ -43,6 +45,13 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "discountedAmount", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// The type of line that the discount is applicable towards. 
+		@discardableResult
+		open func targetType(alias: String? = nil) -> CartDiscountAllocationQuery {
+			addField(field: "targetType", aliasSuffix: alias)
 			return self
 		}
 
@@ -92,6 +101,12 @@ extension Storefront {
 				}
 				return try MoneyV2(fields: value)
 
+				case "targetType":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: UnknownCartDiscountAllocation.self, field: fieldName, value: fieldValue)
+				}
+				return DiscountApplicationTargetType(rawValue: value) ?? .unknownValue
+
 				default:
 				throw SchemaViolationError(type: UnknownCartDiscountAllocation.self, field: fieldName, value: fieldValue)
 			}
@@ -120,6 +135,15 @@ extension Storefront {
 
 		func internalGetDiscountedAmount(alias: String? = nil) -> Storefront.MoneyV2 {
 			return field(field: "discountedAmount", aliasSuffix: alias) as! Storefront.MoneyV2
+		}
+
+		/// The type of line that the discount is applicable towards. 
+		open var targetType: Storefront.DiscountApplicationTargetType {
+			return internalGetTargetType()
+		}
+
+		func internalGetTargetType(alias: String? = nil) -> Storefront.DiscountApplicationTargetType {
+			return field(field: "targetType", aliasSuffix: alias) as! Storefront.DiscountApplicationTargetType
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
