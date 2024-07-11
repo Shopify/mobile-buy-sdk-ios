@@ -6,20 +6,6 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		9A0C80C51EAE73840020F187 /* Documentation */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 9A0C80C81EAE73840020F187 /* Build configuration list for PBXAggregateTarget "Documentation" */;
-			buildPhases = (
-				9A0C80C91EAE738D0020F187 /* ShellScript */,
-			);
-			dependencies = (
-			);
-			name = Documentation;
-			productName = Documentation;
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		2121506325A8C6C600191C61 /* ProductMediaSortKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2121506225A8C6C600191C61 /* ProductMediaSortKeys.swift */; };
 		2121506425A8C6C600191C61 /* ProductMediaSortKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2121506225A8C6C600191C61 /* ProductMediaSortKeys.swift */; };
@@ -2255,11 +2241,6 @@
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Shopify Inc.";
 				TargetAttributes = {
-					9A0C80C51EAE73840020F187 = {
-						CreatedOnToolsVersion = 8.3.1;
-						DevelopmentTeam = A7XGC83MZE;
-						ProvisioningStyle = Automatic;
-					};
 					9AC2EF371F6818180037E0D7 = {
 						ProvisioningStyle = Automatic;
 					};
@@ -2295,7 +2276,6 @@
 				9AF255B11F6FEE50005BB0C9 /* Buy tvOS */,
 				9AC2EF371F6818180037E0D7 /* Buy watchOS */,
 				9AFA38E91E64850A0056C5AA /* BuyTests */,
-				9A0C80C51EAE73840020F187 /* Documentation */,
 			);
 		};
 /* End PBXProject section */
@@ -2330,26 +2310,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		9A0C80C91EAE738D0020F187 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Pay/",
-				"$(SRCROOT)/Buy/",
-			);
-			outputPaths = (
-				"$(SRCROOT)/Docs/Docsets/Buy.docset/",
-				"$(SRCROOT)/Docs/Docsets/Pay.docset/",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Docs/gen\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9AC2EF381F6818180037E0D7 /* Sources */ = {
@@ -3527,22 +3487,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		9A0C80C61EAE73840020F187 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEVELOPMENT_TEAM = A7XGC83MZE;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		9A0C80C71EAE73840020F187 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEVELOPMENT_TEAM = A7XGC83MZE;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		9AC2EFC61F6818180037E0D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3842,15 +3786,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9A0C80C81EAE73840020F187 /* Build configuration list for PBXAggregateTarget "Documentation" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9A0C80C61EAE73840020F187 /* Debug */,
-				9A0C80C71EAE73840020F187 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		9AC2EFC51F6818180037E0D7 /* Build configuration list for PBXNativeTarget "Buy watchOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
