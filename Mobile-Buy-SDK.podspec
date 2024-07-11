@@ -27,8 +27,5 @@ Pod::Spec.new do |s|
 
   s.swift_version        = '5.0'
   s.source_files         = 'Buy/**/*.{swift}'
-  s.exclude_files        = 'Pay/Utilities/Log.swift'
-  s.ios.source_files     = 'Pay/**/*.{swift}'
-  s.watchos.source_files = 'Pay/**/*.{swift}'
 
 end
