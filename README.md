@@ -10,12 +10,6 @@
 
 The Mobile Buy SDK makes it easy to create custom storefronts in your mobile app. The SDK connects to the Shopify platform using the Storefront GraphQL API and supports a wide range of native storefront experiences.
 
-### Documentation
-
-You can generate complete `.html` and `.docset` documentation by running the `Documentation` scheme. You can then use a documentation browser like [Dash](https://kapeli.com/dash) to access the `.docset` artifact, or browse the HTML directly in the `Docs/Buy` and `Docs/Pay` directories.
-
-The documentation is generated using [Jazzy](https://github.com/realm/jazzy).
-
 ## Installation
 
 <a href="https://github.com/Shopify/mobile-buy-sdk-ios/releases/latest">Download the latest version</a>

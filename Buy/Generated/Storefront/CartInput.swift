@@ -41,6 +41,10 @@ extension Storefront {
 		/// The input must not contain more than `250` values. 
 		open var discountCodes: Input<[String]>
 
+		/// The case-insensitive gift card codes. The input must not contain more than 
+		/// `250` values. 
+		open var giftCardCodes: Input<[String]>
+
 		/// A note that's associated with the cart. For example, the note can be a 
 		/// personalized message to the buyer. 
 		open var note: Input<String>
@@ -61,18 +65,20 @@ extension Storefront {
 		///     - attributes: An array of key-value pairs that contains additional information about the cart.  The input must not contain more than `250` values.
 		///     - lines: A list of merchandise lines to add to the cart.  The input must not contain more than `250` values.
 		///     - discountCodes: The case-insensitive discount codes that the customer added at checkout.  The input must not contain more than `250` values.
+		///     - giftCardCodes: The case-insensitive gift card codes.  The input must not contain more than `250` values.
 		///     - note: A note that's associated with the cart. For example, the note can be a personalized message to the buyer. 
 		///     - buyerIdentity: The customer associated with the cart. Used to determine [international pricing] (https://shopify.dev/custom-storefronts/internationalization/international-pricing). Buyer identity should match the customer's shipping address. 
 		///     - metafields: The metafields to associate with this cart.  The input must not contain more than `250` values.
 		///
-		public static func create(attributes: Input<[AttributeInput]> = .undefined, lines: Input<[CartLineInput]> = .undefined, discountCodes: Input<[String]> = .undefined, note: Input<String> = .undefined, buyerIdentity: Input<CartBuyerIdentityInput> = .undefined, metafields: Input<[CartInputMetafieldInput]> = .undefined) -> CartInput {
-			return CartInput(attributes: attributes, lines: lines, discountCodes: discountCodes, note: note, buyerIdentity: buyerIdentity, metafields: metafields)
+		public static func create(attributes: Input<[AttributeInput]> = .undefined, lines: Input<[CartLineInput]> = .undefined, discountCodes: Input<[String]> = .undefined, giftCardCodes: Input<[String]> = .undefined, note: Input<String> = .undefined, buyerIdentity: Input<CartBuyerIdentityInput> = .undefined, metafields: Input<[CartInputMetafieldInput]> = .undefined) -> CartInput {
+			return CartInput(attributes: attributes, lines: lines, discountCodes: discountCodes, giftCardCodes: giftCardCodes, note: note, buyerIdentity: buyerIdentity, metafields: metafields)
 		}
 
-		private init(attributes: Input<[AttributeInput]> = .undefined, lines: Input<[CartLineInput]> = .undefined, discountCodes: Input<[String]> = .undefined, note: Input<String> = .undefined, buyerIdentity: Input<CartBuyerIdentityInput> = .undefined, metafields: Input<[CartInputMetafieldInput]> = .undefined) {
+		private init(attributes: Input<[AttributeInput]> = .undefined, lines: Input<[CartLineInput]> = .undefined, discountCodes: Input<[String]> = .undefined, giftCardCodes: Input<[String]> = .undefined, note: Input<String> = .undefined, buyerIdentity: Input<CartBuyerIdentityInput> = .undefined, metafields: Input<[CartInputMetafieldInput]> = .undefined) {
 			self.attributes = attributes
 			self.lines = lines
 			self.discountCodes = discountCodes
+			self.giftCardCodes = giftCardCodes
 			self.note = note
 			self.buyerIdentity = buyerIdentity
 			self.metafields = metafields
@@ -84,13 +90,14 @@ extension Storefront {
 		///     - attributes: An array of key-value pairs that contains additional information about the cart.  The input must not contain more than `250` values.
 		///     - lines: A list of merchandise lines to add to the cart.  The input must not contain more than `250` values.
 		///     - discountCodes: The case-insensitive discount codes that the customer added at checkout.  The input must not contain more than `250` values.
+		///     - giftCardCodes: The case-insensitive gift card codes.  The input must not contain more than `250` values.
 		///     - note: A note that's associated with the cart. For example, the note can be a personalized message to the buyer. 
 		///     - buyerIdentity: The customer associated with the cart. Used to determine [international pricing] (https://shopify.dev/custom-storefronts/internationalization/international-pricing). Buyer identity should match the customer's shipping address. 
 		///     - metafields: The metafields to associate with this cart.  The input must not contain more than `250` values.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
-		public convenience init(attributes: [AttributeInput]? = nil, lines: [CartLineInput]? = nil, discountCodes: [String]? = nil, note: String? = nil, buyerIdentity: CartBuyerIdentityInput? = nil, metafields: [CartInputMetafieldInput]? = nil) {
-			self.init(attributes: attributes.orUndefined, lines: lines.orUndefined, discountCodes: discountCodes.orUndefined, note: note.orUndefined, buyerIdentity: buyerIdentity.orUndefined, metafields: metafields.orUndefined)
+		public convenience init(attributes: [AttributeInput]? = nil, lines: [CartLineInput]? = nil, discountCodes: [String]? = nil, giftCardCodes: [String]? = nil, note: String? = nil, buyerIdentity: CartBuyerIdentityInput? = nil, metafields: [CartInputMetafieldInput]? = nil) {
+			self.init(attributes: attributes.orUndefined, lines: lines.orUndefined, discountCodes: discountCodes.orUndefined, giftCardCodes: giftCardCodes.orUndefined, note: note.orUndefined, buyerIdentity: buyerIdentity.orUndefined, metafields: metafields.orUndefined)
 		}
 
 		internal func serialize() -> String {
@@ -123,6 +130,16 @@ extension Storefront {
 					break
 				}
 				fields.append("discountCodes:[\(discountCodes.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
+				case .undefined: break
+			}
+
+			switch giftCardCodes {
+				case .value(let giftCardCodes): 
+				guard let giftCardCodes = giftCardCodes else {
+					fields.append("giftCardCodes:null")
+					break
+				}
+				fields.append("giftCardCodes:[\(giftCardCodes.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 

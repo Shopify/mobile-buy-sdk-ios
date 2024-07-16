@@ -143,36 +143,6 @@ extension Storefront {
 		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
 		/// queries. 
 		@discardableResult
-		open func onCheckout(subfields: (CheckoutQuery) -> Void) -> NodeQuery {
-			let subquery = CheckoutQuery()
-			subfields(subquery)
-			addInlineFragment(on: "Checkout", subfields: subquery)
-			return self
-		}
-
-		/// An object with an ID field to support global identification, in accordance 
-		/// with the [Relay 
-		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
-		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
-		@discardableResult
-		open func onCheckoutLineItem(subfields: (CheckoutLineItemQuery) -> Void) -> NodeQuery {
-			let subquery = CheckoutLineItemQuery()
-			subfields(subquery)
-			addInlineFragment(on: "CheckoutLineItem", subfields: subquery)
-			return self
-		}
-
-		/// An object with an ID field to support global identification, in accordance 
-		/// with the [Relay 
-		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
-		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
-		@discardableResult
 		open func onCollection(subfields: (CollectionQuery) -> Void) -> NodeQuery {
 			let subquery = CollectionQuery()
 			subfields(subquery)
@@ -473,21 +443,6 @@ extension Storefront {
 		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
 		/// queries. 
 		@discardableResult
-		open func onPayment(subfields: (PaymentQuery) -> Void) -> NodeQuery {
-			let subquery = PaymentQuery()
-			subfields(subquery)
-			addInlineFragment(on: "Payment", subfields: subquery)
-			return self
-		}
-
-		/// An object with an ID field to support global identification, in accordance 
-		/// with the [Relay 
-		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
-		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
-		@discardableResult
 		open func onProduct(subfields: (ProductQuery) -> Void) -> NodeQuery {
 			let subquery = ProductQuery()
 			subfields(subquery)
@@ -507,6 +462,21 @@ extension Storefront {
 			let subquery = ProductOptionQuery()
 			subfields(subquery)
 			addInlineFragment(on: "ProductOption", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID field to support global identification, in accordance 
+		/// with the [Relay 
+		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
+		/// This interface is used by the 
+		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
+		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
+		/// queries. 
+		@discardableResult
+		open func onProductOptionValue(subfields: (ProductOptionValueQuery) -> Void) -> NodeQuery {
+			let subquery = ProductOptionValueQuery()
+			subfields(subquery)
+			addInlineFragment(on: "ProductOptionValue", subfields: subquery)
 			return self
 		}
 
@@ -625,10 +595,6 @@ extension Storefront {
 
 				case "CartLine": return try CartLine.init(fields: fields)
 
-				case "Checkout": return try Checkout.init(fields: fields)
-
-				case "CheckoutLineItem": return try CheckoutLineItem.init(fields: fields)
-
 				case "Collection": return try Collection.init(fields: fields)
 
 				case "Comment": return try Comment.init(fields: fields)
@@ -669,11 +635,11 @@ extension Storefront {
 
 				case "Page": return try Page.init(fields: fields)
 
-				case "Payment": return try Payment.init(fields: fields)
-
 				case "Product": return try Product.init(fields: fields)
 
 				case "ProductOption": return try ProductOption.init(fields: fields)
+
+				case "ProductOptionValue": return try ProductOptionValue.init(fields: fields)
 
 				case "ProductVariant": return try ProductVariant.init(fields: fields)
 

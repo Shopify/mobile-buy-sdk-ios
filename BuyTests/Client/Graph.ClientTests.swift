@@ -153,19 +153,19 @@ class Graph_ClientTests: XCTestCase {
     private func defaultMutationPayload() -> (mutation: Storefront.MutationQuery, response: [String: Any]) {
 
         let mutation = Storefront.buildMutation { $0
-            .checkoutEmailUpdateV2(checkoutId: GraphQL.ID(rawValue: "123"), email: "john.smith@gmail.com") { $0
-                .checkoutUserErrors { $0
-                    .code()
-                    .message()
-                    .field()
-                }
-            }
+			.cartCreate() { $0
+				.userErrors { $0
+					.code()
+					.message()
+					.field()
+				}
+			}
         }
 
         let response = [
             "data": [
-                "checkoutEmailUpdateV2": [
-                    "checkoutUserErrors": []
+                "cartCreate": [
+                    "userErrors": []
                 ]
             ]
         ]

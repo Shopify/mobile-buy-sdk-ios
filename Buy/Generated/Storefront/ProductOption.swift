@@ -47,7 +47,18 @@ extension Storefront {
 			return self
 		}
 
+		/// The corresponding option value to the product option. 
+		@discardableResult
+		open func optionValues(alias: String? = nil, _ subfields: (ProductOptionValueQuery) -> Void) -> ProductOptionQuery {
+			let subquery = ProductOptionValueQuery()
+			subfields(subquery)
+
+			addField(field: "optionValues", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The corresponding value to the product option name. 
+		@available(*, deprecated, message:"Use `optionValues` instead.")
 		@discardableResult
 		open func values(alias: String? = nil) -> ProductOptionQuery {
 			addField(field: "values", aliasSuffix: alias)
@@ -75,6 +86,12 @@ extension Storefront {
 					throw SchemaViolationError(type: ProductOption.self, field: fieldName, value: fieldValue)
 				}
 				return value
+
+				case "optionValues":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: ProductOption.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try ProductOptionValue(fields: $0) }
 
 				case "values":
 				guard let value = value as? [String] else {
@@ -105,7 +122,17 @@ extension Storefront {
 			return field(field: "name", aliasSuffix: alias) as! String
 		}
 
+		/// The corresponding option value to the product option. 
+		open var optionValues: [Storefront.ProductOptionValue] {
+			return internalGetOptionValues()
+		}
+
+		func internalGetOptionValues(alias: String? = nil) -> [Storefront.ProductOptionValue] {
+			return field(field: "optionValues", aliasSuffix: alias) as! [Storefront.ProductOptionValue]
+		}
+
 		/// The corresponding value to the product option name. 
+		@available(*, deprecated, message:"Use `optionValues` instead.")
 		open var values: [String] {
 			return internalGetValues()
 		}

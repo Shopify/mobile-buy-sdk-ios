@@ -171,7 +171,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The two-letter code for the region. For example, ON. 
+		/// The alphanumeric code for the region. For example, ON. 
 		@discardableResult
 		open func provinceCode(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "provinceCode", aliasSuffix: alias)
@@ -490,7 +490,7 @@ extension Storefront {
 			return field(field: "province", aliasSuffix: alias) as! String?
 		}
 
-		/// The two-letter code for the region. For example, ON. 
+		/// The alphanumeric code for the region. For example, ON. 
 		open var provinceCode: String? {
 			return internalGetProvinceCode()
 		}

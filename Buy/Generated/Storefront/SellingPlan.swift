@@ -31,6 +31,16 @@ extension Storefront {
 	open class SellingPlanQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlan
 
+		/// The billing policy for the selling plan. 
+		@discardableResult
+		open func billingPolicy(alias: String? = nil, _ subfields: (SellingPlanBillingPolicyQuery) -> Void) -> SellingPlanQuery {
+			let subquery = SellingPlanBillingPolicyQuery()
+			subfields(subquery)
+
+			addField(field: "billingPolicy", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The initial payment due for the purchase. 
 		@discardableResult
 		open func checkoutCharge(alias: String? = nil, _ subfields: (SellingPlanCheckoutChargeQuery) -> Void) -> SellingPlanQuery {
@@ -38,6 +48,16 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "checkoutCharge", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// The delivery policy for the selling plan. 
+		@discardableResult
+		open func deliveryPolicy(alias: String? = nil, _ subfields: (SellingPlanDeliveryPolicyQuery) -> Void) -> SellingPlanQuery {
+			let subquery = SellingPlanDeliveryPolicyQuery()
+			subfields(subquery)
+
+			addField(field: "deliveryPolicy", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -52,6 +72,54 @@ extension Storefront {
 		@discardableResult
 		open func id(alias: String? = nil) -> SellingPlanQuery {
 			addField(field: "id", aliasSuffix: alias)
+			return self
+		}
+
+		/// Returns a metafield found by namespace and key. 
+		///
+		/// - parameters:
+		///     - namespace: The container the metafield belongs to. If omitted, the app-reserved namespace will be used.
+		///     - key: The identifier for the metafield.
+		///
+		@discardableResult
+		open func metafield(alias: String? = nil, namespace: String? = nil, key: String, _ subfields: (MetafieldQuery) -> Void) -> SellingPlanQuery {
+			var args: [String] = []
+
+			args.append("key:\(GraphQL.quoteString(input: key))")
+
+			if let namespace = namespace {
+				args.append("namespace:\(GraphQL.quoteString(input: namespace))")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = MetafieldQuery()
+			subfields(subquery)
+
+			addField(field: "metafield", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// The metafields associated with the resource matching the supplied list of 
+		/// namespaces and keys. 
+		///
+		/// - parameters:
+		///     - identifiers: The list of metafields to retrieve by namespace and key.
+		///        
+		///        The input must not contain more than `250` values.
+		///
+		@discardableResult
+		open func metafields(alias: String? = nil, identifiers: [HasMetafieldsIdentifier], _ subfields: (MetafieldQuery) -> Void) -> SellingPlanQuery {
+			var args: [String] = []
+
+			args.append("identifiers:[\(identifiers.map{ "\($0.serialize())" }.joined(separator: ","))]")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = MetafieldQuery()
+			subfields(subquery)
+
+			addField(field: "metafields", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -100,17 +168,31 @@ extension Storefront {
 	}
 
 	/// Represents how products and variants can be sold and purchased. 
-	open class SellingPlan: GraphQL.AbstractResponse, GraphQLObject {
+	open class SellingPlan: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource {
 		public typealias Query = SellingPlanQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "billingPolicy":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: SellingPlan.self, field: fieldName, value: fieldValue)
+				}
+				return try UnknownSellingPlanBillingPolicy.create(fields: value)
+
 				case "checkoutCharge":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: SellingPlan.self, field: fieldName, value: fieldValue)
 				}
 				return try SellingPlanCheckoutCharge(fields: value)
+
+				case "deliveryPolicy":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: SellingPlan.self, field: fieldName, value: fieldValue)
+				}
+				return try UnknownSellingPlanDeliveryPolicy.create(fields: value)
 
 				case "description":
 				if value is NSNull { return nil }
@@ -124,6 +206,23 @@ extension Storefront {
 					throw SchemaViolationError(type: SellingPlan.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.ID(rawValue: value)
+
+				case "metafield":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: SellingPlan.self, field: fieldName, value: fieldValue)
+				}
+				return try Metafield(fields: value)
+
+				case "metafields":
+				guard let value = value as? [Any] else {
+					throw SchemaViolationError(type: SellingPlan.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { if $0 is NSNull { return nil }
+				guard let value = $0 as? [String: Any] else {
+					throw SchemaViolationError(type: SellingPlan.self, field: fieldName, value: fieldValue)
+				}
+				return try Metafield(fields: value) } as [Any?]
 
 				case "name":
 				guard let value = value as? String else {
@@ -154,6 +253,15 @@ extension Storefront {
 			}
 		}
 
+		/// The billing policy for the selling plan. 
+		open var billingPolicy: SellingPlanBillingPolicy? {
+			return internalGetBillingPolicy()
+		}
+
+		func internalGetBillingPolicy(alias: String? = nil) -> SellingPlanBillingPolicy? {
+			return field(field: "billingPolicy", aliasSuffix: alias) as! SellingPlanBillingPolicy?
+		}
+
 		/// The initial payment due for the purchase. 
 		open var checkoutCharge: Storefront.SellingPlanCheckoutCharge {
 			return internalGetCheckoutCharge()
@@ -161,6 +269,15 @@ extension Storefront {
 
 		func internalGetCheckoutCharge(alias: String? = nil) -> Storefront.SellingPlanCheckoutCharge {
 			return field(field: "checkoutCharge", aliasSuffix: alias) as! Storefront.SellingPlanCheckoutCharge
+		}
+
+		/// The delivery policy for the selling plan. 
+		open var deliveryPolicy: SellingPlanDeliveryPolicy? {
+			return internalGetDeliveryPolicy()
+		}
+
+		func internalGetDeliveryPolicy(alias: String? = nil) -> SellingPlanDeliveryPolicy? {
+			return field(field: "deliveryPolicy", aliasSuffix: alias) as! SellingPlanDeliveryPolicy?
 		}
 
 		/// The description of the selling plan. 
@@ -179,6 +296,33 @@ extension Storefront {
 
 		func internalGetId(alias: String? = nil) -> GraphQL.ID {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
+		}
+
+		/// Returns a metafield found by namespace and key. 
+		open var metafield: Storefront.Metafield? {
+			return internalGetMetafield()
+		}
+
+		open func aliasedMetafield(alias: String) -> Storefront.Metafield? {
+			return internalGetMetafield(alias: alias)
+		}
+
+		func internalGetMetafield(alias: String? = nil) -> Storefront.Metafield? {
+			return field(field: "metafield", aliasSuffix: alias) as! Storefront.Metafield?
+		}
+
+		/// The metafields associated with the resource matching the supplied list of 
+		/// namespaces and keys. 
+		open var metafields: [Storefront.Metafield?] {
+			return internalGetMetafields()
+		}
+
+		open func aliasedMetafields(alias: String) -> [Storefront.Metafield?] {
+			return internalGetMetafields(alias: alias)
+		}
+
+		func internalGetMetafields(alias: String? = nil) -> [Storefront.Metafield?] {
+			return field(field: "metafields", aliasSuffix: alias) as! [Storefront.Metafield?]
 		}
 
 		/// The name of the selling plan. For example, '6 weeks of prepaid granola, 
@@ -230,9 +374,35 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
+					case "billingPolicy":
+					if let value = internalGetBillingPolicy() {
+						response.append((value as! GraphQL.AbstractResponse))
+						response.append(contentsOf: (value as! GraphQL.AbstractResponse).childResponseObjectMap())
+					}
+
 					case "checkoutCharge":
 					response.append(internalGetCheckoutCharge())
 					response.append(contentsOf: internalGetCheckoutCharge().childResponseObjectMap())
+
+					case "deliveryPolicy":
+					if let value = internalGetDeliveryPolicy() {
+						response.append((value as! GraphQL.AbstractResponse))
+						response.append(contentsOf: (value as! GraphQL.AbstractResponse).childResponseObjectMap())
+					}
+
+					case "metafield":
+					if let value = internalGetMetafield() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "metafields":
+					internalGetMetafields().forEach {
+						if let value = $0 {
+							response.append(value)
+							response.append(contentsOf: value.childResponseObjectMap())
+						}
+					}
 
 					case "options":
 					internalGetOptions().forEach {

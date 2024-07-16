@@ -98,6 +98,9 @@ extension Storefront {
 		/// Missing note. 
 		case missingNote = "MISSING_NOTE"
 
+		/// The note length must be below the specified maximum. 
+		case noteTooLong = "NOTE_TOO_LONG"
+
 		/// The payment method is not supported. 
 		case paymentMethodNotSupported = "PAYMENT_METHOD_NOT_SUPPORTED"
 

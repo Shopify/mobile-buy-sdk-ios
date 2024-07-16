@@ -42,6 +42,13 @@ extension Storefront {
 			return self
 		}
 
+		/// The type of line that the discount is applicable towards. 
+		@discardableResult
+		open func targetType(alias: String? = nil) -> CartAutomaticDiscountAllocationQuery {
+			addField(field: "targetType", aliasSuffix: alias)
+			return self
+		}
+
 		/// The title of the allocated discount. 
 		@discardableResult
 		open func title(alias: String? = nil) -> CartAutomaticDiscountAllocationQuery {
@@ -64,6 +71,12 @@ extension Storefront {
 				}
 				return try MoneyV2(fields: value)
 
+				case "targetType":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: CartAutomaticDiscountAllocation.self, field: fieldName, value: fieldValue)
+				}
+				return DiscountApplicationTargetType(rawValue: value) ?? .unknownValue
+
 				case "title":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: CartAutomaticDiscountAllocation.self, field: fieldName, value: fieldValue)
@@ -82,6 +95,15 @@ extension Storefront {
 
 		func internalGetDiscountedAmount(alias: String? = nil) -> Storefront.MoneyV2 {
 			return field(field: "discountedAmount", aliasSuffix: alias) as! Storefront.MoneyV2
+		}
+
+		/// The type of line that the discount is applicable towards. 
+		open var targetType: Storefront.DiscountApplicationTargetType {
+			return internalGetTargetType()
+		}
+
+		func internalGetTargetType(alias: String? = nil) -> Storefront.DiscountApplicationTargetType {
+			return field(field: "targetType", aliasSuffix: alias) as! Storefront.DiscountApplicationTargetType
 		}
 
 		/// The title of the allocated discount. 

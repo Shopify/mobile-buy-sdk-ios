@@ -32,6 +32,11 @@ extension Storefront {
 		/// A delivery address preference of a buyer that is interacting with the cart. 
 		open var deliveryAddress: Input<MailingAddressInput>
 
+		/// Whether the given delivery address is considered to be a one-time use 
+		/// address. One-time use addresses do not get persisted to the buyer's 
+		/// personal addresses when checking out. 
+		open var oneTimeUse: Input<Bool>
+
 		/// Defines what kind of address validation is requested. 
 		open var deliveryAddressValidationStrategy: Input<DeliveryAddressValidationStrategy>
 
@@ -43,15 +48,17 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - deliveryAddress: A delivery address preference of a buyer that is interacting with the cart.
+		///     - oneTimeUse: Whether the given delivery address is considered to be a one-time use address. One-time use addresses do not get persisted to the buyer's personal addresses when checking out. 
 		///     - deliveryAddressValidationStrategy: Defines what kind of address validation is requested.
 		///     - customerAddressId: The ID of a customer address that is associated with the buyer that is interacting with the cart. 
 		///
-		public static func create(deliveryAddress: Input<MailingAddressInput> = .undefined, deliveryAddressValidationStrategy: Input<DeliveryAddressValidationStrategy> = .undefined, customerAddressId: Input<GraphQL.ID> = .undefined) -> DeliveryAddressInput {
-			return DeliveryAddressInput(deliveryAddress: deliveryAddress, deliveryAddressValidationStrategy: deliveryAddressValidationStrategy, customerAddressId: customerAddressId)
+		public static func create(deliveryAddress: Input<MailingAddressInput> = .undefined, oneTimeUse: Input<Bool> = .undefined, deliveryAddressValidationStrategy: Input<DeliveryAddressValidationStrategy> = .undefined, customerAddressId: Input<GraphQL.ID> = .undefined) -> DeliveryAddressInput {
+			return DeliveryAddressInput(deliveryAddress: deliveryAddress, oneTimeUse: oneTimeUse, deliveryAddressValidationStrategy: deliveryAddressValidationStrategy, customerAddressId: customerAddressId)
 		}
 
-		private init(deliveryAddress: Input<MailingAddressInput> = .undefined, deliveryAddressValidationStrategy: Input<DeliveryAddressValidationStrategy> = .undefined, customerAddressId: Input<GraphQL.ID> = .undefined) {
+		private init(deliveryAddress: Input<MailingAddressInput> = .undefined, oneTimeUse: Input<Bool> = .undefined, deliveryAddressValidationStrategy: Input<DeliveryAddressValidationStrategy> = .undefined, customerAddressId: Input<GraphQL.ID> = .undefined) {
 			self.deliveryAddress = deliveryAddress
+			self.oneTimeUse = oneTimeUse
 			self.deliveryAddressValidationStrategy = deliveryAddressValidationStrategy
 			self.customerAddressId = customerAddressId
 		}
@@ -60,12 +67,13 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - deliveryAddress: A delivery address preference of a buyer that is interacting with the cart.
+		///     - oneTimeUse: Whether the given delivery address is considered to be a one-time use address. One-time use addresses do not get persisted to the buyer's personal addresses when checking out. 
 		///     - deliveryAddressValidationStrategy: Defines what kind of address validation is requested.
 		///     - customerAddressId: The ID of a customer address that is associated with the buyer that is interacting with the cart. 
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
-		public convenience init(deliveryAddress: MailingAddressInput? = nil, deliveryAddressValidationStrategy: DeliveryAddressValidationStrategy? = nil, customerAddressId: GraphQL.ID? = nil) {
-			self.init(deliveryAddress: deliveryAddress.orUndefined, deliveryAddressValidationStrategy: deliveryAddressValidationStrategy.orUndefined, customerAddressId: customerAddressId.orUndefined)
+		public convenience init(deliveryAddress: MailingAddressInput? = nil, oneTimeUse: Bool? = nil, deliveryAddressValidationStrategy: DeliveryAddressValidationStrategy? = nil, customerAddressId: GraphQL.ID? = nil) {
+			self.init(deliveryAddress: deliveryAddress.orUndefined, oneTimeUse: oneTimeUse.orUndefined, deliveryAddressValidationStrategy: deliveryAddressValidationStrategy.orUndefined, customerAddressId: customerAddressId.orUndefined)
 		}
 
 		internal func serialize() -> String {
@@ -78,6 +86,16 @@ extension Storefront {
 					break
 				}
 				fields.append("deliveryAddress:\(deliveryAddress.serialize())")
+				case .undefined: break
+			}
+
+			switch oneTimeUse {
+				case .value(let oneTimeUse): 
+				guard let oneTimeUse = oneTimeUse else {
+					fields.append("oneTimeUse:null")
+					break
+				}
+				fields.append("oneTimeUse:\(oneTimeUse)")
 				case .undefined: break
 			}
 

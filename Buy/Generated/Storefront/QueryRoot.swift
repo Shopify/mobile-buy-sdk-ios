@@ -120,19 +120,19 @@ extension Storefront {
 		/// Fetch a specific `Blog` by one of its unique attributes. 
 		///
 		/// - parameters:
-		///     - id: The ID of the `Blog`.
 		///     - handle: The handle of the `Blog`.
+		///     - id: The ID of the `Blog`.
 		///
 		@discardableResult
-		open func blog(alias: String? = nil, id: GraphQL.ID? = nil, handle: String? = nil, _ subfields: (BlogQuery) -> Void) -> QueryRootQuery {
+		open func blog(alias: String? = nil, handle: String? = nil, id: GraphQL.ID? = nil, _ subfields: (BlogQuery) -> Void) -> QueryRootQuery {
 			var args: [String] = []
-
-			if let id = id {
-				args.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
-			}
 
 			if let handle = handle {
 				args.append("handle:\(GraphQL.quoteString(input: handle))")
+			}
+
+			if let id = id {
+				args.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
 			}
 
 			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
@@ -601,19 +601,19 @@ extension Storefront {
 		/// Fetch a specific `Page` by one of its unique attributes. 
 		///
 		/// - parameters:
-		///     - id: The ID of the `Page`.
 		///     - handle: The handle of the `Page`.
+		///     - id: The ID of the `Page`.
 		///
 		@discardableResult
-		open func page(alias: String? = nil, id: GraphQL.ID? = nil, handle: String? = nil, _ subfields: (PageQuery) -> Void) -> QueryRootQuery {
+		open func page(alias: String? = nil, handle: String? = nil, id: GraphQL.ID? = nil, _ subfields: (PageQuery) -> Void) -> QueryRootQuery {
 			var args: [String] = []
-
-			if let id = id {
-				args.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
-			}
 
 			if let handle = handle {
 				args.append("handle:\(GraphQL.quoteString(input: handle))")
+			}
+
+			if let id = id {
+				args.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
 			}
 
 			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
@@ -817,13 +817,20 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - productId: The id of the product.
+		///     - productHandle: The handle of the product.
 		///     - intent: The recommendation intent that is used to generate product recommendations. You can use intent to generate product recommendations on various pages across the channels, according to different strategies.
 		///
 		@discardableResult
-		open func productRecommendations(alias: String? = nil, productId: GraphQL.ID, intent: ProductRecommendationIntent? = nil, _ subfields: (ProductQuery) -> Void) -> QueryRootQuery {
+		open func productRecommendations(alias: String? = nil, productId: GraphQL.ID? = nil, productHandle: String? = nil, intent: ProductRecommendationIntent? = nil, _ subfields: (ProductQuery) -> Void) -> QueryRootQuery {
 			var args: [String] = []
 
-			args.append("productId:\(GraphQL.quoteString(input: "\(productId.rawValue)"))")
+			if let productId = productId {
+				args.append("productId:\(GraphQL.quoteString(input: "\(productId.rawValue)"))")
+			}
+
+			if let productHandle = productHandle {
+				args.append("productHandle:\(GraphQL.quoteString(input: productHandle))")
+			}
 
 			if let intent = intent {
 				args.append("intent:\(intent.rawValue)")

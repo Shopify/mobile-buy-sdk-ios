@@ -69,11 +69,86 @@ extension Storefront {
 			return self
 		}
 
+		/// List of bundles components included in the variant considering only fixed 
+		/// bundles. 
+		///
+		/// - parameters:
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///
+		@discardableResult
+		open func components(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, _ subfields: (ProductVariantComponentConnectionQuery) -> Void) -> ProductVariantQuery {
+			var args: [String] = []
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = ProductVariantComponentConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "components", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Whether a product is out of stock but still available for purchase (used 
 		/// for backorders). 
 		@discardableResult
 		open func currentlyNotInStock(alias: String? = nil) -> ProductVariantQuery {
 			addField(field: "currentlyNotInStock", aliasSuffix: alias)
+			return self
+		}
+
+		/// List of bundles that include this variant considering only fixed bundles. 
+		///
+		/// - parameters:
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///
+		@discardableResult
+		open func groupedBy(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, _ subfields: (ProductVariantConnectionQuery) -> Void) -> ProductVariantQuery {
+			var args: [String] = []
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = ProductVariantConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "groupedBy", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -225,6 +300,15 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "quantityRule", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// Whether a product variant requires components. The default value is 
+		/// `false`. If `true`, then the product variant can only be purchased as a 
+		/// parent bundle with components. 
+		@discardableResult
+		open func requiresComponents(alias: String? = nil) -> ProductVariantQuery {
+			addField(field: "requiresComponents", aliasSuffix: alias)
 			return self
 		}
 
@@ -429,11 +513,23 @@ extension Storefront {
 				}
 				return try MoneyV2(fields: value)
 
+				case "components":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
+				}
+				return try ProductVariantComponentConnection(fields: value)
+
 				case "currentlyNotInStock":
 				guard let value = value as? Bool else {
 					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
 				}
 				return value
+
+				case "groupedBy":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
+				}
+				return try ProductVariantConnection(fields: value)
 
 				case "id":
 				guard let value = value as? String else {
@@ -501,6 +597,12 @@ extension Storefront {
 					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
 				}
 				return try QuantityRule(fields: value)
+
+				case "requiresComponents":
+				guard let value = value as? Bool else {
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
+				}
+				return value
 
 				case "requiresShipping":
 				guard let value = value as? Bool else {
@@ -616,6 +718,20 @@ extension Storefront {
 			return field(field: "compareAtPriceV2", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
+		/// List of bundles components included in the variant considering only fixed 
+		/// bundles. 
+		open var components: Storefront.ProductVariantComponentConnection {
+			return internalGetComponents()
+		}
+
+		open func aliasedComponents(alias: String) -> Storefront.ProductVariantComponentConnection {
+			return internalGetComponents(alias: alias)
+		}
+
+		func internalGetComponents(alias: String? = nil) -> Storefront.ProductVariantComponentConnection {
+			return field(field: "components", aliasSuffix: alias) as! Storefront.ProductVariantComponentConnection
+		}
+
 		/// Whether a product is out of stock but still available for purchase (used 
 		/// for backorders). 
 		open var currentlyNotInStock: Bool {
@@ -624,6 +740,19 @@ extension Storefront {
 
 		func internalGetCurrentlyNotInStock(alias: String? = nil) -> Bool {
 			return field(field: "currentlyNotInStock", aliasSuffix: alias) as! Bool
+		}
+
+		/// List of bundles that include this variant considering only fixed bundles. 
+		open var groupedBy: Storefront.ProductVariantConnection {
+			return internalGetGroupedBy()
+		}
+
+		open func aliasedGroupedBy(alias: String) -> Storefront.ProductVariantConnection {
+			return internalGetGroupedBy(alias: alias)
+		}
+
+		func internalGetGroupedBy(alias: String? = nil) -> Storefront.ProductVariantConnection {
+			return field(field: "groupedBy", aliasSuffix: alias) as! Storefront.ProductVariantConnection
 		}
 
 		/// A globally-unique ID. 
@@ -729,6 +858,17 @@ extension Storefront {
 
 		func internalGetQuantityRule(alias: String? = nil) -> Storefront.QuantityRule {
 			return field(field: "quantityRule", aliasSuffix: alias) as! Storefront.QuantityRule
+		}
+
+		/// Whether a product variant requires components. The default value is 
+		/// `false`. If `true`, then the product variant can only be purchased as a 
+		/// parent bundle with components. 
+		open var requiresComponents: Bool {
+			return internalGetRequiresComponents()
+		}
+
+		func internalGetRequiresComponents(alias: String? = nil) -> Bool {
+			return field(field: "requiresComponents", aliasSuffix: alias) as! Bool
 		}
 
 		/// Whether a customer needs to provide a shipping address when placing an 
@@ -857,6 +997,14 @@ extension Storefront {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
+
+					case "components":
+					response.append(internalGetComponents())
+					response.append(contentsOf: internalGetComponents().childResponseObjectMap())
+
+					case "groupedBy":
+					response.append(internalGetGroupedBy())
+					response.append(contentsOf: internalGetGroupedBy().childResponseObjectMap())
 
 					case "image":
 					if let value = internalGetImage() {

@@ -75,6 +75,19 @@ extension Storefront {
 			return self
 		}
 
+		/// A set of preferences tied to the buyer interacting with the cart. 
+		/// Preferences are used to prefill fields in at checkout to streamline 
+		/// information collection. Preferences are not synced back to the cart if they 
+		/// are overwritten. 
+		@discardableResult
+		open func preferences(alias: String? = nil, _ subfields: (CartPreferencesQuery) -> Void) -> CartBuyerIdentityQuery {
+			let subquery = CartPreferencesQuery()
+			subfields(subquery)
+
+			addField(field: "preferences", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The purchasing company associated with the cart. 
 		@discardableResult
 		open func purchasingCompany(alias: String? = nil, _ subfields: (PurchasingCompanyQuery) -> Void) -> CartBuyerIdentityQuery {
@@ -82,15 +95,6 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "purchasingCompany", aliasSuffix: alias, subfields: subquery)
-			return self
-		}
-
-		/// A set of wallet preferences tied to the buyer that is interacting with the 
-		/// cart. Preferences can be used to populate relevant payment fields in the 
-		/// checkout flow. 
-		@discardableResult
-		open func walletPreferences(alias: String? = nil) -> CartBuyerIdentityQuery {
-			addField(field: "walletPreferences", aliasSuffix: alias)
 			return self
 		}
 	}
@@ -136,18 +140,19 @@ extension Storefront {
 				}
 				return value
 
+				case "preferences":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: CartBuyerIdentity.self, field: fieldName, value: fieldValue)
+				}
+				return try CartPreferences(fields: value)
+
 				case "purchasingCompany":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: CartBuyerIdentity.self, field: fieldName, value: fieldValue)
 				}
 				return try PurchasingCompany(fields: value)
-
-				case "walletPreferences":
-				guard let value = value as? [String] else {
-					throw SchemaViolationError(type: CartBuyerIdentity.self, field: fieldName, value: fieldValue)
-				}
-				return value.map { return $0 }
 
 				default:
 				throw SchemaViolationError(type: CartBuyerIdentity.self, field: fieldName, value: fieldValue)
@@ -202,6 +207,18 @@ extension Storefront {
 			return field(field: "phone", aliasSuffix: alias) as! String?
 		}
 
+		/// A set of preferences tied to the buyer interacting with the cart. 
+		/// Preferences are used to prefill fields in at checkout to streamline 
+		/// information collection. Preferences are not synced back to the cart if they 
+		/// are overwritten. 
+		open var preferences: Storefront.CartPreferences? {
+			return internalGetPreferences()
+		}
+
+		func internalGetPreferences(alias: String? = nil) -> Storefront.CartPreferences? {
+			return field(field: "preferences", aliasSuffix: alias) as! Storefront.CartPreferences?
+		}
+
 		/// The purchasing company associated with the cart. 
 		open var purchasingCompany: Storefront.PurchasingCompany? {
 			return internalGetPurchasingCompany()
@@ -209,17 +226,6 @@ extension Storefront {
 
 		func internalGetPurchasingCompany(alias: String? = nil) -> Storefront.PurchasingCompany? {
 			return field(field: "purchasingCompany", aliasSuffix: alias) as! Storefront.PurchasingCompany?
-		}
-
-		/// A set of wallet preferences tied to the buyer that is interacting with the 
-		/// cart. Preferences can be used to populate relevant payment fields in the 
-		/// checkout flow. 
-		open var walletPreferences: [String] {
-			return internalGetWalletPreferences()
-		}
-
-		func internalGetWalletPreferences(alias: String? = nil) -> [String] {
-			return field(field: "walletPreferences", aliasSuffix: alias) as! [String]
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
@@ -236,6 +242,12 @@ extension Storefront {
 					internalGetDeliveryAddressPreferences().forEach {
 						response.append(($0 as! GraphQL.AbstractResponse))
 						response.append(contentsOf: ($0 as! GraphQL.AbstractResponse).childResponseObjectMap())
+					}
+
+					case "preferences":
+					if let value = internalGetPreferences() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
 					case "purchasingCompany":
