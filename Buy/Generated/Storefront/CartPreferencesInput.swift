@@ -31,8 +31,8 @@ extension Storefront {
 	/// with the cart. 
 	open class CartPreferencesInput {
 		/// Delivery preferences can be used to prefill the delivery section in at 
-		/// checkout. The input must not contain more than `250` values. 
-		open var delivery: Input<[CartDeliveryPreferenceInput]>
+		/// checkout. 
+		open var delivery: Input<CartDeliveryPreferenceInput>
 
 		/// Wallet preferences are used to populate relevant payment fields in the 
 		/// checkout flow. Accepted value: `["shop_pay"]`. The input must not contain 
@@ -42,14 +42,14 @@ extension Storefront {
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - delivery: Delivery preferences can be used to prefill the delivery section in at checkout.  The input must not contain more than `250` values.
+		///     - delivery: Delivery preferences can be used to prefill the delivery section in at checkout.
 		///     - wallet: Wallet preferences are used to populate relevant payment fields in the checkout flow. Accepted value: `["shop_pay"]`.  The input must not contain more than `250` values.
 		///
-		public static func create(delivery: Input<[CartDeliveryPreferenceInput]> = .undefined, wallet: Input<[String]> = .undefined) -> CartPreferencesInput {
+		public static func create(delivery: Input<CartDeliveryPreferenceInput> = .undefined, wallet: Input<[String]> = .undefined) -> CartPreferencesInput {
 			return CartPreferencesInput(delivery: delivery, wallet: wallet)
 		}
 
-		private init(delivery: Input<[CartDeliveryPreferenceInput]> = .undefined, wallet: Input<[String]> = .undefined) {
+		private init(delivery: Input<CartDeliveryPreferenceInput> = .undefined, wallet: Input<[String]> = .undefined) {
 			self.delivery = delivery
 			self.wallet = wallet
 		}
@@ -57,11 +57,11 @@ extension Storefront {
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - delivery: Delivery preferences can be used to prefill the delivery section in at checkout.  The input must not contain more than `250` values.
+		///     - delivery: Delivery preferences can be used to prefill the delivery section in at checkout.
 		///     - wallet: Wallet preferences are used to populate relevant payment fields in the checkout flow. Accepted value: `["shop_pay"]`.  The input must not contain more than `250` values.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
-		public convenience init(delivery: [CartDeliveryPreferenceInput]? = nil, wallet: [String]? = nil) {
+		public convenience init(delivery: CartDeliveryPreferenceInput? = nil, wallet: [String]? = nil) {
 			self.init(delivery: delivery.orUndefined, wallet: wallet.orUndefined)
 		}
 
@@ -74,7 +74,7 @@ extension Storefront {
 					fields.append("delivery:null")
 					break
 				}
-				fields.append("delivery:[\(delivery.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("delivery:\(delivery.serialize())")
 				case .undefined: break
 			}
 

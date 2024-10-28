@@ -124,7 +124,8 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of the custom attributes added to the order. 
+		/// A list of the custom attributes added to the order. For example, whether an 
+		/// order is a customer's first. 
 		@discardableResult
 		open func customAttributes(alias: String? = nil, _ subfields: (AttributeQuery) -> Void) -> OrderQuery {
 			let subquery = AttributeQuery()
@@ -897,7 +898,8 @@ extension Storefront {
 			return field(field: "currentTotalTax", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// A list of the custom attributes added to the order. 
+		/// A list of the custom attributes added to the order. For example, whether an 
+		/// order is a customer's first. 
 		open var customAttributes: [Storefront.Attribute] {
 			return internalGetCustomAttributes()
 		}

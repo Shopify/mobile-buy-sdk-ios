@@ -191,18 +191,18 @@ extension Storefront {
 		/// Adds a merchandise line to the cart. 
 		///
 		/// - parameters:
+		///     - cartId: The ID of the cart.
 		///     - lines: A list of merchandise lines to add to the cart.
 		///        
 		///        The input must not contain more than `250` values.
-		///     - cartId: The ID of the cart.
 		///
 		@discardableResult
-		open func cartLinesAdd(alias: String? = nil, lines: [CartLineInput], cartId: GraphQL.ID, _ subfields: (CartLinesAddPayloadQuery) -> Void) -> MutationQuery {
+		open func cartLinesAdd(alias: String? = nil, cartId: GraphQL.ID, lines: [CartLineInput], _ subfields: (CartLinesAddPayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
-			args.append("lines:[\(lines.map{ "\($0.serialize())" }.joined(separator: ","))]")
-
 			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
+
+			args.append("lines:[\(lines.map{ "\($0.serialize())" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 

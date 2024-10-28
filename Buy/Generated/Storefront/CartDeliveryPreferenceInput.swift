@@ -40,22 +40,21 @@ extension Storefront {
 		/// contain more than `250` values. 
 		open var pickupHandle: Input<[String]>
 
-		/// The coordinates of a delivery location in order of preference. The input 
-		/// must not contain more than `250` values. 
-		open var coordinates: Input<[CartDeliveryCoordinatesPreferenceInput]>
+		/// The coordinates of a delivery location in order of preference. 
+		open var coordinates: Input<CartDeliveryCoordinatesPreferenceInput>
 
 		/// Creates the input object.
 		///
 		/// - parameters:
 		///     - deliveryMethod: The preferred delivery methods such as shipping, local pickup or through pickup points.  The input must not contain more than `250` values.
 		///     - pickupHandle: The pickup handle prefills checkout fields with the location for either local pickup or pickup points delivery methods. It accepts both location ID for local pickup and external IDs for pickup points.  The input must not contain more than `250` values.
-		///     - coordinates: The coordinates of a delivery location in order of preference.  The input must not contain more than `250` values.
+		///     - coordinates: The coordinates of a delivery location in order of preference.
 		///
-		public static func create(deliveryMethod: Input<[PreferenceDeliveryMethodType]> = .undefined, pickupHandle: Input<[String]> = .undefined, coordinates: Input<[CartDeliveryCoordinatesPreferenceInput]> = .undefined) -> CartDeliveryPreferenceInput {
+		public static func create(deliveryMethod: Input<[PreferenceDeliveryMethodType]> = .undefined, pickupHandle: Input<[String]> = .undefined, coordinates: Input<CartDeliveryCoordinatesPreferenceInput> = .undefined) -> CartDeliveryPreferenceInput {
 			return CartDeliveryPreferenceInput(deliveryMethod: deliveryMethod, pickupHandle: pickupHandle, coordinates: coordinates)
 		}
 
-		private init(deliveryMethod: Input<[PreferenceDeliveryMethodType]> = .undefined, pickupHandle: Input<[String]> = .undefined, coordinates: Input<[CartDeliveryCoordinatesPreferenceInput]> = .undefined) {
+		private init(deliveryMethod: Input<[PreferenceDeliveryMethodType]> = .undefined, pickupHandle: Input<[String]> = .undefined, coordinates: Input<CartDeliveryCoordinatesPreferenceInput> = .undefined) {
 			self.deliveryMethod = deliveryMethod
 			self.pickupHandle = pickupHandle
 			self.coordinates = coordinates
@@ -66,10 +65,10 @@ extension Storefront {
 		/// - parameters:
 		///     - deliveryMethod: The preferred delivery methods such as shipping, local pickup or through pickup points.  The input must not contain more than `250` values.
 		///     - pickupHandle: The pickup handle prefills checkout fields with the location for either local pickup or pickup points delivery methods. It accepts both location ID for local pickup and external IDs for pickup points.  The input must not contain more than `250` values.
-		///     - coordinates: The coordinates of a delivery location in order of preference.  The input must not contain more than `250` values.
+		///     - coordinates: The coordinates of a delivery location in order of preference.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
-		public convenience init(deliveryMethod: [PreferenceDeliveryMethodType]? = nil, pickupHandle: [String]? = nil, coordinates: [CartDeliveryCoordinatesPreferenceInput]? = nil) {
+		public convenience init(deliveryMethod: [PreferenceDeliveryMethodType]? = nil, pickupHandle: [String]? = nil, coordinates: CartDeliveryCoordinatesPreferenceInput? = nil) {
 			self.init(deliveryMethod: deliveryMethod.orUndefined, pickupHandle: pickupHandle.orUndefined, coordinates: coordinates.orUndefined)
 		}
 
@@ -102,7 +101,7 @@ extension Storefront {
 					fields.append("coordinates:null")
 					break
 				}
-				fields.append("coordinates:[\(coordinates.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("coordinates:\(coordinates.serialize())")
 				case .undefined: break
 			}
 

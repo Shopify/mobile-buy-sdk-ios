@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// ISO 639-1 language codes supported by Shopify. 
+	/// Language codes supported by Shopify. 
 	public enum LanguageCode: String {
 		/// Afrikaans. 
 		case af = "AF"

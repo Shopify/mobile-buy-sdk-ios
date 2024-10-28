@@ -1,9 +1,9 @@
 //
-//  Storefront.Schema.swift
+//  ShopPayInstallmentsLoan.swift
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2020 Shopify Inc. All rights reserved.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,20 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
+
 extension Storefront {
-    enum Schema {
-        static let version = "2024-10"
-    }
+	/// The loan type for a Shop Pay Installments Financing Plan Term. 
+	public enum ShopPayInstallmentsLoan: String {
+		/// An interest-bearing loan type. 
+		case interest = "INTEREST"
+
+		/// A split-pay loan type. 
+		case splitPay = "SPLIT_PAY"
+
+		/// A zero-percent loan type. 
+		case zeroPercent = "ZERO_PERCENT"
+
+		case unknownValue = ""
+	}
 }

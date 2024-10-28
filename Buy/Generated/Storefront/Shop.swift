@@ -176,6 +176,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The Shop Pay Installments pricing information for the shop. 
+		@discardableResult
+		open func shopPayInstallmentsPricing(alias: String? = nil, _ subfields: (ShopPayInstallmentsPricingQuery) -> Void) -> ShopQuery {
+			let subquery = ShopPayInstallmentsPricingQuery()
+			subfields(subquery)
+
+			addField(field: "shopPayInstallmentsPricing", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The shop’s subscription policy. 
 		@discardableResult
 		open func subscriptionPolicy(alias: String? = nil, _ subfields: (ShopPolicyWithDefaultQuery) -> Void) -> ShopQuery {
@@ -292,6 +302,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return value.map { return CountryCode(rawValue: $0) ?? .unknownValue }
+
+				case "shopPayInstallmentsPricing":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
+				}
+				return try ShopPayInstallmentsPricing(fields: value)
 
 				case "subscriptionPolicy":
 				if value is NSNull { return nil }
@@ -439,6 +456,15 @@ extension Storefront {
 			return field(field: "shipsToCountries", aliasSuffix: alias) as! [Storefront.CountryCode]
 		}
 
+		/// The Shop Pay Installments pricing information for the shop. 
+		open var shopPayInstallmentsPricing: Storefront.ShopPayInstallmentsPricing? {
+			return internalGetShopPayInstallmentsPricing()
+		}
+
+		func internalGetShopPayInstallmentsPricing(alias: String? = nil) -> Storefront.ShopPayInstallmentsPricing? {
+			return field(field: "shopPayInstallmentsPricing", aliasSuffix: alias) as! Storefront.ShopPayInstallmentsPricing?
+		}
+
 		/// The shop’s subscription policy. 
 		open var subscriptionPolicy: Storefront.ShopPolicyWithDefault? {
 			return internalGetSubscriptionPolicy()
@@ -503,6 +529,12 @@ extension Storefront {
 
 					case "shippingPolicy":
 					if let value = internalGetShippingPolicy() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "shopPayInstallmentsPricing":
+					if let value = internalGetShopPayInstallmentsPricing() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

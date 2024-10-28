@@ -32,6 +32,18 @@ extension Storefront {
 	open class ProductOptionValueQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ProductOptionValue
 
+		/// The product variant that combines this option value with the 
+		/// lowest-position option values for all other options. This field will always 
+		/// return a variant, provided a variant including this option value exists. 
+		@discardableResult
+		open func firstSelectableVariant(alias: String? = nil, _ subfields: (ProductVariantQuery) -> Void) -> ProductOptionValueQuery {
+			let subquery = ProductVariantQuery()
+			subfields(subquery)
+
+			addField(field: "firstSelectableVariant", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// A globally-unique ID. 
 		@discardableResult
 		open func id(alias: String? = nil) -> ProductOptionValueQuery {
@@ -65,6 +77,13 @@ extension Storefront {
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "firstSelectableVariant":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: ProductOptionValue.self, field: fieldName, value: fieldValue)
+				}
+				return try ProductVariant(fields: value)
+
 				case "id":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: ProductOptionValue.self, field: fieldName, value: fieldValue)
@@ -87,6 +106,17 @@ extension Storefront {
 				default:
 				throw SchemaViolationError(type: ProductOptionValue.self, field: fieldName, value: fieldValue)
 			}
+		}
+
+		/// The product variant that combines this option value with the 
+		/// lowest-position option values for all other options. This field will always 
+		/// return a variant, provided a variant including this option value exists. 
+		open var firstSelectableVariant: Storefront.ProductVariant? {
+			return internalGetFirstSelectableVariant()
+		}
+
+		func internalGetFirstSelectableVariant(alias: String? = nil) -> Storefront.ProductVariant? {
+			return field(field: "firstSelectableVariant", aliasSuffix: alias) as! Storefront.ProductVariant?
 		}
 
 		/// A globally-unique ID. 
@@ -120,6 +150,12 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
+					case "firstSelectableVariant":
+					if let value = internalGetFirstSelectableVariant() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "swatch":
 					if let value = internalGetSwatch() {
 						response.append(value)

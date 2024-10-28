@@ -1,9 +1,9 @@
 //
-//  Storefront.Schema.swift
+//  SitemapType.swift
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2020 Shopify Inc. All rights reserved.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,32 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
+
 extension Storefront {
-    enum Schema {
-        static let version = "2024-10"
-    }
+	/// The types of resources potentially present in a sitemap. 
+	public enum SitemapType: String {
+		/// Articles present in the sitemap. 
+		case article = "ARTICLE"
+
+		/// Blogs present in the sitemap. 
+		case blog = "BLOG"
+
+		/// Collections present in the sitemap. 
+		case collection = "COLLECTION"
+
+		/// Metaobjects present in the sitemap. Only metaobject types with the 
+		/// [`renderable` 
+		/// capability](https://shopify.dev/docs/apps/build/custom-data/metaobjects/use-metaobject-capabilities#render-metaobjects-as-web-pages) 
+		/// are included in sitemap. 
+		case metaobject = "METAOBJECT"
+
+		/// Pages present in the sitemap. 
+		case page = "PAGE"
+
+		/// Products present in the sitemap. 
+		case product = "PRODUCT"
+
+		case unknownValue = ""
+	}
 }

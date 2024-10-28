@@ -1,9 +1,9 @@
 //
-//  Storefront.Schema.swift
+//  CartWarningCode.swift
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2020 Shopify Inc. All rights reserved.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,20 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
+
 extension Storefront {
-    enum Schema {
-        static let version = "2024-10"
-    }
+	/// The code for the cart warning. 
+	public enum CartWarningCode: String {
+		/// The merchandise does not have enough stock. 
+		case merchandiseNotEnoughStock = "MERCHANDISE_NOT_ENOUGH_STOCK"
+
+		/// The merchandise is out of stock. 
+		case merchandiseOutOfStock = "MERCHANDISE_OUT_OF_STOCK"
+
+		/// Gift cards are not available as a payment method. 
+		case paymentsGiftCardsUnavailable = "PAYMENTS_GIFT_CARDS_UNAVAILABLE"
+
+		case unknownValue = ""
+	}
 }

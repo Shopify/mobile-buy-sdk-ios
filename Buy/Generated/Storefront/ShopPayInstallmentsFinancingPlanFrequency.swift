@@ -1,9 +1,9 @@
 //
-//  Storefront.Schema.swift
+//  ShopPayInstallmentsFinancingPlanFrequency.swift
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2020 Shopify Inc. All rights reserved.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,17 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
+
 extension Storefront {
-    enum Schema {
-        static let version = "2024-10"
-    }
+	/// The payment frequency for a Shop Pay Installments Financing Plan. 
+	public enum ShopPayInstallmentsFinancingPlanFrequency: String {
+		/// Monthly payment frequency. 
+		case monthly = "MONTHLY"
+
+		/// Weekly payment frequency. 
+		case weekly = "WEEKLY"
+
+		case unknownValue = ""
+	}
 }
