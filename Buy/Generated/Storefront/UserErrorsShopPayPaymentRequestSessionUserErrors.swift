@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// Represents an error that happens during execution of a customer mutation. 
+	/// Error codes for failed Shop Pay payment request session mutations. 
 	open class UserErrorsShopPayPaymentRequestSessionUserErrorsQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = UserErrorsShopPayPaymentRequestSessionUserErrors
 
@@ -53,7 +53,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents an error that happens during execution of a customer mutation. 
+	/// Error codes for failed Shop Pay payment request session mutations. 
 	open class UserErrorsShopPayPaymentRequestSessionUserErrors: GraphQL.AbstractResponse, GraphQLObject, DisplayableError {
 		public typealias Query = UserErrorsShopPayPaymentRequestSessionUserErrorsQuery
 

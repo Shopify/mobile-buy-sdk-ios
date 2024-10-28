@@ -50,6 +50,16 @@ extension Storefront {
 			addField(field: "userErrors", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
+
+		/// A list of warnings that occurred during the mutation. 
+		@discardableResult
+		open func warnings(alias: String? = nil, _ subfields: (CartWarningQuery) -> Void) -> CartCreatePayloadQuery {
+			let subquery = CartWarningQuery()
+			subfields(subquery)
+
+			addField(field: "warnings", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
 	}
 
 	/// Return type for `cartCreate` mutation. 
@@ -71,6 +81,12 @@ extension Storefront {
 					throw SchemaViolationError(type: CartCreatePayload.self, field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try CartUserError(fields: $0) }
+
+				case "warnings":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: CartCreatePayload.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try CartWarning(fields: $0) }
 
 				default:
 				throw SchemaViolationError(type: CartCreatePayload.self, field: fieldName, value: fieldValue)
@@ -95,6 +111,15 @@ extension Storefront {
 			return field(field: "userErrors", aliasSuffix: alias) as! [Storefront.CartUserError]
 		}
 
+		/// A list of warnings that occurred during the mutation. 
+		open var warnings: [Storefront.CartWarning] {
+			return internalGetWarnings()
+		}
+
+		func internalGetWarnings(alias: String? = nil) -> [Storefront.CartWarning] {
+			return field(field: "warnings", aliasSuffix: alias) as! [Storefront.CartWarning]
+		}
+
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
@@ -107,6 +132,12 @@ extension Storefront {
 
 					case "userErrors":
 					internalGetUserErrors().forEach {
+						response.append($0)
+						response.append(contentsOf: $0.childResponseObjectMap())
+					}
+
+					case "warnings":
+					internalGetWarnings().forEach {
 						response.append($0)
 						response.append(contentsOf: $0.childResponseObjectMap())
 					}

@@ -269,8 +269,13 @@ extension Storefront {
 			return self
 		}
 
-		/// A URL parameters to be added to a page URL when it is linked from a GraphQL 
-		/// result. This allows for tracking the origin of the traffic. 
+		/// URL parameters to be added to a page URL to track the origin of on-site 
+		/// search traffic for [analytics 
+		/// reporting](https://help.shopify.com/manual/reports-and-analytics/shopify-reports/report-types/default-reports/behaviour-reports). 
+		/// Returns a result when accessed through the 
+		/// [search](https://shopify.dev/docs/api/storefront/current/queries/search) or 
+		/// [predictiveSearch](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch) 
+		/// queries, otherwise returns null. 
 		@discardableResult
 		open func trackingParameters(alias: String? = nil) -> ArticleQuery {
 			addField(field: "trackingParameters", aliasSuffix: alias)
@@ -603,8 +608,13 @@ extension Storefront {
 			return field(field: "title", aliasSuffix: alias) as! String
 		}
 
-		/// A URL parameters to be added to a page URL when it is linked from a GraphQL 
-		/// result. This allows for tracking the origin of the traffic. 
+		/// URL parameters to be added to a page URL to track the origin of on-site 
+		/// search traffic for [analytics 
+		/// reporting](https://help.shopify.com/manual/reports-and-analytics/shopify-reports/report-types/default-reports/behaviour-reports). 
+		/// Returns a result when accessed through the 
+		/// [search](https://shopify.dev/docs/api/storefront/current/queries/search) or 
+		/// [predictiveSearch](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch) 
+		/// queries, otherwise returns null. 
 		open var trackingParameters: String? {
 			return internalGetTrackingParameters()
 		}

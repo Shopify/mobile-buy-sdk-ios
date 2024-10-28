@@ -27,18 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a generic custom attribute. 
+	/// Represents a generic custom attribute, such as whether an order is a 
+	/// customer's first. 
 	open class AttributeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Attribute
 
-		/// Key or name of the attribute. 
+		/// The key or name of the attribute. For example, `"customersFirstOrder"`. 
 		@discardableResult
 		open func key(alias: String? = nil) -> AttributeQuery {
 			addField(field: "key", aliasSuffix: alias)
 			return self
 		}
 
-		/// Value of the attribute. 
+		/// The value of the attribute. For example, `"true"`. 
 		@discardableResult
 		open func value(alias: String? = nil) -> AttributeQuery {
 			addField(field: "value", aliasSuffix: alias)
@@ -46,7 +47,8 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a generic custom attribute. 
+	/// Represents a generic custom attribute, such as whether an order is a 
+	/// customer's first. 
 	open class Attribute: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = AttributeQuery
 
@@ -71,7 +73,7 @@ extension Storefront {
 			}
 		}
 
-		/// Key or name of the attribute. 
+		/// The key or name of the attribute. For example, `"customersFirstOrder"`. 
 		open var key: String {
 			return internalGetKey()
 		}
@@ -80,7 +82,7 @@ extension Storefront {
 			return field(field: "key", aliasSuffix: alias) as! String
 		}
 
-		/// Value of the attribute. 
+		/// The value of the attribute. For example, `"true"`. 
 		open var value: String? {
 			return internalGetValue()
 		}

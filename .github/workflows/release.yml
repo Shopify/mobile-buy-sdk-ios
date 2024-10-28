@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Get SDK version
         id: sdk-version
@@ -24,7 +24,7 @@ jobs:
           echo "API_VERSION=$API_VERSION" >> $GITHUB_ENV
 
       - name: Create a draft release
-        uses: actions/github-script@0.9.0
+        uses: actions/github-script@v7
         with:
           script: |
             const api_version = process.env.API_VERSION

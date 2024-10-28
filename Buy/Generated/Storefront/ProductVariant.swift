@@ -374,6 +374,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The Shop Pay Installments pricing information for the product variant. 
+		@discardableResult
+		open func shopPayInstallmentsPricing(alias: String? = nil, _ subfields: (ShopPayInstallmentsProductVariantPricingQuery) -> Void) -> ProductVariantQuery {
+			let subquery = ShopPayInstallmentsProductVariantPricingQuery()
+			subfields(subquery)
+
+			addField(field: "shopPayInstallmentsPricing", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The SKU (stock keeping unit) associated with the variant. 
 		@discardableResult
 		open func sku(alias: String? = nil) -> ProductVariantQuery {
@@ -621,6 +631,13 @@ extension Storefront {
 					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
 				}
 				return try SellingPlanAllocationConnection(fields: value)
+
+				case "shopPayInstallmentsPricing":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
+				}
+				return try ShopPayInstallmentsProductVariantPricing(fields: value)
 
 				case "sku":
 				if value is NSNull { return nil }
@@ -905,6 +922,15 @@ extension Storefront {
 			return field(field: "sellingPlanAllocations", aliasSuffix: alias) as! Storefront.SellingPlanAllocationConnection
 		}
 
+		/// The Shop Pay Installments pricing information for the product variant. 
+		open var shopPayInstallmentsPricing: Storefront.ShopPayInstallmentsProductVariantPricing? {
+			return internalGetShopPayInstallmentsPricing()
+		}
+
+		func internalGetShopPayInstallmentsPricing(alias: String? = nil) -> Storefront.ShopPayInstallmentsProductVariantPricing? {
+			return field(field: "shopPayInstallmentsPricing", aliasSuffix: alias) as! Storefront.ShopPayInstallmentsProductVariantPricing?
+		}
+
 		/// The SKU (stock keeping unit) associated with the variant. 
 		open var sku: String? {
 			return internalGetSku()
@@ -1055,6 +1081,12 @@ extension Storefront {
 					case "sellingPlanAllocations":
 					response.append(internalGetSellingPlanAllocations())
 					response.append(contentsOf: internalGetSellingPlanAllocations().childResponseObjectMap())
+
+					case "shopPayInstallmentsPricing":
+					if let value = internalGetShopPayInstallmentsPricing() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
 
 					case "storeAvailability":
 					response.append(internalGetStoreAvailability())

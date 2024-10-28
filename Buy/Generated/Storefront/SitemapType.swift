@@ -1,5 +1,5 @@
 //
-//  SDK.swift
+//  SitemapType.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -26,6 +26,30 @@
 
 import Foundation
 
-internal enum SDK {
-    static let version = "13.1.0"
+extension Storefront {
+	/// The types of resources potentially present in a sitemap. 
+	public enum SitemapType: String {
+		/// Articles present in the sitemap. 
+		case article = "ARTICLE"
+
+		/// Blogs present in the sitemap. 
+		case blog = "BLOG"
+
+		/// Collections present in the sitemap. 
+		case collection = "COLLECTION"
+
+		/// Metaobjects present in the sitemap. Only metaobject types with the 
+		/// [`renderable` 
+		/// capability](https://shopify.dev/docs/apps/build/custom-data/metaobjects/use-metaobject-capabilities#render-metaobjects-as-web-pages) 
+		/// are included in sitemap. 
+		case metaobject = "METAOBJECT"
+
+		/// Pages present in the sitemap. 
+		case page = "PAGE"
+
+		/// Products present in the sitemap. 
+		case product = "PRODUCT"
+
+		case unknownValue = ""
+	}
 }

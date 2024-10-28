@@ -31,7 +31,7 @@ extension Storefront {
 	open class PaymentSettingsQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = PaymentSettings
 
-		/// List of the card brands which the shop accepts. 
+		/// List of the card brands which the business entity accepts. 
 		@discardableResult
 		open func acceptedCardBrands(alias: String? = nil) -> PaymentSettingsQuery {
 			addField(field: "acceptedCardBrands", aliasSuffix: alias)
@@ -45,7 +45,9 @@ extension Storefront {
 			return self
 		}
 
-		/// The country where the shop is located. 
+		/// The country where the shop is located. When multiple business entities 
+		/// operate within the shop, then this will represent the country of the 
+		/// business entity that's serving the specified buyer context. 
 		@discardableResult
 		open func countryCode(alias: String? = nil) -> PaymentSettingsQuery {
 			addField(field: "countryCode", aliasSuffix: alias)
@@ -75,7 +77,7 @@ extension Storefront {
 			return self
 		}
 
-		/// List of the digital wallets which the shop supports. 
+		/// List of the digital wallets which the business entity supports. 
 		@discardableResult
 		open func supportedDigitalWallets(alias: String? = nil) -> PaymentSettingsQuery {
 			addField(field: "supportedDigitalWallets", aliasSuffix: alias)
@@ -138,7 +140,7 @@ extension Storefront {
 			}
 		}
 
-		/// List of the card brands which the shop accepts. 
+		/// List of the card brands which the business entity accepts. 
 		open var acceptedCardBrands: [Storefront.CardBrand] {
 			return internalGetAcceptedCardBrands()
 		}
@@ -156,7 +158,9 @@ extension Storefront {
 			return field(field: "cardVaultUrl", aliasSuffix: alias) as! URL
 		}
 
-		/// The country where the shop is located. 
+		/// The country where the shop is located. When multiple business entities 
+		/// operate within the shop, then this will represent the country of the 
+		/// business entity that's serving the specified buyer context. 
 		open var countryCode: Storefront.CountryCode {
 			return internalGetCountryCode()
 		}
@@ -194,7 +198,7 @@ extension Storefront {
 			return field(field: "shopifyPaymentsAccountId", aliasSuffix: alias) as! String?
 		}
 
-		/// List of the digital wallets which the shop supports. 
+		/// List of the digital wallets which the business entity supports. 
 		open var supportedDigitalWallets: [Storefront.DigitalWallet] {
 			return internalGetSupportedDigitalWallets()
 		}

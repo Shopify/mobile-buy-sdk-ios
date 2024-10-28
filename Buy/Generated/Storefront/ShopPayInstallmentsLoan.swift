@@ -1,5 +1,5 @@
 //
-//  SDK.swift
+//  ShopPayInstallmentsLoan.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -26,6 +26,18 @@
 
 import Foundation
 
-internal enum SDK {
-    static let version = "13.1.0"
+extension Storefront {
+	/// The loan type for a Shop Pay Installments Financing Plan Term. 
+	public enum ShopPayInstallmentsLoan: String {
+		/// An interest-bearing loan type. 
+		case interest = "INTEREST"
+
+		/// A split-pay loan type. 
+		case splitPay = "SPLIT_PAY"
+
+		/// A zero-percent loan type. 
+		case zeroPercent = "ZERO_PERCENT"
+
+		case unknownValue = ""
+	}
 }

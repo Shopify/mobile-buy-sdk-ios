@@ -1,5 +1,5 @@
 //
-//  SDK.swift
+//  ShopPayInstallmentsFinancingPlanFrequency.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -26,6 +26,15 @@
 
 import Foundation
 
-internal enum SDK {
-    static let version = "13.1.0"
+extension Storefront {
+	/// The payment frequency for a Shop Pay Installments Financing Plan. 
+	public enum ShopPayInstallmentsFinancingPlanFrequency: String {
+		/// Monthly payment frequency. 
+		case monthly = "MONTHLY"
+
+		/// Weekly payment frequency. 
+		case weekly = "WEEKLY"
+
+		case unknownValue = ""
+	}
 }

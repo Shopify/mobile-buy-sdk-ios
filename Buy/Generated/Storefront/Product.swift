@@ -35,10 +35,63 @@ extension Storefront {
 	open class ProductQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Product
 
+		/// A list of variants whose selected options differ with the provided selected 
+		/// options by one, ordered by variant id. If selected options are not 
+		/// provided, adjacent variants to the first available variant is returned. 
+		/// Note that this field returns an array of variants. In most cases, the 
+		/// number of variants in this array will be low. However, with a low number of 
+		/// options and a high number of values per option, the number of variants 
+		/// returned here can be high. In such cases, it recommended to avoid using 
+		/// this field. This list of variants can be used in combination with the 
+		/// `options` field to build a rich variant picker that includes variant 
+		/// availability or other variant information. 
+		///
+		/// - parameters:
+		///     - selectedOptions: The input fields used for a selected option.
+		///        
+		///        The input must not contain more than `250` values.
+		///     - ignoreUnknownOptions: Whether to ignore product options that are not present on the requested product.
+		///     - caseInsensitiveMatch: Whether to perform case insensitive match on option names and values.
+		///
+		@discardableResult
+		open func adjacentVariants(alias: String? = nil, selectedOptions: [SelectedOptionInput]? = nil, ignoreUnknownOptions: Bool? = nil, caseInsensitiveMatch: Bool? = nil, _ subfields: (ProductVariantQuery) -> Void) -> ProductQuery {
+			var args: [String] = []
+
+			if let selectedOptions = selectedOptions {
+				args.append("selectedOptions:[\(selectedOptions.map{ "\($0.serialize())" }.joined(separator: ","))]")
+			}
+
+			if let ignoreUnknownOptions = ignoreUnknownOptions {
+				args.append("ignoreUnknownOptions:\(ignoreUnknownOptions)")
+			}
+
+			if let caseInsensitiveMatch = caseInsensitiveMatch {
+				args.append("caseInsensitiveMatch:\(caseInsensitiveMatch)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = ProductVariantQuery()
+			subfields(subquery)
+
+			addField(field: "adjacentVariants", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Indicates if at least one product variant is available for sale. 
 		@discardableResult
 		open func availableForSale(alias: String? = nil) -> ProductQuery {
 			addField(field: "availableForSale", aliasSuffix: alias)
+			return self
+		}
+
+		/// The taxonomy category for the product. 
+		@discardableResult
+		open func category(alias: String? = nil, _ subfields: (TaxonomyCategoryQuery) -> Void) -> ProductQuery {
+			let subquery = TaxonomyCategoryQuery()
+			subfields(subquery)
+
+			addField(field: "category", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -124,6 +177,60 @@ extension Storefront {
 		@discardableResult
 		open func descriptionHtml(alias: String? = nil) -> ProductQuery {
 			addField(field: "descriptionHtml", aliasSuffix: alias)
+			return self
+		}
+
+		/// An encoded string containing all option value combinations with a 
+		/// corresponding variant that is currently available for sale. Integers 
+		/// represent option and values: [0,1] represents option_value at array index 0 
+		/// for the option at array index 0 `:`, `,`, ` ` and `-` are control 
+		/// characters. `:` indicates a new option. ex: 0:1 indicates value 0 for the 
+		/// option in position 1, value 1 for the option in position 2. `,` indicates 
+		/// the end of a repeated prefix, mulitple consecutive commas indicate the end 
+		/// of multiple repeated prefixes. ` ` indicates a gap in the sequence of 
+		/// option values. ex: 0 4 indicates option values in position 0 and 4 are 
+		/// present. `-` indicates a continuous range of option values. ex: 0 1-3 4 
+		/// Decoding process: Example options: [Size, Color, Material] Example values: 
+		/// [[Small, Medium, Large], [Red, Blue], [Cotton, Wool]] Example encoded 
+		/// string: "0:0:0,1:0-1,,1:0:0-1,1:1,,2:0:1,1:0,," Step 1: Expand ranges into 
+		/// the numbers they represent: "0:0:0,1:0 1,,1:0:0 1,1:1,,2:0:1,1:0,," Step 2: 
+		/// Expand repeated prefixes: "0:0:0,0:1:0 1,1:0:0 1,1:1:1,2:0:1,2:1:0," Step 
+		/// 3: Expand shared prefixes so data is encoded as a string: 
+		/// "0:0:0,0:1:0,0:1:1,1:0:0,1:0:1,1:1:1,2:0:1,2:1:0," Step 4: Map to options + 
+		/// option values to determine existing variants: [Small, Red, Cotton] (0:0:0), 
+		/// [Small, Blue, Cotton] (0:1:0), [Small, Blue, Wool] (0:1:1), [Medium, Red, 
+		/// Cotton] (1:0:0), [Medium, Red, Wool] (1:0:1), [Medium, Blue, Wool] (1:1:1), 
+		/// [Large, Red, Wool] (2:0:1), [Large, Blue, Cotton] (2:1:0). 
+		@discardableResult
+		open func encodedVariantAvailability(alias: String? = nil) -> ProductQuery {
+			addField(field: "encodedVariantAvailability", aliasSuffix: alias)
+			return self
+		}
+
+		/// An encoded string containing all option value combinations with a 
+		/// corresponding variant. Integers represent option and values: [0,1] 
+		/// represents option_value at array index 0 for the option at array index 0 
+		/// `:`, `,`, ` ` and `-` are control characters. `:` indicates a new option. 
+		/// ex: 0:1 indicates value 0 for the option in position 1, value 1 for the 
+		/// option in position 2. `,` indicates the end of a repeated prefix, mulitple 
+		/// consecutive commas indicate the end of multiple repeated prefixes. ` ` 
+		/// indicates a gap in the sequence of option values. ex: 0 4 indicates option 
+		/// values in position 0 and 4 are present. `-` indicates a continuous range of 
+		/// option values. ex: 0 1-3 4 Decoding process: Example options: [Size, Color, 
+		/// Material] Example values: [[Small, Medium, Large], [Red, Blue], [Cotton, 
+		/// Wool]] Example encoded string: "0:0:0,1:0-1,,1:0:0-1,1:1,,2:0:1,1:0,," Step 
+		/// 1: Expand ranges into the numbers they represent: "0:0:0,1:0 1,,1:0:0 
+		/// 1,1:1,,2:0:1,1:0,," Step 2: Expand repeated prefixes: "0:0:0,0:1:0 1,1:0:0 
+		/// 1,1:1:1,2:0:1,2:1:0," Step 3: Expand shared prefixes so data is encoded as 
+		/// a string: "0:0:0,0:1:0,0:1:1,1:0:0,1:0:1,1:1:1,2:0:1,2:1:0," Step 4: Map to 
+		/// options + option values to determine existing variants: [Small, Red, 
+		/// Cotton] (0:0:0), [Small, Blue, Cotton] (0:1:0), [Small, Blue, Wool] 
+		/// (0:1:1), [Medium, Red, Cotton] (1:0:0), [Medium, Red, Wool] (1:0:1), 
+		/// [Medium, Blue, Wool] (1:1:1), [Large, Red, Wool] (2:0:1), [Large, Blue, 
+		/// Cotton] (2:1:0). 
+		@discardableResult
+		open func encodedVariantExistence(alias: String? = nil) -> ProductQuery {
+			addField(field: "encodedVariantExistence", aliasSuffix: alias)
 			return self
 		}
 
@@ -366,6 +473,43 @@ extension Storefront {
 			return self
 		}
 
+		/// Find an active product variant based on selected options, availability or 
+		/// the first variant. All arguments are optional. If no selected options are 
+		/// provided, the first available variant is returned. If no variants are 
+		/// available, the first variant is returned. 
+		///
+		/// - parameters:
+		///     - selectedOptions: The input fields used for a selected option.
+		///        
+		///        The input must not contain more than `250` values.
+		///     - ignoreUnknownOptions: Whether to ignore unknown product options.
+		///     - caseInsensitiveMatch: Whether to perform case insensitive match on option names and values.
+		///
+		@discardableResult
+		open func selectedOrFirstAvailableVariant(alias: String? = nil, selectedOptions: [SelectedOptionInput]? = nil, ignoreUnknownOptions: Bool? = nil, caseInsensitiveMatch: Bool? = nil, _ subfields: (ProductVariantQuery) -> Void) -> ProductQuery {
+			var args: [String] = []
+
+			if let selectedOptions = selectedOptions {
+				args.append("selectedOptions:[\(selectedOptions.map{ "\($0.serialize())" }.joined(separator: ","))]")
+			}
+
+			if let ignoreUnknownOptions = ignoreUnknownOptions {
+				args.append("ignoreUnknownOptions:\(ignoreUnknownOptions)")
+			}
+
+			if let caseInsensitiveMatch = caseInsensitiveMatch {
+				args.append("caseInsensitiveMatch:\(caseInsensitiveMatch)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = ProductVariantQuery()
+			subfields(subquery)
+
+			addField(field: "selectedOrFirstAvailableVariant", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// A list of a product's available selling plan groups. A selling plan group 
 		/// represents a selling method. For example, 'Subscribe and save' is a selling 
 		/// method where customers pay for goods or services per delivery. A selling 
@@ -444,8 +588,13 @@ extension Storefront {
 			return self
 		}
 
-		/// A URL parameters to be added to a page URL when it is linked from a GraphQL 
-		/// result. This allows for tracking the origin of the traffic. 
+		/// URL parameters to be added to a page URL to track the origin of on-site 
+		/// search traffic for [analytics 
+		/// reporting](https://help.shopify.com/manual/reports-and-analytics/shopify-reports/report-types/default-reports/behaviour-reports). 
+		/// Returns a result when accessed through the 
+		/// [search](https://shopify.dev/docs/api/storefront/current/queries/search) or 
+		/// [predictiveSearch](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch) 
+		/// queries, otherwise returns null. 
 		@discardableResult
 		open func trackingParameters(alias: String? = nil) -> ProductQuery {
 			addField(field: "trackingParameters", aliasSuffix: alias)
@@ -544,6 +693,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The total count of variants for this product. 
+		@discardableResult
+		open func variantsCount(alias: String? = nil, _ subfields: (CountQuery) -> Void) -> ProductQuery {
+			let subquery = CountQuery()
+			subfields(subquery)
+
+			addField(field: "variantsCount", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The product’s vendor name. 
 		@discardableResult
 		open func vendor(alias: String? = nil) -> ProductQuery {
@@ -563,11 +722,24 @@ extension Storefront {
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "adjacentVariants":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try ProductVariant(fields: $0) }
+
 				case "availableForSale":
 				guard let value = value as? Bool else {
 					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
 				}
 				return value
+
+				case "category":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
+				}
+				return try TaxonomyCategory(fields: value)
 
 				case "collections":
 				guard let value = value as? [String: Any] else {
@@ -594,6 +766,20 @@ extension Storefront {
 				return value
 
 				case "descriptionHtml":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
+				case "encodedVariantAvailability":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
+				case "encodedVariantExistence":
+				if value is NSNull { return nil }
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
 				}
@@ -690,6 +876,13 @@ extension Storefront {
 				}
 				return value
 
+				case "selectedOrFirstAvailableVariant":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
+				}
+				return try ProductVariant(fields: value)
+
 				case "sellingPlanGroups":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
@@ -747,6 +940,13 @@ extension Storefront {
 				}
 				return try ProductVariantConnection(fields: value)
 
+				case "variantsCount":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
+				}
+				return try Count(fields: value)
+
 				case "vendor":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
@@ -758,6 +958,28 @@ extension Storefront {
 			}
 		}
 
+		/// A list of variants whose selected options differ with the provided selected 
+		/// options by one, ordered by variant id. If selected options are not 
+		/// provided, adjacent variants to the first available variant is returned. 
+		/// Note that this field returns an array of variants. In most cases, the 
+		/// number of variants in this array will be low. However, with a low number of 
+		/// options and a high number of values per option, the number of variants 
+		/// returned here can be high. In such cases, it recommended to avoid using 
+		/// this field. This list of variants can be used in combination with the 
+		/// `options` field to build a rich variant picker that includes variant 
+		/// availability or other variant information. 
+		open var adjacentVariants: [Storefront.ProductVariant] {
+			return internalGetAdjacentVariants()
+		}
+
+		open func aliasedAdjacentVariants(alias: String) -> [Storefront.ProductVariant] {
+			return internalGetAdjacentVariants(alias: alias)
+		}
+
+		func internalGetAdjacentVariants(alias: String? = nil) -> [Storefront.ProductVariant] {
+			return field(field: "adjacentVariants", aliasSuffix: alias) as! [Storefront.ProductVariant]
+		}
+
 		/// Indicates if at least one product variant is available for sale. 
 		open var availableForSale: Bool {
 			return internalGetAvailableForSale()
@@ -765,6 +987,15 @@ extension Storefront {
 
 		func internalGetAvailableForSale(alias: String? = nil) -> Bool {
 			return field(field: "availableForSale", aliasSuffix: alias) as! Bool
+		}
+
+		/// The taxonomy category for the product. 
+		open var category: Storefront.TaxonomyCategory? {
+			return internalGetCategory()
+		}
+
+		func internalGetCategory(alias: String? = nil) -> Storefront.TaxonomyCategory? {
+			return field(field: "category", aliasSuffix: alias) as! Storefront.TaxonomyCategory?
 		}
 
 		/// List of collections a product belongs to. 
@@ -818,6 +1049,64 @@ extension Storefront {
 
 		func internalGetDescriptionHtml(alias: String? = nil) -> String {
 			return field(field: "descriptionHtml", aliasSuffix: alias) as! String
+		}
+
+		/// An encoded string containing all option value combinations with a 
+		/// corresponding variant that is currently available for sale. Integers 
+		/// represent option and values: [0,1] represents option_value at array index 0 
+		/// for the option at array index 0 `:`, `,`, ` ` and `-` are control 
+		/// characters. `:` indicates a new option. ex: 0:1 indicates value 0 for the 
+		/// option in position 1, value 1 for the option in position 2. `,` indicates 
+		/// the end of a repeated prefix, mulitple consecutive commas indicate the end 
+		/// of multiple repeated prefixes. ` ` indicates a gap in the sequence of 
+		/// option values. ex: 0 4 indicates option values in position 0 and 4 are 
+		/// present. `-` indicates a continuous range of option values. ex: 0 1-3 4 
+		/// Decoding process: Example options: [Size, Color, Material] Example values: 
+		/// [[Small, Medium, Large], [Red, Blue], [Cotton, Wool]] Example encoded 
+		/// string: "0:0:0,1:0-1,,1:0:0-1,1:1,,2:0:1,1:0,," Step 1: Expand ranges into 
+		/// the numbers they represent: "0:0:0,1:0 1,,1:0:0 1,1:1,,2:0:1,1:0,," Step 2: 
+		/// Expand repeated prefixes: "0:0:0,0:1:0 1,1:0:0 1,1:1:1,2:0:1,2:1:0," Step 
+		/// 3: Expand shared prefixes so data is encoded as a string: 
+		/// "0:0:0,0:1:0,0:1:1,1:0:0,1:0:1,1:1:1,2:0:1,2:1:0," Step 4: Map to options + 
+		/// option values to determine existing variants: [Small, Red, Cotton] (0:0:0), 
+		/// [Small, Blue, Cotton] (0:1:0), [Small, Blue, Wool] (0:1:1), [Medium, Red, 
+		/// Cotton] (1:0:0), [Medium, Red, Wool] (1:0:1), [Medium, Blue, Wool] (1:1:1), 
+		/// [Large, Red, Wool] (2:0:1), [Large, Blue, Cotton] (2:1:0). 
+		open var encodedVariantAvailability: String? {
+			return internalGetEncodedVariantAvailability()
+		}
+
+		func internalGetEncodedVariantAvailability(alias: String? = nil) -> String? {
+			return field(field: "encodedVariantAvailability", aliasSuffix: alias) as! String?
+		}
+
+		/// An encoded string containing all option value combinations with a 
+		/// corresponding variant. Integers represent option and values: [0,1] 
+		/// represents option_value at array index 0 for the option at array index 0 
+		/// `:`, `,`, ` ` and `-` are control characters. `:` indicates a new option. 
+		/// ex: 0:1 indicates value 0 for the option in position 1, value 1 for the 
+		/// option in position 2. `,` indicates the end of a repeated prefix, mulitple 
+		/// consecutive commas indicate the end of multiple repeated prefixes. ` ` 
+		/// indicates a gap in the sequence of option values. ex: 0 4 indicates option 
+		/// values in position 0 and 4 are present. `-` indicates a continuous range of 
+		/// option values. ex: 0 1-3 4 Decoding process: Example options: [Size, Color, 
+		/// Material] Example values: [[Small, Medium, Large], [Red, Blue], [Cotton, 
+		/// Wool]] Example encoded string: "0:0:0,1:0-1,,1:0:0-1,1:1,,2:0:1,1:0,," Step 
+		/// 1: Expand ranges into the numbers they represent: "0:0:0,1:0 1,,1:0:0 
+		/// 1,1:1,,2:0:1,1:0,," Step 2: Expand repeated prefixes: "0:0:0,0:1:0 1,1:0:0 
+		/// 1,1:1:1,2:0:1,2:1:0," Step 3: Expand shared prefixes so data is encoded as 
+		/// a string: "0:0:0,0:1:0,0:1:1,1:0:0,1:0:1,1:1:1,2:0:1,2:1:0," Step 4: Map to 
+		/// options + option values to determine existing variants: [Small, Red, 
+		/// Cotton] (0:0:0), [Small, Blue, Cotton] (0:1:0), [Small, Blue, Wool] 
+		/// (0:1:1), [Medium, Red, Cotton] (1:0:0), [Medium, Red, Wool] (1:0:1), 
+		/// [Medium, Blue, Wool] (1:1:1), [Large, Red, Wool] (2:0:1), [Large, Blue, 
+		/// Cotton] (2:1:0). 
+		open var encodedVariantExistence: String? {
+			return internalGetEncodedVariantExistence()
+		}
+
+		func internalGetEncodedVariantExistence(alias: String? = nil) -> String? {
+			return field(field: "encodedVariantExistence", aliasSuffix: alias) as! String?
 		}
 
 		/// The featured image for the product. This field is functionally equivalent 
@@ -973,6 +1262,22 @@ extension Storefront {
 			return field(field: "requiresSellingPlan", aliasSuffix: alias) as! Bool
 		}
 
+		/// Find an active product variant based on selected options, availability or 
+		/// the first variant. All arguments are optional. If no selected options are 
+		/// provided, the first available variant is returned. If no variants are 
+		/// available, the first variant is returned. 
+		open var selectedOrFirstAvailableVariant: Storefront.ProductVariant? {
+			return internalGetSelectedOrFirstAvailableVariant()
+		}
+
+		open func aliasedSelectedOrFirstAvailableVariant(alias: String) -> Storefront.ProductVariant? {
+			return internalGetSelectedOrFirstAvailableVariant(alias: alias)
+		}
+
+		func internalGetSelectedOrFirstAvailableVariant(alias: String? = nil) -> Storefront.ProductVariant? {
+			return field(field: "selectedOrFirstAvailableVariant", aliasSuffix: alias) as! Storefront.ProductVariant?
+		}
+
 		/// A list of a product's available selling plan groups. A selling plan group 
 		/// represents a selling method. For example, 'Subscribe and save' is a selling 
 		/// method where customers pay for goods or services per delivery. A selling 
@@ -1027,8 +1332,13 @@ extension Storefront {
 			return field(field: "totalInventory", aliasSuffix: alias) as! Int32?
 		}
 
-		/// A URL parameters to be added to a page URL when it is linked from a GraphQL 
-		/// result. This allows for tracking the origin of the traffic. 
+		/// URL parameters to be added to a page URL to track the origin of on-site 
+		/// search traffic for [analytics 
+		/// reporting](https://help.shopify.com/manual/reports-and-analytics/shopify-reports/report-types/default-reports/behaviour-reports). 
+		/// Returns a result when accessed through the 
+		/// [search](https://shopify.dev/docs/api/storefront/current/queries/search) or 
+		/// [predictiveSearch](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch) 
+		/// queries, otherwise returns null. 
 		open var trackingParameters: String? {
 			return internalGetTrackingParameters()
 		}
@@ -1078,6 +1388,15 @@ extension Storefront {
 			return field(field: "variants", aliasSuffix: alias) as! Storefront.ProductVariantConnection
 		}
 
+		/// The total count of variants for this product. 
+		open var variantsCount: Storefront.Count? {
+			return internalGetVariantsCount()
+		}
+
+		func internalGetVariantsCount(alias: String? = nil) -> Storefront.Count? {
+			return field(field: "variantsCount", aliasSuffix: alias) as! Storefront.Count?
+		}
+
 		/// The product’s vendor name. 
 		open var vendor: String {
 			return internalGetVendor()
@@ -1091,6 +1410,18 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
+					case "adjacentVariants":
+					internalGetAdjacentVariants().forEach {
+						response.append($0)
+						response.append(contentsOf: $0.childResponseObjectMap())
+					}
+
+					case "category":
+					if let value = internalGetCategory() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "collections":
 					response.append(internalGetCollections())
 					response.append(contentsOf: internalGetCollections().childResponseObjectMap())
@@ -1137,6 +1468,12 @@ extension Storefront {
 					response.append(internalGetPriceRange())
 					response.append(contentsOf: internalGetPriceRange().childResponseObjectMap())
 
+					case "selectedOrFirstAvailableVariant":
+					if let value = internalGetSelectedOrFirstAvailableVariant() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "sellingPlanGroups":
 					response.append(internalGetSellingPlanGroups())
 					response.append(contentsOf: internalGetSellingPlanGroups().childResponseObjectMap())
@@ -1154,6 +1491,12 @@ extension Storefront {
 					case "variants":
 					response.append(internalGetVariants())
 					response.append(contentsOf: internalGetVariants().childResponseObjectMap())
+
+					case "variantsCount":
+					if let value = internalGetVariantsCount() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
 
 					default:
 					break

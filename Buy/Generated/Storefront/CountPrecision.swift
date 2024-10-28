@@ -1,5 +1,5 @@
 //
-//  SDK.swift
+//  CountPrecision.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -26,6 +26,15 @@
 
 import Foundation
 
-internal enum SDK {
-    static let version = "13.1.0"
+extension Storefront {
+	/// The precision of the value returned by a count field. 
+	public enum CountPrecision: String {
+		/// The count is at least the value. A limit was reached. 
+		case atLeast = "AT_LEAST"
+
+		/// The count is exactly the value. 
+		case exact = "EXACT"
+
+		case unknownValue = ""
+	}
 }

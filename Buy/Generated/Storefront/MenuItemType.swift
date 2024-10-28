@@ -44,6 +44,9 @@ extension Storefront {
 		/// A collection link. 
 		case collections = "COLLECTIONS"
 
+		/// A customer account page link. 
+		case customerAccountPage = "CUSTOMER_ACCOUNT_PAGE"
+
 		/// A frontpage link. 
 		case frontpage = "FRONTPAGE"
 

@@ -518,10 +518,70 @@ extension Storefront {
 		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
 		/// queries. 
 		@discardableResult
+		open func onShopPayInstallmentsFinancingPlan(subfields: (ShopPayInstallmentsFinancingPlanQuery) -> Void) -> NodeQuery {
+			let subquery = ShopPayInstallmentsFinancingPlanQuery()
+			subfields(subquery)
+			addInlineFragment(on: "ShopPayInstallmentsFinancingPlan", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID field to support global identification, in accordance 
+		/// with the [Relay 
+		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
+		/// This interface is used by the 
+		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
+		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
+		/// queries. 
+		@discardableResult
+		open func onShopPayInstallmentsFinancingPlanTerm(subfields: (ShopPayInstallmentsFinancingPlanTermQuery) -> Void) -> NodeQuery {
+			let subquery = ShopPayInstallmentsFinancingPlanTermQuery()
+			subfields(subquery)
+			addInlineFragment(on: "ShopPayInstallmentsFinancingPlanTerm", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID field to support global identification, in accordance 
+		/// with the [Relay 
+		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
+		/// This interface is used by the 
+		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
+		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
+		/// queries. 
+		@discardableResult
+		open func onShopPayInstallmentsProductVariantPricing(subfields: (ShopPayInstallmentsProductVariantPricingQuery) -> Void) -> NodeQuery {
+			let subquery = ShopPayInstallmentsProductVariantPricingQuery()
+			subfields(subquery)
+			addInlineFragment(on: "ShopPayInstallmentsProductVariantPricing", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID field to support global identification, in accordance 
+		/// with the [Relay 
+		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
+		/// This interface is used by the 
+		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
+		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
+		/// queries. 
+		@discardableResult
 		open func onShopPolicy(subfields: (ShopPolicyQuery) -> Void) -> NodeQuery {
 			let subquery = ShopPolicyQuery()
 			subfields(subquery)
 			addInlineFragment(on: "ShopPolicy", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID field to support global identification, in accordance 
+		/// with the [Relay 
+		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
+		/// This interface is used by the 
+		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
+		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
+		/// queries. 
+		@discardableResult
+		open func onTaxonomyCategory(subfields: (TaxonomyCategoryQuery) -> Void) -> NodeQuery {
+			let subquery = TaxonomyCategoryQuery()
+			subfields(subquery)
+			addInlineFragment(on: "TaxonomyCategory", subfields: subquery)
 			return self
 		}
 
@@ -645,7 +705,15 @@ extension Storefront {
 
 				case "Shop": return try Shop.init(fields: fields)
 
+				case "ShopPayInstallmentsFinancingPlan": return try ShopPayInstallmentsFinancingPlan.init(fields: fields)
+
+				case "ShopPayInstallmentsFinancingPlanTerm": return try ShopPayInstallmentsFinancingPlanTerm.init(fields: fields)
+
+				case "ShopPayInstallmentsProductVariantPricing": return try ShopPayInstallmentsProductVariantPricing.init(fields: fields)
+
 				case "ShopPolicy": return try ShopPolicy.init(fields: fields)
+
+				case "TaxonomyCategory": return try TaxonomyCategory.init(fields: fields)
 
 				case "UrlRedirect": return try UrlRedirect.init(fields: fields)
 

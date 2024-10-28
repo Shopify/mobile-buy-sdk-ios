@@ -705,6 +705,16 @@ extension Storefront {
 			return self
 		}
 
+		/// Settings related to payments. 
+		@discardableResult
+		open func paymentSettings(alias: String? = nil, _ subfields: (PaymentSettingsQuery) -> Void) -> QueryRootQuery {
+			let subquery = PaymentSettingsQuery()
+			subfields(subquery)
+
+			addField(field: "paymentSettings", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// List of the predictive search results. 
 		///
 		/// - parameters:
@@ -887,8 +897,9 @@ extension Storefront {
 			return self
 		}
 
-		/// List of the shop’s products. For storefront search, use [`search` 
-		/// query](https://shopify.dev/docs/api/storefront/latest/queries/search). 
+		/// Returns a list of the shop's products. For storefront search, use the 
+		/// [`search`](https://shopify.dev/docs/api/storefront/latest/queries/search) 
+		/// query. 
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -897,19 +908,19 @@ extension Storefront {
 		///     - before: Returns the elements that come before the specified cursor.
 		///     - reverse: Reverse the order of the underlying list.
 		///     - sortKey: Sort the underlying list by the given key.
-		///     - query: Apply one or multiple filters to the query.
+		///     - query: You can apply one or multiple filters to a query.
 		///        | name | description | acceptable_values | default_value | example_use |
 		///        | ---- | ---- | ---- | ---- | ---- |
-		///        | available_for_sale |
-		///        | created_at |
-		///        | product_type |
-		///        | tag |
-		///        | tag_not |
-		///        | title |
-		///        | updated_at |
-		///        | variants.price |
-		///        | vendor |
-		///        Refer to the detailed [search syntax](https://shopify.dev/api/usage/search-syntax) for more information about using filters.
+		///        | available_for_sale | Filter by products that have at least one product variant available for sale. |
+		///        | created_at | Filter by the date and time when the product was created. | | | - `created_at:>'2020-10-21T23:39:20Z'`<br/> - `created_at:<now`<br/> - `created_at:<=2024` |
+		///        | product_type | Filter by a comma-separated list of [product types](https://help.shopify.com/en/manual/products/details/product-type). | | | `product_type:snowboard` |
+		///        | tag | Filter products by the product [`tags`](https://shopify.dev/docs/api/storefront/latest/objects/Product#field-tags) field. | | | `tag:my_tag` |
+		///        | tag_not | Filter by products that don't have the specified product [tags](https://shopify.dev/docs/api/storefront/latest/objects/Product#field-tags). | | | `tag_not:my_tag` |
+		///        | title | Filter by the product [`title`](https://shopify.dev/docs/api/storefront/latest/objects/Product#field-title) field. | | | `title:The Minimal Snowboard` |
+		///        | updated_at | Filter by the date and time when the product was last updated. | | | - `updated_at:>'2020-10-21T23:39:20Z'`<br/> - `updated_at:<now`<br/> - `updated_at:<=2024` |
+		///        | variants.price | Filter by the price of the product's variants. |
+		///        | vendor | Filter by the product [`vendor`](https://shopify.dev/docs/api/storefront/latest/objects/Product#field-vendor) field. | | | - `vendor:Snowdevil`<br/> - `vendor:Snowdevil OR vendor:Icedevil` |
+		///        Learn more about [Shopify API search syntax](https://shopify.dev/api/usage/search-syntax).
 		///
 		@discardableResult
 		open func products(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: ProductSortKeys? = nil, query: String? = nil, _ subfields: (ProductConnectionQuery) -> Void) -> QueryRootQuery {
@@ -1044,6 +1055,26 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "shop", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// Contains all fields required to generate sitemaps. 
+		///
+		/// - parameters:
+		///     - type: The type of the resource for the sitemap.
+		///
+		@discardableResult
+		open func sitemap(alias: String? = nil, type: SitemapType, _ subfields: (SitemapQuery) -> Void) -> QueryRootQuery {
+			var args: [String] = []
+
+			args.append("type:\(type.rawValue)")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = SitemapQuery()
+			subfields(subquery)
+
+			addField(field: "sitemap", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -1252,6 +1283,12 @@ extension Storefront {
 				}
 				return try PageConnection(fields: value)
 
+				case "paymentSettings":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try PaymentSettings(fields: value)
+
 				case "predictiveSearch":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -1315,6 +1352,12 @@ extension Storefront {
 					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
 				}
 				return try Shop(fields: value)
+
+				case "sitemap":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try Sitemap(fields: value)
 
 				case "urlRedirects":
 				guard let value = value as? [String: Any] else {
@@ -1612,6 +1655,15 @@ extension Storefront {
 			return field(field: "pages", aliasSuffix: alias) as! Storefront.PageConnection
 		}
 
+		/// Settings related to payments. 
+		open var paymentSettings: Storefront.PaymentSettings {
+			return internalGetPaymentSettings()
+		}
+
+		func internalGetPaymentSettings(alias: String? = nil) -> Storefront.PaymentSettings {
+			return field(field: "paymentSettings", aliasSuffix: alias) as! Storefront.PaymentSettings
+		}
+
 		/// List of the predictive search results. 
 		open var predictiveSearch: Storefront.PredictiveSearchResult? {
 			return internalGetPredictiveSearch()
@@ -1698,8 +1750,9 @@ extension Storefront {
 			return field(field: "productTypes", aliasSuffix: alias) as! Storefront.StringConnection
 		}
 
-		/// List of the shop’s products. For storefront search, use [`search` 
-		/// query](https://shopify.dev/docs/api/storefront/latest/queries/search). 
+		/// Returns a list of the shop's products. For storefront search, use the 
+		/// [`search`](https://shopify.dev/docs/api/storefront/latest/queries/search) 
+		/// query. 
 		open var products: Storefront.ProductConnection {
 			return internalGetProducts()
 		}
@@ -1742,6 +1795,19 @@ extension Storefront {
 
 		func internalGetShop(alias: String? = nil) -> Storefront.Shop {
 			return field(field: "shop", aliasSuffix: alias) as! Storefront.Shop
+		}
+
+		/// Contains all fields required to generate sitemaps. 
+		open var sitemap: Storefront.Sitemap {
+			return internalGetSitemap()
+		}
+
+		open func aliasedSitemap(alias: String) -> Storefront.Sitemap {
+			return internalGetSitemap(alias: alias)
+		}
+
+		func internalGetSitemap(alias: String? = nil) -> Storefront.Sitemap {
+			return field(field: "sitemap", aliasSuffix: alias) as! Storefront.Sitemap
 		}
 
 		/// A list of redirects for a shop. 
@@ -1875,6 +1941,10 @@ extension Storefront {
 					response.append(internalGetPages())
 					response.append(contentsOf: internalGetPages().childResponseObjectMap())
 
+					case "paymentSettings":
+					response.append(internalGetPaymentSettings())
+					response.append(contentsOf: internalGetPaymentSettings().childResponseObjectMap())
+
 					case "predictiveSearch":
 					if let value = internalGetPredictiveSearch() {
 						response.append(value)
@@ -1926,6 +1996,10 @@ extension Storefront {
 					case "shop":
 					response.append(internalGetShop())
 					response.append(contentsOf: internalGetShop().childResponseObjectMap())
+
+					case "sitemap":
+					response.append(internalGetSitemap())
+					response.append(contentsOf: internalGetSitemap().childResponseObjectMap())
 
 					case "urlRedirects":
 					response.append(internalGetUrlRedirects())
