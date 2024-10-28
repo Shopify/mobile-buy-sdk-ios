@@ -30,7 +30,7 @@ jobs:
             const api_version = process.env.API_VERSION
             const sdk_version = process.env.SDK_VERSION
             const notes = `Updates the Mobile Buy SDK for iOS with support for the \`${api_version}\` version of the Shopify Storefront API.\n\nFor more details about the changes, please see the [release notes](https://shopify.dev/api/release-notes/${api_version}#graphql-storefront-api-changes).`
-            github.repos.createRelease({
+            github.rest.repos.createRelease({
               owner: context.repo.owner,
               repo: context.repo.repo,
               name: `${sdk_version} [${api_version}]`,
