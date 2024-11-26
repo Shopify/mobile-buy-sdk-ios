@@ -67,14 +67,25 @@ class Graph_ClientTests: XCTestCase {
     //  MARK: - Requests -
     //
     func testRequestGeneration() {
-        let client  = self.defaultClient()
-        let request = client.graphRequestFor(query: self.defaultQueryPayload().query)
+        let client = self.defaultClient()
+        let query = self.defaultQueryPayload().query
+        let request = client.graphRequestFor(query: query)
 
         XCTAssertEqual(request.httpMethod, "POST")
-        XCTAssertTrue(request.httpBody?.count ?? 0 > 0)
+
+        guard let bodyData = request.httpBody else {
+            return XCTFail("expected request to have a body")
+        }
+
+        let decodedBody = try! JSONDecoder().decode(
+            Dictionary<String, String>.self, from: bodyData
+        )
+
+        XCTAssertEqual(decodedBody["query"], query.description)
+
         XCTAssertFalse(request.httpShouldHandleCookies)
         XCTAssertEqual(request.value(forHTTPHeaderField: "Accept"),       "application/json")
-        XCTAssertEqual(request.value(forHTTPHeaderField: "Content-Type"), "application/graphql")
+        XCTAssertEqual(request.value(forHTTPHeaderField: "Content-Type"), "application/json")
         XCTAssertEqual(request.value(forHTTPHeaderField: "X-Query-Tag"),  SHA256.hash(request.httpBody!))
 
         // Ensure that the client inserts defaults headers
