@@ -181,15 +181,18 @@ extension Graph {
         }
 
         func graphRequestFor(query: GraphQL.AbstractQuery) -> URLRequest {
-            var request     = URLRequest(url: self.apiURL)
-            let requestData = String(describing: query).data(using: .utf8)!
+            var request = URLRequest(url: self.apiURL)
+
+            let requestData = try! JSONEncoder().encode([
+                "query": String(describing: query)
+            ])
 
             request.httpMethod              = "POST"
             request.httpBody                = requestData
             request.httpShouldHandleCookies = false
 
             request.setValue("application/json",       forHTTPHeaderField: Header.accept)
-            request.setValue("application/graphql",    forHTTPHeaderField: Header.contentType)
+            request.setValue("application/json",       forHTTPHeaderField: Header.contentType)
             request.setValue(SHA256.hash(requestData), forHTTPHeaderField: Header.queryTag)
 
             for (name, value) in self.headers {
