@@ -182,10 +182,10 @@ extension Storefront {
 			return field(field: "title", aliasSuffix: alias) as! String?
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "estimatedCost":
 					response.append(internalGetEstimatedCost())
 					response.append(contentsOf: internalGetEstimatedCost().childResponseObjectMap())

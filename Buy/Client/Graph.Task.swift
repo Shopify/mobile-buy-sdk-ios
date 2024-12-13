@@ -47,22 +47,22 @@ internal extension Graph {
 
         typealias TaskCompletion = (R?, QueryError?) -> Void
 
-        internal private(set) var isResumed:   Bool = false
+        internal private(set) var isResumed: Bool = false
         internal private(set) var isCancelled: Bool = false
 
-        internal let cache:        Cache
-        internal let session:      URLSession
-        internal let request:      URLRequest
-        internal let cachePolicy:  CachePolicy
+        internal let cache: Cache
+        internal let session: URLSession
+        internal let request: URLRequest
+        internal let cachePolicy: CachePolicy
         internal let retryHandler: RetryHandler<R>?
-        internal let completion:   TaskCompletion
+        internal let completion: TaskCompletion
 
-        internal var task:         URLSessionDataTask?
+        internal var task: URLSessionDataTask?
 
         // ----------------------------------
-        //  MARK: - Init -
+        // MARK: - Init -
         //
-        internal init(session: URLSession, cache: Cache, request: URLRequest, cachePolicy:  CachePolicy, retryHandler: RetryHandler<R>? = nil, completion: @escaping TaskCompletion) {
+        internal init(session: URLSession, cache: Cache, request: URLRequest, cachePolicy: CachePolicy, retryHandler: RetryHandler<R>? = nil, completion: @escaping TaskCompletion) {
             self.cache        = cache
             self.session      = session
             self.request      = request
@@ -72,7 +72,7 @@ internal extension Graph {
         }
 
         // ----------------------------------
-        //  MARK: - Control -
+        // MARK: - Control -
         //
         func resume() {
             self.isResumed = true
@@ -147,7 +147,7 @@ internal extension Graph {
         }
 
         // ----------------------------------
-        //  MARK: - Cache -
+        // MARK: - Cache -
         //
         private func cache(_ data: Data, for hash: Hash) {
             let cacheItem = CacheItem(hash: hash, data: data)
@@ -193,9 +193,9 @@ internal extension Graph {
             }
 
             let response = HTTPURLResponse(
-                url:          request.url!,
-                statusCode:   200,
-                httpVersion:  "HTTP/1.1",
+                url: request.url!,
+                statusCode: 200,
+                httpVersion: "HTTP/1.1",
                 headerFields: nil
             )
             let (model, _) = self.processResponse(item.data, response, nil)
@@ -204,7 +204,7 @@ internal extension Graph {
         }
 
         // ----------------------------------
-        //  MARK: - Session -
+        // MARK: - Session -
         //
         private func graphTaskWith(_ request: URLRequest, retryHandler: RetryHandler<R>? = nil, completion: @escaping (R?, Data?, QueryError?) -> Void) -> URLSessionDataTask {
             return self.session.dataTask(with: request) { data, response, error in

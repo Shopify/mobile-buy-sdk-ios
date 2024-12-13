@@ -145,10 +145,10 @@ extension Storefront {
 			return field(field: "totalAmount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "amountPerQuantity":
 					response.append(internalGetAmountPerQuantity())
 					response.append(contentsOf: internalGetAmountPerQuantity().childResponseObjectMap())

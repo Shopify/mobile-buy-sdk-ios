@@ -235,10 +235,10 @@ extension Storefront {
 			return field(field: "previewImage", aliasSuffix: alias) as! Storefront.Image?
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "presentation":
 					if let value = internalGetPresentation() {
 						response.append(value)

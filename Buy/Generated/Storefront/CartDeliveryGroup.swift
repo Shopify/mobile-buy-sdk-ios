@@ -227,10 +227,10 @@ extension Storefront {
 			return field(field: "selectedDeliveryOption", aliasSuffix: alias) as! Storefront.CartDeliveryOption?
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "cartLines":
 					response.append(internalGetCartLines())
 					response.append(contentsOf: internalGetCartLines().childResponseObjectMap())

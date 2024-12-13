@@ -105,7 +105,7 @@ extension Storefront {
 			var fields: [String] = []
 
 			switch email {
-				case .value(let email): 
+				case .value(let email):
 				guard let email = email else {
 					fields.append("email:null")
 					break
@@ -115,7 +115,7 @@ extension Storefront {
 			}
 
 			switch phone {
-				case .value(let phone): 
+				case .value(let phone):
 				guard let phone = phone else {
 					fields.append("phone:null")
 					break
@@ -125,7 +125,7 @@ extension Storefront {
 			}
 
 			switch companyLocationId {
-				case .value(let companyLocationId): 
+				case .value(let companyLocationId):
 				guard let companyLocationId = companyLocationId else {
 					fields.append("companyLocationId:null")
 					break
@@ -135,7 +135,7 @@ extension Storefront {
 			}
 
 			switch countryCode {
-				case .value(let countryCode): 
+				case .value(let countryCode):
 				guard let countryCode = countryCode else {
 					fields.append("countryCode:null")
 					break
@@ -145,7 +145,7 @@ extension Storefront {
 			}
 
 			switch customerAccessToken {
-				case .value(let customerAccessToken): 
+				case .value(let customerAccessToken):
 				guard let customerAccessToken = customerAccessToken else {
 					fields.append("customerAccessToken:null")
 					break
@@ -155,17 +155,17 @@ extension Storefront {
 			}
 
 			switch deliveryAddressPreferences {
-				case .value(let deliveryAddressPreferences): 
+				case .value(let deliveryAddressPreferences):
 				guard let deliveryAddressPreferences = deliveryAddressPreferences else {
 					fields.append("deliveryAddressPreferences:null")
 					break
 				}
-				fields.append("deliveryAddressPreferences:[\(deliveryAddressPreferences.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("deliveryAddressPreferences:[\(deliveryAddressPreferences.map { "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch preferences {
-				case .value(let preferences): 
+				case .value(let preferences):
 				guard let preferences = preferences else {
 					fields.append("preferences:null")
 					break

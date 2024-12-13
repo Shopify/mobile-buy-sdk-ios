@@ -48,7 +48,7 @@ extension Storefront {
 		open func cartAttributesUpdate(alias: String? = nil, attributes: [AttributeInput], cartId: GraphQL.ID, _ subfields: (CartAttributesUpdatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
-			args.append("attributes:[\(attributes.map{ "\($0.serialize())" }.joined(separator: ","))]")
+			args.append("attributes:[\(attributes.map { "\($0.serialize())" }.joined(separator: ","))]")
 
 			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
 
@@ -151,7 +151,7 @@ extension Storefront {
 			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
 
 			if let discountCodes = discountCodes {
-				args.append("discountCodes:[\(discountCodes.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
+				args.append("discountCodes:[\(discountCodes.map { "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
 			}
 
 			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
@@ -177,7 +177,7 @@ extension Storefront {
 
 			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
 
-			args.append("giftCardCodes:[\(giftCardCodes.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
+			args.append("giftCardCodes:[\(giftCardCodes.map { "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -202,7 +202,7 @@ extension Storefront {
 
 			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
 
-			args.append("lines:[\(lines.map{ "\($0.serialize())" }.joined(separator: ","))]")
+			args.append("lines:[\(lines.map { "\($0.serialize())" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -227,7 +227,7 @@ extension Storefront {
 
 			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
 
-			args.append("lineIds:[\(lineIds.map{ "\(GraphQL.quoteString(input: "\($0.rawValue)"))" }.joined(separator: ","))]")
+			args.append("lineIds:[\(lineIds.map { "\(GraphQL.quoteString(input: "\($0.rawValue)"))" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -252,7 +252,7 @@ extension Storefront {
 
 			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
 
-			args.append("lines:[\(lines.map{ "\($0.serialize())" }.joined(separator: ","))]")
+			args.append("lines:[\(lines.map { "\($0.serialize())" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -296,7 +296,7 @@ extension Storefront {
 		open func cartMetafieldsSet(alias: String? = nil, metafields: [CartMetafieldsSetInput], _ subfields: (CartMetafieldsSetPayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
-			args.append("metafields:[\(metafields.map{ "\($0.serialize())" }.joined(separator: ","))]")
+			args.append("metafields:[\(metafields.map { "\($0.serialize())" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -367,7 +367,7 @@ extension Storefront {
 
 			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
 
-			args.append("selectedDeliveryOptions:[\(selectedDeliveryOptions.map{ "\($0.serialize())" }.joined(separator: ","))]")
+			args.append("selectedDeliveryOptions:[\(selectedDeliveryOptions.map { "\($0.serialize())" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -1495,10 +1495,10 @@ extension Storefront {
 			return field(field: "shopPayPaymentRequestSessionSubmit", aliasSuffix: alias) as! Storefront.ShopPayPaymentRequestSessionSubmitPayload?
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "cartAttributesUpdate":
 					if let value = internalGetCartAttributesUpdate() {
 						response.append(value)

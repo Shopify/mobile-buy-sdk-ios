@@ -207,7 +207,7 @@ extension Storefront {
 			return field(field: "supportedDigitalWallets", aliasSuffix: alias) as! [Storefront.DigitalWallet]
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}

@@ -95,10 +95,10 @@ extension Storefront {
 			return field(field: "userErrors", aliasSuffix: alias) as! [Storefront.UserErrorsShopPayPaymentRequestSessionUserErrors]
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "paymentRequestReceipt":
 					if let value = internalGetPaymentRequestReceipt() {
 						response.append(value)

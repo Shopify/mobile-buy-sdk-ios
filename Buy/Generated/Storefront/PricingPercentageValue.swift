@@ -66,7 +66,7 @@ extension Storefront {
 			return field(field: "percentage", aliasSuffix: alias) as! Double
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}

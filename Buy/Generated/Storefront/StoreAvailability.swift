@@ -141,10 +141,10 @@ extension Storefront {
 			return field(field: "quantityAvailable", aliasSuffix: alias) as! Int32
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "location":
 					response.append(internalGetLocation())
 					response.append(contentsOf: internalGetLocation().childResponseObjectMap())

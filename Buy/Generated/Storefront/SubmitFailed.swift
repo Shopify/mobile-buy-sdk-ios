@@ -92,7 +92,7 @@ extension Storefront {
 			return field(field: "errors", aliasSuffix: alias) as! [Storefront.SubmissionError]
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}

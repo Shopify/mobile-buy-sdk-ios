@@ -42,7 +42,7 @@ extension Storefront {
 		}
 
 		/// The amount that was taken from the gift card by applying it. 
-		@available(*, deprecated, message:"Use `amountUsed` instead.")
+		@available(*, deprecated, message: "Use `amountUsed` instead.")
 		@discardableResult
 		open func amountUsedV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> AppliedGiftCardQuery {
 			let subquery = MoneyV2Query()
@@ -63,7 +63,7 @@ extension Storefront {
 		}
 
 		/// The amount left on the gift card. 
-		@available(*, deprecated, message:"Use `balance` instead.")
+		@available(*, deprecated, message: "Use `balance` instead.")
 		@discardableResult
 		open func balanceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> AppliedGiftCardQuery {
 			let subquery = MoneyV2Query()
@@ -162,7 +162,7 @@ extension Storefront {
 		}
 
 		/// The amount that was taken from the gift card by applying it. 
-		@available(*, deprecated, message:"Use `amountUsed` instead.")
+		@available(*, deprecated, message: "Use `amountUsed` instead.")
 		open var amountUsedV2: Storefront.MoneyV2 {
 			return internalGetAmountUsedV2()
 		}
@@ -181,7 +181,7 @@ extension Storefront {
 		}
 
 		/// The amount left on the gift card. 
-		@available(*, deprecated, message:"Use `balance` instead.")
+		@available(*, deprecated, message: "Use `balance` instead.")
 		open var balanceV2: Storefront.MoneyV2 {
 			return internalGetBalanceV2()
 		}
@@ -217,10 +217,10 @@ extension Storefront {
 			return field(field: "presentmentAmountUsed", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "amountUsed":
 					response.append(internalGetAmountUsed())
 					response.append(contentsOf: internalGetAmountUsed().childResponseObjectMap())

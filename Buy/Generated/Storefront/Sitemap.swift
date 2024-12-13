@@ -116,10 +116,10 @@ extension Storefront {
 			return field(field: "resources", aliasSuffix: alias) as! Storefront.PaginatedSitemapResources?
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "pagesCount":
 					if let value = internalGetPagesCount() {
 						response.append(value)

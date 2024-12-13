@@ -26,7 +26,7 @@
 
 import Foundation
 
-internal typealias JSON = [String : Any]
+internal typealias JSON = [String: Any]
 
 extension Graph {
 
@@ -67,11 +67,11 @@ extension Graph {
 
         internal let cache: Cache
 
-        internal let apiURL:  URL
-        internal let headers: [String : String]
+        internal let apiURL: URL
+        internal let headers: [String: String]
 
         // ----------------------------------
-        //  MARK: - Init -
+        // MARK: - Init -
         //
         /// Creates and initialized a new `Client`.
         ///
@@ -88,11 +88,11 @@ extension Graph {
             self.cache   = Cache(shopName: shopDomain)
             self.session = session
             self.headers = [
-                Header.userAgent     : Global.userAgent,
-                Header.authorization : apiKey,
-                Header.sdkVersion    : Global.frameworkVersion,
-                Header.sdkVariant    : "ios",
-                Header.language      : locale?.languageIdentifier ?? "",
+                Header.userAgent: Global.userAgent,
+                Header.authorization: apiKey,
+                Header.sdkVersion: Global.frameworkVersion,
+                Header.sdkVariant: "ios",
+                Header.language: locale?.languageIdentifier ?? ""
             ]
 
             precondition(!apiKey.isEmpty, "API Key is required to the Buy SDK. You can obtain one by adding a Mobile App channel here: \(shopURL.appendingPathComponent("admin"))")
@@ -108,7 +108,7 @@ extension Graph {
         }
 
         // ----------------------------------
-        //  MARK: - Queries -
+        // MARK: - Queries -
         //
         /// Performs a GraphQL `query` request.
         ///
@@ -129,15 +129,15 @@ extension Graph {
         ///
         public func queryGraphWith(_ query: Storefront.QueryRootQuery, cachePolicy: CachePolicy? = nil, retryHandler: RetryHandler<Storefront.QueryRoot>? = nil, completionHandler: @escaping QueryCompletion) -> Task {
             return self.graphRequestTask(
-                query:             query,
-                cachePolicy:       cachePolicy ?? self.cachePolicy,
-                retryHandler:      retryHandler,
+                query: query,
+                cachePolicy: cachePolicy ?? self.cachePolicy,
+                retryHandler: retryHandler,
                 completionHandler: completionHandler
             )
         }
 
         // ----------------------------------
-        //  MARK: - Mutations -
+        // MARK: - Mutations -
         //
         /// Performs a GraphQL `mutation` request.
         ///
@@ -157,26 +157,26 @@ extension Graph {
         ///
         public func mutateGraphWith(_ mutation: Storefront.MutationQuery, retryHandler: RetryHandler<Storefront.Mutation>? = nil, completionHandler: @escaping MutationCompletion) -> Task {
             return self.graphRequestTask(
-                query:             mutation,
-                cachePolicy:       .networkOnly,
-                retryHandler:      retryHandler,
+                query: mutation,
+                cachePolicy: .networkOnly,
+                retryHandler: retryHandler,
                 completionHandler: completionHandler
             )
         }
 
         // ----------------------------------
-        //  MARK: - Request Management -
+        // MARK: - Request Management -
         //
         private func graphRequestTask<Q: GraphQL.AbstractQuery, R: GraphQL.AbstractResponse>(query: Q, cachePolicy: CachePolicy, retryHandler: RetryHandler<R>? = nil, completionHandler: @escaping (R?, QueryError?) -> Void) -> Task {
 
             let request = self.graphRequestFor(query: query)
             return InternalTask<R>(
-                session:      self.session,
-                cache:        self.cache,
-                request:      request,
-                cachePolicy:  cachePolicy,
+                session: self.session,
+                cache: self.cache,
+                request: request,
+                cachePolicy: cachePolicy,
                 retryHandler: retryHandler,
-                completion:   completionHandler
+                completion: completionHandler
             )
         }
 
@@ -191,8 +191,8 @@ extension Graph {
             request.httpBody                = requestData
             request.httpShouldHandleCookies = false
 
-            request.setValue("application/json",       forHTTPHeaderField: Header.accept)
-            request.setValue("application/json",       forHTTPHeaderField: Header.contentType)
+            request.setValue("application/json", forHTTPHeaderField: Header.accept)
+            request.setValue("application/json", forHTTPHeaderField: Header.contentType)
             request.setValue(SHA256.hash(requestData), forHTTPHeaderField: Header.queryTag)
 
             for (name, value) in self.headers {

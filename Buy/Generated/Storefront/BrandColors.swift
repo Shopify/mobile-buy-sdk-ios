@@ -94,7 +94,7 @@ extension Storefront {
 			return field(field: "secondary", aliasSuffix: alias) as! [Storefront.BrandColorGroup]
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}

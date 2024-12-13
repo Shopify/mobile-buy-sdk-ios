@@ -80,7 +80,7 @@ extension Storefront {
 			var fields: [String] = []
 
 			switch deliveryAddress {
-				case .value(let deliveryAddress): 
+				case .value(let deliveryAddress):
 				guard let deliveryAddress = deliveryAddress else {
 					fields.append("deliveryAddress:null")
 					break
@@ -90,7 +90,7 @@ extension Storefront {
 			}
 
 			switch oneTimeUse {
-				case .value(let oneTimeUse): 
+				case .value(let oneTimeUse):
 				guard let oneTimeUse = oneTimeUse else {
 					fields.append("oneTimeUse:null")
 					break
@@ -100,7 +100,7 @@ extension Storefront {
 			}
 
 			switch deliveryAddressValidationStrategy {
-				case .value(let deliveryAddressValidationStrategy): 
+				case .value(let deliveryAddressValidationStrategy):
 				guard let deliveryAddressValidationStrategy = deliveryAddressValidationStrategy else {
 					fields.append("deliveryAddressValidationStrategy:null")
 					break
@@ -110,7 +110,7 @@ extension Storefront {
 			}
 
 			switch customerAddressId {
-				case .value(let customerAddressId): 
+				case .value(let customerAddressId):
 				guard let customerAddressId = customerAddressId else {
 					fields.append("customerAddressId:null")
 					break

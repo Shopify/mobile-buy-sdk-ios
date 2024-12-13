@@ -32,7 +32,7 @@ class Graph_RetryHandlerTests: XCTestCase {
     typealias MutationRetryHandler = Graph.RetryHandler<Storefront.Mutation>
 
     // ----------------------------------
-    //  MARK: - Init -
+    // MARK: - Init -
     //
     func testInit() {
         let handler = self.createHandlerWith(endurance: .infinite)
@@ -43,9 +43,9 @@ class Graph_RetryHandlerTests: XCTestCase {
             XCTFail()
         }
 
-        XCTAssertEqual(handler.interval,    3.0)
+        XCTAssertEqual(handler.interval, 3.0)
         XCTAssertEqual(handler.repeatCount, 0)
-        XCTAssertEqual(handler.canRetry,    true)
+        XCTAssertEqual(handler.canRetry, true)
     }
 
     func testRepeatCount() {
@@ -66,10 +66,10 @@ class Graph_RetryHandlerTests: XCTestCase {
     }
 
     // ----------------------------------
-    //  MARK: - Handler Creation -
+    // MARK: - Handler Creation -
     //
     private func createHandlerWith(endurance: MutationRetryHandler.Endurance) -> MutationRetryHandler {
-        return MutationRetryHandler(endurance: endurance, interval: 3.0) { (mutation, error) -> Bool in
+        return MutationRetryHandler(endurance: endurance, interval: 3.0) { (_, _) -> Bool in
             return true
         }
     }

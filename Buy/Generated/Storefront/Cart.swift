@@ -190,7 +190,7 @@ extension Storefront {
 		/// `estimatedCost` field uses the `buyerIdentity` field to determine 
 		/// [international 
 		/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing). 
-		@available(*, deprecated, message:"Use `cost` instead.")
+		@available(*, deprecated, message: "Use `cost` instead.")
 		@discardableResult
 		open func estimatedCost(alias: String? = nil, _ subfields: (CartEstimatedCostQuery) -> Void) -> CartQuery {
 			let subquery = CartEstimatedCostQuery()
@@ -287,7 +287,7 @@ extension Storefront {
 		open func metafields(alias: String? = nil, identifiers: [HasMetafieldsIdentifier], _ subfields: (MetafieldQuery) -> Void) -> CartQuery {
 			var args: [String] = []
 
-			args.append("identifiers:[\(identifiers.map{ "\($0.serialize())" }.joined(separator: ","))]")
+			args.append("identifiers:[\(identifiers.map { "\($0.serialize())" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -560,7 +560,7 @@ extension Storefront {
 		/// `estimatedCost` field uses the `buyerIdentity` field to determine 
 		/// [international 
 		/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing). 
-		@available(*, deprecated, message:"Use `cost` instead.")
+		@available(*, deprecated, message: "Use `cost` instead.")
 		open var estimatedCost: Storefront.CartEstimatedCost {
 			return internalGetEstimatedCost()
 		}
@@ -647,10 +647,10 @@ extension Storefront {
 			return field(field: "updatedAt", aliasSuffix: alias) as! Date
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "appliedGiftCards":
 					internalGetAppliedGiftCards().forEach {
 						response.append($0)

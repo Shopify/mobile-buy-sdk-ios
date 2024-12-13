@@ -32,7 +32,7 @@ extension Storefront {
 		public typealias Response = Article
 
 		/// The article's author. 
-		@available(*, deprecated, message:"Use `authorV2` instead.")
+		@available(*, deprecated, message: "Use `authorV2` instead.")
 		@discardableResult
 		open func author(alias: String? = nil, _ subfields: (ArticleAuthorQuery) -> Void) -> ArticleQuery {
 			let subquery = ArticleAuthorQuery()
@@ -218,7 +218,7 @@ extension Storefront {
 		open func metafields(alias: String? = nil, identifiers: [HasMetafieldsIdentifier], _ subfields: (MetafieldQuery) -> Void) -> ArticleQuery {
 			var args: [String] = []
 
-			args.append("identifiers:[\(identifiers.map{ "\($0.serialize())" }.joined(separator: ","))]")
+			args.append("identifiers:[\(identifiers.map { "\($0.serialize())" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -422,7 +422,7 @@ extension Storefront {
 		}
 
 		/// The article's author. 
-		@available(*, deprecated, message:"Use `authorV2` instead.")
+		@available(*, deprecated, message: "Use `authorV2` instead.")
 		open var author: Storefront.ArticleAuthor {
 			return internalGetAuthor()
 		}
@@ -623,10 +623,10 @@ extension Storefront {
 			return field(field: "trackingParameters", aliasSuffix: alias) as! String?
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "author":
 					response.append(internalGetAuthor())
 					response.append(contentsOf: internalGetAuthor().childResponseObjectMap())

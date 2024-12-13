@@ -105,7 +105,7 @@ extension Storefront {
 			var fields: [String] = []
 
 			switch available {
-				case .value(let available): 
+				case .value(let available):
 				guard let available = available else {
 					fields.append("available:null")
 					break
@@ -115,7 +115,7 @@ extension Storefront {
 			}
 
 			switch variantOption {
-				case .value(let variantOption): 
+				case .value(let variantOption):
 				guard let variantOption = variantOption else {
 					fields.append("variantOption:null")
 					break
@@ -125,7 +125,7 @@ extension Storefront {
 			}
 
 			switch productType {
-				case .value(let productType): 
+				case .value(let productType):
 				guard let productType = productType else {
 					fields.append("productType:null")
 					break
@@ -135,7 +135,7 @@ extension Storefront {
 			}
 
 			switch productVendor {
-				case .value(let productVendor): 
+				case .value(let productVendor):
 				guard let productVendor = productVendor else {
 					fields.append("productVendor:null")
 					break
@@ -145,7 +145,7 @@ extension Storefront {
 			}
 
 			switch price {
-				case .value(let price): 
+				case .value(let price):
 				guard let price = price else {
 					fields.append("price:null")
 					break
@@ -155,7 +155,7 @@ extension Storefront {
 			}
 
 			switch productMetafield {
-				case .value(let productMetafield): 
+				case .value(let productMetafield):
 				guard let productMetafield = productMetafield else {
 					fields.append("productMetafield:null")
 					break
@@ -165,7 +165,7 @@ extension Storefront {
 			}
 
 			switch variantMetafield {
-				case .value(let variantMetafield): 
+				case .value(let variantMetafield):
 				guard let variantMetafield = variantMetafield else {
 					fields.append("variantMetafield:null")
 					break
@@ -175,7 +175,7 @@ extension Storefront {
 			}
 
 			switch tag {
-				case .value(let tag): 
+				case .value(let tag):
 				guard let tag = tag else {
 					fields.append("tag:null")
 					break

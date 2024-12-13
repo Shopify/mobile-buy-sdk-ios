@@ -96,7 +96,7 @@ extension Storefront {
 			fields.append("header:\(header.serialize())")
 
 			switch lastDigits {
-				case .value(let lastDigits): 
+				case .value(let lastDigits):
 				guard let lastDigits = lastDigits else {
 					fields.append("lastDigits:null")
 					break

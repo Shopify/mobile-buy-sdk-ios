@@ -30,20 +30,20 @@ import XCTest
 class Graph_QueryErrorTests: XCTestCase {
 
     // ----------------------------------
-    //  MARK: - Reason -
+    // MARK: - Reason -
     //
     func testInitReasonComplete() {
         let json: JSON = [
-            "message" : "Good reason for failure",
-            "line"    : 2,
-            "column"  : 4,
+            "message": "Good reason for failure",
+            "line": 2,
+            "column": 4
         ]
 
         let reason = Graph.QueryError.Reason(json: json)
 
         XCTAssertEqual(reason.message, json["message"] as! String)
-        XCTAssertEqual(reason.line,    json["line"]    as? Int)
-        XCTAssertEqual(reason.column,  json["column"]  as? Int)
+        XCTAssertEqual(reason.line, json["line"]    as? Int)
+        XCTAssertEqual(reason.column, json["column"]  as? Int)
     }
 
     func testInitReasonIncomplete() {

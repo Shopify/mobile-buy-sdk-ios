@@ -39,7 +39,7 @@ enum SHA256 {
             CC_SHA256_Final(pointer, &context)
         }
 
-        return Container32.string(container);
+        return Container32.string(container)
     }
 
     static func hash(_ data: Data) -> String {
@@ -55,7 +55,7 @@ enum SHA256 {
             CC_SHA256_Final(pointer, &context)
         }
 
-        return Container32.string(container);
+        return Container32.string(container)
     }
 }
 
@@ -81,9 +81,9 @@ private enum Container32 {
 
     static func string(_ allocation: Allocation) -> String {
         String(format: "%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
-               allocation.0,  allocation.1,  allocation.2,  allocation.3,
-               allocation.4,  allocation.5,  allocation.6,  allocation.7,
-               allocation.8,  allocation.9,  allocation.10, allocation.11,
+               allocation.0, allocation.1, allocation.2, allocation.3,
+               allocation.4, allocation.5, allocation.6, allocation.7,
+               allocation.8, allocation.9, allocation.10, allocation.11,
                allocation.12, allocation.13, allocation.14, allocation.15,
 
                allocation.16, allocation.17, allocation.18, allocation.19,

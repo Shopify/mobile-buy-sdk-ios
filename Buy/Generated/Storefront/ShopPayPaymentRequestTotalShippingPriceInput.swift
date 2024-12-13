@@ -72,17 +72,17 @@ extension Storefront {
 			var fields: [String] = []
 
 			switch discounts {
-				case .value(let discounts): 
+				case .value(let discounts):
 				guard let discounts = discounts else {
 					fields.append("discounts:null")
 					break
 				}
-				fields.append("discounts:[\(discounts.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("discounts:[\(discounts.map { "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch originalTotal {
-				case .value(let originalTotal): 
+				case .value(let originalTotal):
 				guard let originalTotal = originalTotal else {
 					fields.append("originalTotal:null")
 					break
@@ -92,7 +92,7 @@ extension Storefront {
 			}
 
 			switch finalTotal {
-				case .value(let finalTotal): 
+				case .value(let finalTotal):
 				guard let finalTotal = finalTotal else {
 					fields.append("finalTotal:null")
 					break

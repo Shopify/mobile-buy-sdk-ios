@@ -76,27 +76,27 @@ extension Storefront {
 			var fields: [String] = []
 
 			switch deliveryMethod {
-				case .value(let deliveryMethod): 
+				case .value(let deliveryMethod):
 				guard let deliveryMethod = deliveryMethod else {
 					fields.append("deliveryMethod:null")
 					break
 				}
-				fields.append("deliveryMethod:[\(deliveryMethod.map{ "\($0.rawValue)" }.joined(separator: ","))]")
+				fields.append("deliveryMethod:[\(deliveryMethod.map { "\($0.rawValue)" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch pickupHandle {
-				case .value(let pickupHandle): 
+				case .value(let pickupHandle):
 				guard let pickupHandle = pickupHandle else {
 					fields.append("pickupHandle:null")
 					break
 				}
-				fields.append("pickupHandle:[\(pickupHandle.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
+				fields.append("pickupHandle:[\(pickupHandle.map { "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch coordinates {
-				case .value(let coordinates): 
+				case .value(let coordinates):
 				guard let coordinates = coordinates else {
 					fields.append("coordinates:null")
 					break

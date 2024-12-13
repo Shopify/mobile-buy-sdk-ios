@@ -69,7 +69,7 @@ extension Storefront {
 			var fields: [String] = []
 
 			switch delivery {
-				case .value(let delivery): 
+				case .value(let delivery):
 				guard let delivery = delivery else {
 					fields.append("delivery:null")
 					break
@@ -79,12 +79,12 @@ extension Storefront {
 			}
 
 			switch wallet {
-				case .value(let wallet): 
+				case .value(let wallet):
 				guard let wallet = wallet else {
 					fields.append("wallet:null")
 					break
 				}
-				fields.append("wallet:[\(wallet.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
+				fields.append("wallet:[\(wallet.map { "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 

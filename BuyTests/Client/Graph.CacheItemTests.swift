@@ -33,7 +33,7 @@ class Graph_CacheItemTests: XCTestCase {
     let testDirectory = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("com.cache.test")
 
     // ----------------------------------
-    //  MARK: - Setup -
+    // MARK: - Setup -
     //
     override func setUp() {
         super.setUp()
@@ -48,7 +48,7 @@ class Graph_CacheItemTests: XCTestCase {
     }
 
     // ----------------------------------
-    //  MARK: - Init -
+    // MARK: - Init -
     //
     func testInit() {
         let data  = "abc".data(using: .utf8)!
@@ -83,7 +83,7 @@ class Graph_CacheItemTests: XCTestCase {
     }
 
     // ----------------------------------
-    //  MARK: - Write -
+    // MARK: - Write -
     //
     func testWrite() {
         let item     = self.defaultCacheItem()
@@ -110,7 +110,7 @@ class Graph_CacheItemTests: XCTestCase {
     }
 
     // ----------------------------------
-    //  MARK: - Location -
+    // MARK: - Location -
     //
     func testLocationInitInParent() {
         let parentURL = URL(fileURLWithPath: "/root")
@@ -130,7 +130,7 @@ class Graph_CacheItemTests: XCTestCase {
     }
 
     // ----------------------------------
-    //  MARK: - Private -
+    // MARK: - Private -
     //
     private func defaultCacheItem() -> Graph.CacheItem {
         let data  = "abc".data(using: .utf8)!

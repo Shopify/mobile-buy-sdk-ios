@@ -42,7 +42,7 @@ extension Storefront {
 		}
 
 		/// The list of errors that occurred from executing the mutation. 
-		@available(*, deprecated, message:"Use `customerUserErrors` instead.")
+		@available(*, deprecated, message: "Use `customerUserErrors` instead.")
 		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerRecoverPayloadQuery {
 			let subquery = UserErrorQuery()
@@ -87,7 +87,7 @@ extension Storefront {
 		}
 
 		/// The list of errors that occurred from executing the mutation. 
-		@available(*, deprecated, message:"Use `customerUserErrors` instead.")
+		@available(*, deprecated, message: "Use `customerUserErrors` instead.")
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()
 		}
@@ -96,7 +96,7 @@ extension Storefront {
 			return field(field: "userErrors", aliasSuffix: alias) as! [Storefront.UserError]
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}

@@ -91,7 +91,7 @@ extension Storefront {
 			return field(field: "value", aliasSuffix: alias) as! SellingPlanCheckoutChargeValue
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}

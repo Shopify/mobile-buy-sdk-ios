@@ -91,7 +91,7 @@ extension Storefront {
 			var fields: [String] = []
 
 			switch firstName {
-				case .value(let firstName): 
+				case .value(let firstName):
 				guard let firstName = firstName else {
 					fields.append("firstName:null")
 					break
@@ -101,7 +101,7 @@ extension Storefront {
 			}
 
 			switch lastName {
-				case .value(let lastName): 
+				case .value(let lastName):
 				guard let lastName = lastName else {
 					fields.append("lastName:null")
 					break
@@ -113,7 +113,7 @@ extension Storefront {
 			fields.append("email:\(GraphQL.quoteString(input: email))")
 
 			switch phone {
-				case .value(let phone): 
+				case .value(let phone):
 				guard let phone = phone else {
 					fields.append("phone:null")
 					break
@@ -125,7 +125,7 @@ extension Storefront {
 			fields.append("password:\(GraphQL.quoteString(input: password))")
 
 			switch acceptsMarketing {
-				case .value(let acceptsMarketing): 
+				case .value(let acceptsMarketing):
 				guard let acceptsMarketing = acceptsMarketing else {
 					fields.append("acceptsMarketing:null")
 					break

@@ -59,7 +59,7 @@ extension Storefront {
 
 		/// The compare at price of the variant. This can be used to mark a variant as 
 		/// on sale, when `compareAtPriceV2` is higher than `priceV2`. 
-		@available(*, deprecated, message:"Use `compareAtPrice` instead.")
+		@available(*, deprecated, message: "Use `compareAtPrice` instead.")
 		@discardableResult
 		open func compareAtPriceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ProductVariantQuery {
 			let subquery = MoneyV2Query()
@@ -207,7 +207,7 @@ extension Storefront {
 		open func metafields(alias: String? = nil, identifiers: [HasMetafieldsIdentifier], _ subfields: (MetafieldQuery) -> Void) -> ProductVariantQuery {
 			var args: [String] = []
 
-			args.append("identifiers:[\(identifiers.map{ "\($0.serialize())" }.joined(separator: ","))]")
+			args.append("identifiers:[\(identifiers.map { "\($0.serialize())" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -229,7 +229,7 @@ extension Storefront {
 		}
 
 		/// The product variant’s price. 
-		@available(*, deprecated, message:"Use `price` instead.")
+		@available(*, deprecated, message: "Use `price` instead.")
 		@discardableResult
 		open func priceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ProductVariantQuery {
 			let subquery = MoneyV2Query()
@@ -726,7 +726,7 @@ extension Storefront {
 
 		/// The compare at price of the variant. This can be used to mark a variant as 
 		/// on sale, when `compareAtPriceV2` is higher than `priceV2`. 
-		@available(*, deprecated, message:"Use `compareAtPrice` instead.")
+		@available(*, deprecated, message: "Use `compareAtPrice` instead.")
 		open var compareAtPriceV2: Storefront.MoneyV2? {
 			return internalGetCompareAtPriceV2()
 		}
@@ -828,7 +828,7 @@ extension Storefront {
 		}
 
 		/// The product variant’s price. 
-		@available(*, deprecated, message:"Use `price` instead.")
+		@available(*, deprecated, message: "Use `price` instead.")
 		open var priceV2: Storefront.MoneyV2 {
 			return internalGetPriceV2()
 		}
@@ -1008,10 +1008,10 @@ extension Storefront {
 			return field(field: "weightUnit", aliasSuffix: alias) as! Storefront.WeightUnit
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "compareAtPrice":
 					if let value = internalGetCompareAtPrice() {
 						response.append(value)

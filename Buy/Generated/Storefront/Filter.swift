@@ -160,7 +160,7 @@ extension Storefront {
 			return field(field: "values", aliasSuffix: alias) as! [Storefront.FilterValue]
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}

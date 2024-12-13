@@ -40,28 +40,28 @@ final class MockDataTask: URLSessionDataTask {
         }
         get {
             if let data = self.responseData {
-                return (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String : Any]
+                return (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: Any]
             } else {
                 return nil
             }
         }
     }
 
-    var responseData:   Data?
+    var responseData: Data?
     var isHTTPResponse: Bool = true
-    var responseCode:   Int  = 0
-    var headerFields:   [String: String]?
-    var responseError:  (domain: String, code: Int)?
+    var responseCode: Int  = 0
+    var headerFields: [String: String]?
+    var responseError: (domain: String, code: Int)?
 
     private(set) var isResumed  = false
     private(set) var isCanceled = false
     private(set) var isComplete = false
 
-    private(set) var request:    URLRequest?
+    private(set) var request: URLRequest?
     private(set) var completion: DataTaskCompletion?
 
     // ----------------------------------
-    //  MARK: - Init -
+    // MARK: - Init -
     //
     init(request: URLRequest? = nil, completion: DataTaskCompletion? = nil) {
         self.request    = request
@@ -69,7 +69,7 @@ final class MockDataTask: URLSessionDataTask {
     }
 
     // ----------------------------------
-    //  MARK: - State -
+    // MARK: - State -
     //
     override var state: URLSessionTask.State {
         if self.isComplete {
@@ -93,7 +93,7 @@ final class MockDataTask: URLSessionDataTask {
     }
 
     // ----------------------------------
-    //  MARK: - Completion -
+    // MARK: - Completion -
     //
     private func executeCompletion() {
         self.completion?(
@@ -112,18 +112,18 @@ final class MockDataTask: URLSessionDataTask {
 
         if self.isHTTPResponse {
             return HTTPURLResponse(
-                url:          url,
-                statusCode:   self.responseCode,
-                httpVersion:  "HTTP/1.1",
+                url: url,
+                statusCode: self.responseCode,
+                httpVersion: "HTTP/1.1",
                 headerFields: self.headerFields
             )
 
         } else {
             return URLResponse(
-                url:                   url,
-                mimeType:              "application/json",
+                url: url,
+                mimeType: "application/json",
                 expectedContentLength: self.data()?.count ?? 0,
-                textEncodingName:      "utf8"
+                textEncodingName: "utf8"
             )
         }
     }

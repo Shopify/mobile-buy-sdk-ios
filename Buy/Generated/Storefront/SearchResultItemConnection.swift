@@ -166,10 +166,10 @@ extension Storefront {
 			return field(field: "totalCount", aliasSuffix: alias) as! Int32
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "edges":
 					internalGetEdges().forEach {
 						response.append($0)
