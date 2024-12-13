@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) 2024 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -27,11 +27,17 @@
 import Foundation
 
 extension Storefront {
-	/// A product represents an individual item for sale in a Shopify store. 
-	/// Products are often physical, but they don't have to be. For example, a 
-	/// digital download (such as a movie, music or ebook file) also qualifies as a 
-	/// product, as do services (such as equipment rental, work for hire, 
-	/// customization of another product or an extended warranty). 
+	/// The `Product` object lets you manage products in a merchant’s store. 
+	/// Products are the goods and services that merchants offer to customers. They 
+	/// can include various details such as title, description, price, images, and 
+	/// options such as size or color. You can use [product 
+	/// variants](/docs/api/storefront/latest/objects/ProductVariant) to create or 
+	/// update different versions of the same product. You can also add or update 
+	/// product [media](/docs/api/storefront/latest/interfaces/Media). Products can 
+	/// be organized by grouping them into a 
+	/// [collection](/docs/api/storefront/latest/objects/Collection). Learn more 
+	/// about working with [products and 
+	/// collections](/docs/storefronts/headless/building-with-the-storefront-api/products-collections). 
 	open class ProductQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Product
 
@@ -85,7 +91,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The taxonomy category for the product. 
+		/// The category of a product from [Shopify's Standard Product 
+		/// Taxonomy](https://shopify.github.io/product-taxonomy/releases/unstable/?categoryId=sg-4-17-2-17). 
 		@discardableResult
 		open func category(alias: String? = nil, _ subfields: (TaxonomyCategoryQuery) -> Void) -> ProductQuery {
 			let subquery = TaxonomyCategoryQuery()
@@ -95,7 +102,8 @@ extension Storefront {
 			return self
 		}
 
-		/// List of collections a product belongs to. 
+		/// A list of [collections](/docs/api/storefront/latest/objects/Collection) 
+		/// that include the product. 
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -137,7 +145,9 @@ extension Storefront {
 			return self
 		}
 
-		/// The compare at price of the product across all variants. 
+		/// The [compare-at price 
+		/// range](https://help.shopify.com/manual/products/details/product-pricing/sale-pricing) 
+		/// of the product in the shop's default currency. 
 		@discardableResult
 		open func compareAtPriceRange(alias: String? = nil, _ subfields: (ProductPriceRangeQuery) -> Void) -> ProductQuery {
 			let subquery = ProductPriceRangeQuery()
@@ -154,10 +164,11 @@ extension Storefront {
 			return self
 		}
 
-		/// Stripped description of the product, single line with HTML tags removed. 
+		/// A single-line description of the product, with [HTML 
+		/// tags](https://developer.mozilla.org/en-US/docs/Web/HTML) removed. 
 		///
 		/// - parameters:
-		///     - truncateAt: Truncates string after the given length.
+		///     - truncateAt: Truncates a string after the given length.
 		///
 		@discardableResult
 		open func description(alias: String? = nil, truncateAt: Int32? = nil) -> ProductQuery {
@@ -173,7 +184,9 @@ extension Storefront {
 			return self
 		}
 
-		/// The description of the product, complete with HTML formatting. 
+		/// The description of the product, with HTML tags. For example, the 
+		/// description might include bold `<strong></strong>` and italic `<i></i>` 
+		/// text. 
 		@discardableResult
 		open func descriptionHtml(alias: String? = nil) -> ProductQuery {
 			addField(field: "descriptionHtml", aliasSuffix: alias)
@@ -245,9 +258,9 @@ extension Storefront {
 			return self
 		}
 
-		/// A human-friendly unique string for the Product automatically generated from 
-		/// its title. They are used by the Liquid templating language to refer to 
-		/// objects. 
+		/// A unique, human-readable string of the product's title. A handle can 
+		/// contain letters, hyphens (`-`), and numbers, but no spaces. The handle is 
+		/// used in the online store URL for the product. 
 		@discardableResult
 		open func handle(alias: String? = nil) -> ProductQuery {
 			addField(field: "handle", aliasSuffix: alias)
@@ -315,7 +328,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The media associated with the product. 
+		/// The [media](/docs/apps/build/online-store/product-media) that are 
+		/// associated with the product. Valid media are images, 3D models, videos. 
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -362,7 +376,9 @@ extension Storefront {
 			return self
 		}
 
-		/// Returns a metafield found by namespace and key. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
+		/// including its `namespace` and `key`, that's associated with a Shopify 
+		/// resource for the purposes of adding and storing additional information. 
 		///
 		/// - parameters:
 		///     - namespace: The container the metafield belongs to. If omitted, the app-reserved namespace will be used.
@@ -387,8 +403,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The metafields associated with the resource matching the supplied list of 
-		/// namespaces and keys. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
+		/// associates with a Shopify resource. 
 		///
 		/// - parameters:
 		///     - identifiers: The list of metafields to retrieve by namespace and key.
@@ -410,16 +426,18 @@ extension Storefront {
 			return self
 		}
 
-		/// The URL used for viewing the resource on the shop's Online Store. Returns 
-		/// `null` if the resource is currently not published to the Online Store sales 
-		/// channel. 
+		/// The product's URL on the online store. If `null`, then the product isn't 
+		/// published to the online store sales channel. 
 		@discardableResult
 		open func onlineStoreUrl(alias: String? = nil) -> ProductQuery {
 			addField(field: "onlineStoreUrl", aliasSuffix: alias)
 			return self
 		}
 
-		/// List of product options. 
+		/// A list of product options. The limit is defined by the [shop's resource 
+		/// limits for product 
+		/// options](/docs/api/admin-graphql/latest/objects/Shop#field-resourcelimits) 
+		/// (`Shop.resourceLimits.maxProductOptions`). 
 		///
 		/// - parameters:
 		///     - first: Truncate the array result to this size.
@@ -441,7 +459,9 @@ extension Storefront {
 			return self
 		}
 
-		/// The price range. 
+		/// The minimum and maximum prices of a product, expressed in decimal numbers. 
+		/// For example, if the product is priced between $10.00 and $50.00, then the 
+		/// price range is $10.00 - $50.00. 
 		@discardableResult
 		open func priceRange(alias: String? = nil, _ subfields: (ProductPriceRangeQuery) -> Void) -> ProductQuery {
 			let subquery = ProductPriceRangeQuery()
@@ -451,8 +471,9 @@ extension Storefront {
 			return self
 		}
 
-		/// A categorization that a product can be tagged with, commonly used for 
-		/// filtering and searching. 
+		/// The [product 
+		/// type](https://help.shopify.com/manual/products/details/product-type) that 
+		/// merchants define. 
 		@discardableResult
 		open func productType(alias: String? = nil) -> ProductQuery {
 			addField(field: "productType", aliasSuffix: alias)
@@ -466,7 +487,12 @@ extension Storefront {
 			return self
 		}
 
-		/// Whether the product can only be purchased with a selling plan. 
+		/// Whether the product can only be purchased with a [selling 
+		/// plan](/docs/apps/build/purchase-options/subscriptions/selling-plans). 
+		/// Products that are sold on subscription (`requiresSellingPlan: true`) can be 
+		/// updated only for online stores. If you update a product to be 
+		/// subscription-only (`requiresSellingPlan:false`), then the product is 
+		/// unpublished from all channels, except the online store. 
 		@discardableResult
 		open func requiresSellingPlan(alias: String? = nil) -> ProductQuery {
 			addField(field: "requiresSellingPlan", aliasSuffix: alias)
@@ -510,10 +536,10 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of a product's available selling plan groups. A selling plan group 
-		/// represents a selling method. For example, 'Subscribe and save' is a selling 
-		/// method where customers pay for goods or services per delivery. A selling 
-		/// plan group contains individual selling plans. 
+		/// A list of all [selling plan 
+		/// groups](/docs/apps/build/purchase-options/subscriptions/selling-plans/build-a-selling-plan) 
+		/// that are associated with the product either directly, or through the 
+		/// product's variants. 
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -555,7 +581,9 @@ extension Storefront {
 			return self
 		}
 
-		/// The product's SEO information. 
+		/// The [SEO title and 
+		/// description](https://help.shopify.com/manual/promoting-marketing/seo/adding-keywords) 
+		/// that are associated with a product. 
 		@discardableResult
 		open func seo(alias: String? = nil, _ subfields: (SEOQuery) -> Void) -> ProductQuery {
 			let subquery = SEOQuery()
@@ -565,23 +593,28 @@ extension Storefront {
 			return self
 		}
 
-		/// A comma separated list of tags that have been added to the product. 
-		/// Additional access scope required for private apps: 
-		/// unauthenticated_read_product_tags. 
+		/// A comma-separated list of searchable keywords that are associated with the 
+		/// product. For example, a merchant might apply the `sports` and `summer` tags 
+		/// to products that are associated with sportwear for summer. Updating `tags` 
+		/// overwrites any existing tags that were previously added to the product. To 
+		/// add new tags without overwriting existing tags, use the GraphQL Admin API's 
+		/// [`tagsAdd`](/docs/api/admin-graphql/latest/mutations/tagsadd) mutation. 
 		@discardableResult
 		open func tags(alias: String? = nil) -> ProductQuery {
 			addField(field: "tags", aliasSuffix: alias)
 			return self
 		}
 
-		/// The product’s title. 
+		/// The name for the product that displays to customers. The title is used to 
+		/// construct the product's handle. For example, if a product is titled "Black 
+		/// Sunglasses", then the handle is `black-sunglasses`. 
 		@discardableResult
 		open func title(alias: String? = nil) -> ProductQuery {
 			addField(field: "title", aliasSuffix: alias)
 			return self
 		}
 
-		/// The total quantity of inventory in stock for this Product. 
+		/// The quantity of inventory that's in stock. 
 		@discardableResult
 		open func totalInventory(alias: String? = nil) -> ProductQuery {
 			addField(field: "totalInventory", aliasSuffix: alias)
@@ -646,7 +679,8 @@ extension Storefront {
 			return self
 		}
 
-		/// List of the product’s variants. 
+		/// A list of [variants](/docs/api/storefront/latest/objects/ProductVariant) 
+		/// that are associated with the product. 
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -693,7 +727,9 @@ extension Storefront {
 			return self
 		}
 
-		/// The total count of variants for this product. 
+		/// The number of 
+		/// [variants](/docs/api/storefront/latest/objects/ProductVariant) that are 
+		/// associated with the product. 
 		@discardableResult
 		open func variantsCount(alias: String? = nil, _ subfields: (CountQuery) -> Void) -> ProductQuery {
 			let subquery = CountQuery()
@@ -703,7 +739,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The product’s vendor name. 
+		/// The name of the product's vendor. 
 		@discardableResult
 		open func vendor(alias: String? = nil) -> ProductQuery {
 			addField(field: "vendor", aliasSuffix: alias)
@@ -711,11 +747,17 @@ extension Storefront {
 		}
 	}
 
-	/// A product represents an individual item for sale in a Shopify store. 
-	/// Products are often physical, but they don't have to be. For example, a 
-	/// digital download (such as a movie, music or ebook file) also qualifies as a 
-	/// product, as do services (such as equipment rental, work for hire, 
-	/// customization of another product or an extended warranty). 
+	/// The `Product` object lets you manage products in a merchant’s store. 
+	/// Products are the goods and services that merchants offer to customers. They 
+	/// can include various details such as title, description, price, images, and 
+	/// options such as size or color. You can use [product 
+	/// variants](/docs/api/storefront/latest/objects/ProductVariant) to create or 
+	/// update different versions of the same product. You can also add or update 
+	/// product [media](/docs/api/storefront/latest/interfaces/Media). Products can 
+	/// be organized by grouping them into a 
+	/// [collection](/docs/api/storefront/latest/objects/Collection). Learn more 
+	/// about working with [products and 
+	/// collections](/docs/storefronts/headless/building-with-the-storefront-api/products-collections). 
 	open class Product: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MenuItemResource, MetafieldParentResource, MetafieldReference, Node, OnlineStorePublishable, SearchResultItem, Trackable {
 		public typealias Query = ProductQuery
 
@@ -989,7 +1031,8 @@ extension Storefront {
 			return field(field: "availableForSale", aliasSuffix: alias) as! Bool
 		}
 
-		/// The taxonomy category for the product. 
+		/// The category of a product from [Shopify's Standard Product 
+		/// Taxonomy](https://shopify.github.io/product-taxonomy/releases/unstable/?categoryId=sg-4-17-2-17). 
 		open var category: Storefront.TaxonomyCategory? {
 			return internalGetCategory()
 		}
@@ -998,7 +1041,8 @@ extension Storefront {
 			return field(field: "category", aliasSuffix: alias) as! Storefront.TaxonomyCategory?
 		}
 
-		/// List of collections a product belongs to. 
+		/// A list of [collections](/docs/api/storefront/latest/objects/Collection) 
+		/// that include the product. 
 		open var collections: Storefront.CollectionConnection {
 			return internalGetCollections()
 		}
@@ -1011,7 +1055,9 @@ extension Storefront {
 			return field(field: "collections", aliasSuffix: alias) as! Storefront.CollectionConnection
 		}
 
-		/// The compare at price of the product across all variants. 
+		/// The [compare-at price 
+		/// range](https://help.shopify.com/manual/products/details/product-pricing/sale-pricing) 
+		/// of the product in the shop's default currency. 
 		open var compareAtPriceRange: Storefront.ProductPriceRange {
 			return internalGetCompareAtPriceRange()
 		}
@@ -1029,7 +1075,8 @@ extension Storefront {
 			return field(field: "createdAt", aliasSuffix: alias) as! Date
 		}
 
-		/// Stripped description of the product, single line with HTML tags removed. 
+		/// A single-line description of the product, with [HTML 
+		/// tags](https://developer.mozilla.org/en-US/docs/Web/HTML) removed. 
 		open var description: String {
 			return internalGetDescription()
 		}
@@ -1042,7 +1089,9 @@ extension Storefront {
 			return field(field: "description", aliasSuffix: alias) as! String
 		}
 
-		/// The description of the product, complete with HTML formatting. 
+		/// The description of the product, with HTML tags. For example, the 
+		/// description might include bold `<strong></strong>` and italic `<i></i>` 
+		/// text. 
 		open var descriptionHtml: String {
 			return internalGetDescriptionHtml()
 		}
@@ -1119,9 +1168,9 @@ extension Storefront {
 			return field(field: "featuredImage", aliasSuffix: alias) as! Storefront.Image?
 		}
 
-		/// A human-friendly unique string for the Product automatically generated from 
-		/// its title. They are used by the Liquid templating language to refer to 
-		/// objects. 
+		/// A unique, human-readable string of the product's title. A handle can 
+		/// contain letters, hyphens (`-`), and numbers, but no spaces. The handle is 
+		/// used in the online store URL for the product. 
 		open var handle: String {
 			return internalGetHandle()
 		}
@@ -1161,7 +1210,8 @@ extension Storefront {
 			return field(field: "isGiftCard", aliasSuffix: alias) as! Bool
 		}
 
-		/// The media associated with the product. 
+		/// The [media](/docs/apps/build/online-store/product-media) that are 
+		/// associated with the product. Valid media are images, 3D models, videos. 
 		open var media: Storefront.MediaConnection {
 			return internalGetMedia()
 		}
@@ -1174,7 +1224,9 @@ extension Storefront {
 			return field(field: "media", aliasSuffix: alias) as! Storefront.MediaConnection
 		}
 
-		/// Returns a metafield found by namespace and key. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
+		/// including its `namespace` and `key`, that's associated with a Shopify 
+		/// resource for the purposes of adding and storing additional information. 
 		open var metafield: Storefront.Metafield? {
 			return internalGetMetafield()
 		}
@@ -1187,8 +1239,8 @@ extension Storefront {
 			return field(field: "metafield", aliasSuffix: alias) as! Storefront.Metafield?
 		}
 
-		/// The metafields associated with the resource matching the supplied list of 
-		/// namespaces and keys. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
+		/// associates with a Shopify resource. 
 		open var metafields: [Storefront.Metafield?] {
 			return internalGetMetafields()
 		}
@@ -1201,9 +1253,8 @@ extension Storefront {
 			return field(field: "metafields", aliasSuffix: alias) as! [Storefront.Metafield?]
 		}
 
-		/// The URL used for viewing the resource on the shop's Online Store. Returns 
-		/// `null` if the resource is currently not published to the Online Store sales 
-		/// channel. 
+		/// The product's URL on the online store. If `null`, then the product isn't 
+		/// published to the online store sales channel. 
 		open var onlineStoreUrl: URL? {
 			return internalGetOnlineStoreUrl()
 		}
@@ -1212,7 +1263,10 @@ extension Storefront {
 			return field(field: "onlineStoreUrl", aliasSuffix: alias) as! URL?
 		}
 
-		/// List of product options. 
+		/// A list of product options. The limit is defined by the [shop's resource 
+		/// limits for product 
+		/// options](/docs/api/admin-graphql/latest/objects/Shop#field-resourcelimits) 
+		/// (`Shop.resourceLimits.maxProductOptions`). 
 		open var options: [Storefront.ProductOption] {
 			return internalGetOptions()
 		}
@@ -1225,7 +1279,9 @@ extension Storefront {
 			return field(field: "options", aliasSuffix: alias) as! [Storefront.ProductOption]
 		}
 
-		/// The price range. 
+		/// The minimum and maximum prices of a product, expressed in decimal numbers. 
+		/// For example, if the product is priced between $10.00 and $50.00, then the 
+		/// price range is $10.00 - $50.00. 
 		open var priceRange: Storefront.ProductPriceRange {
 			return internalGetPriceRange()
 		}
@@ -1234,8 +1290,9 @@ extension Storefront {
 			return field(field: "priceRange", aliasSuffix: alias) as! Storefront.ProductPriceRange
 		}
 
-		/// A categorization that a product can be tagged with, commonly used for 
-		/// filtering and searching. 
+		/// The [product 
+		/// type](https://help.shopify.com/manual/products/details/product-type) that 
+		/// merchants define. 
 		open var productType: String {
 			return internalGetProductType()
 		}
@@ -1253,7 +1310,12 @@ extension Storefront {
 			return field(field: "publishedAt", aliasSuffix: alias) as! Date
 		}
 
-		/// Whether the product can only be purchased with a selling plan. 
+		/// Whether the product can only be purchased with a [selling 
+		/// plan](/docs/apps/build/purchase-options/subscriptions/selling-plans). 
+		/// Products that are sold on subscription (`requiresSellingPlan: true`) can be 
+		/// updated only for online stores. If you update a product to be 
+		/// subscription-only (`requiresSellingPlan:false`), then the product is 
+		/// unpublished from all channels, except the online store. 
 		open var requiresSellingPlan: Bool {
 			return internalGetRequiresSellingPlan()
 		}
@@ -1278,10 +1340,10 @@ extension Storefront {
 			return field(field: "selectedOrFirstAvailableVariant", aliasSuffix: alias) as! Storefront.ProductVariant?
 		}
 
-		/// A list of a product's available selling plan groups. A selling plan group 
-		/// represents a selling method. For example, 'Subscribe and save' is a selling 
-		/// method where customers pay for goods or services per delivery. A selling 
-		/// plan group contains individual selling plans. 
+		/// A list of all [selling plan 
+		/// groups](/docs/apps/build/purchase-options/subscriptions/selling-plans/build-a-selling-plan) 
+		/// that are associated with the product either directly, or through the 
+		/// product's variants. 
 		open var sellingPlanGroups: Storefront.SellingPlanGroupConnection {
 			return internalGetSellingPlanGroups()
 		}
@@ -1294,7 +1356,9 @@ extension Storefront {
 			return field(field: "sellingPlanGroups", aliasSuffix: alias) as! Storefront.SellingPlanGroupConnection
 		}
 
-		/// The product's SEO information. 
+		/// The [SEO title and 
+		/// description](https://help.shopify.com/manual/promoting-marketing/seo/adding-keywords) 
+		/// that are associated with a product. 
 		open var seo: Storefront.SEO {
 			return internalGetSeo()
 		}
@@ -1303,9 +1367,12 @@ extension Storefront {
 			return field(field: "seo", aliasSuffix: alias) as! Storefront.SEO
 		}
 
-		/// A comma separated list of tags that have been added to the product. 
-		/// Additional access scope required for private apps: 
-		/// unauthenticated_read_product_tags. 
+		/// A comma-separated list of searchable keywords that are associated with the 
+		/// product. For example, a merchant might apply the `sports` and `summer` tags 
+		/// to products that are associated with sportwear for summer. Updating `tags` 
+		/// overwrites any existing tags that were previously added to the product. To 
+		/// add new tags without overwriting existing tags, use the GraphQL Admin API's 
+		/// [`tagsAdd`](/docs/api/admin-graphql/latest/mutations/tagsadd) mutation. 
 		open var tags: [String] {
 			return internalGetTags()
 		}
@@ -1314,7 +1381,9 @@ extension Storefront {
 			return field(field: "tags", aliasSuffix: alias) as! [String]
 		}
 
-		/// The product’s title. 
+		/// The name for the product that displays to customers. The title is used to 
+		/// construct the product's handle. For example, if a product is titled "Black 
+		/// Sunglasses", then the handle is `black-sunglasses`. 
 		open var title: String {
 			return internalGetTitle()
 		}
@@ -1323,7 +1392,7 @@ extension Storefront {
 			return field(field: "title", aliasSuffix: alias) as! String
 		}
 
-		/// The total quantity of inventory in stock for this Product. 
+		/// The quantity of inventory that's in stock. 
 		open var totalInventory: Int32? {
 			return internalGetTotalInventory()
 		}
@@ -1375,7 +1444,8 @@ extension Storefront {
 			return field(field: "variantBySelectedOptions", aliasSuffix: alias) as! Storefront.ProductVariant?
 		}
 
-		/// List of the product’s variants. 
+		/// A list of [variants](/docs/api/storefront/latest/objects/ProductVariant) 
+		/// that are associated with the product. 
 		open var variants: Storefront.ProductVariantConnection {
 			return internalGetVariants()
 		}
@@ -1388,7 +1458,9 @@ extension Storefront {
 			return field(field: "variants", aliasSuffix: alias) as! Storefront.ProductVariantConnection
 		}
 
-		/// The total count of variants for this product. 
+		/// The number of 
+		/// [variants](/docs/api/storefront/latest/objects/ProductVariant) that are 
+		/// associated with the product. 
 		open var variantsCount: Storefront.Count? {
 			return internalGetVariantsCount()
 		}
@@ -1397,7 +1469,7 @@ extension Storefront {
 			return field(field: "variantsCount", aliasSuffix: alias) as! Storefront.Count?
 		}
 
-		/// The product’s vendor name. 
+		/// The name of the product's vendor. 
 		open var vendor: String {
 			return internalGetVendor()
 		}

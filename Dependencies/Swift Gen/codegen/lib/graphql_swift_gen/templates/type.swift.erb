@@ -23,15 +23,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
+
 import Foundation
 <% if import_graphql_support %>
   import GraphQLSupport
 <% end %>
+
 <% case type.kind; when 'OBJECT', 'INTERFACE', 'UNION' %>
   <% fields = type.fields(include_deprecated: true) || [] %>
 <% end %>
 <% if type.interface? || type.union? %>
-  <%= %>
   <%= swift_doc(type) %>
   public protocol <%= type.name %> {
   <% fields.each do |field| %>
@@ -40,11 +41,14 @@ import Foundation
   <% end %>
   }
 <% end %>
+
 extension <%= schema_name %> {
 <% case type.kind; when 'OBJECT', 'INTERFACE', 'UNION' %>
   <%= swift_doc(type) %>
   open class <%= type.name %>Query: GraphQL.AbstractQuery, GraphQLQuery {
+
   public typealias Response = <%= type.name %>
+
   <% if type.name == schema.query_root_name %>
     open override var description: String {
     return "query " + super.description
@@ -54,6 +58,7 @@ extension <%= schema_name %> {
     return "mutation " + super.description
     }
   <% end %>
+
   <% fields.each do |field| %>
     <%= swift_doc(field) %>
     <%= swift_attributes(field) %>@discardableResult
@@ -102,7 +107,9 @@ extension <%= schema_name %> {
   <% class_name = type.object? ? type.name : "Unknown#{type.name}" %>
   <%= swift_doc(type) %>
   open class <%= class_name %>: GraphQL.AbstractResponse, GraphQLObject<%= swift_protocols(type) %> {
+
   public typealias Query = <%= type.name %>Query
+
   internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
   let fieldValue = value
   switch fieldName {
@@ -182,6 +189,7 @@ extension <%= schema_name %> {
   ///
   <%= input_field_description(type) %>
   <%= generate_deprecated_input_init(type) %>
+
   internal func serialize() -> String {
   var fields: [String] = []
   <% type.input_fields.each do |field| %>

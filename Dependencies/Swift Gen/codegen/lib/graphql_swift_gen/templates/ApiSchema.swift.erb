@@ -23,6 +23,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
+
 public class <%= schema_name %> {
 <% [['Query', schema.query_root_name], ['Mutation', schema.mutation_root_name]].each do |operation_type, root_name| %>
   <% directive_args = swift_root_directive_args(operation_type.upcase) %>

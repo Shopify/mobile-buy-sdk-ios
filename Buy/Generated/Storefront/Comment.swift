@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) 2024 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -44,7 +44,7 @@ extension Storefront {
 		/// Stripped content of the comment, single line with HTML tags removed. 
 		///
 		/// - parameters:
-		///     - truncateAt: Truncates string after the given length.
+		///     - truncateAt: Truncates a string after the given length.
 		///
 		@discardableResult
 		open func content(alias: String? = nil, truncateAt: Int32? = nil) -> CommentQuery {

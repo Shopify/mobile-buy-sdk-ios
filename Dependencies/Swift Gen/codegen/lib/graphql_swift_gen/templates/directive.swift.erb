@@ -23,10 +23,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
+
 import Foundation
 <% if import_graphql_support %>
   import GraphQLSupport
 <% end %>
+
 extension <%= schema_name %> {
 open class <%= directive.classify_name %>Directive: GraphQL.AbstractDirective {
 <%= swift_doc(directive) %>

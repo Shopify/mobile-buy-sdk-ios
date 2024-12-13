@@ -12,6 +12,22 @@ sdk_version_path = File.join(project_root, 'Buy', 'Utilities', 'SDK.swift')
 unless File.exist?(sdk_version_path) && File.writable?(sdk_version_path)
     raise "unable to open #{sdk_version_path}"
 end
+sdk_version_src = File.read(sdk_version_path)
+
+version_components = new_version.split('-').map(&:to_i)
+current_components = sdk_version_src
+    .match(/static let version = "([0-9.]+)"/i)
+    .captures[0].split('.').map(&:to_i)
+
+patch = version_components[1] != current_components[1] ? 0 : (current_components[2] + 1)
+
+updated_components = [
+    version_components[0],
+    version_components[1],
+    patch
+]
+
+new_version = updated_components.join('.')
 
 sdk_version_src = File.read(sdk_version_path)
 
