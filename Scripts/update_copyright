@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+this = File.basename(__FILE__)
+
+Dir.glob("**/*") do |path|
+  next if File.directory?(path)
+  next if File.basename(path) == this
+
+  content = File.binread(path)
+  content.gsub!(
+    /Copyright .* Shopify/,
+    "Copyright (c) #{Time.now.year} Shopify"
+  )
+
+  File.open(path, "wb") do |file|
+    file.write(content)
+  end
+end

@@ -2,6 +2,10 @@ name: Generate Latest API Version
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        type: string
+        required: true
 
 jobs:
   build:
@@ -13,34 +17,36 @@ jobs:
 
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
 
-      - name: Install bundler
-        run: gem install bundler
+      - name: Install Dependencies
+        run: brew install swiftlint
 
-      - name: Install dependencies
-        run: bundle install
-
-      - name: Get API Version
+      - name: Set API Version
         id: version
         run: |
-          API_VERSION="$(./Scripts/get_api_version)"
-          BRANCH_NAME="release/${API_VERSION}-auto-generated"
+          API_VERSION="${{ github.event.inputs.version }}"
+          BRANCH_NAME="release/${API_VERSION}"
           echo "API_VERSION=$API_VERSION" >> $GITHUB_ENV
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
 
-      - name: Create and push the release branch
+      - name: Create Release Branch
         run: |
-          git checkout -B $BRANCH_NAME # -B will reset branch if it exists
+          git switch -C $BRANCH_NAME # -C will reset branch if it exists
           git push --set-upstream --force origin $BRANCH_NAME
 
-      - name: Build new SDK version
+      - name: Generate Schema
         run: |
           echo "Generating schema for $API_VERSION"
+          ./Scripts/update_copyright
           ./Scripts/build $API_VERSION
-          git add ./Buy/Generated
+          ./Scripts/update_version $API_VERSION
+          swiftlint --fix
+          git add .
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
-          git commit -m "Update schema for `${API_VERSION}` version."
+          git commit -m "Generate `${API_VERSION}` schema."
           git push --set-upstream --force origin $BRANCH_NAME
 
       - name: Create pull request
@@ -49,13 +55,13 @@ jobs:
           script: |
             const api_version = process.env.API_VERSION
             const branch_name = process.env.BRANCH_NAME
-            github.pulls.create({
+            github.rest.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: "Update Schema to `" + api_version + "` Release",
               head: branch_name,
               base: 'main',
-              body: "### Release notes" +
+              body: "### Release Notes" +
                 "\n" +
                 `\nThe [latest schema changes](https://shopify.dev/api/release-notes/${api_version}#graphql-storefront-api-changes).` +
                 "\n" +
@@ -64,13 +70,3 @@ jobs:
                 "\n- [ ] Update the [Buy SDK and Library Releases spreadsheet](https://docs.google.com/spreadsheets/d/1WZ8dEl9dQQ6O3ZmBpvq3x-25pBUzN7J6fyj6GnVdS0Q) with the new SDK version" +
                 "\n- [ ] After merging this PR, remember to manually publish the [generated release](https://github.com/Shopify/mobile-buy-sdk-ios/releases)"
               })
-
-      - name: Increment SDK version
-        run: |
-          ./Scripts/increment_version
-          git add ./Buy/Utilities/SDK.swift
-          git add ./Mobile-Buy-SDK.podspec
-          git add ./\*Info.plist
-          git add
-          git commit -m "Bump version"
-          git push --set-upstream --force origin $BRANCH_NAME
