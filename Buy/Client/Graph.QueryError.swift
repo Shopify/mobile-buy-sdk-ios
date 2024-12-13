@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) 2024 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -36,13 +36,13 @@ public extension Graph {
 
             /// The error message associated with the line and column number
             public let message: String
-            
+
             /// Line on which the error occurred
             public let line: Int?
-            
+
             /// The column at which the error occurred
             public let column: Int?
-            
+
             internal init(json: JSON) {
                 self.message = (json["message"] as? String) ?? "Unknown error"
                 self.line    = json["line"]     as? Int

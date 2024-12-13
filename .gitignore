@@ -31,3 +31,5 @@ xcuserdata
 *.ipa
 
 .swiftpm
+.bundle/
+vendor

@@ -3,7 +3,7 @@
 //  BuyTests
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) 2024 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@ import XCTest
 @testable import Buy
 
 class Graph_RetryHandlerTests: XCTestCase {
-    
+
     typealias MutationRetryHandler = Graph.RetryHandler<Storefront.Mutation>
 
     // ----------------------------------
@@ -36,35 +36,35 @@ class Graph_RetryHandlerTests: XCTestCase {
     //
     func testInit() {
         let handler = self.createHandlerWith(endurance: .infinite)
-        
+
         if case .infinite = handler.endurance {
             XCTAssertTrue(true)
         } else {
             XCTFail()
         }
-        
+
         XCTAssertEqual(handler.interval,    3.0)
         XCTAssertEqual(handler.repeatCount, 0)
         XCTAssertEqual(handler.canRetry,    true)
     }
-    
+
     func testRepeatCount() {
         var handler = self.createHandlerWith(endurance: .finite(2))
-        
+
         XCTAssertEqual(handler.repeatCount, 0)
         XCTAssertTrue(handler.canRetry)
-        
+
         handler.repeatCount += 1
-        
+
         XCTAssertEqual(handler.repeatCount, 1)
         XCTAssertTrue(handler.canRetry)
-        
+
         handler.repeatCount += 1
-        
+
         XCTAssertEqual(handler.repeatCount, 2)
         XCTAssertFalse(handler.canRetry)
     }
-    
+
     // ----------------------------------
     //  MARK: - Handler Creation -
     //

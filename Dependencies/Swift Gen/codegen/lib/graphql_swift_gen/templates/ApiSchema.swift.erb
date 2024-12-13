@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,18 +23,17 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 public class <%= schema_name %> {
-  <% [['Query', schema.query_root_name], ['Mutation', schema.mutation_root_name]].each do |operation_type, root_name| %>
-    <% directive_args = swift_root_directive_args(operation_type.upcase) %>
-    <% formatted_args = directive_args.empty? ? "_ " : directive_args.join(", ") + ", " %>
-   public static func build<%= operation_type %>(<%= formatted_args %>subfields: (<%= root_name %>Query) -> Void) -> <%= root_name %>Query {
-      let root = <%= root_name %>Query()
-      <% unless directive_args.empty? %>
-      root.directives = [<%= directives_for_kind(operation_type.upcase).map(&:name).join(", ") %>].compactMap({ $0 })
-      <% end %>
-      subfields(root)
-      return root
-    }
+<% [['Query', schema.query_root_name], ['Mutation', schema.mutation_root_name]].each do |operation_type, root_name| %>
+  <% directive_args = swift_root_directive_args(operation_type.upcase) %>
+  <% formatted_args = directive_args.empty? ? "_ " : directive_args.join(", ") + ", " %>
+  public static func build<%= operation_type %>(<%= formatted_args %>subfields: (<%= root_name %>Query) -> Void) -> <%= root_name %>Query {
+  let root = <%= root_name %>Query()
+  <% unless directive_args.empty? %>
+    root.directives = [<%= directives_for_kind(operation_type.upcase).map(&:name).join(", ") %>].compactMap({ $0 })
   <% end %>
+  subfields(root)
+  return root
+  }
+<% end %>
 }
