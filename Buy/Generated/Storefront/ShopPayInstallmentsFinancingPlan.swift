@@ -141,10 +141,10 @@ extension Storefront {
 			return field(field: "terms", aliasSuffix: alias) as! [Storefront.ShopPayInstallmentsFinancingPlanTerm]
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "maxPrice":
 					response.append(internalGetMaxPrice())
 					response.append(contentsOf: internalGetMaxPrice().childResponseObjectMap())

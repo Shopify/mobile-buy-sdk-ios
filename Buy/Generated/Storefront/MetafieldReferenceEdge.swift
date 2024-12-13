@@ -93,7 +93,7 @@ extension Storefront {
 			return field(field: "node", aliasSuffix: alias) as! MetafieldReference
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}

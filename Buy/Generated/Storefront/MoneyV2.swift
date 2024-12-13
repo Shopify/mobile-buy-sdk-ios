@@ -88,7 +88,7 @@ extension Storefront {
 			return field(field: "currencyCode", aliasSuffix: alias) as! Storefront.CurrencyCode
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}

@@ -66,7 +66,7 @@ extension Storefront {
 			var fields: [String] = []
 
 			switch min {
-				case .value(let min): 
+				case .value(let min):
 				guard let min = min else {
 					fields.append("min:null")
 					break
@@ -76,7 +76,7 @@ extension Storefront {
 			}
 
 			switch max {
-				case .value(let max): 
+				case .value(let max):
 				guard let max = max else {
 					fields.append("max:null")
 					break

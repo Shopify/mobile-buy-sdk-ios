@@ -76,7 +76,7 @@ extension Storefront {
 			fields.append("sessionId:\(GraphQL.quoteString(input: sessionId))")
 
 			switch cardSource {
-				case .value(let cardSource): 
+				case .value(let cardSource):
 				guard let cardSource = cardSource else {
 					fields.append("cardSource:null")
 					break

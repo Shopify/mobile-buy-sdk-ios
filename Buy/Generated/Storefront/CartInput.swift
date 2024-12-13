@@ -104,47 +104,47 @@ extension Storefront {
 			var fields: [String] = []
 
 			switch attributes {
-				case .value(let attributes): 
+				case .value(let attributes):
 				guard let attributes = attributes else {
 					fields.append("attributes:null")
 					break
 				}
-				fields.append("attributes:[\(attributes.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("attributes:[\(attributes.map { "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch lines {
-				case .value(let lines): 
+				case .value(let lines):
 				guard let lines = lines else {
 					fields.append("lines:null")
 					break
 				}
-				fields.append("lines:[\(lines.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("lines:[\(lines.map { "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch discountCodes {
-				case .value(let discountCodes): 
+				case .value(let discountCodes):
 				guard let discountCodes = discountCodes else {
 					fields.append("discountCodes:null")
 					break
 				}
-				fields.append("discountCodes:[\(discountCodes.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
+				fields.append("discountCodes:[\(discountCodes.map { "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch giftCardCodes {
-				case .value(let giftCardCodes): 
+				case .value(let giftCardCodes):
 				guard let giftCardCodes = giftCardCodes else {
 					fields.append("giftCardCodes:null")
 					break
 				}
-				fields.append("giftCardCodes:[\(giftCardCodes.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
+				fields.append("giftCardCodes:[\(giftCardCodes.map { "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch note {
-				case .value(let note): 
+				case .value(let note):
 				guard let note = note else {
 					fields.append("note:null")
 					break
@@ -154,7 +154,7 @@ extension Storefront {
 			}
 
 			switch buyerIdentity {
-				case .value(let buyerIdentity): 
+				case .value(let buyerIdentity):
 				guard let buyerIdentity = buyerIdentity else {
 					fields.append("buyerIdentity:null")
 					break
@@ -164,12 +164,12 @@ extension Storefront {
 			}
 
 			switch metafields {
-				case .value(let metafields): 
+				case .value(let metafields):
 				guard let metafields = metafields else {
 					fields.append("metafields:null")
 					break
 				}
-				fields.append("metafields:[\(metafields.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("metafields:[\(metafields.map { "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 

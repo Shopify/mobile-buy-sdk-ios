@@ -95,7 +95,7 @@ extension Storefront {
 			var fields: [String] = []
 
 			switch crop {
-				case .value(let crop): 
+				case .value(let crop):
 				guard let crop = crop else {
 					fields.append("crop:null")
 					break
@@ -105,7 +105,7 @@ extension Storefront {
 			}
 
 			switch maxWidth {
-				case .value(let maxWidth): 
+				case .value(let maxWidth):
 				guard let maxWidth = maxWidth else {
 					fields.append("maxWidth:null")
 					break
@@ -115,7 +115,7 @@ extension Storefront {
 			}
 
 			switch maxHeight {
-				case .value(let maxHeight): 
+				case .value(let maxHeight):
 				guard let maxHeight = maxHeight else {
 					fields.append("maxHeight:null")
 					break
@@ -125,7 +125,7 @@ extension Storefront {
 			}
 
 			switch scale {
-				case .value(let scale): 
+				case .value(let scale):
 				guard let scale = scale else {
 					fields.append("scale:null")
 					break
@@ -135,7 +135,7 @@ extension Storefront {
 			}
 
 			switch preferredContentType {
-				case .value(let preferredContentType): 
+				case .value(let preferredContentType):
 				guard let preferredContentType = preferredContentType else {
 					fields.append("preferredContentType:null")
 					break

@@ -3,7 +3,7 @@
 //  BuyTests
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) 2024 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -27,26 +27,26 @@
 import Foundation
 
 final class MockSession: URLSession {
-    
+
     typealias TaskConfigurationHandler = (MockDataTask) -> Void
-    
+
     var configurationHandler: TaskConfigurationHandler?
-    
+
     // ----------------------------------
-    //  MARK: - Init -
+    // MARK: - Init -
     //
     override init() {
         super.init()
     }
-    
+
     // ----------------------------------
-    //  MARK: - Requests -
+    // MARK: - Requests -
     //
     override func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         let task = MockDataTask(request: request, completion: completionHandler)
-        
+
         self.configurationHandler?(task)
-        
+
         return task
     }
 }

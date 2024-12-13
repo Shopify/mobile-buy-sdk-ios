@@ -90,7 +90,7 @@ extension Storefront {
 			fields.append("amount:\(amount.serialize())")
 
 			switch sourceIdentifier {
-				case .value(let sourceIdentifier): 
+				case .value(let sourceIdentifier):
 				guard let sourceIdentifier = sourceIdentifier else {
 					fields.append("sourceIdentifier:null")
 					break
@@ -100,7 +100,7 @@ extension Storefront {
 			}
 
 			switch freePaymentMethod {
-				case .value(let freePaymentMethod): 
+				case .value(let freePaymentMethod):
 				guard let freePaymentMethod = freePaymentMethod else {
 					fields.append("freePaymentMethod:null")
 					break
@@ -110,7 +110,7 @@ extension Storefront {
 			}
 
 			switch directPaymentMethod {
-				case .value(let directPaymentMethod): 
+				case .value(let directPaymentMethod):
 				guard let directPaymentMethod = directPaymentMethod else {
 					fields.append("directPaymentMethod:null")
 					break
@@ -120,7 +120,7 @@ extension Storefront {
 			}
 
 			switch walletPaymentMethod {
-				case .value(let walletPaymentMethod): 
+				case .value(let walletPaymentMethod):
 				guard let walletPaymentMethod = walletPaymentMethod else {
 					fields.append("walletPaymentMethod:null")
 					break

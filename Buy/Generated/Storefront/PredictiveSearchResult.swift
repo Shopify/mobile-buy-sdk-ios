@@ -173,7 +173,7 @@ extension Storefront {
 			return field(field: "queries", aliasSuffix: alias) as! [Storefront.SearchQuerySuggestion]
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}

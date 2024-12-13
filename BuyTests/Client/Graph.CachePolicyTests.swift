@@ -3,7 +3,7 @@
 //  BuyTests
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) 2024 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -28,17 +28,17 @@ import XCTest
 @testable import Buy
 
 class Graph_CachePolicyTests: XCTestCase {
-    
+
     // ----------------------------------
-    //  MARK: - Equality -
+    // MARK: - Equality -
     //
     func testEquality() {
-        XCTAssertEqual(Graph.CachePolicy.cacheOnly,                  Graph.CachePolicy.cacheOnly)
-        XCTAssertEqual(Graph.CachePolicy.networkOnly,                Graph.CachePolicy.networkOnly)
-        XCTAssertEqual(Graph.CachePolicy.cacheFirst(expireIn: 10),   Graph.CachePolicy.cacheFirst(expireIn: 10))
+        XCTAssertEqual(Graph.CachePolicy.cacheOnly, Graph.CachePolicy.cacheOnly)
+        XCTAssertEqual(Graph.CachePolicy.networkOnly, Graph.CachePolicy.networkOnly)
+        XCTAssertEqual(Graph.CachePolicy.cacheFirst(expireIn: 10), Graph.CachePolicy.cacheFirst(expireIn: 10))
         XCTAssertEqual(Graph.CachePolicy.networkFirst(expireIn: 10), Graph.CachePolicy.networkFirst(expireIn: 10))
-        
-        XCTAssertNotEqual(Graph.CachePolicy.cacheFirst(expireIn: 10),   Graph.CachePolicy.cacheFirst(expireIn: 15))
+
+        XCTAssertNotEqual(Graph.CachePolicy.cacheFirst(expireIn: 10), Graph.CachePolicy.cacheFirst(expireIn: 15))
         XCTAssertNotEqual(Graph.CachePolicy.networkFirst(expireIn: 10), Graph.CachePolicy.networkFirst(expireIn: 15))
     }
 }

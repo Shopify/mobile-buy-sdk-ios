@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) 2024 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -27,74 +27,74 @@
 import Foundation
 
 internal extension Graph {
-    
+
     typealias Hash = String
-    
+
     class Cache {
-        
+
         let cacheDirectory: URL
-        
+
         private static let fileManager = FileManager.default
         private static let cacheName   = "com.buy.graph.cache"
-        
+
         private let memoryCache = NSCache<NSString, CacheItem>()
-        
+
         // ----------------------------------
-        //  MARK: - Init -
+        // MARK: - Init -
         //
         init(shopName: String) {
             self.cacheDirectory = Cache.cacheDirectory(for: shopName)
             self.createCacheDirectoryIfNeeded()
         }
-        
+
         private func createCacheDirectoryIfNeeded() {
             let cacheDirectory = self.cacheDirectory
             if !Cache.fileManager.fileExists(atPath: cacheDirectory.path) {
                 try! Cache.fileManager.createDirectory(at: cacheDirectory, withIntermediateDirectories: true, attributes: nil)
             }
         }
-        
+
         func purgeInMemory() {
             self.memoryCache.removeAllObjects()
         }
-        
+
         func purge() {
             self.purgeInMemory()
-            
+
             try? Cache.fileManager.removeItem(at: self.cacheDirectory)
             self.createCacheDirectoryIfNeeded()
         }
-        
+
         // ----------------------------------
-        //  MARK: - Item Management -
+        // MARK: - Item Management -
         //
         func item(for hash: Hash) -> CacheItem? {
             if let cacheItem = self.itemInMemory(for: hash) {
                 return cacheItem
-                
+
             } else {
                 let location = Graph.CacheItem.Location(inParent: self.cacheDirectory, hash: hash)
                 if let cacheItem = CacheItem(at: location) {
-                    
+
                     self.setInMemory(cacheItem)
                     return cacheItem
                 }
             }
-            
+
             return nil
         }
-        
+
         func set(_ cacheItem: CacheItem) {
             self.setInMemory(cacheItem)
-            
+
             let location = Graph.CacheItem.Location(inParent: self.cacheDirectory, hash: cacheItem.hash)
-            
+
             cacheItem.write(to: location)
         }
-        
+
         func remove(for hash: Hash) {
             self.removeInMemory(for: hash)
-            
+
             let location = Graph.CacheItem.Location(inParent: self.cacheDirectory, hash: hash)
             do {
                 try Cache.fileManager.removeItem(at: location.dataURL)
@@ -103,36 +103,34 @@ internal extension Graph {
                 Log("Failed to delete cached item on disk: \(error)")
             }
         }
-        
+
         // ----------------------------------
-        //  MARK: - Memory Cache -
+        // MARK: - Memory Cache -
         //
         private func setInMemory(_ cacheItem: CacheItem) {
             self.memoryCache.setObject(cacheItem, forKey: cacheItem.hash as NSString)
         }
-        
+
         private func itemInMemory(for hash: Hash) -> CacheItem? {
             return self.memoryCache.object(forKey: hash as NSString)
         }
-        
+
         private func removeInMemory(for hash: Hash) {
             self.memoryCache.removeObject(forKey: hash as NSString)
         }
-        
+
         // ----------------------------------
-        //  MARK: - File System Cache -
+        // MARK: - File System Cache -
         //
         private static func cacheDirectory(for shopName: String) -> URL {
             let tmp = URL(fileURLWithPath: NSTemporaryDirectory())
             var url = tmp
-            
+
             url = url.appendingPathComponent(Cache.cacheName)
             url = url.appendingPathComponent(Global.frameworkVersion)
             url = url.appendingPathComponent(SHA256.hash(shopName))
-            
+
             return url
         }
     }
 }
-
-

@@ -86,7 +86,7 @@ extension Storefront {
 		/// The estimated cost of the merchandise that the buyer will pay for at 
 		/// checkout. The estimated costs are subject to change and changes will be 
 		/// reflected at checkout. 
-		@available(*, deprecated, message:"Use `cost` instead.")
+		@available(*, deprecated, message: "Use `cost` instead.")
 		@discardableResult
 		open func estimatedCost(alias: String? = nil, _ subfields: (CartLineEstimatedCostQuery) -> Void) -> CartLineQuery {
 			let subquery = CartLineEstimatedCostQuery()
@@ -245,7 +245,7 @@ extension Storefront {
 		/// The estimated cost of the merchandise that the buyer will pay for at 
 		/// checkout. The estimated costs are subject to change and changes will be 
 		/// reflected at checkout. 
-		@available(*, deprecated, message:"Use `cost` instead.")
+		@available(*, deprecated, message: "Use `cost` instead.")
 		open var estimatedCost: Storefront.CartLineEstimatedCost {
 			return internalGetEstimatedCost()
 		}
@@ -291,10 +291,10 @@ extension Storefront {
 			return field(field: "sellingPlanAllocation", aliasSuffix: alias) as! Storefront.SellingPlanAllocation?
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "attribute":
 					if let value = internalGetAttribute() {
 						response.append(value)

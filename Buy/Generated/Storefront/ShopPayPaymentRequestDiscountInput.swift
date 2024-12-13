@@ -65,7 +65,7 @@ extension Storefront {
 			var fields: [String] = []
 
 			switch label {
-				case .value(let label): 
+				case .value(let label):
 				guard let label = label else {
 					fields.append("label:null")
 					break
@@ -75,7 +75,7 @@ extension Storefront {
 			}
 
 			switch amount {
-				case .value(let amount): 
+				case .value(let amount):
 				guard let amount = amount else {
 					fields.append("amount:null")
 					break

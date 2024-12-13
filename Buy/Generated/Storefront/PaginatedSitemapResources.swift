@@ -93,7 +93,7 @@ extension Storefront {
 			return field(field: "items", aliasSuffix: alias) as! [SitemapResourceInterface]
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}

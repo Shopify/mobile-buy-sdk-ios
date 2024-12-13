@@ -68,7 +68,7 @@ extension Storefront {
 			fields.append("customerAccessToken:\(GraphQL.quoteString(input: customerAccessToken))")
 
 			switch companyLocationId {
-				case .value(let companyLocationId): 
+				case .value(let companyLocationId):
 				guard let companyLocationId = companyLocationId else {
 					fields.append("companyLocationId:null")
 					break

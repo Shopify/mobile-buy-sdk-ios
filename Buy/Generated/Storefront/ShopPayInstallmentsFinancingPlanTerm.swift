@@ -158,10 +158,10 @@ extension Storefront {
 			return field(field: "loanType", aliasSuffix: alias) as! Storefront.ShopPayInstallmentsLoan
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "installmentsCount":
 					if let value = internalGetInstallmentsCount() {
 						response.append(value)

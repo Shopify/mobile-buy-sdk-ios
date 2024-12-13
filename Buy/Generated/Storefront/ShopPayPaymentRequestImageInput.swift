@@ -67,7 +67,7 @@ extension Storefront {
 			fields.append("url:\(GraphQL.quoteString(input: url))")
 
 			switch alt {
-				case .value(let alt): 
+				case .value(let alt):
 				guard let alt = alt else {
 					fields.append("alt:null")
 					break

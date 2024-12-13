@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) 2024 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -27,35 +27,35 @@
 import Foundation
 
 extension Graph {
-    
+
     /// The caching policy defines the method for executing the query.
     /// Some policies require an `expireIn` parameter that determines
     /// the time (in seconds) until the cache is invalidated and is
     /// considered to be stale.
     ///
     public enum CachePolicy: Equatable {
-        
+
         /// Load from cache without loading from network
         case cacheOnly
-        
+
         /// Load from network without loading from cache
         case networkOnly
-        
+
         /// Load from cache if staleness interval is not exceeded, otherwise load from network
         case cacheFirst(expireIn: Int)
-        
+
         /// Load from network but fallback to cached data if the request fails
         case networkFirst(expireIn: Int)
     }
 }
 
 extension Graph.CachePolicy {
-    
+
     public static func ==(lhs: Graph.CachePolicy, rhs: Graph.CachePolicy) -> Bool {
         switch (lhs, rhs) {
-        case (.cacheOnly,            .cacheOnly):                           return true
-        case (.networkOnly,          .networkOnly):                         return true
-        case (.cacheFirst(let lv),   .cacheFirst(let rv))   where lv == rv: return true
+        case (.cacheOnly, .cacheOnly):                           return true
+        case (.networkOnly, .networkOnly):                         return true
+        case (.cacheFirst(let lv), .cacheFirst(let rv))   where lv == rv: return true
         case (.networkFirst(let lv), .networkFirst(let rv)) where lv == rv: return true
         default:
             return false

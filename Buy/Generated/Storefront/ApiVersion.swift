@@ -124,7 +124,7 @@ extension Storefront {
 			return field(field: "supported", aliasSuffix: alias) as! Bool
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}

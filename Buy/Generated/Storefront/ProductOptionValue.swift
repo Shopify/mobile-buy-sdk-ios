@@ -146,10 +146,10 @@ extension Storefront {
 			return field(field: "swatch", aliasSuffix: alias) as! Storefront.ProductOptionValueSwatch?
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "firstSelectableVariant":
 					if let value = internalGetFirstSelectableVariant() {
 						response.append(value)

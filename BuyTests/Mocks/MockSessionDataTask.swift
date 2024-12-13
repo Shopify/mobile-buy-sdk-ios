@@ -3,7 +3,7 @@
 //  BuyTests
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) 2024 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -27,9 +27,9 @@
 import Foundation
 
 final class MockDataTask: URLSessionDataTask {
-    
+
     typealias DataTaskCompletion = (Data?, URLResponse?, Error?) -> Void
-    
+
     var responseJson: [String: Any]? {
         set {
             if let json = newValue {
@@ -40,36 +40,36 @@ final class MockDataTask: URLSessionDataTask {
         }
         get {
             if let data = self.responseData {
-                return (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String : Any]
+                return (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: Any]
             } else {
                 return nil
             }
         }
     }
-    
-    var responseData:   Data?
+
+    var responseData: Data?
     var isHTTPResponse: Bool = true
-    var responseCode:   Int  = 0
-    var headerFields:   [String: String]?
-    var responseError:  (domain: String, code: Int)?
-    
+    var responseCode: Int  = 0
+    var headerFields: [String: String]?
+    var responseError: (domain: String, code: Int)?
+
     private(set) var isResumed  = false
     private(set) var isCanceled = false
     private(set) var isComplete = false
-    
-    private(set) var request:    URLRequest?
+
+    private(set) var request: URLRequest?
     private(set) var completion: DataTaskCompletion?
-    
+
     // ----------------------------------
-    //  MARK: - Init -
+    // MARK: - Init -
     //
     init(request: URLRequest? = nil, completion: DataTaskCompletion? = nil) {
         self.request    = request
         self.completion = completion
     }
-    
+
     // ----------------------------------
-    //  MARK: - State -
+    // MARK: - State -
     //
     override var state: URLSessionTask.State {
         if self.isComplete {
@@ -82,18 +82,18 @@ final class MockDataTask: URLSessionDataTask {
             return .suspended
         }
     }
-    
+
     override func resume() {
         self.isResumed = true
         self.executeCompletion()
     }
-    
+
     override func cancel() {
         self.isCanceled = true
     }
-    
+
     // ----------------------------------
-    //  MARK: - Completion -
+    // MARK: - Completion -
     //
     private func executeCompletion() {
         self.completion?(
@@ -102,32 +102,32 @@ final class MockDataTask: URLSessionDataTask {
             self.error()
         )
     }
-    
+
     private func data() -> Data? {
         return self.responseData
     }
-    
+
     private func response() -> URLResponse? {
         let url = self.request?.url ?? URL(string: "http://")!
-        
+
         if self.isHTTPResponse {
             return HTTPURLResponse(
-                url:          url,
-                statusCode:   self.responseCode,
-                httpVersion:  "HTTP/1.1",
+                url: url,
+                statusCode: self.responseCode,
+                httpVersion: "HTTP/1.1",
                 headerFields: self.headerFields
             )
-            
+
         } else {
             return URLResponse(
-                url:                   url,
-                mimeType:              "application/json",
+                url: url,
+                mimeType: "application/json",
                 expectedContentLength: self.data()?.count ?? 0,
-                textEncodingName:      "utf8"
+                textEncodingName: "utf8"
             )
         }
     }
-    
+
     private func error() -> Error? {
         if let error = self.responseError {
             return NSError(domain: error.domain, code: error.code, userInfo: nil)

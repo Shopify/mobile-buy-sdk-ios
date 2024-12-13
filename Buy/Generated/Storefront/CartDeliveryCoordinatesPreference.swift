@@ -118,7 +118,7 @@ extension Storefront {
 			return field(field: "longitude", aliasSuffix: alias) as! Double
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}

@@ -189,10 +189,10 @@ extension Storefront {
 			return field(field: "sellingPlans", aliasSuffix: alias) as! Storefront.SellingPlanConnection
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "options":
 					internalGetOptions().forEach {
 						response.append($0)

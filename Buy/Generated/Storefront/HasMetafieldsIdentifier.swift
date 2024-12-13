@@ -67,7 +67,7 @@ extension Storefront {
 			var fields: [String] = []
 
 			switch namespace {
-				case .value(let namespace): 
+				case .value(let namespace):
 				guard let namespace = namespace else {
 					fields.append("namespace:null")
 					break

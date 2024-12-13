@@ -58,7 +58,7 @@ extension Storefront {
 		}
 
 		/// The corresponding value to the product option name. 
-		@available(*, deprecated, message:"Use `optionValues` instead.")
+		@available(*, deprecated, message: "Use `optionValues` instead.")
 		@discardableResult
 		open func values(alias: String? = nil) -> ProductOptionQuery {
 			addField(field: "values", aliasSuffix: alias)
@@ -132,7 +132,7 @@ extension Storefront {
 		}
 
 		/// The corresponding value to the product option name. 
-		@available(*, deprecated, message:"Use `optionValues` instead.")
+		@available(*, deprecated, message: "Use `optionValues` instead.")
 		open var values: [String] {
 			return internalGetValues()
 		}
@@ -141,7 +141,7 @@ extension Storefront {
 			return field(field: "values", aliasSuffix: alias) as! [String]
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}

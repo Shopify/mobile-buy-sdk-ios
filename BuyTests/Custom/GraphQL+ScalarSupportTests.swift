@@ -3,7 +3,7 @@
 //  BuyTests
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) 2024 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -30,17 +30,17 @@ import XCTest
 class GraphQL_ScalarSupportTests: XCTestCase {
 
     // ----------------------------------
-    //  MARK: - Date Formatter -
+    // MARK: - Date Formatter -
     //
     func testLocale() {
         let locale = GraphQL.posixLocale
         XCTAssertEqual(locale.identifier, "en_US_POSIX")
     }
-    
+
     func testISODateFormatter() {
         let formatter = GraphQL.iso8601DateParser
-        
-        XCTAssertEqual(formatter.locale,     GraphQL.posixLocale)
+
+        XCTAssertEqual(formatter.locale, GraphQL.posixLocale)
         XCTAssertEqual(formatter.dateFormat, "yyyy-MM-dd'T'HH:mm:ssZZZZZ")
     }
 }

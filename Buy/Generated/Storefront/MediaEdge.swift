@@ -93,10 +93,10 @@ extension Storefront {
 			return field(field: "node", aliasSuffix: alias) as! Media
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "node":
 					response.append((internalGetNode() as! GraphQL.AbstractResponse))
 					response.append(contentsOf: (internalGetNode() as! GraphQL.AbstractResponse).childResponseObjectMap())

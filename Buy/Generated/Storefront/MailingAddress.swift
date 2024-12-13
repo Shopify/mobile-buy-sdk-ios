@@ -69,7 +69,7 @@ extension Storefront {
 		}
 
 		/// The two-letter code for the country of the address. For example, US. 
-		@available(*, deprecated, message:"Use `countryCodeV2` instead.")
+		@available(*, deprecated, message: "Use `countryCodeV2` instead.")
 		@discardableResult
 		open func countryCode(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "countryCode", aliasSuffix: alias)
@@ -377,7 +377,7 @@ extension Storefront {
 		}
 
 		/// The two-letter code for the country of the address. For example, US. 
-		@available(*, deprecated, message:"Use `countryCodeV2` instead.")
+		@available(*, deprecated, message: "Use `countryCodeV2` instead.")
 		open var countryCode: String? {
 			return internalGetCountryCode()
 		}
@@ -508,7 +508,7 @@ extension Storefront {
 			return field(field: "zip", aliasSuffix: alias) as! String?
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}

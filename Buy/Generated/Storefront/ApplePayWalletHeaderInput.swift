@@ -78,7 +78,7 @@ extension Storefront {
 			var fields: [String] = []
 
 			switch applicationData {
-				case .value(let applicationData): 
+				case .value(let applicationData):
 				guard let applicationData = applicationData else {
 					fields.append("applicationData:null")
 					break

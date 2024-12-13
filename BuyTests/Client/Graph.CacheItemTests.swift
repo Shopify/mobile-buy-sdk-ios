@@ -3,7 +3,7 @@
 //  BuyTests
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) 2024 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -31,112 +31,112 @@ class Graph_CacheItemTests: XCTestCase {
 
     let fileManager   = FileManager.default
     let testDirectory = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("com.cache.test")
-    
+
     // ----------------------------------
-    //  MARK: - Setup -
+    // MARK: - Setup -
     //
     override func setUp() {
         super.setUp()
-        
+
         try! self.fileManager.createDirectory(at: self.testDirectory, withIntermediateDirectories: true, attributes: nil)
     }
-    
+
     override func tearDown() {
         super.tearDown()
-        
+
         try! self.fileManager.removeItem(at: self.testDirectory)
     }
-    
+
     // ----------------------------------
-    //  MARK: - Init -
+    // MARK: - Init -
     //
     func testInit() {
         let data  = "abc".data(using: .utf8)!
         let hash  = "123"
         let stamp = Date().timeIntervalSince1970
         let item  = Graph.CacheItem(hash: hash, data: data, timestamp: stamp)
-        
+
         XCTAssertEqual(item.hash, hash)
         XCTAssertEqual(item.data, data)
         XCTAssertEqual(item.timestamp, stamp)
     }
-    
+
     func testInitFromHashEmpty() {
         let location      = Graph.CacheItem.Location(inParent: self.testDirectory, hash: "abcdefg")
         let retrievedItem = Graph.CacheItem(at: location)
-        
+
         XCTAssertNil(retrievedItem)
     }
-    
+
     func testInitFromHash() {
         let item     = self.defaultCacheItem()
         let location = Graph.CacheItem.Location(inParent: self.testDirectory, hash: item.hash)
-        
+
         item.write(to: location)
-        
+
         let retrievedItem = Graph.CacheItem(at: location)
-        
+
         XCTAssertNotNil(retrievedItem)
         XCTAssertEqual(item.data, retrievedItem!.data)
         XCTAssertEqual(item.hash, retrievedItem!.hash)
         XCTAssertEqual(Int(item.timestamp * 100.0), Int(retrievedItem!.timestamp * 100.0))
     }
-    
+
     // ----------------------------------
-    //  MARK: - Write -
+    // MARK: - Write -
     //
     func testWrite() {
         let item     = self.defaultCacheItem()
         let location = Graph.CacheItem.Location(inParent: self.testDirectory, hash: "test-item")
-        
+
         XCTAssertFalse(self.fileManager.fileExists(atPath: location.dataURL.path))
         XCTAssertFalse(self.fileManager.fileExists(atPath: location.metaURL.path))
-        
+
         let success = item.write(to: location)
-        
+
         XCTAssertTrue(success)
         XCTAssertTrue(self.fileManager.fileExists(atPath: location.dataURL.path))
         XCTAssertTrue(self.fileManager.fileExists(atPath: location.metaURL.path))
     }
-    
+
     func testWriteRestricted() {
         let item     = self.defaultCacheItem()
         let root     = URL(fileURLWithPath: "/") // Shouldn't be able to write to root -> "/"
         let location = Graph.CacheItem.Location(inParent: root, hash: "test-item-2")
-        
+
         let success = item.write(to: location)
-        
+
         XCTAssertFalse(success)
     }
-    
+
     // ----------------------------------
-    //  MARK: - Location -
+    // MARK: - Location -
     //
     func testLocationInitInParent() {
         let parentURL = URL(fileURLWithPath: "/root")
         let location  = Graph.CacheItem.Location(inParent: parentURL, hash: "123")
-        
+
         XCTAssertEqual(location.dataURL.absoluteString, "file:///root/123")
         XCTAssertEqual(location.metaURL.absoluteString, "file:///root/123.meta")
     }
-    
+
     func testLocationInit() {
         let url1      = URL(fileURLWithPath: "/root")
         let url2      = URL(fileURLWithPath: "/var")
         let location  = Graph.CacheItem.Location(dataURL: url1, metaURL: url2)
-        
+
         XCTAssertEqual(location.dataURL.absoluteString, url1.absoluteString)
         XCTAssertEqual(location.metaURL.absoluteString, url2.absoluteString)
     }
-    
+
     // ----------------------------------
-    //  MARK: - Private -
+    // MARK: - Private -
     //
     private func defaultCacheItem() -> Graph.CacheItem {
         let data  = "abc".data(using: .utf8)!
         let hash  = "123"
         let stamp = Date().timeIntervalSince1970
-        
+
         return Graph.CacheItem(hash: hash, data: data, timestamp: stamp)
     }
 }

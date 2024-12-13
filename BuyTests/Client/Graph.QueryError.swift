@@ -3,7 +3,7 @@
 //  BuyTests
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) 2024 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -30,26 +30,26 @@ import XCTest
 class Graph_QueryErrorTests: XCTestCase {
 
     // ----------------------------------
-    //  MARK: - Reason -
+    // MARK: - Reason -
     //
     func testInitReasonComplete() {
         let json: JSON = [
-            "message" : "Good reason for failure",
-            "line"    : 2,
-            "column"  : 4,
+            "message": "Good reason for failure",
+            "line": 2,
+            "column": 4
         ]
-        
+
         let reason = Graph.QueryError.Reason(json: json)
-        
+
         XCTAssertEqual(reason.message, json["message"] as! String)
-        XCTAssertEqual(reason.line,    json["line"]    as? Int)
-        XCTAssertEqual(reason.column,  json["column"]  as? Int)
+        XCTAssertEqual(reason.line, json["line"]    as? Int)
+        XCTAssertEqual(reason.column, json["column"]  as? Int)
     }
-    
+
     func testInitReasonIncomplete() {
-        
+
         let reason = Graph.QueryError.Reason(json: [:])
-        
+
         XCTAssertEqual(reason.message, "Unknown error")
         XCTAssertNil(reason.line)
         XCTAssertNil(reason.column)

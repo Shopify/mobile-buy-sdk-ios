@@ -88,7 +88,7 @@ extension Storefront {
 			return field(field: "precision", aliasSuffix: alias) as! Storefront.CountPrecision
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}

@@ -93,7 +93,7 @@ extension Storefront {
 		open func metafields(alias: String? = nil, identifiers: [HasMetafieldsIdentifier], _ subfields: (MetafieldQuery) -> Void) -> ShopQuery {
 			var args: [String] = []
 
-			args.append("identifiers:[\(identifiers.map{ "\($0.serialize())" }.joined(separator: ","))]")
+			args.append("identifiers:[\(identifiers.map { "\($0.serialize())" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -483,10 +483,10 @@ extension Storefront {
 			return field(field: "termsOfService", aliasSuffix: alias) as! Storefront.ShopPolicy?
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "brand":
 					if let value = internalGetBrand() {
 						response.append(value)

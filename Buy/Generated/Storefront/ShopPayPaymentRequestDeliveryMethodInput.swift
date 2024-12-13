@@ -96,7 +96,7 @@ extension Storefront {
 			var fields: [String] = []
 
 			switch code {
-				case .value(let code): 
+				case .value(let code):
 				guard let code = code else {
 					fields.append("code:null")
 					break
@@ -106,7 +106,7 @@ extension Storefront {
 			}
 
 			switch label {
-				case .value(let label): 
+				case .value(let label):
 				guard let label = label else {
 					fields.append("label:null")
 					break
@@ -116,7 +116,7 @@ extension Storefront {
 			}
 
 			switch detail {
-				case .value(let detail): 
+				case .value(let detail):
 				guard let detail = detail else {
 					fields.append("detail:null")
 					break
@@ -126,7 +126,7 @@ extension Storefront {
 			}
 
 			switch amount {
-				case .value(let amount): 
+				case .value(let amount):
 				guard let amount = amount else {
 					fields.append("amount:null")
 					break
@@ -136,7 +136,7 @@ extension Storefront {
 			}
 
 			switch minDeliveryDate {
-				case .value(let minDeliveryDate): 
+				case .value(let minDeliveryDate):
 				guard let minDeliveryDate = minDeliveryDate else {
 					fields.append("minDeliveryDate:null")
 					break
@@ -146,7 +146,7 @@ extension Storefront {
 			}
 
 			switch maxDeliveryDate {
-				case .value(let maxDeliveryDate): 
+				case .value(let maxDeliveryDate):
 				guard let maxDeliveryDate = maxDeliveryDate else {
 					fields.append("maxDeliveryDate:null")
 					break
@@ -156,7 +156,7 @@ extension Storefront {
 			}
 
 			switch deliveryExpectationLabel {
-				case .value(let deliveryExpectationLabel): 
+				case .value(let deliveryExpectationLabel):
 				guard let deliveryExpectationLabel = deliveryExpectationLabel else {
 					fields.append("deliveryExpectationLabel:null")
 					break

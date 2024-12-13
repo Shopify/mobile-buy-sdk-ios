@@ -86,7 +86,7 @@ extension Storefront {
 			fields.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
 
 			switch quantity {
-				case .value(let quantity): 
+				case .value(let quantity):
 				guard let quantity = quantity else {
 					fields.append("quantity:null")
 					break
@@ -96,7 +96,7 @@ extension Storefront {
 			}
 
 			switch merchandiseId {
-				case .value(let merchandiseId): 
+				case .value(let merchandiseId):
 				guard let merchandiseId = merchandiseId else {
 					fields.append("merchandiseId:null")
 					break
@@ -106,17 +106,17 @@ extension Storefront {
 			}
 
 			switch attributes {
-				case .value(let attributes): 
+				case .value(let attributes):
 				guard let attributes = attributes else {
 					fields.append("attributes:null")
 					break
 				}
-				fields.append("attributes:[\(attributes.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("attributes:[\(attributes.map { "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch sellingPlanId {
-				case .value(let sellingPlanId): 
+				case .value(let sellingPlanId):
 				guard let sellingPlanId = sellingPlanId else {
 					fields.append("sellingPlanId:null")
 					break

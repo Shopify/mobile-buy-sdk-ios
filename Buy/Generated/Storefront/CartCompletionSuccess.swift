@@ -133,7 +133,7 @@ extension Storefront {
 			return field(field: "orderUrl", aliasSuffix: alias) as! URL
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}

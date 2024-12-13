@@ -37,7 +37,7 @@ extension Storefront {
 		case each = "EACH"
 
 		/// The value is specifically applied onto a particular line. 
-		@available(*, deprecated, message:"Use ACROSS instead.")
+		@available(*, deprecated, message: "Use ACROSS instead.")
 		case one = "ONE"
 
 		case unknownValue = ""

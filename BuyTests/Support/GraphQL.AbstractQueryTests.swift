@@ -3,7 +3,7 @@
 //  BuyTests
 //
 //  Created by Shopify.
-//  Copyright (c) 2021 Shopify Inc. All rights reserved.
+//  Copyright (c) 2024 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -28,11 +28,11 @@ import XCTest
 @testable import Buy
 
 class GraphQL_AbstractQueryTests: XCTestCase {
-    
+
     func testQuery() {
         XCTAssertEqual(String(describing: RootQuery()), "query {shop{name,name__a:name}}")
     }
-    
+
     func testQueryWithDirectives() {
         let query = RootQuery()
         query.directives = []
@@ -40,12 +40,12 @@ class GraphQL_AbstractQueryTests: XCTestCase {
         query.directives = [TestDirective(), TestDirectiveWithArgs()]
         XCTAssertEqual(String(describing: query), "query @test @testArgs(input: \"hello\") {shop{name,name__a:name}}")
     }
-    
+
     private class RootQuery: GraphQL.AbstractQuery {
         override var description: String {
             return "query " + super.description
         }
-        
+
         override init() {
             super.init()
             addField(field: "shop", subfields: ShopQuery())
@@ -59,13 +59,13 @@ class GraphQL_AbstractQueryTests: XCTestCase {
             addField(field: "name", aliasSuffix: "a")
         }
     }
-    
+
     private class TestDirective: GraphQL.AbstractDirective {
         init() {
             super.init(name: "test")
         }
     }
-    
+
     private class TestDirectiveWithArgs: GraphQL.AbstractDirective {
         init() {
             super.init(name: "testArgs", args: "(input: \"hello\")")

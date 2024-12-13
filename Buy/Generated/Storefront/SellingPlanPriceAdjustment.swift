@@ -110,7 +110,7 @@ extension Storefront {
 			return field(field: "orderCount", aliasSuffix: alias) as! Int32?
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}

@@ -88,7 +88,7 @@ extension Storefront {
 			return field(field: "pollDelay", aliasSuffix: alias) as! Int32
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}
