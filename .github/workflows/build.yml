@@ -43,10 +43,9 @@ jobs:
           ./Scripts/update_version $API_VERSION
           swiftlint --fix
           git add .
-          git status
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
-          git commit -m "Generate `${API_VERSION}` schema."
+          git commit -m "Generate \`${API_VERSION}\` schema."
           git push --set-upstream --force origin $BRANCH_NAME
 
       - name: Create pull request
