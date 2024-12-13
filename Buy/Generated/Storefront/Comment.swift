@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -44,7 +43,7 @@ extension Storefront {
 		/// Stripped content of the comment, single line with HTML tags removed. 
 		///
 		/// - parameters:
-		///     - truncateAt: Truncates string after the given length.
+		///     - truncateAt: Truncates a string after the given length.
 		///
 		@discardableResult
 		open func content(alias: String? = nil, truncateAt: Int32? = nil) -> CommentQuery {
@@ -78,7 +77,6 @@ extension Storefront {
 	/// A comment on an article. 
 	open class Comment: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = CommentQuery
-
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
@@ -151,10 +149,10 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "author":
 					response.append(internalGetAuthor())
 					response.append(contentsOf: internalGetAuthor().childResponseObjectMap())

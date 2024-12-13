@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -85,7 +84,6 @@ extension Storefront {
 		public convenience init(billingAddress: MailingAddressInput, data: String, header: ApplePayWalletHeaderInput, signature: String, version: String, lastDigits: String? = nil) {
 			self.init(billingAddress: billingAddress, data: data, header: header, signature: signature, version: version, lastDigits: lastDigits.orUndefined)
 		}
-
 		internal func serialize() -> String {
 			var fields: [String] = []
 
@@ -96,7 +94,7 @@ extension Storefront {
 			fields.append("header:\(header.serialize())")
 
 			switch lastDigits {
-				case .value(let lastDigits): 
+				case .value(let lastDigits):
 				guard let lastDigits = lastDigits else {
 					fields.append("lastDigits:null")
 					break

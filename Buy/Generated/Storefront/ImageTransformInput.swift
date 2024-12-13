@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -90,12 +89,11 @@ extension Storefront {
 		public convenience init(crop: CropRegion? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, scale: Int32? = nil, preferredContentType: ImageContentType? = nil) {
 			self.init(crop: crop.orUndefined, maxWidth: maxWidth.orUndefined, maxHeight: maxHeight.orUndefined, scale: scale.orUndefined, preferredContentType: preferredContentType.orUndefined)
 		}
-
 		internal func serialize() -> String {
 			var fields: [String] = []
 
 			switch crop {
-				case .value(let crop): 
+				case .value(let crop):
 				guard let crop = crop else {
 					fields.append("crop:null")
 					break
@@ -105,7 +103,7 @@ extension Storefront {
 			}
 
 			switch maxWidth {
-				case .value(let maxWidth): 
+				case .value(let maxWidth):
 				guard let maxWidth = maxWidth else {
 					fields.append("maxWidth:null")
 					break
@@ -115,7 +113,7 @@ extension Storefront {
 			}
 
 			switch maxHeight {
-				case .value(let maxHeight): 
+				case .value(let maxHeight):
 				guard let maxHeight = maxHeight else {
 					fields.append("maxHeight:null")
 					break
@@ -125,7 +123,7 @@ extension Storefront {
 			}
 
 			switch scale {
-				case .value(let scale): 
+				case .value(let scale):
 				guard let scale = scale else {
 					fields.append("scale:null")
 					break
@@ -135,7 +133,7 @@ extension Storefront {
 			}
 
 			switch preferredContentType {
-				case .value(let preferredContentType): 
+				case .value(let preferredContentType):
 				guard let preferredContentType = preferredContentType else {
 					fields.append("preferredContentType:null")
 					break

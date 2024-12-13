@@ -9,13 +9,13 @@ let package = Package(
         .iOS(.v12),
         .watchOS(.v2),
         .tvOS(.v12),
-        .macOS(.v10_15),
+        .macOS(.v10_15)
     ],
     products: [
         .library(
             name: "Buy",
             targets: ["Buy"]
-        ),
+        )
     ],
     dependencies: [],
     targets: [
@@ -30,6 +30,6 @@ let package = Package(
             dependencies: ["Buy"],
             path: "BuyTests",
             exclude: ["Info.plist"]
-        ),
+        )
     ]
 )

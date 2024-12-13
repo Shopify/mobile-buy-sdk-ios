@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -69,7 +68,7 @@ extension Storefront {
 		}
 
 		/// The two-letter code for the country of the address. For example, US. 
-		@available(*, deprecated, message:"Use `countryCodeV2` instead.")
+		@available(*, deprecated, message: "Use `countryCodeV2` instead.")
 		@discardableResult
 		open func countryCode(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "countryCode", aliasSuffix: alias)
@@ -189,7 +188,6 @@ extension Storefront {
 	/// Represents a mailing address for customers and shipping. 
 	open class MailingAddress: GraphQL.AbstractResponse, GraphQLObject, DeliveryAddress, Node {
 		public typealias Query = MailingAddressQuery
-
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
@@ -377,7 +375,7 @@ extension Storefront {
 		}
 
 		/// The two-letter code for the country of the address. For example, US. 
-		@available(*, deprecated, message:"Use `countryCodeV2` instead.")
+		@available(*, deprecated, message: "Use `countryCodeV2` instead.")
 		open var countryCode: String? {
 			return internalGetCountryCode()
 		}
@@ -508,7 +506,7 @@ extension Storefront {
 			return field(field: "zip", aliasSuffix: alias) as! String?
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}

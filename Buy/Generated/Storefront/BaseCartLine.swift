@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 /// Represents a cart line common fields. 
@@ -36,7 +35,7 @@ public protocol BaseCartLine {
 
 	var discountAllocations: [CartDiscountAllocation] { get }
 
-	@available(*, deprecated, message:"Use `cost` instead.")
+	@available(*, deprecated, message: "Use `cost` instead.")
 
 	var estimatedCost: Storefront.CartLineEstimatedCost { get }
 
@@ -109,7 +108,7 @@ extension Storefront {
 		/// The estimated cost of the merchandise that the buyer will pay for at 
 		/// checkout. The estimated costs are subject to change and changes will be 
 		/// reflected at checkout. 
-		@available(*, deprecated, message:"Use `cost` instead.")
+		@available(*, deprecated, message: "Use `cost` instead.")
 		@discardableResult
 		open func estimatedCost(alias: String? = nil, _ subfields: (CartLineEstimatedCostQuery) -> Void) -> BaseCartLineQuery {
 			let subquery = CartLineEstimatedCostQuery()
@@ -181,7 +180,6 @@ extension Storefront {
 	/// Represents a cart line common fields. 
 	open class UnknownBaseCartLine: GraphQL.AbstractResponse, GraphQLObject, BaseCartLine {
 		public typealias Query = BaseCartLineQuery
-
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
@@ -305,7 +303,7 @@ extension Storefront {
 		/// The estimated cost of the merchandise that the buyer will pay for at 
 		/// checkout. The estimated costs are subject to change and changes will be 
 		/// reflected at checkout. 
-		@available(*, deprecated, message:"Use `cost` instead.")
+		@available(*, deprecated, message: "Use `cost` instead.")
 		open var estimatedCost: Storefront.CartLineEstimatedCost {
 			return internalGetEstimatedCost()
 		}
@@ -351,10 +349,10 @@ extension Storefront {
 			return field(field: "sellingPlanAllocation", aliasSuffix: alias) as! Storefront.SellingPlanAllocation?
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "attribute":
 					if let value = internalGetAttribute() {
 						response.append(value)

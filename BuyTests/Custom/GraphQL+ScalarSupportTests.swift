@@ -30,7 +30,7 @@ import XCTest
 class GraphQL_ScalarSupportTests: XCTestCase {
 
     // ----------------------------------
-    //  MARK: - Date Formatter -
+    // MARK: - Date Formatter -
     //
     func testLocale() {
         let locale = GraphQL.posixLocale
@@ -40,7 +40,7 @@ class GraphQL_ScalarSupportTests: XCTestCase {
     func testISODateFormatter() {
         let formatter = GraphQL.iso8601DateParser
 
-        XCTAssertEqual(formatter.locale,     GraphQL.posixLocale)
+        XCTAssertEqual(formatter.locale, GraphQL.posixLocale)
         XCTAssertEqual(formatter.dateFormat, "yyyy-MM-dd'T'HH:mm:ssZZZZZ")
     }
 }

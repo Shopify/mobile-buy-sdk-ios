@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -75,12 +74,11 @@ extension Storefront {
 		public convenience init(deliveryAddress: MailingAddressInput? = nil, oneTimeUse: Bool? = nil, deliveryAddressValidationStrategy: DeliveryAddressValidationStrategy? = nil, customerAddressId: GraphQL.ID? = nil) {
 			self.init(deliveryAddress: deliveryAddress.orUndefined, oneTimeUse: oneTimeUse.orUndefined, deliveryAddressValidationStrategy: deliveryAddressValidationStrategy.orUndefined, customerAddressId: customerAddressId.orUndefined)
 		}
-
 		internal func serialize() -> String {
 			var fields: [String] = []
 
 			switch deliveryAddress {
-				case .value(let deliveryAddress): 
+				case .value(let deliveryAddress):
 				guard let deliveryAddress = deliveryAddress else {
 					fields.append("deliveryAddress:null")
 					break
@@ -90,7 +88,7 @@ extension Storefront {
 			}
 
 			switch oneTimeUse {
-				case .value(let oneTimeUse): 
+				case .value(let oneTimeUse):
 				guard let oneTimeUse = oneTimeUse else {
 					fields.append("oneTimeUse:null")
 					break
@@ -100,7 +98,7 @@ extension Storefront {
 			}
 
 			switch deliveryAddressValidationStrategy {
-				case .value(let deliveryAddressValidationStrategy): 
+				case .value(let deliveryAddressValidationStrategy):
 				guard let deliveryAddressValidationStrategy = deliveryAddressValidationStrategy else {
 					fields.append("deliveryAddressValidationStrategy:null")
 					break
@@ -110,7 +108,7 @@ extension Storefront {
 			}
 
 			switch customerAddressId {
-				case .value(let customerAddressId): 
+				case .value(let customerAddressId):
 				guard let customerAddressId = customerAddressId else {
 					fields.append("customerAddressId:null")
 					break

@@ -53,9 +53,9 @@ extension Graph.CachePolicy {
 
     public static func ==(lhs: Graph.CachePolicy, rhs: Graph.CachePolicy) -> Bool {
         switch (lhs, rhs) {
-        case (.cacheOnly,            .cacheOnly):                           return true
-        case (.networkOnly,          .networkOnly):                         return true
-        case (.cacheFirst(let lv),   .cacheFirst(let rv))   where lv == rv: return true
+        case (.cacheOnly, .cacheOnly):                           return true
+        case (.networkOnly, .networkOnly):                         return true
+        case (.cacheFirst(let lv), .cacheFirst(let rv))   where lv == rv: return true
         case (.networkFirst(let lv), .networkFirst(let rv)) where lv == rv: return true
         default:
             return false

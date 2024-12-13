@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -99,52 +98,51 @@ extension Storefront {
 		public convenience init(attributes: [AttributeInput]? = nil, lines: [CartLineInput]? = nil, discountCodes: [String]? = nil, giftCardCodes: [String]? = nil, note: String? = nil, buyerIdentity: CartBuyerIdentityInput? = nil, metafields: [CartInputMetafieldInput]? = nil) {
 			self.init(attributes: attributes.orUndefined, lines: lines.orUndefined, discountCodes: discountCodes.orUndefined, giftCardCodes: giftCardCodes.orUndefined, note: note.orUndefined, buyerIdentity: buyerIdentity.orUndefined, metafields: metafields.orUndefined)
 		}
-
 		internal func serialize() -> String {
 			var fields: [String] = []
 
 			switch attributes {
-				case .value(let attributes): 
+				case .value(let attributes):
 				guard let attributes = attributes else {
 					fields.append("attributes:null")
 					break
 				}
-				fields.append("attributes:[\(attributes.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("attributes:[\(attributes.map { "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch lines {
-				case .value(let lines): 
+				case .value(let lines):
 				guard let lines = lines else {
 					fields.append("lines:null")
 					break
 				}
-				fields.append("lines:[\(lines.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("lines:[\(lines.map { "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch discountCodes {
-				case .value(let discountCodes): 
+				case .value(let discountCodes):
 				guard let discountCodes = discountCodes else {
 					fields.append("discountCodes:null")
 					break
 				}
-				fields.append("discountCodes:[\(discountCodes.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
+				fields.append("discountCodes:[\(discountCodes.map { "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch giftCardCodes {
-				case .value(let giftCardCodes): 
+				case .value(let giftCardCodes):
 				guard let giftCardCodes = giftCardCodes else {
 					fields.append("giftCardCodes:null")
 					break
 				}
-				fields.append("giftCardCodes:[\(giftCardCodes.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
+				fields.append("giftCardCodes:[\(giftCardCodes.map { "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch note {
-				case .value(let note): 
+				case .value(let note):
 				guard let note = note else {
 					fields.append("note:null")
 					break
@@ -154,7 +152,7 @@ extension Storefront {
 			}
 
 			switch buyerIdentity {
-				case .value(let buyerIdentity): 
+				case .value(let buyerIdentity):
 				guard let buyerIdentity = buyerIdentity else {
 					fields.append("buyerIdentity:null")
 					break
@@ -164,12 +162,12 @@ extension Storefront {
 			}
 
 			switch metafields {
-				case .value(let metafields): 
+				case .value(let metafields):
 				guard let metafields = metafields else {
 					fields.append("metafields:null")
 					break
 				}
-				fields.append("metafields:[\(metafields.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("metafields:[\(metafields.map { "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 

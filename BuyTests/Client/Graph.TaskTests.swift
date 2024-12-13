@@ -33,28 +33,28 @@ class Graph_TaskTests: XCTestCase {
     let url   = URL(string: "https://www.google.com")!
 
     // ----------------------------------
-    //  MARK: - Init -
+    // MARK: - Init -
     //
     func testInit() {
         let session = MockSession()
         let cache   = Graph.Cache(shopName: "shop.myshopify.com")
         let payload = self.defaultQueryPayload()
         let request = self.defaultRequest(for: payload.query)
-        let retry   = Graph.RetryHandler<Storefront.QueryRoot> { query, error in
+        let retry   = Graph.RetryHandler<Storefront.QueryRoot> { _, error in
             return error != nil
         }
 
-        let completion: (Storefront.QueryRoot?, Graph.QueryError?) -> Void = { query, error in
+        let completion: (Storefront.QueryRoot?, Graph.QueryError?) -> Void = { _, _ in
 
         }
 
         let task = Graph.InternalTask<Storefront.QueryRoot>(
-            session:      session,
-            cache:        cache,
-            request:      request,
-            cachePolicy:  .networkOnly,
+            session: session,
+            cache: cache,
+            request: request,
+            cachePolicy: .networkOnly,
             retryHandler: retry,
-            completion:   completion
+            completion: completion
         )
 
         XCTAssertTrue(task.session === session)
@@ -65,7 +65,7 @@ class Graph_TaskTests: XCTestCase {
     }
 
     // ----------------------------------
-    //  MARK: - Network Requests -
+    // MARK: - Network Requests -
     //
     func testNetworkOnlySuccess() {
         self.cache.purge()
@@ -137,7 +137,7 @@ class Graph_TaskTests: XCTestCase {
 
         self.cacheQuery(payload, timestampDelta: 30.0)
 
-        let task = self.defaultTask(query: payload.query, cachePolicy: .cacheOnly, configuration: { mock in
+        let task = self.defaultTask(query: payload.query, cachePolicy: .cacheOnly, configuration: { _ in
 
             XCTFail() // Should not start a network task
 
@@ -167,7 +167,7 @@ class Graph_TaskTests: XCTestCase {
 
         self.cacheQuery(payload, timestampDelta: 30.0)
 
-        let task = self.defaultTask(query: payload.query, cachePolicy: .cacheFirst(expireIn: 30), configuration: { mock in
+        let task = self.defaultTask(query: payload.query, cachePolicy: .cacheFirst(expireIn: 30), configuration: { _ in
 
             XCTFail() // Should not start a network task
 
@@ -318,7 +318,7 @@ class Graph_TaskTests: XCTestCase {
     }
 
     // ----------------------------------
-    //  MARK: - Errors -
+    // MARK: - Errors -
     //
     func testRequestError() {
         self.assertTaskWith(configuration: { mock in
@@ -392,14 +392,14 @@ class Graph_TaskTests: XCTestCase {
         let errorsJson: [String: Any] = [
             "errors": [
                 [
-                    "line"    : 7,
-                    "column"  : 1,
-                    "message" : "Error 1",
+                    "line": 7,
+                    "column": 1,
+                    "message": "Error 1"
                 ],
                 [
-                    "line"    : 13,
-                    "column"  : 90,
-                    "message" : "Error 2",
+                    "line": 13,
+                    "column": 90,
+                    "message": "Error 2"
                 ]
             ]
         ]
@@ -412,12 +412,12 @@ class Graph_TaskTests: XCTestCase {
             if case .invalidQuery(let reasons) = error {
                 XCTAssertEqual(reasons.count, 2)
 
-                XCTAssertEqual(reasons[0].line,    7)
-                XCTAssertEqual(reasons[0].column,  1)
+                XCTAssertEqual(reasons[0].line, 7)
+                XCTAssertEqual(reasons[0].column, 1)
                 XCTAssertEqual(reasons[0].message, "Error 1")
 
-                XCTAssertEqual(reasons[1].line,    13)
-                XCTAssertEqual(reasons[1].column,  90)
+                XCTAssertEqual(reasons[1].line, 13)
+                XCTAssertEqual(reasons[1].column, 90)
                 XCTAssertEqual(reasons[1].message, "Error 2")
             } else {
                 XCTFail()
@@ -449,7 +449,7 @@ class Graph_TaskTests: XCTestCase {
         let e = self.expectation(description: "")
 
         let payload = self.defaultQueryPayload()
-        let task    = self.defaultTask(query: payload.query, cachePolicy: .networkOnly, configuration: configuration, completion: { request, query, error in
+        let task    = self.defaultTask(query: payload.query, cachePolicy: .networkOnly, configuration: configuration, completion: { _, query, error in
 
             XCTAssertNil(query)
             XCTAssertNotNil(error)
@@ -464,18 +464,18 @@ class Graph_TaskTests: XCTestCase {
     }
 
     // ----------------------------------
-    //  MARK: - Cache Policy -
+    // MARK: - Cache Policy -
     //
     func testForceCachePolicyWithRetry() {
 
-        let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .infinite) { (result, error) -> Bool in
+        let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .infinite) { (_, _) -> Bool in
             return true
         }
 
         let payload = self.defaultQueryPayload()
-        let task    = self.defaultTask(query: payload.query, cachePolicy: .cacheOnly, retryHandler: retry, configuration: { mock in
+        let task    = self.defaultTask(query: payload.query, cachePolicy: .cacheOnly, retryHandler: retry, configuration: { _ in
             // No configuration
-        }, completion: { request, query, error in
+        }, completion: { _, _, _ in
             // No asserts
         })
 
@@ -488,7 +488,7 @@ class Graph_TaskTests: XCTestCase {
     }
 
     // ----------------------------------
-    //  MARK: - Retry -
+    // MARK: - Retry -
     //
     func testRetryHandler() {
         let e = self.expectation(description: "")
@@ -498,15 +498,15 @@ class Graph_TaskTests: XCTestCase {
         let retryLimit = 3
         var retryCount = 0
 
-        let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(retryLimit), interval: 0.05) { (result, error) -> Bool in
+        let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(retryLimit), interval: 0.05) { (_, _) -> Bool in
             retryCount += 1
             Log("Retrying...")
             return retryCount < retryLimit
         }
 
-        let task = self.defaultTask(query: payload.query, cachePolicy: .networkOnly, retryHandler: retry, configuration: { mock in
+        let task = self.defaultTask(query: payload.query, cachePolicy: .networkOnly, retryHandler: retry, configuration: { _ in
             // No configuration
-        }, completion: { request, query, error in
+        }, completion: { _, _, _ in
             e.fulfill()
         })
 
@@ -523,14 +523,14 @@ class Graph_TaskTests: XCTestCase {
 
         var retryCount = 0
 
-        let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(5), interval: 0.05) { (result, error) -> Bool in
+        let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(5), interval: 0.05) { (_, _) -> Bool in
             retryCount += 1
             return true
         }
 
-        let task = self.defaultTask(query: payload.query, cachePolicy: .networkOnly, retryHandler: retry, configuration: { mock in
+        let task = self.defaultTask(query: payload.query, cachePolicy: .networkOnly, retryHandler: retry, configuration: { _ in
             // No configuration
-        }, completion: { request, query, error in
+        }, completion: { _, _, _ in
             XCTFail()
         })
 
@@ -565,14 +565,14 @@ class Graph_TaskTests: XCTestCase {
         let payload = self.defaultQueryPayload()
         var retryCount = 0
 
-        let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(5), interval: 0.05) { (result, error) -> Bool in
+        let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(5), interval: 0.05) { (_, _) -> Bool in
             retryCount += 1
             return true
         }
 
-        let task = self.defaultTask(query: payload.query, cachePolicy: .networkOnly, retryHandler: retry, configuration: { mock in
+        let task = self.defaultTask(query: payload.query, cachePolicy: .networkOnly, retryHandler: retry, configuration: { _ in
             // No configuration
-        }, completion: { request, query, error in
+        }, completion: { _, _, _ in
             XCTFail()
         })
 
@@ -597,7 +597,7 @@ class Graph_TaskTests: XCTestCase {
     }
 
     // ----------------------------------
-    //  MARK: - Cache -
+    // MARK: - Cache -
     //
     private func cacheQuery(_ payload: (query: Storefront.QueryRootQuery, response: [String: Any]), timestampDelta: Double) {
         let request = self.defaultRequest(for: payload.query)
@@ -608,7 +608,7 @@ class Graph_TaskTests: XCTestCase {
     }
 
     // ----------------------------------
-    //  MARK: - Private -
+    // MARK: - Private -
     //
     private func defaultClient() -> Graph.Client {
         return Graph.Client(shopDomain: "shop.domain.com", apiKey: "api-key", session: MockSession())
@@ -628,10 +628,10 @@ class Graph_TaskTests: XCTestCase {
         session.configurationHandler = configuration
 
         return Graph.InternalTask<Storefront.QueryRoot>(
-            session:      session,
-            cache:        self.cache,
-            request:      request,
-            cachePolicy:  cachePolicy,
+            session: session,
+            cache: self.cache,
+            request: request,
+            cachePolicy: cachePolicy,
             retryHandler: retryHandler,
             completion: { query, error in
                 completion(request, query, error)

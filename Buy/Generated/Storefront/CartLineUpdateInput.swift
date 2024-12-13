@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -79,14 +78,13 @@ extension Storefront {
 		public convenience init(id: GraphQL.ID, quantity: Int32? = nil, merchandiseId: GraphQL.ID? = nil, attributes: [AttributeInput]? = nil, sellingPlanId: GraphQL.ID? = nil) {
 			self.init(id: id, quantity: quantity.orUndefined, merchandiseId: merchandiseId.orUndefined, attributes: attributes.orUndefined, sellingPlanId: sellingPlanId.orUndefined)
 		}
-
 		internal func serialize() -> String {
 			var fields: [String] = []
 
 			fields.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
 
 			switch quantity {
-				case .value(let quantity): 
+				case .value(let quantity):
 				guard let quantity = quantity else {
 					fields.append("quantity:null")
 					break
@@ -96,7 +94,7 @@ extension Storefront {
 			}
 
 			switch merchandiseId {
-				case .value(let merchandiseId): 
+				case .value(let merchandiseId):
 				guard let merchandiseId = merchandiseId else {
 					fields.append("merchandiseId:null")
 					break
@@ -106,17 +104,17 @@ extension Storefront {
 			}
 
 			switch attributes {
-				case .value(let attributes): 
+				case .value(let attributes):
 				guard let attributes = attributes else {
 					fields.append("attributes:null")
 					break
 				}
-				fields.append("attributes:[\(attributes.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("attributes:[\(attributes.map { "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch sellingPlanId {
-				case .value(let sellingPlanId): 
+				case .value(let sellingPlanId):
 				guard let sellingPlanId = sellingPlanId else {
 					fields.append("sellingPlanId:null")
 					break

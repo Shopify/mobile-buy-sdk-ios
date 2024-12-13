@@ -34,7 +34,7 @@ class Graph_ClientTests: XCTestCase {
     let language    = Locale.init(identifier: "zh-CN")
 
     // ----------------------------------
-    //  MARK: - Init -
+    // MARK: - Init -
     //
     func testInit() {
         let client = self.defaultClient()
@@ -56,7 +56,7 @@ class Graph_ClientTests: XCTestCase {
         let client = self.defaultClient()
 
         XCTAssertEqual(client.headers.count, 5)
-        XCTAssertEqual(client.headers["User-Agent"],    Global.userAgent)
+        XCTAssertEqual(client.headers["User-Agent"], Global.userAgent)
         XCTAssertEqual(client.headers["X-SDK-Version"], Global.frameworkVersion)
         XCTAssertEqual(client.headers["X-SDK-Variant"], "ios")
         XCTAssertEqual(client.headers["X-Shopify-Storefront-Access-Token"], self.apiKey)
@@ -64,7 +64,7 @@ class Graph_ClientTests: XCTestCase {
     }
 
     // ----------------------------------
-    //  MARK: - Requests -
+    // MARK: - Requests -
     //
     func testRequestGeneration() {
         let client = self.defaultClient()
@@ -84,9 +84,9 @@ class Graph_ClientTests: XCTestCase {
         XCTAssertEqual(decodedBody["query"], query.description)
 
         XCTAssertFalse(request.httpShouldHandleCookies)
-        XCTAssertEqual(request.value(forHTTPHeaderField: "Accept"),       "application/json")
+        XCTAssertEqual(request.value(forHTTPHeaderField: "Accept"), "application/json")
         XCTAssertEqual(request.value(forHTTPHeaderField: "Content-Type"), "application/json")
-        XCTAssertEqual(request.value(forHTTPHeaderField: "X-Query-Tag"),  SHA256.hash(request.httpBody!))
+        XCTAssertEqual(request.value(forHTTPHeaderField: "X-Query-Tag"), SHA256.hash(request.httpBody!))
 
         // Ensure that the client inserts defaults headers
         XCTAssertNotNil(request.value(forHTTPHeaderField: "User-Agent"))
@@ -94,14 +94,14 @@ class Graph_ClientTests: XCTestCase {
     }
 
     // ----------------------------------
-    //  MARK: - Queries -
+    // MARK: - Queries -
     //
     func testQuery() {
         let client  = self.defaultClient()
         let payload = self.defaultQueryPayload()
         let request = client.graphRequestFor(query: payload.query)
 
-        let task = client.queryGraphWith(payload.query, cachePolicy: .networkFirst(expireIn: 20)) { query, error in } as! Graph.InternalTask<Storefront.QueryRoot>
+        let task = client.queryGraphWith(payload.query, cachePolicy: .networkFirst(expireIn: 20)) { _, _ in } as! Graph.InternalTask<Storefront.QueryRoot>
 
         XCTAssertTrue(task.session === client.session)
         XCTAssertTrue(task.cache   === client.cache)
@@ -115,7 +115,7 @@ class Graph_ClientTests: XCTestCase {
         client.cachePolicy = .cacheOnly
 
         let payload = self.defaultQueryPayload()
-        let task    = client.queryGraphWith(payload.query) { query, error in } as! Graph.InternalTask<Storefront.QueryRoot>
+        let task    = client.queryGraphWith(payload.query) { _, _ in } as! Graph.InternalTask<Storefront.QueryRoot>
 
         XCTAssertEqual(task.cachePolicy, .cacheOnly)
     }
@@ -125,7 +125,7 @@ class Graph_ClientTests: XCTestCase {
         let payload = self.defaultMutationPayload()
         let request = client.graphRequestFor(query: payload.mutation)
 
-        let task = client.mutateGraphWith(payload.mutation) { query, error in
+        let task = client.mutateGraphWith(payload.mutation) { _, _ in
 
         } as! Graph.InternalTask<Storefront.Mutation>
 
@@ -137,7 +137,7 @@ class Graph_ClientTests: XCTestCase {
     }
 
     // ----------------------------------
-    //  MARK: - Private -
+    // MARK: - Private -
     //
     private func defaultClient() -> Graph.Client {
         return Graph.Client(shopDomain: self.shopDomain, apiKey: self.apiKey, session: MockSession(), locale: self.language)
@@ -164,7 +164,7 @@ class Graph_ClientTests: XCTestCase {
     private func defaultMutationPayload() -> (mutation: Storefront.MutationQuery, response: [String: Any]) {
 
         let mutation = Storefront.buildMutation { $0
-			.cartCreate() { $0
+			.cartCreate { $0
 				.userErrors { $0
 					.code()
 					.message()

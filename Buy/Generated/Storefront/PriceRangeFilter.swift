@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -61,12 +60,11 @@ extension Storefront {
 		public convenience init(min: Double? = nil, max: Double? = nil) {
 			self.init(min: min.orUndefined, max: max.orUndefined)
 		}
-
 		internal func serialize() -> String {
 			var fields: [String] = []
 
 			switch min {
-				case .value(let min): 
+				case .value(let min):
 				guard let min = min else {
 					fields.append("min:null")
 					break
@@ -76,7 +74,7 @@ extension Storefront {
 			}
 
 			switch max {
-				case .value(let max): 
+				case .value(let max):
 				guard let max = max else {
 					fields.append("max:null")
 					break

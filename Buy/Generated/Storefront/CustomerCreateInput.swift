@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -86,12 +85,11 @@ extension Storefront {
 		public convenience init(email: String, password: String, firstName: String? = nil, lastName: String? = nil, phone: String? = nil, acceptsMarketing: Bool? = nil) {
 			self.init(email: email, password: password, firstName: firstName.orUndefined, lastName: lastName.orUndefined, phone: phone.orUndefined, acceptsMarketing: acceptsMarketing.orUndefined)
 		}
-
 		internal func serialize() -> String {
 			var fields: [String] = []
 
 			switch firstName {
-				case .value(let firstName): 
+				case .value(let firstName):
 				guard let firstName = firstName else {
 					fields.append("firstName:null")
 					break
@@ -101,7 +99,7 @@ extension Storefront {
 			}
 
 			switch lastName {
-				case .value(let lastName): 
+				case .value(let lastName):
 				guard let lastName = lastName else {
 					fields.append("lastName:null")
 					break
@@ -113,7 +111,7 @@ extension Storefront {
 			fields.append("email:\(GraphQL.quoteString(input: email))")
 
 			switch phone {
-				case .value(let phone): 
+				case .value(let phone):
 				guard let phone = phone else {
 					fields.append("phone:null")
 					break
@@ -125,7 +123,7 @@ extension Storefront {
 			fields.append("password:\(GraphQL.quoteString(input: password))")
 
 			switch acceptsMarketing {
-				case .value(let acceptsMarketing): 
+				case .value(let acceptsMarketing):
 				guard let acceptsMarketing = acceptsMarketing else {
 					fields.append("acceptsMarketing:null")
 					break

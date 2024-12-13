@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -67,7 +66,6 @@ extension Storefront {
 		public convenience init(billingAddress: MailingAddressInput, sessionId: String, cardSource: CartCardSource? = nil) {
 			self.init(billingAddress: billingAddress, sessionId: sessionId, cardSource: cardSource.orUndefined)
 		}
-
 		internal func serialize() -> String {
 			var fields: [String] = []
 
@@ -76,7 +74,7 @@ extension Storefront {
 			fields.append("sessionId:\(GraphQL.quoteString(input: sessionId))")
 
 			switch cardSource {
-				case .value(let cardSource): 
+				case .value(let cardSource):
 				guard let cardSource = cardSource else {
 					fields.append("cardSource:null")
 					break

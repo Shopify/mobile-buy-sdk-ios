@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -59,7 +58,6 @@ extension Storefront {
 	/// The discount that has been applied to the cart line using a discount code. 
 	open class CartCodeDiscountAllocation: GraphQL.AbstractResponse, GraphQLObject, CartDiscountAllocation {
 		public typealias Query = CartCodeDiscountAllocationQuery
-
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
@@ -113,10 +111,10 @@ extension Storefront {
 			return field(field: "targetType", aliasSuffix: alias) as! Storefront.DiscountApplicationTargetType
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "discountedAmount":
 					response.append(internalGetDiscountedAmount())
 					response.append(contentsOf: internalGetDiscountedAmount().childResponseObjectMap())

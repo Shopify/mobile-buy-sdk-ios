@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -100,12 +99,11 @@ extension Storefront {
 		public convenience init(available: Bool? = nil, variantOption: VariantOptionFilter? = nil, productType: String? = nil, productVendor: String? = nil, price: PriceRangeFilter? = nil, productMetafield: MetafieldFilter? = nil, variantMetafield: MetafieldFilter? = nil, tag: String? = nil) {
 			self.init(available: available.orUndefined, variantOption: variantOption.orUndefined, productType: productType.orUndefined, productVendor: productVendor.orUndefined, price: price.orUndefined, productMetafield: productMetafield.orUndefined, variantMetafield: variantMetafield.orUndefined, tag: tag.orUndefined)
 		}
-
 		internal func serialize() -> String {
 			var fields: [String] = []
 
 			switch available {
-				case .value(let available): 
+				case .value(let available):
 				guard let available = available else {
 					fields.append("available:null")
 					break
@@ -115,7 +113,7 @@ extension Storefront {
 			}
 
 			switch variantOption {
-				case .value(let variantOption): 
+				case .value(let variantOption):
 				guard let variantOption = variantOption else {
 					fields.append("variantOption:null")
 					break
@@ -125,7 +123,7 @@ extension Storefront {
 			}
 
 			switch productType {
-				case .value(let productType): 
+				case .value(let productType):
 				guard let productType = productType else {
 					fields.append("productType:null")
 					break
@@ -135,7 +133,7 @@ extension Storefront {
 			}
 
 			switch productVendor {
-				case .value(let productVendor): 
+				case .value(let productVendor):
 				guard let productVendor = productVendor else {
 					fields.append("productVendor:null")
 					break
@@ -145,7 +143,7 @@ extension Storefront {
 			}
 
 			switch price {
-				case .value(let price): 
+				case .value(let price):
 				guard let price = price else {
 					fields.append("price:null")
 					break
@@ -155,7 +153,7 @@ extension Storefront {
 			}
 
 			switch productMetafield {
-				case .value(let productMetafield): 
+				case .value(let productMetafield):
 				guard let productMetafield = productMetafield else {
 					fields.append("productMetafield:null")
 					break
@@ -165,7 +163,7 @@ extension Storefront {
 			}
 
 			switch variantMetafield {
-				case .value(let variantMetafield): 
+				case .value(let variantMetafield):
 				guard let variantMetafield = variantMetafield else {
 					fields.append("variantMetafield:null")
 					break
@@ -175,7 +173,7 @@ extension Storefront {
 			}
 
 			switch tag {
-				case .value(let tag): 
+				case .value(let tag):
 				guard let tag = tag else {
 					fields.append("tag:null")
 					break

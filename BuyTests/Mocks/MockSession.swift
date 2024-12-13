@@ -33,14 +33,14 @@ final class MockSession: URLSession {
     var configurationHandler: TaskConfigurationHandler?
 
     // ----------------------------------
-    //  MARK: - Init -
+    // MARK: - Init -
     //
     override init() {
         super.init()
     }
 
     // ----------------------------------
-    //  MARK: - Requests -
+    // MARK: - Requests -
     //
     override func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         let task = MockDataTask(request: request, completion: completionHandler)

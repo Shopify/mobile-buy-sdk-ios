@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -56,7 +55,7 @@ extension Storefront {
 		/// The location of the original image as a URL. If there are any existing 
 		/// transformations in the original source URL, they will remain and not be 
 		/// stripped. 
-		@available(*, deprecated, message:"Use `url` instead.")
+		@available(*, deprecated, message: "Use `url` instead.")
 		@discardableResult
 		open func originalSrc(alias: String? = nil) -> ImageQuery {
 			addField(field: "originalSrc", aliasSuffix: alias)
@@ -64,7 +63,7 @@ extension Storefront {
 		}
 
 		/// The location of the image as a URL. 
-		@available(*, deprecated, message:"Use `url` instead.")
+		@available(*, deprecated, message: "Use `url` instead.")
 		@discardableResult
 		open func src(alias: String? = nil) -> ImageQuery {
 			addField(field: "src", aliasSuffix: alias)
@@ -83,7 +82,7 @@ extension Storefront {
 		///     - scale: Image size multiplier for high-resolution retina displays. Must be between 1 and 3.
 		///     - preferredContentType: Best effort conversion of image into content type (SVG -> PNG, Anything -> JPG, Anything -> WEBP are supported).
 		///
-		@available(*, deprecated, message:"Use `url(transform:)` instead")
+		@available(*, deprecated, message: "Use `url(transform:)` instead")
 		@discardableResult
 		open func transformedSrc(alias: String? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, crop: CropRegion? = nil, scale: Int32? = nil, preferredContentType: ImageContentType? = nil) -> ImageQuery {
 			var args: [String] = []
@@ -150,7 +149,6 @@ extension Storefront {
 	/// Represents an image resource. 
 	open class Image: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ImageQuery
-
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
@@ -242,7 +240,7 @@ extension Storefront {
 		/// The location of the original image as a URL. If there are any existing 
 		/// transformations in the original source URL, they will remain and not be 
 		/// stripped. 
-		@available(*, deprecated, message:"Use `url` instead.")
+		@available(*, deprecated, message: "Use `url` instead.")
 		open var originalSrc: URL {
 			return internalGetOriginalSrc()
 		}
@@ -252,7 +250,7 @@ extension Storefront {
 		}
 
 		/// The location of the image as a URL. 
-		@available(*, deprecated, message:"Use `url` instead.")
+		@available(*, deprecated, message: "Use `url` instead.")
 		open var src: URL {
 			return internalGetSrc()
 		}
@@ -265,12 +263,12 @@ extension Storefront {
 		/// arguments are considered "best-effort". If they can be applied to an image, 
 		/// they will be. Otherwise any transformations which an image type doesn't 
 		/// support will be ignored. 
-		@available(*, deprecated, message:"Use `url(transform:)` instead")
+		@available(*, deprecated, message: "Use `url(transform:)` instead")
 		open var transformedSrc: URL {
 			return internalGetTransformedSrc()
 		}
 
-		@available(*, deprecated, message:"Use `url(transform:)` instead")
+		@available(*, deprecated, message: "Use `url(transform:)` instead")
 
 		open func aliasedTransformedSrc(alias: String) -> URL {
 			return internalGetTransformedSrc(alias: alias)
@@ -308,7 +306,7 @@ extension Storefront {
 			return field(field: "width", aliasSuffix: alias) as! Int32?
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}

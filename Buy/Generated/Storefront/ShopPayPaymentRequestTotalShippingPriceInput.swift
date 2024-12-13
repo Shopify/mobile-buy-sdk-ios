@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -67,22 +66,21 @@ extension Storefront {
 		public convenience init(discounts: [ShopPayPaymentRequestDiscountInput]? = nil, originalTotal: MoneyInput? = nil, finalTotal: MoneyInput? = nil) {
 			self.init(discounts: discounts.orUndefined, originalTotal: originalTotal.orUndefined, finalTotal: finalTotal.orUndefined)
 		}
-
 		internal func serialize() -> String {
 			var fields: [String] = []
 
 			switch discounts {
-				case .value(let discounts): 
+				case .value(let discounts):
 				guard let discounts = discounts else {
 					fields.append("discounts:null")
 					break
 				}
-				fields.append("discounts:[\(discounts.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("discounts:[\(discounts.map { "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch originalTotal {
-				case .value(let originalTotal): 
+				case .value(let originalTotal):
 				guard let originalTotal = originalTotal else {
 					fields.append("originalTotal:null")
 					break
@@ -92,7 +90,7 @@ extension Storefront {
 			}
 
 			switch finalTotal {
-				case .value(let finalTotal): 
+				case .value(let finalTotal):
 				guard let finalTotal = finalTotal else {
 					fields.append("finalTotal:null")
 					break

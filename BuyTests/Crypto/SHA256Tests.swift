@@ -30,7 +30,7 @@ import XCTest
 class SHA256Tests: XCTestCase {
 
     // ----------------------------------
-    //  MARK: - Hash -
+    // MARK: - Hash -
     //
     func testDataHash() {
         let query = "query { shop { name } }".data(using: .utf8)!

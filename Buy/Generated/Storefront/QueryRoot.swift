@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -149,7 +148,7 @@ extension Storefront {
 		/// - parameters:
 		///     - handle: The handle of the blog.
 		///
-		@available(*, deprecated, message:"Use `blog` instead.")
+		@available(*, deprecated, message: "Use `blog` instead.")
 		@discardableResult
 		open func blogByHandle(alias: String? = nil, handle: String, _ subfields: (BlogQuery) -> Void) -> QueryRootQuery {
 			var args: [String] = []
@@ -298,7 +297,7 @@ extension Storefront {
 		/// - parameters:
 		///     - handle: The handle of the collection.
 		///
-		@available(*, deprecated, message:"Use `collection` instead.")
+		@available(*, deprecated, message: "Use `collection` instead.")
 		@discardableResult
 		open func collectionByHandle(alias: String? = nil, handle: String, _ subfields: (CollectionQuery) -> Void) -> QueryRootQuery {
 			var args: [String] = []
@@ -587,7 +586,7 @@ extension Storefront {
 		open func nodes(alias: String? = nil, ids: [GraphQL.ID], _ subfields: (NodeQuery) -> Void) -> QueryRootQuery {
 			var args: [String] = []
 
-			args.append("ids:[\(ids.map{ "\(GraphQL.quoteString(input: "\($0.rawValue)"))" }.joined(separator: ","))]")
+			args.append("ids:[\(ids.map { "\(GraphQL.quoteString(input: "\($0.rawValue)"))" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -630,7 +629,7 @@ extension Storefront {
 		/// - parameters:
 		///     - handle: The handle of the page.
 		///
-		@available(*, deprecated, message:"Use `page` instead.")
+		@available(*, deprecated, message: "Use `page` instead.")
 		@discardableResult
 		open func pageByHandle(alias: String? = nil, handle: String, _ subfields: (PageQuery) -> Void) -> QueryRootQuery {
 			var args: [String] = []
@@ -744,11 +743,11 @@ extension Storefront {
 			}
 
 			if let searchableFields = searchableFields {
-				args.append("searchableFields:[\(searchableFields.map{ "\($0.rawValue)" }.joined(separator: ","))]")
+				args.append("searchableFields:[\(searchableFields.map { "\($0.rawValue)" }.joined(separator: ","))]")
 			}
 
 			if let types = types {
-				args.append("types:[\(types.map{ "\($0.rawValue)" }.joined(separator: ","))]")
+				args.append("types:[\(types.map { "\($0.rawValue)" }.joined(separator: ","))]")
 			}
 
 			if let unavailableProducts = unavailableProducts {
@@ -794,17 +793,11 @@ extension Storefront {
 		/// Find a product by its handle. 
 		///
 		/// - parameters:
-		///     - handle: A unique string that identifies the product. Handles are automatically
-		///        generated based on the product's title, and are always lowercase. Whitespace
-		///        and special characters are replaced with a hyphen: `-`. If there are
-		///        multiple consecutive whitespace or special characters, then they're replaced
-		///        with a single hyphen. Whitespace or special characters at the beginning are
-		///        removed. If a duplicate product title is used, then the handle is
-		///        auto-incremented by one. For example, if you had two products called
-		///        `Potion`, then their handles would be `potion` and `potion-1`. After a
-		///        product has been created, changing the product title doesn't update the handle.
+		///     - handle: A unique, human-readable string of the product's title.
+		///        A handle can contain letters, hyphens (`-`), and numbers, but no spaces.
+		///        The handle is used in the online store URL for the product.
 		///
-		@available(*, deprecated, message:"Use `product` instead.")
+		@available(*, deprecated, message: "Use `product` instead.")
 		@discardableResult
 		open func productByHandle(alias: String? = nil, handle: String, _ subfields: (ProductQuery) -> Void) -> QueryRootQuery {
 			var args: [String] = []
@@ -1028,11 +1021,11 @@ extension Storefront {
 			}
 
 			if let productFilters = productFilters {
-				args.append("productFilters:[\(productFilters.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				args.append("productFilters:[\(productFilters.map { "\($0.serialize())" }.joined(separator: ","))]")
 			}
 
 			if let types = types {
-				args.append("types:[\(types.map{ "\($0.rawValue)" }.joined(separator: ","))]")
+				args.append("types:[\(types.map { "\($0.rawValue)" }.joined(separator: ","))]")
 			}
 
 			if let unavailableProducts = unavailableProducts {
@@ -1136,7 +1129,6 @@ extension Storefront {
 	/// API from which all queries must start. 
 	open class QueryRoot: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = QueryRootQuery
-
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
@@ -1410,12 +1402,12 @@ extension Storefront {
 		}
 
 		/// Find a blog by its handle. 
-		@available(*, deprecated, message:"Use `blog` instead.")
+		@available(*, deprecated, message: "Use `blog` instead.")
 		open var blogByHandle: Storefront.Blog? {
 			return internalGetBlogByHandle()
 		}
 
-		@available(*, deprecated, message:"Use `blog` instead.")
+		@available(*, deprecated, message: "Use `blog` instead.")
 
 		open func aliasedBlogByHandle(alias: String) -> Storefront.Blog? {
 			return internalGetBlogByHandle(alias: alias)
@@ -1480,12 +1472,12 @@ extension Storefront {
 		}
 
 		/// Find a collection by its handle. 
-		@available(*, deprecated, message:"Use `collection` instead.")
+		@available(*, deprecated, message: "Use `collection` instead.")
 		open var collectionByHandle: Storefront.Collection? {
 			return internalGetCollectionByHandle()
 		}
 
-		@available(*, deprecated, message:"Use `collection` instead.")
+		@available(*, deprecated, message: "Use `collection` instead.")
 
 		open func aliasedCollectionByHandle(alias: String) -> Storefront.Collection? {
 			return internalGetCollectionByHandle(alias: alias)
@@ -1627,12 +1619,12 @@ extension Storefront {
 		}
 
 		/// Find a page by its handle. 
-		@available(*, deprecated, message:"Use `page` instead.")
+		@available(*, deprecated, message: "Use `page` instead.")
 		open var pageByHandle: Storefront.Page? {
 			return internalGetPageByHandle()
 		}
 
-		@available(*, deprecated, message:"Use `page` instead.")
+		@available(*, deprecated, message: "Use `page` instead.")
 
 		open func aliasedPageByHandle(alias: String) -> Storefront.Page? {
 			return internalGetPageByHandle(alias: alias)
@@ -1691,12 +1683,12 @@ extension Storefront {
 		}
 
 		/// Find a product by its handle. 
-		@available(*, deprecated, message:"Use `product` instead.")
+		@available(*, deprecated, message: "Use `product` instead.")
 		open var productByHandle: Storefront.Product? {
 			return internalGetProductByHandle()
 		}
 
-		@available(*, deprecated, message:"Use `product` instead.")
+		@available(*, deprecated, message: "Use `product` instead.")
 
 		open func aliasedProductByHandle(alias: String) -> Storefront.Product? {
 			return internalGetProductByHandle(alias: alias)
@@ -1823,10 +1815,10 @@ extension Storefront {
 			return field(field: "urlRedirects", aliasSuffix: alias) as! Storefront.UrlRedirectConnection
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "article":
 					if let value = internalGetArticle() {
 						response.append(value)

@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -42,7 +41,6 @@ extension Storefront {
 	/// The percentage value of the price used for checkout charge. 
 	open class SellingPlanCheckoutChargePercentageValue: GraphQL.AbstractResponse, GraphQLObject, SellingPlanCheckoutChargeValue {
 		public typealias Query = SellingPlanCheckoutChargePercentageValueQuery
-
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
@@ -66,7 +64,7 @@ extension Storefront {
 			return field(field: "percentage", aliasSuffix: alias) as! Double
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}
