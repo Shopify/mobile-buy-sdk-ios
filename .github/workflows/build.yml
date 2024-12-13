@@ -39,6 +39,7 @@ jobs:
       - name: Generate Schema
         run: |
           echo "Generating schema for $API_VERSION"
+          git status
           ./Scripts/update_copyright
           ./Scripts/build $API_VERSION
           ./Scripts/update_version $API_VERSION
