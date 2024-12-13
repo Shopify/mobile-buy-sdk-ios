@@ -3,7 +3,7 @@
 //  Shopify
 //
 //  Created by Dylan Thacker-Smith on 2015-11-12.
-//  Copyright © 2017 Shopify
+//  Copyright (c) 2024 Shopify
 //
 //  MIT Licensed. See LICENCE.txt file in the root of this project for details.
 //
@@ -51,12 +51,12 @@ public class GraphQL {
 			return rawValue
 		}
 	}
-    
+
     open class AbstractDirective: CustomStringConvertible {
         let name: String
-        
+
         let args: String?
-        
+
         open var description: String {
             var sig = "@\(name)"
             if let args = args {
@@ -64,7 +64,7 @@ public class GraphQL {
             }
             return sig
         }
-        
+
         init(name: String, args: String? = nil) {
             self.name = name
             self.args = args
@@ -163,7 +163,7 @@ public class GraphQL {
 	}
 
     open class AbstractResponse: CustomDebugStringConvertible, RawRepresentable {
-        
+
 		internal var rawFields: [String: Any]
 		internal var objectMap: [String: Any?] = [:]
 
@@ -228,7 +228,7 @@ public class GraphQL {
 			}
 			return key
 		}
-        
+
         internal func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
             fatalError()
         }
@@ -348,18 +348,18 @@ public struct SchemaViolationError: Error {
 /// serialization of the request.
 ///
 public enum Input<T> {
-    
+
     /// An input value or `nil`. It will **always** be serialized in the request, even if `nil`.
     case value(T?)
-    
+
     /// An undefined value; no value is provided. It will **never** be serialized in the request.
     case undefined
-    
+
     /// Creates a `.value(T)` or `.value(nil)` if `optional` is nil.
     public init(orNull optional: Optional<T>)  {
         self = .value(optional)
     }
-    
+
     /// Creates a `.value(T)` or `.undefined` if the `optional` is nil.
     public init(orUndefined optional: Optional<T>)  {
         if let value = optional {

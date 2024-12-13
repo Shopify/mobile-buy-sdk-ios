@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) 2024 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -27,13 +27,13 @@
 import Foundation
 
 internal extension Graph {
-    
+
     class CacheItem {
-        
+
         let hash:      Hash
         let data:      Data
         let timestamp: Double
-        
+
         // ----------------------------------
         //  MARK: - Init -
         //
@@ -42,17 +42,17 @@ internal extension Graph {
             self.data      = data
             self.timestamp = timestamp
         }
-        
+
         init?(at location: Location) {
             guard let result = CacheItem.read(from: location) else {
                 return nil
             }
-            
+
             self.data      = result.data
             self.hash      = result.meta["hash"]      as! String
             self.timestamp = result.meta["timestamp"] as! Double
         }
-        
+
         // ----------------------------------
         //  MARK: - IO -
         //
@@ -60,31 +60,31 @@ internal extension Graph {
             guard let data = try? Data(contentsOf: location.dataURL),
                 let meta = try? Data(contentsOf: location.metaURL),
                 let json = (try? JSONSerialization.jsonObject(with: meta, options: [])) as? [String : Any] else {
-                    
+
                     return nil
             }
-            
+
             return (data, json)
         }
-        
+
         @discardableResult
         func write(to location: Location) -> Bool {
             let metaJson: [String : Any] = [
                 "hash"      : self.hash,
                 "timestamp" : self.timestamp
             ]
-            
+
             do {
                 let metaData = try JSONSerialization.data(withJSONObject: metaJson, options: [])
-                
+
                 try metaData.write(to: location.metaURL, options: .atomic)
                 try self.data.write(to: location.dataURL, options: .atomic)
-                
+
             } catch {
                 Log("Failed to flush CacheItem: \(error)")
                 return false
             }
-            
+
             return true
         }
     }
@@ -95,10 +95,10 @@ internal extension Graph {
 //
 extension Graph.CacheItem {
     internal struct Location {
-        
+
         let dataURL: URL
         let metaURL: URL
-        
+
         // ----------------------------------
         //  MARK: - Init -
         //
@@ -109,7 +109,7 @@ extension Graph.CacheItem {
                 metaURL: dataURL.appendingPathExtension("meta")
             )
         }
-        
+
         internal init(dataURL: URL, metaURL: URL) {
             self.dataURL = dataURL
             self.metaURL = metaURL
@@ -121,15 +121,15 @@ extension Graph.CacheItem {
 //  MARK: - URLRequest Hash -
 //
 extension URLRequest {
-    
+
     var cacheItem: Graph.CacheItem {
         return Graph.CacheItem(hash: self.hash, data: self.httpBody ?? Data())
     }
-    
+
     var hash: Graph.Hash {
         let hash        = self.value(forHTTPHeaderField: Header.queryTag) ?? ""
         let accessToken = self.value(forHTTPHeaderField: Header.authorization) ?? ""
-        
+
         return SHA256.hash("\(hash)\(accessToken)")
     }
 }

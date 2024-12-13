@@ -1,5 +1,11 @@
 #!/usr/bin/env ruby
 
+new_version = ARGV[0]
+
+unless (new_version = ARGV[0])
+  raise "missing version argument"
+end
+
 project_root = File.expand_path('..', __dir__)
 
 sdk_version_path = File.join(project_root, 'Buy', 'Utilities', 'SDK.swift')
@@ -8,12 +14,6 @@ unless File.exist?(sdk_version_path) && File.writable?(sdk_version_path)
 end
 
 sdk_version_src = File.read(sdk_version_path)
-current_version = sdk_version_src.match(/static let version = "([0-9.]+)"/i).captures[0]
-
-components = current_version.split('.')
-components[1] = components[1].to_i + 1
-components[2] = 0
-new_version = components.join('.')
 
 sdk_version_src.gsub!(/static let version = "([0-9.]+)"/, "static let version = \"#{new_version}\"")
 File.open(sdk_version_path, "w") do |file|

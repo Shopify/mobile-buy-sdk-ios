@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) 2024 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
 import Foundation
 
 class Global {
-    
+
     // ----------------------------------
     //  MARK: - User Agent -
     //
@@ -41,18 +41,18 @@ class Global {
     static var frameworkVersion: String {
         return "\(Storefront.Schema.version)/\(SDK.version)"
     }
-    
+
     static var applicationIdentifier: String {
         return self.applicationBundle.object(forInfoDictionaryKey: kCFBundleIdentifierKey as String) as? String ?? "com.unknown.bundle"
     }
-    
+
     // ----------------------------------
     //  MARK: - Bundles -
     //
     private static var frameworkBundle: Bundle {
         return Bundle(for: self)
     }
-    
+
     private static var applicationBundle: Bundle {
         return Bundle.main
     }

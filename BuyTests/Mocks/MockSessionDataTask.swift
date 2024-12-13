@@ -3,7 +3,7 @@
 //  BuyTests
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) 2024 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -27,9 +27,9 @@
 import Foundation
 
 final class MockDataTask: URLSessionDataTask {
-    
+
     typealias DataTaskCompletion = (Data?, URLResponse?, Error?) -> Void
-    
+
     var responseJson: [String: Any]? {
         set {
             if let json = newValue {
@@ -46,20 +46,20 @@ final class MockDataTask: URLSessionDataTask {
             }
         }
     }
-    
+
     var responseData:   Data?
     var isHTTPResponse: Bool = true
     var responseCode:   Int  = 0
     var headerFields:   [String: String]?
     var responseError:  (domain: String, code: Int)?
-    
+
     private(set) var isResumed  = false
     private(set) var isCanceled = false
     private(set) var isComplete = false
-    
+
     private(set) var request:    URLRequest?
     private(set) var completion: DataTaskCompletion?
-    
+
     // ----------------------------------
     //  MARK: - Init -
     //
@@ -67,7 +67,7 @@ final class MockDataTask: URLSessionDataTask {
         self.request    = request
         self.completion = completion
     }
-    
+
     // ----------------------------------
     //  MARK: - State -
     //
@@ -82,16 +82,16 @@ final class MockDataTask: URLSessionDataTask {
             return .suspended
         }
     }
-    
+
     override func resume() {
         self.isResumed = true
         self.executeCompletion()
     }
-    
+
     override func cancel() {
         self.isCanceled = true
     }
-    
+
     // ----------------------------------
     //  MARK: - Completion -
     //
@@ -102,14 +102,14 @@ final class MockDataTask: URLSessionDataTask {
             self.error()
         )
     }
-    
+
     private func data() -> Data? {
         return self.responseData
     }
-    
+
     private func response() -> URLResponse? {
         let url = self.request?.url ?? URL(string: "http://")!
-        
+
         if self.isHTTPResponse {
             return HTTPURLResponse(
                 url:          url,
@@ -117,7 +117,7 @@ final class MockDataTask: URLSessionDataTask {
                 httpVersion:  "HTTP/1.1",
                 headerFields: self.headerFields
             )
-            
+
         } else {
             return URLResponse(
                 url:                   url,
@@ -127,7 +127,7 @@ final class MockDataTask: URLSessionDataTask {
             )
         }
     }
-    
+
     private func error() -> Error? {
         if let error = self.responseError {
             return NSError(domain: error.domain, code: error.code, userInfo: nil)
