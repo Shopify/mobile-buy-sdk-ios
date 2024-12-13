@@ -1,5 +1,5 @@
 //
-//  Storefront.Schema.swift
+//  CategoryFilter.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -24,8 +24,39 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
+
 extension Storefront {
-  enum Schema {
-    static let version = "2025-01"
-  }
+	/// A filter used to view a subset of products in a collection matching a 
+	/// specific category value. 
+	open class CategoryFilter {
+		/// The id of the category to filter on. 
+		open var id: String
+
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - id: The id of the category to filter on.
+		///
+		public static func create(id: String) -> CategoryFilter {
+			return CategoryFilter(id: id)
+		}
+
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - id: The id of the category to filter on.
+		///
+		public init(id: String) {
+			self.id = id
+		}
+
+		internal func serialize() -> String {
+			var fields: [String] = []
+
+			fields.append("id:\(GraphQL.quoteString(input: id))")
+
+			return "{\(fields.joined(separator: ","))}"
+		}
+	}
 }

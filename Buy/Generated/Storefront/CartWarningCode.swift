@@ -29,6 +29,9 @@ import Foundation
 extension Storefront {
 	/// The code for the cart warning. 
 	public enum CartWarningCode: String {
+		/// A delivery address with the same details already exists on this cart. 
+		case duplicateDeliveryAddress = "DUPLICATE_DELIVERY_ADDRESS"
+
 		/// The merchandise does not have enough stock. 
 		case merchandiseNotEnoughStock = "MERCHANDISE_NOT_ENOUGH_STOCK"
 

@@ -1,5 +1,5 @@
 //
-//  SellingPlanPercentagePriceAdjustment.swift
+//  CartThrottled.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,45 +27,45 @@
 import Foundation
 
 extension Storefront {
-	/// A percentage amount that's deducted from the original variant price. For 
-	/// example, 10% off. 
-	open class SellingPlanPercentagePriceAdjustmentQuery: GraphQL.AbstractQuery, GraphQLQuery {
-		public typealias Response = SellingPlanPercentagePriceAdjustment
+	/// Response signifying that the access to cart request is currently being 
+	/// throttled. The client can retry after `poll_after`. 
+	open class CartThrottledQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = CartThrottled
 
-		/// The percentage value of the price adjustment. 
+		/// The polling delay. 
 		@discardableResult
-		open func adjustmentPercentage(alias: String? = nil) -> SellingPlanPercentagePriceAdjustmentQuery {
-			addField(field: "adjustmentPercentage", aliasSuffix: alias)
+		open func pollAfter(alias: String? = nil) -> CartThrottledQuery {
+			addField(field: "pollAfter", aliasSuffix: alias)
 			return self
 		}
 	}
 
-	/// A percentage amount that's deducted from the original variant price. For 
-	/// example, 10% off. 
-	open class SellingPlanPercentagePriceAdjustment: GraphQL.AbstractResponse, GraphQLObject, SellingPlanPriceAdjustmentValue {
-		public typealias Query = SellingPlanPercentagePriceAdjustmentQuery
+	/// Response signifying that the access to cart request is currently being 
+	/// throttled. The client can retry after `poll_after`. 
+	open class CartThrottled: GraphQL.AbstractResponse, GraphQLObject, CartPrepareForCompletionResult {
+		public typealias Query = CartThrottledQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
-				case "adjustmentPercentage":
-				guard let value = value as? Double else {
-					throw SchemaViolationError(type: SellingPlanPercentagePriceAdjustment.self, field: fieldName, value: fieldValue)
+				case "pollAfter":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: CartThrottled.self, field: fieldName, value: fieldValue)
 				}
-				return value
+				return GraphQL.iso8601DateParser.date(from: value)!
 
 				default:
-				throw SchemaViolationError(type: SellingPlanPercentagePriceAdjustment.self, field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: CartThrottled.self, field: fieldName, value: fieldValue)
 			}
 		}
 
-		/// The percentage value of the price adjustment. 
-		open var adjustmentPercentage: Double {
-			return internalGetAdjustmentPercentage()
+		/// The polling delay. 
+		open var pollAfter: Date {
+			return internalGetPollAfter()
 		}
 
-		func internalGetAdjustmentPercentage(alias: String? = nil) -> Double {
-			return field(field: "adjustmentPercentage", aliasSuffix: alias) as! Double
+		func internalGetPollAfter(alias: String? = nil) -> Date {
+			return field(field: "pollAfter", aliasSuffix: alias) as! Date
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {

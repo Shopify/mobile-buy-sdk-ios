@@ -1,5 +1,5 @@
 //
-//  SellingPlanPercentagePriceAdjustment.swift
+//  CartAddress.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -26,46 +26,52 @@
 
 import Foundation
 
-extension Storefront {
-	/// A percentage amount that's deducted from the original variant price. For 
-	/// example, 10% off. 
-	open class SellingPlanPercentagePriceAdjustmentQuery: GraphQL.AbstractQuery, GraphQLQuery {
-		public typealias Response = SellingPlanPercentagePriceAdjustment
+/// A delivery address of the buyer that is interacting with the cart. 
+public protocol CartAddress {
+}
 
-		/// The percentage value of the price adjustment. 
+extension Storefront {
+	/// A delivery address of the buyer that is interacting with the cart. 
+	open class CartAddressQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = CartAddress
+
+		override init() {
+			super.init()
+			addField(field: "__typename")
+		}
+
+		/// A delivery address of the buyer that is interacting with the cart. 
 		@discardableResult
-		open func adjustmentPercentage(alias: String? = nil) -> SellingPlanPercentagePriceAdjustmentQuery {
-			addField(field: "adjustmentPercentage", aliasSuffix: alias)
+		open func onCartDeliveryAddress(subfields: (CartDeliveryAddressQuery) -> Void) -> CartAddressQuery {
+			let subquery = CartDeliveryAddressQuery()
+			subfields(subquery)
+			addInlineFragment(on: "CartDeliveryAddress", subfields: subquery)
 			return self
 		}
 	}
 
-	/// A percentage amount that's deducted from the original variant price. For 
-	/// example, 10% off. 
-	open class SellingPlanPercentagePriceAdjustment: GraphQL.AbstractResponse, GraphQLObject, SellingPlanPriceAdjustmentValue {
-		public typealias Query = SellingPlanPercentagePriceAdjustmentQuery
+	/// A delivery address of the buyer that is interacting with the cart. 
+	open class UnknownCartAddress: GraphQL.AbstractResponse, GraphQLObject, CartAddress {
+		public typealias Query = CartAddressQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
-				case "adjustmentPercentage":
-				guard let value = value as? Double else {
-					throw SchemaViolationError(type: SellingPlanPercentagePriceAdjustment.self, field: fieldName, value: fieldValue)
-				}
-				return value
-
 				default:
-				throw SchemaViolationError(type: SellingPlanPercentagePriceAdjustment.self, field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: UnknownCartAddress.self, field: fieldName, value: fieldValue)
 			}
 		}
 
-		/// The percentage value of the price adjustment. 
-		open var adjustmentPercentage: Double {
-			return internalGetAdjustmentPercentage()
-		}
+		internal static func create(fields: [String: Any]) throws -> CartAddress {
+			guard let typeName = fields["__typename"] as? String else {
+				throw SchemaViolationError(type: UnknownCartAddress.self, field: "__typename", value: fields["__typename"] ?? NSNull())
+			}
+			switch typeName {
+				case "CartDeliveryAddress": return try CartDeliveryAddress.init(fields: fields)
 
-		func internalGetAdjustmentPercentage(alias: String? = nil) -> Double {
-			return field(field: "adjustmentPercentage", aliasSuffix: alias) as! Double
+				default:
+				return try UnknownCartAddress.init(fields: fields)
+			}
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
