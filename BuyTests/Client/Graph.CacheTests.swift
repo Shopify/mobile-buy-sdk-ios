@@ -46,7 +46,7 @@ class Graph_CacheTests: XCTestCase {
     }
 
     // ----------------------------------
-    //  MARK: - Init -
+    // MARK: - Init -
     //
     func testInit() {
         let cache = Graph.Cache(shopName: self.shopDomain)
@@ -54,7 +54,7 @@ class Graph_CacheTests: XCTestCase {
     }
 
     // ----------------------------------
-    //  MARK: - Cache Directory -
+    // MARK: - Cache Directory -
     //
     func testShopDependantDirectory() {
         let cache1 = Graph.Cache(shopName: "store1")
@@ -64,7 +64,7 @@ class Graph_CacheTests: XCTestCase {
     }
 
     // ----------------------------------
-    //  MARK: - Purge -
+    // MARK: - Purge -
     //
     func testPurge() {
         let cache     = self.defaultCache()
@@ -90,7 +90,7 @@ class Graph_CacheTests: XCTestCase {
     }
 
     // ----------------------------------
-    //  MARK: - Accessors -
+    // MARK: - Accessors -
     //
     func testRetrieveEmpty() {
         let cache   = self.defaultCache()
@@ -163,7 +163,7 @@ class Graph_CacheTests: XCTestCase {
     }
 
     // ----------------------------------
-    //  MARK: - Private -
+    // MARK: - Private -
     //
     private func defaultCache() -> Graph.Cache {
         return Graph.Cache(shopName: self.shopDomain)

@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -41,6 +40,13 @@ extension Storefront {
 			return self
 		}
 
+		/// A list of the nodes contained in StringEdge. 
+		@discardableResult
+		open func nodes(alias: String? = nil) -> StringConnectionQuery {
+			addField(field: "nodes", aliasSuffix: alias)
+			return self
+		}
+
 		/// Information to aid in pagination. 
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> StringConnectionQuery {
@@ -55,7 +61,6 @@ extension Storefront {
 	/// An auto-generated type for paginating through multiple Strings. 
 	open class StringConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = StringConnectionQuery
-
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
@@ -64,6 +69,12 @@ extension Storefront {
 					throw SchemaViolationError(type: StringConnection.self, field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try StringEdge(fields: $0) }
+
+				case "nodes":
+				guard let value = value as? [String] else {
+					throw SchemaViolationError(type: StringConnection.self, field: fieldName, value: fieldValue)
+				}
+				return value.map { return $0 }
 
 				case "pageInfo":
 				guard let value = value as? [String: Any] else {
@@ -85,6 +96,15 @@ extension Storefront {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.StringEdge]
 		}
 
+		/// A list of the nodes contained in StringEdge. 
+		open var nodes: [String] {
+			return internalGetNodes()
+		}
+
+		func internalGetNodes(alias: String? = nil) -> [String] {
+			return field(field: "nodes", aliasSuffix: alias) as! [String]
+		}
+
 		/// Information to aid in pagination. 
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
@@ -94,10 +114,10 @@ extension Storefront {
 			return field(field: "pageInfo", aliasSuffix: alias) as! Storefront.PageInfo
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "edges":
 					internalGetEdges().forEach {
 						response.append($0)

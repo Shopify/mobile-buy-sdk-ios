@@ -31,7 +31,7 @@ internal extension Locale {
     var languageIdentifier: String {
         let components = [
             languageCode,
-            regionCode,
+            regionCode
         ].compactMap { $0 }
 
         if !components.isEmpty {

@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -61,14 +60,13 @@ extension Storefront {
 		public convenience init(customerAccessToken: String, companyLocationId: GraphQL.ID? = nil) {
 			self.init(customerAccessToken: customerAccessToken, companyLocationId: companyLocationId.orUndefined)
 		}
-
 		internal func serialize() -> String {
 			var fields: [String] = []
 
 			fields.append("customerAccessToken:\(GraphQL.quoteString(input: customerAccessToken))")
 
 			switch companyLocationId {
-				case .value(let companyLocationId): 
+				case .value(let companyLocationId):
 				guard let companyLocationId = companyLocationId else {
 					fields.append("companyLocationId:null")
 					break

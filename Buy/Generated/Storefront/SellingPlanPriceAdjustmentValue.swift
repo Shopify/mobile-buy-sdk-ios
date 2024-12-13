@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 /// Represents by how much the price of a variant associated with a selling 
@@ -77,7 +76,6 @@ extension Storefront {
 	/// plan is adjusted. Each variant can have up to two price adjustments. 
 	open class UnknownSellingPlanPriceAdjustmentValue: GraphQL.AbstractResponse, GraphQLObject, SellingPlanPriceAdjustmentValue {
 		public typealias Query = SellingPlanPriceAdjustmentValueQuery
-
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
@@ -102,7 +100,7 @@ extension Storefront {
 			}
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}

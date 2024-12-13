@@ -21,7 +21,7 @@ public class GraphQL {
 		let field: String
 		let alias: String?
 		let args: String?
-		var subfields: AbstractQuery? = nil
+		var subfields: AbstractQuery?
 
 		init(field: String, alias: String? = nil, args: String? = nil, subfields: AbstractQuery? = nil) {
 			self.field = field
@@ -126,7 +126,7 @@ public class GraphQL {
 		}
 
 		internal func addField(field: String, aliasSuffix: String? = nil, args: String? = nil, subfields: AbstractQuery? = nil) {
-			var alias: String? = nil
+			var alias: String?
 			if let aliasSuffix = aliasSuffix {
 				alias = "\(field)\(AbstractQuery.aliasSuffixSeparator)\(aliasSuffix)"
 			}
@@ -171,7 +171,7 @@ public class GraphQL {
 			return rawFields
 		}
 
-		required public convenience init?(rawValue: [String : Any]) {
+		required public convenience init?(rawValue: [String: Any]) {
 			try? self.init(fields: rawValue)
 		}
 
@@ -229,7 +229,7 @@ public class GraphQL {
 			return key
 		}
 
-        internal func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+        internal func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
             fatalError()
         }
 	}
@@ -241,23 +241,23 @@ public class GraphQL {
 
 	public enum ChildObjectType {
 		case object
-		@available(*, deprecated, message:"Use .object")
+		@available(*, deprecated, message: "Use .object")
 		public static let Object = object
 
 		case objectList
-		@available(*, deprecated, message:"Use .objectList")
+		@available(*, deprecated, message: "Use .objectList")
 		public static let ObjectList = objectList
 
 		case scalar
-		@available(*, deprecated, message:"Use .scalar")
+		@available(*, deprecated, message: "Use .scalar")
 		public static let Scalar = scalar
 
 		case scalarList
-		@available(*, deprecated, message:"Use .scalarList")
+		@available(*, deprecated, message: "Use .scalarList")
 		public static let ScalarList = scalarList
 
 		case unknown
-		@available(*, deprecated, message:"Use .unknown")
+		@available(*, deprecated, message: "Use .unknown")
 		public static let Unknown = unknown
 	}
 
@@ -356,12 +356,12 @@ public enum Input<T> {
     case undefined
 
     /// Creates a `.value(T)` or `.value(nil)` if `optional` is nil.
-    public init(orNull optional: Optional<T>)  {
+    public init(orNull optional: T?) {
         self = .value(optional)
     }
 
     /// Creates a `.value(T)` or `.undefined` if the `optional` is nil.
-    public init(orUndefined optional: Optional<T>)  {
+    public init(orUndefined optional: T?) {
         if let value = optional {
             self = .value(value)
         } else {

@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -112,6 +111,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The delivery properties of the cart. 
+		@discardableResult
+		open func delivery(alias: String? = nil, _ subfields: (CartDeliveryQuery) -> Void) -> CartQuery {
+			let subquery = CartDeliveryQuery()
+			subfields(subquery)
+
+			addField(field: "delivery", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The delivery groups available for the cart, based on the buyer identity 
 		/// default delivery address preference or the default address of the logged-in 
 		/// customer. 
@@ -190,7 +199,7 @@ extension Storefront {
 		/// `estimatedCost` field uses the `buyerIdentity` field to determine 
 		/// [international 
 		/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing). 
-		@available(*, deprecated, message:"Use `cost` instead.")
+		@available(*, deprecated, message: "Use `cost` instead.")
 		@discardableResult
 		open func estimatedCost(alias: String? = nil, _ subfields: (CartEstimatedCostQuery) -> Void) -> CartQuery {
 			let subquery = CartEstimatedCostQuery()
@@ -250,7 +259,9 @@ extension Storefront {
 			return self
 		}
 
-		/// Returns a metafield found by namespace and key. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
+		/// including its `namespace` and `key`, that's associated with a Shopify 
+		/// resource for the purposes of adding and storing additional information. 
 		///
 		/// - parameters:
 		///     - namespace: The container the metafield belongs to. If omitted, the app-reserved namespace will be used.
@@ -275,8 +286,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The metafields associated with the resource matching the supplied list of 
-		/// namespaces and keys. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
+		/// associates with a Shopify resource. 
 		///
 		/// - parameters:
 		///     - identifiers: The list of metafields to retrieve by namespace and key.
@@ -287,7 +298,7 @@ extension Storefront {
 		open func metafields(alias: String? = nil, identifiers: [HasMetafieldsIdentifier], _ subfields: (MetafieldQuery) -> Void) -> CartQuery {
 			var args: [String] = []
 
-			args.append("identifiers:[\(identifiers.map{ "\($0.serialize())" }.joined(separator: ","))]")
+			args.append("identifiers:[\(identifiers.map { "\($0.serialize())" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -327,7 +338,6 @@ extension Storefront {
 	/// during a customer's session. 
 	open class Cart: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node {
 		public typealias Query = CartQuery
-
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
@@ -373,6 +383,12 @@ extension Storefront {
 					throw SchemaViolationError(type: Cart.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.iso8601DateParser.date(from: value)!
+
+				case "delivery":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Cart.self, field: fieldName, value: fieldValue)
+				}
+				return try CartDelivery(fields: value)
 
 				case "deliveryGroups":
 				guard let value = value as? [String: Any] else {
@@ -522,6 +538,15 @@ extension Storefront {
 			return field(field: "createdAt", aliasSuffix: alias) as! Date
 		}
 
+		/// The delivery properties of the cart. 
+		open var delivery: Storefront.CartDelivery {
+			return internalGetDelivery()
+		}
+
+		func internalGetDelivery(alias: String? = nil) -> Storefront.CartDelivery {
+			return field(field: "delivery", aliasSuffix: alias) as! Storefront.CartDelivery
+		}
+
 		/// The delivery groups available for the cart, based on the buyer identity 
 		/// default delivery address preference or the default address of the logged-in 
 		/// customer. 
@@ -560,7 +585,7 @@ extension Storefront {
 		/// `estimatedCost` field uses the `buyerIdentity` field to determine 
 		/// [international 
 		/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing). 
-		@available(*, deprecated, message:"Use `cost` instead.")
+		@available(*, deprecated, message: "Use `cost` instead.")
 		open var estimatedCost: Storefront.CartEstimatedCost {
 			return internalGetEstimatedCost()
 		}
@@ -592,7 +617,9 @@ extension Storefront {
 			return field(field: "lines", aliasSuffix: alias) as! Storefront.BaseCartLineConnection
 		}
 
-		/// Returns a metafield found by namespace and key. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
+		/// including its `namespace` and `key`, that's associated with a Shopify 
+		/// resource for the purposes of adding and storing additional information. 
 		open var metafield: Storefront.Metafield? {
 			return internalGetMetafield()
 		}
@@ -605,8 +632,8 @@ extension Storefront {
 			return field(field: "metafield", aliasSuffix: alias) as! Storefront.Metafield?
 		}
 
-		/// The metafields associated with the resource matching the supplied list of 
-		/// namespaces and keys. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
+		/// associates with a Shopify resource. 
 		open var metafields: [Storefront.Metafield?] {
 			return internalGetMetafields()
 		}
@@ -647,10 +674,10 @@ extension Storefront {
 			return field(field: "updatedAt", aliasSuffix: alias) as! Date
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch($0) {
+				switch $0 {
 					case "appliedGiftCards":
 					internalGetAppliedGiftCards().forEach {
 						response.append($0)
@@ -676,6 +703,10 @@ extension Storefront {
 					case "cost":
 					response.append(internalGetCost())
 					response.append(contentsOf: internalGetCost().childResponseObjectMap())
+
+					case "delivery":
+					response.append(internalGetDelivery())
+					response.append(contentsOf: internalGetDelivery().childResponseObjectMap())
 
 					case "deliveryGroups":
 					response.append(internalGetDeliveryGroups())

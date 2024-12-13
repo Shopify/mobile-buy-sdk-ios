@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -116,12 +115,11 @@ extension Storefront {
 		public convenience init(quantity: Int32, label: String? = nil, sku: String? = nil, requiresShipping: Bool? = nil, image: ShopPayPaymentRequestImageInput? = nil, originalLinePrice: MoneyInput? = nil, finalLinePrice: MoneyInput? = nil, lineDiscounts: [ShopPayPaymentRequestDiscountInput]? = nil, originalItemPrice: MoneyInput? = nil, finalItemPrice: MoneyInput? = nil, itemDiscounts: [ShopPayPaymentRequestDiscountInput]? = nil) {
 			self.init(quantity: quantity, label: label.orUndefined, sku: sku.orUndefined, requiresShipping: requiresShipping.orUndefined, image: image.orUndefined, originalLinePrice: originalLinePrice.orUndefined, finalLinePrice: finalLinePrice.orUndefined, lineDiscounts: lineDiscounts.orUndefined, originalItemPrice: originalItemPrice.orUndefined, finalItemPrice: finalItemPrice.orUndefined, itemDiscounts: itemDiscounts.orUndefined)
 		}
-
 		internal func serialize() -> String {
 			var fields: [String] = []
 
 			switch label {
-				case .value(let label): 
+				case .value(let label):
 				guard let label = label else {
 					fields.append("label:null")
 					break
@@ -133,7 +131,7 @@ extension Storefront {
 			fields.append("quantity:\(quantity)")
 
 			switch sku {
-				case .value(let sku): 
+				case .value(let sku):
 				guard let sku = sku else {
 					fields.append("sku:null")
 					break
@@ -143,7 +141,7 @@ extension Storefront {
 			}
 
 			switch requiresShipping {
-				case .value(let requiresShipping): 
+				case .value(let requiresShipping):
 				guard let requiresShipping = requiresShipping else {
 					fields.append("requiresShipping:null")
 					break
@@ -153,7 +151,7 @@ extension Storefront {
 			}
 
 			switch image {
-				case .value(let image): 
+				case .value(let image):
 				guard let image = image else {
 					fields.append("image:null")
 					break
@@ -163,7 +161,7 @@ extension Storefront {
 			}
 
 			switch originalLinePrice {
-				case .value(let originalLinePrice): 
+				case .value(let originalLinePrice):
 				guard let originalLinePrice = originalLinePrice else {
 					fields.append("originalLinePrice:null")
 					break
@@ -173,7 +171,7 @@ extension Storefront {
 			}
 
 			switch finalLinePrice {
-				case .value(let finalLinePrice): 
+				case .value(let finalLinePrice):
 				guard let finalLinePrice = finalLinePrice else {
 					fields.append("finalLinePrice:null")
 					break
@@ -183,17 +181,17 @@ extension Storefront {
 			}
 
 			switch lineDiscounts {
-				case .value(let lineDiscounts): 
+				case .value(let lineDiscounts):
 				guard let lineDiscounts = lineDiscounts else {
 					fields.append("lineDiscounts:null")
 					break
 				}
-				fields.append("lineDiscounts:[\(lineDiscounts.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("lineDiscounts:[\(lineDiscounts.map { "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch originalItemPrice {
-				case .value(let originalItemPrice): 
+				case .value(let originalItemPrice):
 				guard let originalItemPrice = originalItemPrice else {
 					fields.append("originalItemPrice:null")
 					break
@@ -203,7 +201,7 @@ extension Storefront {
 			}
 
 			switch finalItemPrice {
-				case .value(let finalItemPrice): 
+				case .value(let finalItemPrice):
 				guard let finalItemPrice = finalItemPrice else {
 					fields.append("finalItemPrice:null")
 					break
@@ -213,12 +211,12 @@ extension Storefront {
 			}
 
 			switch itemDiscounts {
-				case .value(let itemDiscounts): 
+				case .value(let itemDiscounts):
 				guard let itemDiscounts = itemDiscounts else {
 					fields.append("itemDiscounts:null")
 					break
 				}
-				fields.append("itemDiscounts:[\(itemDiscounts.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("itemDiscounts:[\(itemDiscounts.map { "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 

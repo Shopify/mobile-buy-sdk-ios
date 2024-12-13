@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -55,6 +54,9 @@ extension Storefront {
 		/// Buyer identity should match the customer's shipping address. 
 		open var buyerIdentity: Input<CartBuyerIdentityInput>
 
+		/// The delivery-related fields for the cart. 
+		open var delivery: Input<CartDeliveryInput>
+
 		/// The metafields to associate with this cart. The input must not contain more 
 		/// than `250` values. 
 		open var metafields: Input<[CartInputMetafieldInput]>
@@ -68,19 +70,21 @@ extension Storefront {
 		///     - giftCardCodes: The case-insensitive gift card codes.  The input must not contain more than `250` values.
 		///     - note: A note that's associated with the cart. For example, the note can be a personalized message to the buyer. 
 		///     - buyerIdentity: The customer associated with the cart. Used to determine [international pricing] (https://shopify.dev/custom-storefronts/internationalization/international-pricing). Buyer identity should match the customer's shipping address. 
+		///     - delivery: The delivery-related fields for the cart.
 		///     - metafields: The metafields to associate with this cart.  The input must not contain more than `250` values.
 		///
-		public static func create(attributes: Input<[AttributeInput]> = .undefined, lines: Input<[CartLineInput]> = .undefined, discountCodes: Input<[String]> = .undefined, giftCardCodes: Input<[String]> = .undefined, note: Input<String> = .undefined, buyerIdentity: Input<CartBuyerIdentityInput> = .undefined, metafields: Input<[CartInputMetafieldInput]> = .undefined) -> CartInput {
-			return CartInput(attributes: attributes, lines: lines, discountCodes: discountCodes, giftCardCodes: giftCardCodes, note: note, buyerIdentity: buyerIdentity, metafields: metafields)
+		public static func create(attributes: Input<[AttributeInput]> = .undefined, lines: Input<[CartLineInput]> = .undefined, discountCodes: Input<[String]> = .undefined, giftCardCodes: Input<[String]> = .undefined, note: Input<String> = .undefined, buyerIdentity: Input<CartBuyerIdentityInput> = .undefined, delivery: Input<CartDeliveryInput> = .undefined, metafields: Input<[CartInputMetafieldInput]> = .undefined) -> CartInput {
+			return CartInput(attributes: attributes, lines: lines, discountCodes: discountCodes, giftCardCodes: giftCardCodes, note: note, buyerIdentity: buyerIdentity, delivery: delivery, metafields: metafields)
 		}
 
-		private init(attributes: Input<[AttributeInput]> = .undefined, lines: Input<[CartLineInput]> = .undefined, discountCodes: Input<[String]> = .undefined, giftCardCodes: Input<[String]> = .undefined, note: Input<String> = .undefined, buyerIdentity: Input<CartBuyerIdentityInput> = .undefined, metafields: Input<[CartInputMetafieldInput]> = .undefined) {
+		private init(attributes: Input<[AttributeInput]> = .undefined, lines: Input<[CartLineInput]> = .undefined, discountCodes: Input<[String]> = .undefined, giftCardCodes: Input<[String]> = .undefined, note: Input<String> = .undefined, buyerIdentity: Input<CartBuyerIdentityInput> = .undefined, delivery: Input<CartDeliveryInput> = .undefined, metafields: Input<[CartInputMetafieldInput]> = .undefined) {
 			self.attributes = attributes
 			self.lines = lines
 			self.discountCodes = discountCodes
 			self.giftCardCodes = giftCardCodes
 			self.note = note
 			self.buyerIdentity = buyerIdentity
+			self.delivery = delivery
 			self.metafields = metafields
 		}
 
@@ -93,58 +97,58 @@ extension Storefront {
 		///     - giftCardCodes: The case-insensitive gift card codes.  The input must not contain more than `250` values.
 		///     - note: A note that's associated with the cart. For example, the note can be a personalized message to the buyer. 
 		///     - buyerIdentity: The customer associated with the cart. Used to determine [international pricing] (https://shopify.dev/custom-storefronts/internationalization/international-pricing). Buyer identity should match the customer's shipping address. 
+		///     - delivery: The delivery-related fields for the cart.
 		///     - metafields: The metafields to associate with this cart.  The input must not contain more than `250` values.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
-		public convenience init(attributes: [AttributeInput]? = nil, lines: [CartLineInput]? = nil, discountCodes: [String]? = nil, giftCardCodes: [String]? = nil, note: String? = nil, buyerIdentity: CartBuyerIdentityInput? = nil, metafields: [CartInputMetafieldInput]? = nil) {
-			self.init(attributes: attributes.orUndefined, lines: lines.orUndefined, discountCodes: discountCodes.orUndefined, giftCardCodes: giftCardCodes.orUndefined, note: note.orUndefined, buyerIdentity: buyerIdentity.orUndefined, metafields: metafields.orUndefined)
+		public convenience init(attributes: [AttributeInput]? = nil, lines: [CartLineInput]? = nil, discountCodes: [String]? = nil, giftCardCodes: [String]? = nil, note: String? = nil, buyerIdentity: CartBuyerIdentityInput? = nil, delivery: CartDeliveryInput? = nil, metafields: [CartInputMetafieldInput]? = nil) {
+			self.init(attributes: attributes.orUndefined, lines: lines.orUndefined, discountCodes: discountCodes.orUndefined, giftCardCodes: giftCardCodes.orUndefined, note: note.orUndefined, buyerIdentity: buyerIdentity.orUndefined, delivery: delivery.orUndefined, metafields: metafields.orUndefined)
 		}
-
 		internal func serialize() -> String {
 			var fields: [String] = []
 
 			switch attributes {
-				case .value(let attributes): 
+				case .value(let attributes):
 				guard let attributes = attributes else {
 					fields.append("attributes:null")
 					break
 				}
-				fields.append("attributes:[\(attributes.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("attributes:[\(attributes.map { "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch lines {
-				case .value(let lines): 
+				case .value(let lines):
 				guard let lines = lines else {
 					fields.append("lines:null")
 					break
 				}
-				fields.append("lines:[\(lines.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("lines:[\(lines.map { "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch discountCodes {
-				case .value(let discountCodes): 
+				case .value(let discountCodes):
 				guard let discountCodes = discountCodes else {
 					fields.append("discountCodes:null")
 					break
 				}
-				fields.append("discountCodes:[\(discountCodes.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
+				fields.append("discountCodes:[\(discountCodes.map { "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch giftCardCodes {
-				case .value(let giftCardCodes): 
+				case .value(let giftCardCodes):
 				guard let giftCardCodes = giftCardCodes else {
 					fields.append("giftCardCodes:null")
 					break
 				}
-				fields.append("giftCardCodes:[\(giftCardCodes.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
+				fields.append("giftCardCodes:[\(giftCardCodes.map { "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch note {
-				case .value(let note): 
+				case .value(let note):
 				guard let note = note else {
 					fields.append("note:null")
 					break
@@ -154,7 +158,7 @@ extension Storefront {
 			}
 
 			switch buyerIdentity {
-				case .value(let buyerIdentity): 
+				case .value(let buyerIdentity):
 				guard let buyerIdentity = buyerIdentity else {
 					fields.append("buyerIdentity:null")
 					break
@@ -163,13 +167,23 @@ extension Storefront {
 				case .undefined: break
 			}
 
+			switch delivery {
+				case .value(let delivery):
+				guard let delivery = delivery else {
+					fields.append("delivery:null")
+					break
+				}
+				fields.append("delivery:\(delivery.serialize())")
+				case .undefined: break
+			}
+
 			switch metafields {
-				case .value(let metafields): 
+				case .value(let metafields):
 				guard let metafields = metafields else {
 					fields.append("metafields:null")
 					break
 				}
-				fields.append("metafields:[\(metafields.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("metafields:[\(metafields.map { "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 

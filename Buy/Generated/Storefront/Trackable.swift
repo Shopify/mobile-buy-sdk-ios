@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 /// Represents a resource that you can track the origin of the search traffic. 
@@ -103,7 +102,6 @@ extension Storefront {
 	/// Represents a resource that you can track the origin of the search traffic. 
 	open class UnknownTrackable: GraphQL.AbstractResponse, GraphQLObject, Trackable {
 		public typealias Query = TrackableQuery
-
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
@@ -154,7 +152,7 @@ extension Storefront {
 			return field(field: "trackingParameters", aliasSuffix: alias) as! String?
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
 			return []
 		}
 	}

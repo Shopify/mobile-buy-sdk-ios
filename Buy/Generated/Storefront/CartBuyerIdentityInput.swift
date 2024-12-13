@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -100,12 +99,11 @@ extension Storefront {
 		public convenience init(email: String? = nil, phone: String? = nil, companyLocationId: GraphQL.ID? = nil, countryCode: CountryCode? = nil, customerAccessToken: String? = nil, deliveryAddressPreferences: [DeliveryAddressInput]? = nil, preferences: CartPreferencesInput? = nil) {
 			self.init(email: email.orUndefined, phone: phone.orUndefined, companyLocationId: companyLocationId.orUndefined, countryCode: countryCode.orUndefined, customerAccessToken: customerAccessToken.orUndefined, deliveryAddressPreferences: deliveryAddressPreferences.orUndefined, preferences: preferences.orUndefined)
 		}
-
 		internal func serialize() -> String {
 			var fields: [String] = []
 
 			switch email {
-				case .value(let email): 
+				case .value(let email):
 				guard let email = email else {
 					fields.append("email:null")
 					break
@@ -115,7 +113,7 @@ extension Storefront {
 			}
 
 			switch phone {
-				case .value(let phone): 
+				case .value(let phone):
 				guard let phone = phone else {
 					fields.append("phone:null")
 					break
@@ -125,7 +123,7 @@ extension Storefront {
 			}
 
 			switch companyLocationId {
-				case .value(let companyLocationId): 
+				case .value(let companyLocationId):
 				guard let companyLocationId = companyLocationId else {
 					fields.append("companyLocationId:null")
 					break
@@ -135,7 +133,7 @@ extension Storefront {
 			}
 
 			switch countryCode {
-				case .value(let countryCode): 
+				case .value(let countryCode):
 				guard let countryCode = countryCode else {
 					fields.append("countryCode:null")
 					break
@@ -145,7 +143,7 @@ extension Storefront {
 			}
 
 			switch customerAccessToken {
-				case .value(let customerAccessToken): 
+				case .value(let customerAccessToken):
 				guard let customerAccessToken = customerAccessToken else {
 					fields.append("customerAccessToken:null")
 					break
@@ -155,17 +153,17 @@ extension Storefront {
 			}
 
 			switch deliveryAddressPreferences {
-				case .value(let deliveryAddressPreferences): 
+				case .value(let deliveryAddressPreferences):
 				guard let deliveryAddressPreferences = deliveryAddressPreferences else {
 					fields.append("deliveryAddressPreferences:null")
 					break
 				}
-				fields.append("deliveryAddressPreferences:[\(deliveryAddressPreferences.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("deliveryAddressPreferences:[\(deliveryAddressPreferences.map { "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch preferences {
-				case .value(let preferences): 
+				case .value(let preferences):
 				guard let preferences = preferences else {
 					fields.append("preferences:null")
 					break

@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -131,37 +130,36 @@ extension Storefront {
 		public convenience init(total: MoneyInput, subtotal: MoneyInput, locale: String, presentmentCurrency: CurrencyCode, discountCodes: [String]? = nil, lineItems: [ShopPayPaymentRequestLineItemInput]? = nil, shippingLines: [ShopPayPaymentRequestShippingLineInput]? = nil, discounts: [ShopPayPaymentRequestDiscountInput]? = nil, totalShippingPrice: ShopPayPaymentRequestTotalShippingPriceInput? = nil, totalTax: MoneyInput? = nil, deliveryMethods: [ShopPayPaymentRequestDeliveryMethodInput]? = nil, selectedDeliveryMethodType: ShopPayPaymentRequestDeliveryMethodType? = nil, paymentMethod: String? = nil) {
 			self.init(total: total, subtotal: subtotal, locale: locale, presentmentCurrency: presentmentCurrency, discountCodes: discountCodes.orUndefined, lineItems: lineItems.orUndefined, shippingLines: shippingLines.orUndefined, discounts: discounts.orUndefined, totalShippingPrice: totalShippingPrice.orUndefined, totalTax: totalTax.orUndefined, deliveryMethods: deliveryMethods.orUndefined, selectedDeliveryMethodType: selectedDeliveryMethodType.orUndefined, paymentMethod: paymentMethod.orUndefined)
 		}
-
 		internal func serialize() -> String {
 			var fields: [String] = []
 
 			switch discountCodes {
-				case .value(let discountCodes): 
+				case .value(let discountCodes):
 				guard let discountCodes = discountCodes else {
 					fields.append("discountCodes:null")
 					break
 				}
-				fields.append("discountCodes:[\(discountCodes.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
+				fields.append("discountCodes:[\(discountCodes.map { "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch lineItems {
-				case .value(let lineItems): 
+				case .value(let lineItems):
 				guard let lineItems = lineItems else {
 					fields.append("lineItems:null")
 					break
 				}
-				fields.append("lineItems:[\(lineItems.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("lineItems:[\(lineItems.map { "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch shippingLines {
-				case .value(let shippingLines): 
+				case .value(let shippingLines):
 				guard let shippingLines = shippingLines else {
 					fields.append("shippingLines:null")
 					break
 				}
-				fields.append("shippingLines:[\(shippingLines.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("shippingLines:[\(shippingLines.map { "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
@@ -170,17 +168,17 @@ extension Storefront {
 			fields.append("subtotal:\(subtotal.serialize())")
 
 			switch discounts {
-				case .value(let discounts): 
+				case .value(let discounts):
 				guard let discounts = discounts else {
 					fields.append("discounts:null")
 					break
 				}
-				fields.append("discounts:[\(discounts.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("discounts:[\(discounts.map { "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch totalShippingPrice {
-				case .value(let totalShippingPrice): 
+				case .value(let totalShippingPrice):
 				guard let totalShippingPrice = totalShippingPrice else {
 					fields.append("totalShippingPrice:null")
 					break
@@ -190,7 +188,7 @@ extension Storefront {
 			}
 
 			switch totalTax {
-				case .value(let totalTax): 
+				case .value(let totalTax):
 				guard let totalTax = totalTax else {
 					fields.append("totalTax:null")
 					break
@@ -200,17 +198,17 @@ extension Storefront {
 			}
 
 			switch deliveryMethods {
-				case .value(let deliveryMethods): 
+				case .value(let deliveryMethods):
 				guard let deliveryMethods = deliveryMethods else {
 					fields.append("deliveryMethods:null")
 					break
 				}
-				fields.append("deliveryMethods:[\(deliveryMethods.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("deliveryMethods:[\(deliveryMethods.map { "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
 			switch selectedDeliveryMethodType {
-				case .value(let selectedDeliveryMethodType): 
+				case .value(let selectedDeliveryMethodType):
 				guard let selectedDeliveryMethodType = selectedDeliveryMethodType else {
 					fields.append("selectedDeliveryMethodType:null")
 					break
@@ -224,7 +222,7 @@ extension Storefront {
 			fields.append("presentmentCurrency:\(presentmentCurrency.rawValue)")
 
 			switch paymentMethod {
-				case .value(let paymentMethod): 
+				case .value(let paymentMethod):
 				guard let paymentMethod = paymentMethod else {
 					fields.append("paymentMethod:null")
 					break

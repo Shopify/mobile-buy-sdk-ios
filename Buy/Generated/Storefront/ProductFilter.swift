@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -38,6 +37,12 @@ extension Storefront {
 
 		/// A variant option to filter on. 
 		open var variantOption: Input<VariantOptionFilter>
+
+		/// A product category to filter on. 
+		open var category: Input<CategoryFilter>
+
+		/// A taxonomy metafield to filter on. 
+		open var taxonomyMetafield: Input<TaxonomyMetafieldFilter>
 
 		/// The product type to filter on. 
 		open var productType: Input<String>
@@ -62,6 +67,8 @@ extension Storefront {
 		/// - parameters:
 		///     - available: Filter on if the product is available for sale.
 		///     - variantOption: A variant option to filter on.
+		///     - category: A product category to filter on.
+		///     - taxonomyMetafield: A taxonomy metafield to filter on.
 		///     - productType: The product type to filter on.
 		///     - productVendor: The product vendor to filter on.
 		///     - price: A range of prices to filter with-in.
@@ -69,13 +76,15 @@ extension Storefront {
 		///     - variantMetafield: A variant metafield to filter on.
 		///     - tag: A product tag to filter on.
 		///
-		public static func create(available: Input<Bool> = .undefined, variantOption: Input<VariantOptionFilter> = .undefined, productType: Input<String> = .undefined, productVendor: Input<String> = .undefined, price: Input<PriceRangeFilter> = .undefined, productMetafield: Input<MetafieldFilter> = .undefined, variantMetafield: Input<MetafieldFilter> = .undefined, tag: Input<String> = .undefined) -> ProductFilter {
-			return ProductFilter(available: available, variantOption: variantOption, productType: productType, productVendor: productVendor, price: price, productMetafield: productMetafield, variantMetafield: variantMetafield, tag: tag)
+		public static func create(available: Input<Bool> = .undefined, variantOption: Input<VariantOptionFilter> = .undefined, category: Input<CategoryFilter> = .undefined, taxonomyMetafield: Input<TaxonomyMetafieldFilter> = .undefined, productType: Input<String> = .undefined, productVendor: Input<String> = .undefined, price: Input<PriceRangeFilter> = .undefined, productMetafield: Input<MetafieldFilter> = .undefined, variantMetafield: Input<MetafieldFilter> = .undefined, tag: Input<String> = .undefined) -> ProductFilter {
+			return ProductFilter(available: available, variantOption: variantOption, category: category, taxonomyMetafield: taxonomyMetafield, productType: productType, productVendor: productVendor, price: price, productMetafield: productMetafield, variantMetafield: variantMetafield, tag: tag)
 		}
 
-		private init(available: Input<Bool> = .undefined, variantOption: Input<VariantOptionFilter> = .undefined, productType: Input<String> = .undefined, productVendor: Input<String> = .undefined, price: Input<PriceRangeFilter> = .undefined, productMetafield: Input<MetafieldFilter> = .undefined, variantMetafield: Input<MetafieldFilter> = .undefined, tag: Input<String> = .undefined) {
+		private init(available: Input<Bool> = .undefined, variantOption: Input<VariantOptionFilter> = .undefined, category: Input<CategoryFilter> = .undefined, taxonomyMetafield: Input<TaxonomyMetafieldFilter> = .undefined, productType: Input<String> = .undefined, productVendor: Input<String> = .undefined, price: Input<PriceRangeFilter> = .undefined, productMetafield: Input<MetafieldFilter> = .undefined, variantMetafield: Input<MetafieldFilter> = .undefined, tag: Input<String> = .undefined) {
 			self.available = available
 			self.variantOption = variantOption
+			self.category = category
+			self.taxonomyMetafield = taxonomyMetafield
 			self.productType = productType
 			self.productVendor = productVendor
 			self.price = price
@@ -89,6 +98,8 @@ extension Storefront {
 		/// - parameters:
 		///     - available: Filter on if the product is available for sale.
 		///     - variantOption: A variant option to filter on.
+		///     - category: A product category to filter on.
+		///     - taxonomyMetafield: A taxonomy metafield to filter on.
 		///     - productType: The product type to filter on.
 		///     - productVendor: The product vendor to filter on.
 		///     - price: A range of prices to filter with-in.
@@ -97,15 +108,14 @@ extension Storefront {
 		///     - tag: A product tag to filter on.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
-		public convenience init(available: Bool? = nil, variantOption: VariantOptionFilter? = nil, productType: String? = nil, productVendor: String? = nil, price: PriceRangeFilter? = nil, productMetafield: MetafieldFilter? = nil, variantMetafield: MetafieldFilter? = nil, tag: String? = nil) {
-			self.init(available: available.orUndefined, variantOption: variantOption.orUndefined, productType: productType.orUndefined, productVendor: productVendor.orUndefined, price: price.orUndefined, productMetafield: productMetafield.orUndefined, variantMetafield: variantMetafield.orUndefined, tag: tag.orUndefined)
+		public convenience init(available: Bool? = nil, variantOption: VariantOptionFilter? = nil, category: CategoryFilter? = nil, taxonomyMetafield: TaxonomyMetafieldFilter? = nil, productType: String? = nil, productVendor: String? = nil, price: PriceRangeFilter? = nil, productMetafield: MetafieldFilter? = nil, variantMetafield: MetafieldFilter? = nil, tag: String? = nil) {
+			self.init(available: available.orUndefined, variantOption: variantOption.orUndefined, category: category.orUndefined, taxonomyMetafield: taxonomyMetafield.orUndefined, productType: productType.orUndefined, productVendor: productVendor.orUndefined, price: price.orUndefined, productMetafield: productMetafield.orUndefined, variantMetafield: variantMetafield.orUndefined, tag: tag.orUndefined)
 		}
-
 		internal func serialize() -> String {
 			var fields: [String] = []
 
 			switch available {
-				case .value(let available): 
+				case .value(let available):
 				guard let available = available else {
 					fields.append("available:null")
 					break
@@ -115,7 +125,7 @@ extension Storefront {
 			}
 
 			switch variantOption {
-				case .value(let variantOption): 
+				case .value(let variantOption):
 				guard let variantOption = variantOption else {
 					fields.append("variantOption:null")
 					break
@@ -124,8 +134,28 @@ extension Storefront {
 				case .undefined: break
 			}
 
+			switch category {
+				case .value(let category):
+				guard let category = category else {
+					fields.append("category:null")
+					break
+				}
+				fields.append("category:\(category.serialize())")
+				case .undefined: break
+			}
+
+			switch taxonomyMetafield {
+				case .value(let taxonomyMetafield):
+				guard let taxonomyMetafield = taxonomyMetafield else {
+					fields.append("taxonomyMetafield:null")
+					break
+				}
+				fields.append("taxonomyMetafield:\(taxonomyMetafield.serialize())")
+				case .undefined: break
+			}
+
 			switch productType {
-				case .value(let productType): 
+				case .value(let productType):
 				guard let productType = productType else {
 					fields.append("productType:null")
 					break
@@ -135,7 +165,7 @@ extension Storefront {
 			}
 
 			switch productVendor {
-				case .value(let productVendor): 
+				case .value(let productVendor):
 				guard let productVendor = productVendor else {
 					fields.append("productVendor:null")
 					break
@@ -145,7 +175,7 @@ extension Storefront {
 			}
 
 			switch price {
-				case .value(let price): 
+				case .value(let price):
 				guard let price = price else {
 					fields.append("price:null")
 					break
@@ -155,7 +185,7 @@ extension Storefront {
 			}
 
 			switch productMetafield {
-				case .value(let productMetafield): 
+				case .value(let productMetafield):
 				guard let productMetafield = productMetafield else {
 					fields.append("productMetafield:null")
 					break
@@ -165,7 +195,7 @@ extension Storefront {
 			}
 
 			switch variantMetafield {
-				case .value(let variantMetafield): 
+				case .value(let variantMetafield):
 				guard let variantMetafield = variantMetafield else {
 					fields.append("variantMetafield:null")
 					break
@@ -175,7 +205,7 @@ extension Storefront {
 			}
 
 			switch tag {
-				case .value(let tag): 
+				case .value(let tag):
 				guard let tag = tag else {
 					fields.append("tag:null")
 					break

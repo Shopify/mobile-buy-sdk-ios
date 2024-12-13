@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,12 +23,14 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
 	/// The code for the cart warning. 
 	public enum CartWarningCode: String {
+		/// A delivery address with the same details already exists on this cart. 
+		case duplicateDeliveryAddress = "DUPLICATE_DELIVERY_ADDRESS"
+
 		/// The merchandise does not have enough stock. 
 		case merchandiseNotEnoughStock = "MERCHANDISE_NOT_ENOUGH_STOCK"
 

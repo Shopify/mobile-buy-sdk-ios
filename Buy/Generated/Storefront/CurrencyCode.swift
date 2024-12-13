@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -104,7 +103,7 @@ extension Storefront {
 		case byn = "BYN"
 
 		/// Belarusian Ruble (BYR). 
-		@available(*, deprecated, message:"`BYR` is deprecated. Use `BYN` available from version `2021-01` onwards instead.")
+		@available(*, deprecated, message: "`BYR` is deprecated. Use `BYN` available from version `2021-01` onwards instead.")
 		case byr = "BYR"
 
 		/// Belize Dollar (BZD). 
@@ -420,7 +419,7 @@ extension Storefront {
 		case ssp = "SSP"
 
 		/// Sao Tome And Principe Dobra (STD). 
-		@available(*, deprecated, message:"`STD` is deprecated. Use `STN` available from version `2022-07` onwards instead.")
+		@available(*, deprecated, message: "`STD` is deprecated. Use `STN` available from version `2022-07` onwards instead.")
 		case std = "STD"
 
 		/// Sao Tome And Principe Dobra (STN). 
@@ -478,7 +477,7 @@ extension Storefront {
 		case ved = "VED"
 
 		/// Venezuelan Bolivares (VEF). 
-		@available(*, deprecated, message:"`VEF` is deprecated. Use `VES` available from version `2020-10` onwards instead.")
+		@available(*, deprecated, message: "`VEF` is deprecated. Use `VES` available from version `2020-10` onwards instead.")
 		case vef = "VEF"
 
 		/// Venezuelan Bolivares Soberanos (VES). 

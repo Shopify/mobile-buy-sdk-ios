@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) #{Time.now.year} Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
 import Foundation
 
 extension Storefront {
@@ -61,12 +60,11 @@ extension Storefront {
 		public convenience init(applePayWalletContent: ApplePayWalletContentInput? = nil, shopPayWalletContent: ShopPayWalletContentInput? = nil) {
 			self.init(applePayWalletContent: applePayWalletContent.orUndefined, shopPayWalletContent: shopPayWalletContent.orUndefined)
 		}
-
 		internal func serialize() -> String {
 			var fields: [String] = []
 
 			switch applePayWalletContent {
-				case .value(let applePayWalletContent): 
+				case .value(let applePayWalletContent):
 				guard let applePayWalletContent = applePayWalletContent else {
 					fields.append("applePayWalletContent:null")
 					break
@@ -76,7 +74,7 @@ extension Storefront {
 			}
 
 			switch shopPayWalletContent {
-				case .value(let shopPayWalletContent): 
+				case .value(let shopPayWalletContent):
 				guard let shopPayWalletContent = shopPayWalletContent else {
 					fields.append("shopPayWalletContent:null")
 					break

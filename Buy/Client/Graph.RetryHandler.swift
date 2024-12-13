@@ -61,15 +61,15 @@ public extension Graph {
         public let condition: Condition
 
         /// The delay, in seconds, between subsequent retry attempts
-        public var interval:  Double
+        public var interval: Double
 
         /// Indicates whether the current state allows for another retry operation
-        public var canRetry:  Bool {
+        public var canRetry: Bool {
             return self.endurance.canContinueFor(self.repeatCount)
         }
 
         // ----------------------------------
-        //  MARK: - Init -
+        // MARK: - Init -
         //
         /// Creates a new retry handler representing a condition for retrying `Client` query or mutation operations.
         ///
