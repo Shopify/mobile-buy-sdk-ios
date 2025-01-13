@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2024 Shopify Inc. All rights reserved.
+//  Copyright (c) 2025 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -41,6 +41,13 @@ extension Storefront {
 			return self
 		}
 
+		/// A list of the nodes contained in StringEdge. 
+		@discardableResult
+		open func nodes(alias: String? = nil) -> StringConnectionQuery {
+			addField(field: "nodes", aliasSuffix: alias)
+			return self
+		}
+
 		/// Information to aid in pagination. 
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> StringConnectionQuery {
@@ -65,6 +72,12 @@ extension Storefront {
 				}
 				return try value.map { return try StringEdge(fields: $0) }
 
+				case "nodes":
+				guard let value = value as? [String] else {
+					throw SchemaViolationError(type: StringConnection.self, field: fieldName, value: fieldValue)
+				}
+				return value.map { return $0 }
+
 				case "pageInfo":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: StringConnection.self, field: fieldName, value: fieldValue)
@@ -83,6 +96,15 @@ extension Storefront {
 
 		func internalGetEdges(alias: String? = nil) -> [Storefront.StringEdge] {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.StringEdge]
+		}
+
+		/// A list of the nodes contained in StringEdge. 
+		open var nodes: [String] {
+			return internalGetNodes()
+		}
+
+		func internalGetNodes(alias: String? = nil) -> [String] {
+			return field(field: "nodes", aliasSuffix: alias) as! [String]
 		}
 
 		/// Information to aid in pagination. 

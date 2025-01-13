@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2024 Shopify Inc. All rights reserved.
+//  Copyright (c) 2025 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -29,8 +29,8 @@ import Foundation
 extension Storefront {
 	/// The input fields for obtaining the buyer's identity. 
 	open class BuyerInput {
-		/// The storefront customer access token retrieved from the [Customer Accounts 
-		/// API](https://shopify.dev/docs/api/customer/reference/mutations/storefrontCustomerAccessTokenCreate). 
+		/// The customer access token retrieved from the [Customer Accounts 
+		/// API](https://shopify.dev/docs/api/customer#step-obtain-access-token). 
 		open var customerAccessToken: String
 
 		/// The identifier of the company location. 
@@ -39,7 +39,7 @@ extension Storefront {
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - customerAccessToken: The storefront customer access token retrieved from the [Customer Accounts API](https://shopify.dev/docs/api/customer/reference/mutations/storefrontCustomerAccessTokenCreate).
+		///     - customerAccessToken: The customer access token retrieved from the [Customer Accounts API](https://shopify.dev/docs/api/customer#step-obtain-access-token).
 		///     - companyLocationId: The identifier of the company location.
 		///
 		public static func create(customerAccessToken: String, companyLocationId: Input<GraphQL.ID> = .undefined) -> BuyerInput {
@@ -54,7 +54,7 @@ extension Storefront {
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - customerAccessToken: The storefront customer access token retrieved from the [Customer Accounts API](https://shopify.dev/docs/api/customer/reference/mutations/storefrontCustomerAccessTokenCreate).
+		///     - customerAccessToken: The customer access token retrieved from the [Customer Accounts API](https://shopify.dev/docs/api/customer#step-obtain-access-token).
 		///     - companyLocationId: The identifier of the company location.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")

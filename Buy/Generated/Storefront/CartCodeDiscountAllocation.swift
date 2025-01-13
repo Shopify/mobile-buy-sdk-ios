@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2024 Shopify Inc. All rights reserved.
+//  Copyright (c) 2025 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -38,6 +38,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The discount that have been applied on the cart line. 
+		@discardableResult
+		open func discountApplication(alias: String? = nil, _ subfields: (CartDiscountApplicationQuery) -> Void) -> CartCodeDiscountAllocationQuery {
+			let subquery = CartDiscountApplicationQuery()
+			subfields(subquery)
+
+			addField(field: "discountApplication", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The discounted amount that has been applied to the cart line. 
 		@discardableResult
 		open func discountedAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartCodeDiscountAllocationQuery {
@@ -69,6 +79,12 @@ extension Storefront {
 				}
 				return value
 
+				case "discountApplication":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: CartCodeDiscountAllocation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartDiscountApplication(fields: value)
+
 				case "discountedAmount":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: CartCodeDiscountAllocation.self, field: fieldName, value: fieldValue)
@@ -95,6 +111,15 @@ extension Storefront {
 			return field(field: "code", aliasSuffix: alias) as! String
 		}
 
+		/// The discount that have been applied on the cart line. 
+		open var discountApplication: Storefront.CartDiscountApplication {
+			return internalGetDiscountApplication()
+		}
+
+		func internalGetDiscountApplication(alias: String? = nil) -> Storefront.CartDiscountApplication {
+			return field(field: "discountApplication", aliasSuffix: alias) as! Storefront.CartDiscountApplication
+		}
+
 		/// The discounted amount that has been applied to the cart line. 
 		open var discountedAmount: Storefront.MoneyV2 {
 			return internalGetDiscountedAmount()
@@ -117,6 +142,10 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch $0 {
+					case "discountApplication":
+					response.append(internalGetDiscountApplication())
+					response.append(contentsOf: internalGetDiscountApplication().childResponseObjectMap())
+
 					case "discountedAmount":
 					response.append(internalGetDiscountedAmount())
 					response.append(contentsOf: internalGetDiscountedAmount().childResponseObjectMap())
