@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2024 Shopify Inc. All rights reserved.
+//  Copyright (c) 2025 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -39,21 +39,27 @@ extension Storefront {
 		/// The source of the credit card payment. 
 		open var cardSource: Input<CartCardSource>
 
+		/// Indicates if the customer has accepted the subscription terms. Defaults to 
+		/// false. 
+		open var acceptedSubscriptionTerms: Input<Bool>
+
 		/// Creates the input object.
 		///
 		/// - parameters:
 		///     - billingAddress: The customer's billing address.
 		///     - sessionId: The session ID for the direct payment method used to create the payment.
 		///     - cardSource: The source of the credit card payment.
+		///     - acceptedSubscriptionTerms: Indicates if the customer has accepted the subscription terms. Defaults to false.
 		///
-		public static func create(billingAddress: MailingAddressInput, sessionId: String, cardSource: Input<CartCardSource> = .undefined) -> CartDirectPaymentMethodInput {
-			return CartDirectPaymentMethodInput(billingAddress: billingAddress, sessionId: sessionId, cardSource: cardSource)
+		public static func create(billingAddress: MailingAddressInput, sessionId: String, cardSource: Input<CartCardSource> = .undefined, acceptedSubscriptionTerms: Input<Bool> = .undefined) -> CartDirectPaymentMethodInput {
+			return CartDirectPaymentMethodInput(billingAddress: billingAddress, sessionId: sessionId, cardSource: cardSource, acceptedSubscriptionTerms: acceptedSubscriptionTerms)
 		}
 
-		private init(billingAddress: MailingAddressInput, sessionId: String, cardSource: Input<CartCardSource> = .undefined) {
+		private init(billingAddress: MailingAddressInput, sessionId: String, cardSource: Input<CartCardSource> = .undefined, acceptedSubscriptionTerms: Input<Bool> = .undefined) {
 			self.billingAddress = billingAddress
 			self.sessionId = sessionId
 			self.cardSource = cardSource
+			self.acceptedSubscriptionTerms = acceptedSubscriptionTerms
 		}
 
 		/// Creates the input object.
@@ -62,10 +68,11 @@ extension Storefront {
 		///     - billingAddress: The customer's billing address.
 		///     - sessionId: The session ID for the direct payment method used to create the payment.
 		///     - cardSource: The source of the credit card payment.
+		///     - acceptedSubscriptionTerms: Indicates if the customer has accepted the subscription terms. Defaults to false.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
-		public convenience init(billingAddress: MailingAddressInput, sessionId: String, cardSource: CartCardSource? = nil) {
-			self.init(billingAddress: billingAddress, sessionId: sessionId, cardSource: cardSource.orUndefined)
+		public convenience init(billingAddress: MailingAddressInput, sessionId: String, cardSource: CartCardSource? = nil, acceptedSubscriptionTerms: Bool? = nil) {
+			self.init(billingAddress: billingAddress, sessionId: sessionId, cardSource: cardSource.orUndefined, acceptedSubscriptionTerms: acceptedSubscriptionTerms.orUndefined)
 		}
 
 		internal func serialize() -> String {
@@ -82,6 +89,16 @@ extension Storefront {
 					break
 				}
 				fields.append("cardSource:\(cardSource.rawValue)")
+				case .undefined: break
+			}
+
+			switch acceptedSubscriptionTerms {
+				case .value(let acceptedSubscriptionTerms):
+				guard let acceptedSubscriptionTerms = acceptedSubscriptionTerms else {
+					fields.append("acceptedSubscriptionTerms:null")
+					break
+				}
+				fields.append("acceptedSubscriptionTerms:\(acceptedSubscriptionTerms)")
 				case .undefined: break
 			}
 

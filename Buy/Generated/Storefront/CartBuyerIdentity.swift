@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2024 Shopify Inc. All rights reserved.
+//  Copyright (c) 2025 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -51,7 +51,12 @@ extension Storefront {
 		/// An ordered set of delivery addresses tied to the buyer that is interacting 
 		/// with the cart. The rank of the preferences is determined by the order of 
 		/// the addresses in the array. Preferences can be used to populate relevant 
-		/// fields in the checkout flow. 
+		/// fields in the checkout flow. As of the `2025-01` release, 
+		/// `buyerIdentity.deliveryAddressPreferences` is deprecated. Delivery 
+		/// addresses are now part of the `CartDelivery` object and managed with three 
+		/// new mutations: - `cartDeliveryAddressAdd` - `cartDeliveryAddressUpdate` - 
+		/// `cartDeliveryAddressDelete` 
+		@available(*, deprecated, message: "Use `cart.delivery` instead.")
 		@discardableResult
 		open func deliveryAddressPreferences(alias: String? = nil, _ subfields: (DeliveryAddressQuery) -> Void) -> CartBuyerIdentityQuery {
 			let subquery = DeliveryAddressQuery()
@@ -180,7 +185,12 @@ extension Storefront {
 		/// An ordered set of delivery addresses tied to the buyer that is interacting 
 		/// with the cart. The rank of the preferences is determined by the order of 
 		/// the addresses in the array. Preferences can be used to populate relevant 
-		/// fields in the checkout flow. 
+		/// fields in the checkout flow. As of the `2025-01` release, 
+		/// `buyerIdentity.deliveryAddressPreferences` is deprecated. Delivery 
+		/// addresses are now part of the `CartDelivery` object and managed with three 
+		/// new mutations: - `cartDeliveryAddressAdd` - `cartDeliveryAddressUpdate` - 
+		/// `cartDeliveryAddressDelete` 
+		@available(*, deprecated, message: "Use `cart.delivery` instead.")
 		open var deliveryAddressPreferences: [DeliveryAddress] {
 			return internalGetDeliveryAddressPreferences()
 		}

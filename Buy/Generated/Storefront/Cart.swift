@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2024 Shopify Inc. All rights reserved.
+//  Copyright (c) 2025 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -109,6 +109,16 @@ extension Storefront {
 		@discardableResult
 		open func createdAt(alias: String? = nil) -> CartQuery {
 			addField(field: "createdAt", aliasSuffix: alias)
+			return self
+		}
+
+		/// The delivery properties of the cart. 
+		@discardableResult
+		open func delivery(alias: String? = nil, _ subfields: (CartDeliveryQuery) -> Void) -> CartQuery {
+			let subquery = CartDeliveryQuery()
+			subfields(subquery)
+
+			addField(field: "delivery", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -376,6 +386,12 @@ extension Storefront {
 				}
 				return GraphQL.iso8601DateParser.date(from: value)!
 
+				case "delivery":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Cart.self, field: fieldName, value: fieldValue)
+				}
+				return try CartDelivery(fields: value)
+
 				case "deliveryGroups":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Cart.self, field: fieldName, value: fieldValue)
@@ -522,6 +538,15 @@ extension Storefront {
 
 		func internalGetCreatedAt(alias: String? = nil) -> Date {
 			return field(field: "createdAt", aliasSuffix: alias) as! Date
+		}
+
+		/// The delivery properties of the cart. 
+		open var delivery: Storefront.CartDelivery {
+			return internalGetDelivery()
+		}
+
+		func internalGetDelivery(alias: String? = nil) -> Storefront.CartDelivery {
+			return field(field: "delivery", aliasSuffix: alias) as! Storefront.CartDelivery
 		}
 
 		/// The delivery groups available for the cart, based on the buyer identity 
@@ -680,6 +705,10 @@ extension Storefront {
 					case "cost":
 					response.append(internalGetCost())
 					response.append(contentsOf: internalGetCost().childResponseObjectMap())
+
+					case "delivery":
+					response.append(internalGetDelivery())
+					response.append(contentsOf: internalGetDelivery().childResponseObjectMap())
 
 					case "deliveryGroups":
 					response.append(internalGetDeliveryGroups())

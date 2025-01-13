@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2024 Shopify Inc. All rights reserved.
+//  Copyright (c) 2025 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -83,6 +83,7 @@ extension Storefront {
 		}
 
 		/// The duty amount for the customer to pay at checkout. 
+		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		@discardableResult
 		open func totalDutyAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartCostQuery {
 			let subquery = MoneyV2Query()
@@ -93,6 +94,7 @@ extension Storefront {
 		}
 
 		/// Whether the total duty amount is estimated. 
+		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		@discardableResult
 		open func totalDutyAmountEstimated(alias: String? = nil) -> CartCostQuery {
 			addField(field: "totalDutyAmountEstimated", aliasSuffix: alias)
@@ -100,6 +102,7 @@ extension Storefront {
 		}
 
 		/// The tax amount for the customer to pay at checkout. 
+		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		@discardableResult
 		open func totalTaxAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartCostQuery {
 			let subquery = MoneyV2Query()
@@ -110,6 +113,7 @@ extension Storefront {
 		}
 
 		/// Whether the total tax amount is estimated. 
+		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		@discardableResult
 		open func totalTaxAmountEstimated(alias: String? = nil) -> CartCostQuery {
 			addField(field: "totalTaxAmountEstimated", aliasSuffix: alias)
@@ -238,6 +242,7 @@ extension Storefront {
 		}
 
 		/// The duty amount for the customer to pay at checkout. 
+		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		open var totalDutyAmount: Storefront.MoneyV2? {
 			return internalGetTotalDutyAmount()
 		}
@@ -247,6 +252,7 @@ extension Storefront {
 		}
 
 		/// Whether the total duty amount is estimated. 
+		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		open var totalDutyAmountEstimated: Bool {
 			return internalGetTotalDutyAmountEstimated()
 		}
@@ -256,6 +262,7 @@ extension Storefront {
 		}
 
 		/// The tax amount for the customer to pay at checkout. 
+		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		open var totalTaxAmount: Storefront.MoneyV2? {
 			return internalGetTotalTaxAmount()
 		}
@@ -265,6 +272,7 @@ extension Storefront {
 		}
 
 		/// Whether the total tax amount is estimated. 
+		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		open var totalTaxAmountEstimated: Bool {
 			return internalGetTotalTaxAmountEstimated()
 		}

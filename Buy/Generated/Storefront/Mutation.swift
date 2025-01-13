@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2024 Shopify Inc. All rights reserved.
+//  Copyright (c) 2025 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -136,6 +136,81 @@ extension Storefront {
 			return self
 		}
 
+		/// Adds delivery addresses to the cart. 
+		///
+		/// - parameters:
+		///     - cartId: The ID of the cart.
+		///     - addresses: A list of delivery addresses to add to the cart.
+		///        
+		///        The input must not contain more than `250` values.
+		///
+		@discardableResult
+		open func cartDeliveryAddressesAdd(alias: String? = nil, cartId: GraphQL.ID, addresses: [CartSelectableAddressInput], _ subfields: (CartDeliveryAddressesAddPayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
+
+			args.append("addresses:[\(addresses.map { "\($0.serialize())" }.joined(separator: ","))]")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CartDeliveryAddressesAddPayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartDeliveryAddressesAdd", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Removes delivery addresses from the cart. 
+		///
+		/// - parameters:
+		///     - cartId: The ID of the cart.
+		///     - addressIds: A list of delivery addresses by handle to remove from the cart.
+		///        
+		///        The input must not contain more than `250` values.
+		///
+		@discardableResult
+		open func cartDeliveryAddressesRemove(alias: String? = nil, cartId: GraphQL.ID, addressIds: [GraphQL.ID], _ subfields: (CartDeliveryAddressesRemovePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
+
+			args.append("addressIds:[\(addressIds.map { "\(GraphQL.quoteString(input: "\($0.rawValue)"))" }.joined(separator: ","))]")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CartDeliveryAddressesRemovePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartDeliveryAddressesRemove", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Updates one or more delivery addresses on a cart. 
+		///
+		/// - parameters:
+		///     - cartId: The ID of the cart.
+		///     - addresses: The delivery addresses to update.
+		///        
+		///        The input must not contain more than `250` values.
+		///
+		@discardableResult
+		open func cartDeliveryAddressesUpdate(alias: String? = nil, cartId: GraphQL.ID, addresses: [CartSelectableAddressUpdateInput], _ subfields: (CartDeliveryAddressesUpdatePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
+
+			args.append("addresses:[\(addresses.map { "\($0.serialize())" }.joined(separator: ","))]")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CartDeliveryAddressesUpdatePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartDeliveryAddressesUpdate", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Updates the discount codes applied to the cart. 
 		///
 		/// - parameters:
@@ -160,6 +235,31 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "cartDiscountCodesUpdate", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Removes the gift card codes applied to the cart. 
+		///
+		/// - parameters:
+		///     - cartId: The ID of the cart.
+		///     - appliedGiftCardIds: The gift cards to remove.
+		///        
+		///        The input must not contain more than `250` values.
+		///
+		@discardableResult
+		open func cartGiftCardCodesRemove(alias: String? = nil, cartId: GraphQL.ID, appliedGiftCardIds: [GraphQL.ID], _ subfields: (CartGiftCardCodesRemovePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
+
+			args.append("appliedGiftCardIds:[\(appliedGiftCardIds.map { "\(GraphQL.quoteString(input: "\($0.rawValue)"))" }.joined(separator: ","))]")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CartGiftCardCodesRemovePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartGiftCardCodesRemove", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -350,6 +450,26 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "cartPaymentUpdate", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Prepare the cart for cart checkout completion. 
+		///
+		/// - parameters:
+		///     - cartId: The ID of the cart.
+		///
+		@discardableResult
+		open func cartPrepareForCompletion(alias: String? = nil, cartId: GraphQL.ID, _ subfields: (CartPrepareForCompletionPayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CartPrepareForCompletionPayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartPrepareForCompletion", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -848,12 +968,40 @@ extension Storefront {
 				}
 				return try CartCreatePayload(fields: value)
 
+				case "cartDeliveryAddressesAdd":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartDeliveryAddressesAddPayload(fields: value)
+
+				case "cartDeliveryAddressesRemove":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartDeliveryAddressesRemovePayload(fields: value)
+
+				case "cartDeliveryAddressesUpdate":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartDeliveryAddressesUpdatePayload(fields: value)
+
 				case "cartDiscountCodesUpdate":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
 				}
 				return try CartDiscountCodesUpdatePayload(fields: value)
+
+				case "cartGiftCardCodesRemove":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartGiftCardCodesRemovePayload(fields: value)
 
 				case "cartGiftCardCodesUpdate":
 				if value is NSNull { return nil }
@@ -910,6 +1058,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
 				}
 				return try CartPaymentUpdatePayload(fields: value)
+
+				case "cartPrepareForCompletion":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartPrepareForCompletionPayload(fields: value)
 
 				case "cartSelectedDeliveryOptionsUpdate":
 				if value is NSNull { return nil }
@@ -1104,6 +1259,45 @@ extension Storefront {
 			return field(field: "cartCreate", aliasSuffix: alias) as! Storefront.CartCreatePayload?
 		}
 
+		/// Adds delivery addresses to the cart. 
+		open var cartDeliveryAddressesAdd: Storefront.CartDeliveryAddressesAddPayload? {
+			return internalGetCartDeliveryAddressesAdd()
+		}
+
+		open func aliasedCartDeliveryAddressesAdd(alias: String) -> Storefront.CartDeliveryAddressesAddPayload? {
+			return internalGetCartDeliveryAddressesAdd(alias: alias)
+		}
+
+		func internalGetCartDeliveryAddressesAdd(alias: String? = nil) -> Storefront.CartDeliveryAddressesAddPayload? {
+			return field(field: "cartDeliveryAddressesAdd", aliasSuffix: alias) as! Storefront.CartDeliveryAddressesAddPayload?
+		}
+
+		/// Removes delivery addresses from the cart. 
+		open var cartDeliveryAddressesRemove: Storefront.CartDeliveryAddressesRemovePayload? {
+			return internalGetCartDeliveryAddressesRemove()
+		}
+
+		open func aliasedCartDeliveryAddressesRemove(alias: String) -> Storefront.CartDeliveryAddressesRemovePayload? {
+			return internalGetCartDeliveryAddressesRemove(alias: alias)
+		}
+
+		func internalGetCartDeliveryAddressesRemove(alias: String? = nil) -> Storefront.CartDeliveryAddressesRemovePayload? {
+			return field(field: "cartDeliveryAddressesRemove", aliasSuffix: alias) as! Storefront.CartDeliveryAddressesRemovePayload?
+		}
+
+		/// Updates one or more delivery addresses on a cart. 
+		open var cartDeliveryAddressesUpdate: Storefront.CartDeliveryAddressesUpdatePayload? {
+			return internalGetCartDeliveryAddressesUpdate()
+		}
+
+		open func aliasedCartDeliveryAddressesUpdate(alias: String) -> Storefront.CartDeliveryAddressesUpdatePayload? {
+			return internalGetCartDeliveryAddressesUpdate(alias: alias)
+		}
+
+		func internalGetCartDeliveryAddressesUpdate(alias: String? = nil) -> Storefront.CartDeliveryAddressesUpdatePayload? {
+			return field(field: "cartDeliveryAddressesUpdate", aliasSuffix: alias) as! Storefront.CartDeliveryAddressesUpdatePayload?
+		}
+
 		/// Updates the discount codes applied to the cart. 
 		open var cartDiscountCodesUpdate: Storefront.CartDiscountCodesUpdatePayload? {
 			return internalGetCartDiscountCodesUpdate()
@@ -1115,6 +1309,19 @@ extension Storefront {
 
 		func internalGetCartDiscountCodesUpdate(alias: String? = nil) -> Storefront.CartDiscountCodesUpdatePayload? {
 			return field(field: "cartDiscountCodesUpdate", aliasSuffix: alias) as! Storefront.CartDiscountCodesUpdatePayload?
+		}
+
+		/// Removes the gift card codes applied to the cart. 
+		open var cartGiftCardCodesRemove: Storefront.CartGiftCardCodesRemovePayload? {
+			return internalGetCartGiftCardCodesRemove()
+		}
+
+		open func aliasedCartGiftCardCodesRemove(alias: String) -> Storefront.CartGiftCardCodesRemovePayload? {
+			return internalGetCartGiftCardCodesRemove(alias: alias)
+		}
+
+		func internalGetCartGiftCardCodesRemove(alias: String? = nil) -> Storefront.CartGiftCardCodesRemovePayload? {
+			return field(field: "cartGiftCardCodesRemove", aliasSuffix: alias) as! Storefront.CartGiftCardCodesRemovePayload?
 		}
 
 		/// Updates the gift card codes applied to the cart. 
@@ -1221,6 +1428,19 @@ extension Storefront {
 
 		func internalGetCartPaymentUpdate(alias: String? = nil) -> Storefront.CartPaymentUpdatePayload? {
 			return field(field: "cartPaymentUpdate", aliasSuffix: alias) as! Storefront.CartPaymentUpdatePayload?
+		}
+
+		/// Prepare the cart for cart checkout completion. 
+		open var cartPrepareForCompletion: Storefront.CartPrepareForCompletionPayload? {
+			return internalGetCartPrepareForCompletion()
+		}
+
+		open func aliasedCartPrepareForCompletion(alias: String) -> Storefront.CartPrepareForCompletionPayload? {
+			return internalGetCartPrepareForCompletion(alias: alias)
+		}
+
+		func internalGetCartPrepareForCompletion(alias: String? = nil) -> Storefront.CartPrepareForCompletionPayload? {
+			return field(field: "cartPrepareForCompletion", aliasSuffix: alias) as! Storefront.CartPrepareForCompletionPayload?
 		}
 
 		/// Update the selected delivery options for a delivery group. 
@@ -1523,8 +1743,32 @@ extension Storefront {
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
+					case "cartDeliveryAddressesAdd":
+					if let value = internalGetCartDeliveryAddressesAdd() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "cartDeliveryAddressesRemove":
+					if let value = internalGetCartDeliveryAddressesRemove() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "cartDeliveryAddressesUpdate":
+					if let value = internalGetCartDeliveryAddressesUpdate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "cartDiscountCodesUpdate":
 					if let value = internalGetCartDiscountCodesUpdate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "cartGiftCardCodesRemove":
+					if let value = internalGetCartGiftCardCodesRemove() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
@@ -1573,6 +1817,12 @@ extension Storefront {
 
 					case "cartPaymentUpdate":
 					if let value = internalGetCartPaymentUpdate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "cartPrepareForCompletion":
+					if let value = internalGetCartPrepareForCompletion() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

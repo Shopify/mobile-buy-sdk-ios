@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2024 Shopify Inc. All rights reserved.
+//  Copyright (c) 2025 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -38,6 +38,14 @@ extension Storefront {
 			addField(field: "attemptId", aliasSuffix: alias)
 			return self
 		}
+
+		/// The url to which the buyer should be redirected after the cart is 
+		/// successfully submitted. 
+		@discardableResult
+		open func redirectUrl(alias: String? = nil) -> SubmitSuccessQuery {
+			addField(field: "redirectUrl", aliasSuffix: alias)
+			return self
+		}
 	}
 
 	/// Cart submit for checkout completion is already accepted. 
@@ -53,6 +61,12 @@ extension Storefront {
 				}
 				return value
 
+				case "redirectUrl":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: SubmitSuccess.self, field: fieldName, value: fieldValue)
+				}
+				return URL(string: value)!
+
 				default:
 				throw SchemaViolationError(type: SubmitSuccess.self, field: fieldName, value: fieldValue)
 			}
@@ -66,6 +80,16 @@ extension Storefront {
 
 		func internalGetAttemptId(alias: String? = nil) -> String {
 			return field(field: "attemptId", aliasSuffix: alias) as! String
+		}
+
+		/// The url to which the buyer should be redirected after the cart is 
+		/// successfully submitted. 
+		open var redirectUrl: URL {
+			return internalGetRedirectUrl()
+		}
+
+		func internalGetRedirectUrl(alias: String? = nil) -> URL {
+			return field(field: "redirectUrl", aliasSuffix: alias) as! URL
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {

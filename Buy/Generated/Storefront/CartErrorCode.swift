@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2024 Shopify Inc. All rights reserved.
+//  Copyright (c) 2025 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -53,6 +53,9 @@ extension Storefront {
 		/// Company location not found or not allowed. 
 		case invalidCompanyLocation = "INVALID_COMPANY_LOCATION"
 
+		/// The delivery address was not found. 
+		case invalidDeliveryAddressId = "INVALID_DELIVERY_ADDRESS_ID"
+
 		/// Delivery group was not found in cart. 
 		case invalidDeliveryGroup = "INVALID_DELIVERY_GROUP"
 
@@ -101,11 +104,17 @@ extension Storefront {
 		/// The note length must be below the specified maximum. 
 		case noteTooLong = "NOTE_TOO_LONG"
 
+		/// Only one delivery address can be selected. 
+		case onlyOneDeliveryAddressCanBeSelected = "ONLY_ONE_DELIVERY_ADDRESS_CAN_BE_SELECTED"
+
 		/// The payment method is not supported. 
 		case paymentMethodNotSupported = "PAYMENT_METHOD_NOT_SUPPORTED"
 
 		/// The given province cannot be found. 
 		case provinceNotFound = "PROVINCE_NOT_FOUND"
+
+		/// Too many delivery addresses on Cart. 
+		case tooManyDeliveryAddresses = "TOO_MANY_DELIVERY_ADDRESSES"
 
 		/// A general error occurred during address validation. 
 		case unspecifiedAddressError = "UNSPECIFIED_ADDRESS_ERROR"
