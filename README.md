@@ -14,6 +14,12 @@ The Mobile Buy SDK makes it easy to create custom storefronts in your mobile app
 
 <a href="https://github.com/Shopify/mobile-buy-sdk-ios/releases/latest">Download the latest version</a>
 
+### Versioning
+
+As of the `2025.1.0` release, the Mobile Buy SDK now uses a modified [CalVer](https://calver.org/) versioning scheme. This was done to align with the quarterly Storefront GraphQL API releases and bring clarity to what version a library release corresponds to.
+
+The format is `yyyy.mm.patch`, where the first two components match the API version, and the last component corresponds to non-breaking bug fixes within an API version cycle. In practice, this means that unlike SemVer, there **may** be breaking GraphQL schema changes between "minor" versions. Learn more about API [release schedules](https://shopify.dev/api/usage/versioning#release-schedule) at Shopify.
+
 ### Swift Package Manager
 
 This is the recommended approach of integration the SDK with your app. You can follow Apple's guide for [adding a package dependency to your app](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app) for a thorough walkthrough.
@@ -79,10 +85,6 @@ import MobileBuySDK
 ```
 
 Note: If you've forked this repo and are attempting to install from your own git destination, commit, or branch, be sure to include "submodules: true" in the line of your Podfile
-
-### Versioning
-
-As of the `2025.1.0` release, the Mobile Buy SDK now uses a modified [CalVer](https://calver.org/) versioning scheme. This was done to align with the quarterly Storefront GraphQL API releases and bring clarity to what version a library release corresponds to. The format is `yyyy.mm.patch`, where the first two components match the API version, and the last component corresponds to non-breaking bug fixes within an API version cycle. In practice, this means that unlike SemVer, there **may** be breaking GraphQL schema changes between "minor" versions. Learn more about API [release schedules](https://shopify.dev/api/usage/versioning#release-schedule) at Shopify.
 
 ## Getting started
 
