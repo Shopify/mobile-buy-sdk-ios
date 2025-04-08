@@ -107,6 +107,36 @@ extension Storefront {
 		/// Only one delivery address can be selected. 
 		case onlyOneDeliveryAddressCanBeSelected = "ONLY_ONE_DELIVERY_ADDRESS_CAN_BE_SELECTED"
 
+		/// Credit card has expired. 
+		case paymentsCreditCardBaseExpired = "PAYMENTS_CREDIT_CARD_BASE_EXPIRED"
+
+		/// Credit card gateway is not supported. 
+		case paymentsCreditCardBaseGatewayNotSupported = "PAYMENTS_CREDIT_CARD_BASE_GATEWAY_NOT_SUPPORTED"
+
+		/// Credit card error. 
+		case paymentsCreditCardGeneric = "PAYMENTS_CREDIT_CARD_GENERIC"
+
+		/// Credit card month is invalid. 
+		case paymentsCreditCardMonthInclusion = "PAYMENTS_CREDIT_CARD_MONTH_INCLUSION"
+
+		/// Credit card number is invalid. 
+		case paymentsCreditCardNumberInvalid = "PAYMENTS_CREDIT_CARD_NUMBER_INVALID"
+
+		/// Credit card number format is invalid. 
+		case paymentsCreditCardNumberInvalidFormat = "PAYMENTS_CREDIT_CARD_NUMBER_INVALID_FORMAT"
+
+		/// Credit card verification value is blank. 
+		case paymentsCreditCardVerificationValueBlank = "PAYMENTS_CREDIT_CARD_VERIFICATION_VALUE_BLANK"
+
+		/// Credit card verification value is invalid for card type. 
+		case paymentsCreditCardVerificationValueInvalidForCardType = "PAYMENTS_CREDIT_CARD_VERIFICATION_VALUE_INVALID_FOR_CARD_TYPE"
+
+		/// Credit card has expired. 
+		case paymentsCreditCardYearExpired = "PAYMENTS_CREDIT_CARD_YEAR_EXPIRED"
+
+		/// Credit card expiry year is invalid. 
+		case paymentsCreditCardYearInvalidExpiryYear = "PAYMENTS_CREDIT_CARD_YEAR_INVALID_EXPIRY_YEAR"
+
 		/// The payment method is not supported. 
 		case paymentMethodNotSupported = "PAYMENT_METHOD_NOT_SUPPORTED"
 

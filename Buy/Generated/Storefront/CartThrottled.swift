@@ -32,6 +32,16 @@ extension Storefront {
 	open class CartThrottledQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartThrottled
 
+		/// The result of cart preparation for completion. 
+		@discardableResult
+		open func cart(alias: String? = nil, _ subfields: (CartQuery) -> Void) -> CartThrottledQuery {
+			let subquery = CartQuery()
+			subfields(subquery)
+
+			addField(field: "cart", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The polling delay. 
 		@discardableResult
 		open func pollAfter(alias: String? = nil) -> CartThrottledQuery {
@@ -48,6 +58,13 @@ extension Storefront {
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "cart":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: CartThrottled.self, field: fieldName, value: fieldValue)
+				}
+				return try Cart(fields: value)
+
 				case "pollAfter":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: CartThrottled.self, field: fieldName, value: fieldValue)
@@ -57,6 +74,15 @@ extension Storefront {
 				default:
 				throw SchemaViolationError(type: CartThrottled.self, field: fieldName, value: fieldValue)
 			}
+		}
+
+		/// The result of cart preparation for completion. 
+		open var cart: Storefront.Cart? {
+			return internalGetCart()
+		}
+
+		func internalGetCart(alias: String? = nil) -> Storefront.Cart? {
+			return field(field: "cart", aliasSuffix: alias) as! Storefront.Cart?
 		}
 
 		/// The polling delay. 
@@ -69,7 +95,20 @@ extension Storefront {
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
-			return []
+			var response: [GraphQL.AbstractResponse] = []
+			objectMap.keys.forEach {
+				switch $0 {
+					case "cart":
+					if let value = internalGetCart() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					default:
+					break
+				}
+			}
+			return response
 		}
 	}
 }

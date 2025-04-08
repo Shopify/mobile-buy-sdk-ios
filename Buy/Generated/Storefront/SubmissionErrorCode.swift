@@ -209,11 +209,17 @@ extension Storefront {
 
 		case paymentsWalletContentMissing = "PAYMENTS_WALLET_CONTENT_MISSING"
 
+		/// Redirect to checkout required to complete this action. 
+		case redirectToCheckoutRequired = "REDIRECT_TO_CHECKOUT_REQUIRED"
+
 		case taxesDeliveryGroupIdNotFound = "TAXES_DELIVERY_GROUP_ID_NOT_FOUND"
 
 		case taxesLineIdNotFound = "TAXES_LINE_ID_NOT_FOUND"
 
 		case taxesMustBeDefined = "TAXES_MUST_BE_DEFINED"
+
+		/// Validation failed. 
+		case validationCustom = "VALIDATION_CUSTOM"
 
 		case unknownValue = ""
 	}

@@ -51,6 +51,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The default language for the country. 
+		@discardableResult
+		open func defaultLanguage(alias: String? = nil, _ subfields: (LanguageQuery) -> Void) -> CountryQuery {
+			let subquery = LanguageQuery()
+			subfields(subquery)
+
+			addField(field: "defaultLanguage", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The ISO code of the country. 
 		@discardableResult
 		open func isoCode(alias: String? = nil) -> CountryQuery {
@@ -59,6 +69,7 @@ extension Storefront {
 		}
 
 		/// The market that includes this country. 
+		@available(*, deprecated, message: "This `market` field will be removed in a future version of the API.")
 		@discardableResult
 		open func market(alias: String? = nil, _ subfields: (MarketQuery) -> Void) -> CountryQuery {
 			let subquery = MarketQuery()
@@ -101,6 +112,12 @@ extension Storefront {
 					throw SchemaViolationError(type: Country.self, field: fieldName, value: fieldValue)
 				}
 				return try Currency(fields: value)
+
+				case "defaultLanguage":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Country.self, field: fieldName, value: fieldValue)
+				}
+				return try Language(fields: value)
 
 				case "isoCode":
 				guard let value = value as? String else {
@@ -150,6 +167,15 @@ extension Storefront {
 			return field(field: "currency", aliasSuffix: alias) as! Storefront.Currency
 		}
 
+		/// The default language for the country. 
+		open var defaultLanguage: Storefront.Language {
+			return internalGetDefaultLanguage()
+		}
+
+		func internalGetDefaultLanguage(alias: String? = nil) -> Storefront.Language {
+			return field(field: "defaultLanguage", aliasSuffix: alias) as! Storefront.Language
+		}
+
 		/// The ISO code of the country. 
 		open var isoCode: Storefront.CountryCode {
 			return internalGetIsoCode()
@@ -160,6 +186,7 @@ extension Storefront {
 		}
 
 		/// The market that includes this country. 
+		@available(*, deprecated, message: "This `market` field will be removed in a future version of the API.")
 		open var market: Storefront.Market? {
 			return internalGetMarket()
 		}
@@ -199,6 +226,10 @@ extension Storefront {
 					case "currency":
 					response.append(internalGetCurrency())
 					response.append(contentsOf: internalGetCurrency().childResponseObjectMap())
+
+					case "defaultLanguage":
+					response.append(internalGetDefaultLanguage())
+					response.append(contentsOf: internalGetDefaultLanguage().childResponseObjectMap())
 
 					case "market":
 					if let value = internalGetMarket() {
