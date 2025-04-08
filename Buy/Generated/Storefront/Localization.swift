@@ -75,6 +75,7 @@ extension Storefront {
 
 		/// The market including the country of the active localized experience. Use 
 		/// the `@inContext` directive to change this value. 
+		@available(*, deprecated, message: "This `market` field will be removed in a future version of the API.")
 		@discardableResult
 		open func market(alias: String? = nil, _ subfields: (MarketQuery) -> Void) -> LocalizationQuery {
 			let subquery = MarketQuery()
@@ -167,6 +168,7 @@ extension Storefront {
 
 		/// The market including the country of the active localized experience. Use 
 		/// the `@inContext` directive to change this value. 
+		@available(*, deprecated, message: "This `market` field will be removed in a future version of the API.")
 		open var market: Storefront.Market {
 			return internalGetMarket()
 		}

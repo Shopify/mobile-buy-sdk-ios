@@ -30,9 +30,8 @@ import Foundation
 /// with the [Relay 
 /// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 /// This interface is used by the 
-/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-/// queries. 
+/// [node](/docs/api/storefront/latest/queries/node) and 
+/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 public protocol Node {
 	var id: GraphQL.ID { get }
 }
@@ -42,9 +41,8 @@ extension Storefront {
 	/// with the [Relay 
 	/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 	/// This interface is used by the 
-	/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-	/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-	/// queries. 
+	/// [node](/docs/api/storefront/latest/queries/node) and 
+	/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 	open class NodeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Node
 
@@ -64,9 +62,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onAppliedGiftCard(subfields: (AppliedGiftCardQuery) -> Void) -> NodeQuery {
 			let subquery = AppliedGiftCardQuery()
@@ -79,9 +76,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onArticle(subfields: (ArticleQuery) -> Void) -> NodeQuery {
 			let subquery = ArticleQuery()
@@ -94,9 +90,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onBlog(subfields: (BlogQuery) -> Void) -> NodeQuery {
 			let subquery = BlogQuery()
@@ -109,9 +104,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onCart(subfields: (CartQuery) -> Void) -> NodeQuery {
 			let subquery = CartQuery()
@@ -124,9 +118,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onCartLine(subfields: (CartLineQuery) -> Void) -> NodeQuery {
 			let subquery = CartLineQuery()
@@ -139,9 +132,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onCollection(subfields: (CollectionQuery) -> Void) -> NodeQuery {
 			let subquery = CollectionQuery()
@@ -154,9 +146,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onComment(subfields: (CommentQuery) -> Void) -> NodeQuery {
 			let subquery = CommentQuery()
@@ -169,9 +160,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onCompany(subfields: (CompanyQuery) -> Void) -> NodeQuery {
 			let subquery = CompanyQuery()
@@ -184,9 +174,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onCompanyContact(subfields: (CompanyContactQuery) -> Void) -> NodeQuery {
 			let subquery = CompanyContactQuery()
@@ -199,9 +188,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onCompanyLocation(subfields: (CompanyLocationQuery) -> Void) -> NodeQuery {
 			let subquery = CompanyLocationQuery()
@@ -214,9 +202,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onComponentizableCartLine(subfields: (ComponentizableCartLineQuery) -> Void) -> NodeQuery {
 			let subquery = ComponentizableCartLineQuery()
@@ -229,9 +216,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onExternalVideo(subfields: (ExternalVideoQuery) -> Void) -> NodeQuery {
 			let subquery = ExternalVideoQuery()
@@ -244,9 +230,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onGenericFile(subfields: (GenericFileQuery) -> Void) -> NodeQuery {
 			let subquery = GenericFileQuery()
@@ -259,9 +244,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onLocation(subfields: (LocationQuery) -> Void) -> NodeQuery {
 			let subquery = LocationQuery()
@@ -274,9 +258,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onMailingAddress(subfields: (MailingAddressQuery) -> Void) -> NodeQuery {
 			let subquery = MailingAddressQuery()
@@ -289,9 +272,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onMarket(subfields: (MarketQuery) -> Void) -> NodeQuery {
 			let subquery = MarketQuery()
@@ -304,9 +286,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onMediaImage(subfields: (MediaImageQuery) -> Void) -> NodeQuery {
 			let subquery = MediaImageQuery()
@@ -319,9 +300,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onMediaPresentation(subfields: (MediaPresentationQuery) -> Void) -> NodeQuery {
 			let subquery = MediaPresentationQuery()
@@ -334,9 +314,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onMenu(subfields: (MenuQuery) -> Void) -> NodeQuery {
 			let subquery = MenuQuery()
@@ -349,9 +328,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onMenuItem(subfields: (MenuItemQuery) -> Void) -> NodeQuery {
 			let subquery = MenuItemQuery()
@@ -364,9 +342,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onMetafield(subfields: (MetafieldQuery) -> Void) -> NodeQuery {
 			let subquery = MetafieldQuery()
@@ -379,9 +356,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onMetaobject(subfields: (MetaobjectQuery) -> Void) -> NodeQuery {
 			let subquery = MetaobjectQuery()
@@ -394,9 +370,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onModel3d(subfields: (Model3dQuery) -> Void) -> NodeQuery {
 			let subquery = Model3dQuery()
@@ -409,9 +384,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onOrder(subfields: (OrderQuery) -> Void) -> NodeQuery {
 			let subquery = OrderQuery()
@@ -424,9 +398,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onPage(subfields: (PageQuery) -> Void) -> NodeQuery {
 			let subquery = PageQuery()
@@ -439,9 +412,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onProduct(subfields: (ProductQuery) -> Void) -> NodeQuery {
 			let subquery = ProductQuery()
@@ -454,9 +426,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onProductOption(subfields: (ProductOptionQuery) -> Void) -> NodeQuery {
 			let subquery = ProductOptionQuery()
@@ -469,9 +440,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onProductOptionValue(subfields: (ProductOptionValueQuery) -> Void) -> NodeQuery {
 			let subquery = ProductOptionValueQuery()
@@ -484,9 +454,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onProductVariant(subfields: (ProductVariantQuery) -> Void) -> NodeQuery {
 			let subquery = ProductVariantQuery()
@@ -499,9 +468,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onShop(subfields: (ShopQuery) -> Void) -> NodeQuery {
 			let subquery = ShopQuery()
@@ -514,9 +482,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onShopPayInstallmentsFinancingPlan(subfields: (ShopPayInstallmentsFinancingPlanQuery) -> Void) -> NodeQuery {
 			let subquery = ShopPayInstallmentsFinancingPlanQuery()
@@ -529,9 +496,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onShopPayInstallmentsFinancingPlanTerm(subfields: (ShopPayInstallmentsFinancingPlanTermQuery) -> Void) -> NodeQuery {
 			let subquery = ShopPayInstallmentsFinancingPlanTermQuery()
@@ -544,9 +510,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onShopPayInstallmentsProductVariantPricing(subfields: (ShopPayInstallmentsProductVariantPricingQuery) -> Void) -> NodeQuery {
 			let subquery = ShopPayInstallmentsProductVariantPricingQuery()
@@ -559,9 +524,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onShopPolicy(subfields: (ShopPolicyQuery) -> Void) -> NodeQuery {
 			let subquery = ShopPolicyQuery()
@@ -574,9 +538,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onTaxonomyCategory(subfields: (TaxonomyCategoryQuery) -> Void) -> NodeQuery {
 			let subquery = TaxonomyCategoryQuery()
@@ -589,9 +552,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onUrlRedirect(subfields: (UrlRedirectQuery) -> Void) -> NodeQuery {
 			let subquery = UrlRedirectQuery()
@@ -604,9 +566,8 @@ extension Storefront {
 		/// with the [Relay 
 		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 		/// This interface is used by the 
-		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-		/// queries. 
+		/// [node](/docs/api/storefront/latest/queries/node) and 
+		/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 		@discardableResult
 		open func onVideo(subfields: (VideoQuery) -> Void) -> NodeQuery {
 			let subquery = VideoQuery()
@@ -620,9 +581,8 @@ extension Storefront {
 	/// with the [Relay 
 	/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
 	/// This interface is used by the 
-	/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
-	/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
-	/// queries. 
+	/// [node](/docs/api/storefront/latest/queries/node) and 
+	/// [nodes](/docs/api/storefront/latest/queries/nodes) queries. 
 	open class UnknownNode: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = NodeQuery
 
