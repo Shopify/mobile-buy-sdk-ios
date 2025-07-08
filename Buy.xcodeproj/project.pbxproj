@@ -163,6 +163,9 @@
 		4E28FF1C270780B500F9EBED /* OnlineStorePublishable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28FECD270780B500F9EBED /* OnlineStorePublishable.swift */; };
 		4E28FF1D270780B500F9EBED /* OnlineStorePublishable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28FECD270780B500F9EBED /* OnlineStorePublishable.swift */; };
 		4E28FF1E270780B500F9EBED /* OnlineStorePublishable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28FECD270780B500F9EBED /* OnlineStorePublishable.swift */; };
+		4E5714B02E1D5CE9006E8E75 /* CartRemovePersonalDataPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5714AF2E1D5CE9006E8E75 /* CartRemovePersonalDataPayload.swift */; };
+		4E5714B12E1D5CE9006E8E75 /* CartRemovePersonalDataPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5714AF2E1D5CE9006E8E75 /* CartRemovePersonalDataPayload.swift */; };
+		4E5714B22E1D5CE9006E8E75 /* CartRemovePersonalDataPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5714AF2E1D5CE9006E8E75 /* CartRemovePersonalDataPayload.swift */; };
 		4E69B2462BBB2C0B00913BAA /* Swatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2392BBB2C0A00913BAA /* Swatch.swift */; };
 		4E69B2472BBB2C0B00913BAA /* Swatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2392BBB2C0A00913BAA /* Swatch.swift */; };
 		4E69B2482BBB2C0B00913BAA /* Swatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2392BBB2C0A00913BAA /* Swatch.swift */; };
@@ -1321,6 +1324,7 @@
 		4E28FECB270780B500F9EBED /* CartBuyerIdentity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartBuyerIdentity.swift; sourceTree = "<group>"; };
 		4E28FECC270780B500F9EBED /* Merchandise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Merchandise.swift; sourceTree = "<group>"; };
 		4E28FECD270780B500F9EBED /* OnlineStorePublishable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnlineStorePublishable.swift; sourceTree = "<group>"; };
+		4E5714AF2E1D5CE9006E8E75 /* CartRemovePersonalDataPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartRemovePersonalDataPayload.swift; sourceTree = "<group>"; };
 		4E69B2392BBB2C0A00913BAA /* Swatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swatch.swift; sourceTree = "<group>"; };
 		4E69B23A2BBB2C0A00913BAA /* FilterPresentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterPresentation.swift; sourceTree = "<group>"; };
 		4E69B23B2BBB2C0A00913BAA /* QuantityPriceBreak.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuantityPriceBreak.swift; sourceTree = "<group>"; };
@@ -1830,6 +1834,7 @@
 				4EC30D992C407F5A00D9336D /* CartPreferencesInput.swift */,
 				4E1D628F2D356EA60043BDDD /* CartPrepareForCompletionPayload.swift */,
 				4E1D62902D356EA60043BDDD /* CartPrepareForCompletionResult.swift */,
+				4E5714AF2E1D5CE9006E8E75 /* CartRemovePersonalDataPayload.swift */,
 				4E1D62912D356EA60043BDDD /* CartSelectableAddress.swift */,
 				4E1D62922D356EA60043BDDD /* CartSelectableAddressInput.swift */,
 				4E1D62932D356EA60043BDDD /* CartSelectableAddressUpdateInput.swift */,
@@ -2571,6 +2576,7 @@
 				4EC30E0C2C407F5B00D9336D /* CartPreferencesInput.swift in Sources */,
 				4E1D62CD2D356EA60043BDDD /* CartPrepareForCompletionPayload.swift in Sources */,
 				4E1D62CC2D356EA60043BDDD /* CartPrepareForCompletionResult.swift in Sources */,
+				4E5714B12E1D5CE9006E8E75 /* CartRemovePersonalDataPayload.swift in Sources */,
 				4E1D62D12D356EA60043BDDD /* CartSelectableAddress.swift in Sources */,
 				4E1D62D22D356EA60043BDDD /* CartSelectableAddressInput.swift in Sources */,
 				4E1D62D62D356EA60043BDDD /* CartSelectableAddressUpdateInput.swift in Sources */,
@@ -2989,6 +2995,7 @@
 				4EC30E0A2C407F5B00D9336D /* CartPreferencesInput.swift in Sources */,
 				4E1D62B72D356EA60043BDDD /* CartPrepareForCompletionPayload.swift in Sources */,
 				4E1D62B62D356EA60043BDDD /* CartPrepareForCompletionResult.swift in Sources */,
+				4E5714B02E1D5CE9006E8E75 /* CartRemovePersonalDataPayload.swift in Sources */,
 				4E1D62BB2D356EA60043BDDD /* CartSelectableAddress.swift in Sources */,
 				4E1D62BC2D356EA60043BDDD /* CartSelectableAddressInput.swift in Sources */,
 				4E1D62C02D356EA60043BDDD /* CartSelectableAddressUpdateInput.swift in Sources */,
@@ -3407,6 +3414,7 @@
 				4EC30E0B2C407F5B00D9336D /* CartPreferencesInput.swift in Sources */,
 				4E1D62A12D356EA60043BDDD /* CartPrepareForCompletionPayload.swift in Sources */,
 				4E1D62A02D356EA60043BDDD /* CartPrepareForCompletionResult.swift in Sources */,
+				4E5714B22E1D5CE9006E8E75 /* CartRemovePersonalDataPayload.swift in Sources */,
 				4E1D62A52D356EA60043BDDD /* CartSelectableAddress.swift in Sources */,
 				4E1D62A62D356EA60043BDDD /* CartSelectableAddressInput.swift in Sources */,
 				4E1D62AA2D356EA60043BDDD /* CartSelectableAddressUpdateInput.swift in Sources */,
