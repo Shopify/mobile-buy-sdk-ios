@@ -29,6 +29,42 @@ import Foundation
 extension Storefront {
 	/// The code for the cart warning. 
 	public enum CartWarningCode: String {
+		/// The discount code cannot be honored. 
+		case discountCodeNotHonoured = "DISCOUNT_CODE_NOT_HONOURED"
+
+		/// The discount is currently inactive. 
+		case discountCurrentlyInactive = "DISCOUNT_CURRENTLY_INACTIVE"
+
+		/// The customer is not eligible for this discount. 
+		case discountCustomerNotEligible = "DISCOUNT_CUSTOMER_NOT_ELIGIBLE"
+
+		/// The customer's discount usage limit has been reached. 
+		case discountCustomerUsageLimitReached = "DISCOUNT_CUSTOMER_USAGE_LIMIT_REACHED"
+
+		/// An eligible customer is missing for this discount. 
+		case discountEligibleCustomerMissing = "DISCOUNT_ELIGIBLE_CUSTOMER_MISSING"
+
+		/// The purchase type is incompatible with this discount. 
+		case discountIncompatiblePurchaseType = "DISCOUNT_INCOMPATIBLE_PURCHASE_TYPE"
+
+		/// The discount was not found. 
+		case discountNotFound = "DISCOUNT_NOT_FOUND"
+
+		/// There are no entitled line items for this discount. 
+		case discountNoEntitledLineItems = "DISCOUNT_NO_ENTITLED_LINE_ITEMS"
+
+		/// There are no entitled shipping lines for this discount. 
+		case discountNoEntitledShippingLines = "DISCOUNT_NO_ENTITLED_SHIPPING_LINES"
+
+		/// The purchase is not in range for this discount. 
+		case discountPurchaseNotInRange = "DISCOUNT_PURCHASE_NOT_IN_RANGE"
+
+		/// The quantity is not in range for this discount. 
+		case discountQuantityNotInRange = "DISCOUNT_QUANTITY_NOT_IN_RANGE"
+
+		/// The discount usage limit has been reached. 
+		case discountUsageLimitReached = "DISCOUNT_USAGE_LIMIT_REACHED"
+
 		/// A delivery address with the same details already exists on this cart. 
 		case duplicateDeliveryAddress = "DUPLICATE_DELIVERY_ADDRESS"
 

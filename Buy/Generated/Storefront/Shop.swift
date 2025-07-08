@@ -42,6 +42,14 @@ extension Storefront {
 			return self
 		}
 
+		/// The URL for the customer account (only present if shop has a customer 
+		/// account vanity domain). 
+		@discardableResult
+		open func customerAccountUrl(alias: String? = nil) -> ShopQuery {
+			addField(field: "customerAccountUrl", aliasSuffix: alias)
+			return self
+		}
+
 		/// A description of the shop. 
 		@discardableResult
 		open func description(alias: String? = nil) -> ShopQuery {
@@ -224,6 +232,13 @@ extension Storefront {
 				}
 				return try Brand(fields: value)
 
+				case "customerAccountUrl":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
 				case "description":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
@@ -338,6 +353,16 @@ extension Storefront {
 
 		func internalGetBrand(alias: String? = nil) -> Storefront.Brand? {
 			return field(field: "brand", aliasSuffix: alias) as! Storefront.Brand?
+		}
+
+		/// The URL for the customer account (only present if shop has a customer 
+		/// account vanity domain). 
+		open var customerAccountUrl: String? {
+			return internalGetCustomerAccountUrl()
+		}
+
+		func internalGetCustomerAccountUrl(alias: String? = nil) -> String? {
+			return field(field: "customerAccountUrl", aliasSuffix: alias) as! String?
 		}
 
 		/// A description of the shop. 

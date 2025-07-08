@@ -71,6 +71,15 @@ extension Storefront {
 			return self
 		}
 
+		/// The ThumbHash of the image. Useful to display placeholder images while the 
+		/// original image is loading. See https://evanw.github.io/thumbhash/ for 
+		/// details on how to use it. 
+		@discardableResult
+		open func thumbhash(alias: String? = nil) -> ImageQuery {
+			addField(field: "thumbhash", aliasSuffix: alias)
+			return self
+		}
+
 		/// The location of the transformed image as a URL. All transformation 
 		/// arguments are considered "best-effort". If they can be applied to an image, 
 		/// they will be. Otherwise any transformations which an image type doesn't 
@@ -187,6 +196,13 @@ extension Storefront {
 				}
 				return URL(string: value)!
 
+				case "thumbhash":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
 				case "transformedSrc":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
@@ -259,6 +275,17 @@ extension Storefront {
 
 		func internalGetSrc(alias: String? = nil) -> URL {
 			return field(field: "src", aliasSuffix: alias) as! URL
+		}
+
+		/// The ThumbHash of the image. Useful to display placeholder images while the 
+		/// original image is loading. See https://evanw.github.io/thumbhash/ for 
+		/// details on how to use it. 
+		open var thumbhash: String? {
+			return internalGetThumbhash()
+		}
+
+		func internalGetThumbhash(alias: String? = nil) -> String? {
+			return field(field: "thumbhash", aliasSuffix: alias) as! String?
 		}
 
 		/// The location of the transformed image as a URL. All transformation 
