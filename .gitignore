@@ -33,3 +33,5 @@ xcuserdata
 .swiftpm
 .bundle/
 vendor
+
+.DS_Store

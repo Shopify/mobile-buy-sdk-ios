@@ -32,8 +32,15 @@ extension Storefront {
 		/// Unit of measurements representing areas. 
 		case area = "AREA"
 
+		/// Unit of measurements representing counts. 
+		case count = "COUNT"
+
 		/// Unit of measurements representing lengths. 
 		case length = "LENGTH"
+
+		/// The type of measurement is unknown. Upgrade to the latest version of the 
+		/// API to resolve this type. 
+		case unknown = "UNKNOWN"
 
 		/// Unit of measurements representing volumes. 
 		case volume = "VOLUME"

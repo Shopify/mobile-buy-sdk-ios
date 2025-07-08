@@ -47,6 +47,9 @@ extension Storefront {
 		/// The specified address field is too long. 
 		case addressFieldIsTooLong = "ADDRESS_FIELD_IS_TOO_LONG"
 
+		/// The cart is too large to save. 
+		case cartTooLarge = "CART_TOO_LARGE"
+
 		/// The input value is invalid. 
 		case invalid = "INVALID"
 
@@ -73,6 +76,9 @@ extension Storefront {
 
 		/// The payment wasn't valid. 
 		case invalidPayment = "INVALID_PAYMENT"
+
+		/// The payment is invalid. Deferred payment is required. 
+		case invalidPaymentDeferredPaymentRequired = "INVALID_PAYMENT_DEFERRED_PAYMENT_REQUIRED"
 
 		/// Cannot update payment on an empty cart 
 		case invalidPaymentEmptyCart = "INVALID_PAYMENT_EMPTY_CART"
@@ -137,11 +143,23 @@ extension Storefront {
 		/// Credit card expiry year is invalid. 
 		case paymentsCreditCardYearInvalidExpiryYear = "PAYMENTS_CREDIT_CARD_YEAR_INVALID_EXPIRY_YEAR"
 
+		/// The payment method is not applicable. 
+		case paymentMethodNotApplicable = "PAYMENT_METHOD_NOT_APPLICABLE"
+
 		/// The payment method is not supported. 
 		case paymentMethodNotSupported = "PAYMENT_METHOD_NOT_SUPPORTED"
 
+		/// The delivery group is in a pending state. 
+		case pendingDeliveryGroups = "PENDING_DELIVERY_GROUPS"
+
 		/// The given province cannot be found. 
 		case provinceNotFound = "PROVINCE_NOT_FOUND"
+
+		/// Selling plan is not applicable. 
+		case sellingPlanNotApplicable = "SELLING_PLAN_NOT_APPLICABLE"
+
+		/// An error occurred while saving the cart. 
+		case serviceUnavailable = "SERVICE_UNAVAILABLE"
 
 		/// Too many delivery addresses on Cart. 
 		case tooManyDeliveryAddresses = "TOO_MANY_DELIVERY_ADDRESSES"
@@ -151,6 +169,9 @@ extension Storefront {
 
 		/// Validation failed. 
 		case validationCustom = "VALIDATION_CUSTOM"
+
+		/// Variant can only be purchased with a selling plan. 
+		case variantRequiresSellingPlan = "VARIANT_REQUIRES_SELLING_PLAN"
 
 		/// The given zip code is unsupported. 
 		case zipCodeNotSupported = "ZIP_CODE_NOT_SUPPORTED"

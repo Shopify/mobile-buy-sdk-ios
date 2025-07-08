@@ -35,14 +35,35 @@ extension Storefront {
 		/// 100 centimeters equals 1 meter. 
 		case cm = "CM"
 
+		/// Imperial system unit of volume (U.S. customary unit). 
+		case floz = "FLOZ"
+
+		/// 1 foot equals 12 inches. 
+		case ft = "FT"
+
+		/// Imperial system unit of area. 
+		case ft2 = "FT2"
+
 		/// Metric system unit of weight. 
 		case g = "G"
+
+		/// 1 gallon equals 128 fluid ounces (U.S. customary unit). 
+		case gal = "GAL"
+
+		/// Imperial system unit of length. 
+		case `in` = "IN"
+
+		/// 1 item, a unit of count. 
+		case item = "ITEM"
 
 		/// 1 kilogram equals 1000 grams. 
 		case kg = "KG"
 
 		/// Metric system unit of volume. 
 		case l = "L"
+
+		/// Imperial system unit of weight. 
+		case lb = "LB"
 
 		/// Metric system unit of length. 
 		case m = "M"
@@ -61,6 +82,22 @@ extension Storefront {
 
 		/// 1000 millimeters equals 1 meter. 
 		case mm = "MM"
+
+		/// 16 ounces equals 1 pound. 
+		case oz = "OZ"
+
+		/// 1 pint equals 16 fluid ounces (U.S. customary unit). 
+		case pt = "PT"
+
+		/// 1 quart equals 32 fluid ounces (U.S. customary unit). 
+		case qt = "QT"
+
+		/// The unit of measurement is unknown. Upgrade to the latest version of the 
+		/// API to resolve this unit. 
+		case unknown = "UNKNOWN"
+
+		/// 1 yard equals 36 inches. 
+		case yd = "YD"
 
 		case unknownValue = ""
 	}

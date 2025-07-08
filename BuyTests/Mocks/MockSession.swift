@@ -26,7 +26,7 @@
 
 import Foundation
 
-final class MockSession: URLSession {
+final class MockSession: URLSession, @unchecked Sendable {
 
     typealias TaskConfigurationHandler = (MockDataTask) -> Void
 

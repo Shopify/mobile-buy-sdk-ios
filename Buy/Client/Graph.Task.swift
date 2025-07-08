@@ -30,7 +30,7 @@ import Foundation
 /// underlying `URLSessionDataTask` can change (in the case of retried requests), `Task` provides
 /// a single place to `cancel()` or `resume()` this underlying task.
 ///
-public protocol Task {
+public protocol GraphTask {
 
     /// Starts the underlying task
     func resume()
@@ -39,11 +39,11 @@ public protocol Task {
     func cancel()
 }
 
-extension URLSessionDataTask: Task {}
+extension URLSessionDataTask: GraphTask {}
 
 internal extension Graph {
 
-    class InternalTask<R: GraphQL.AbstractResponse>: Task {
+    class InternalTask<R: GraphQL.AbstractResponse>: GraphTask {
 
         typealias TaskCompletion = (R?, QueryError?) -> Void
 

@@ -473,6 +473,26 @@ extension Storefront {
 			return self
 		}
 
+		/// Removes personally identifiable information from the cart. 
+		///
+		/// - parameters:
+		///     - cartId: The ID of the cart.
+		///
+		@discardableResult
+		open func cartRemovePersonalData(alias: String? = nil, cartId: GraphQL.ID, _ subfields: (CartRemovePersonalDataPayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CartRemovePersonalDataPayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartRemovePersonalData", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Update the selected delivery options for a delivery group. 
 		///
 		/// - parameters:
@@ -1066,6 +1086,13 @@ extension Storefront {
 				}
 				return try CartPrepareForCompletionPayload(fields: value)
 
+				case "cartRemovePersonalData":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartRemovePersonalDataPayload(fields: value)
+
 				case "cartSelectedDeliveryOptionsUpdate":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -1441,6 +1468,19 @@ extension Storefront {
 
 		func internalGetCartPrepareForCompletion(alias: String? = nil) -> Storefront.CartPrepareForCompletionPayload? {
 			return field(field: "cartPrepareForCompletion", aliasSuffix: alias) as! Storefront.CartPrepareForCompletionPayload?
+		}
+
+		/// Removes personally identifiable information from the cart. 
+		open var cartRemovePersonalData: Storefront.CartRemovePersonalDataPayload? {
+			return internalGetCartRemovePersonalData()
+		}
+
+		open func aliasedCartRemovePersonalData(alias: String) -> Storefront.CartRemovePersonalDataPayload? {
+			return internalGetCartRemovePersonalData(alias: alias)
+		}
+
+		func internalGetCartRemovePersonalData(alias: String? = nil) -> Storefront.CartRemovePersonalDataPayload? {
+			return field(field: "cartRemovePersonalData", aliasSuffix: alias) as! Storefront.CartRemovePersonalDataPayload?
 		}
 
 		/// Update the selected delivery options for a delivery group. 
@@ -1823,6 +1863,12 @@ extension Storefront {
 
 					case "cartPrepareForCompletion":
 					if let value = internalGetCartPrepareForCompletion() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "cartRemovePersonalData":
+					if let value = internalGetCartRemovePersonalData() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

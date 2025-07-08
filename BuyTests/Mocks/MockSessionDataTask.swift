@@ -26,7 +26,7 @@
 
 import Foundation
 
-final class MockDataTask: URLSessionDataTask {
+final class MockDataTask: URLSessionDataTask, @unchecked Sendable {
 
     typealias DataTaskCompletion = (Data?, URLResponse?, Error?) -> Void
 
