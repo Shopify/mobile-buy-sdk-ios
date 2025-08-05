@@ -372,6 +372,17 @@ extension Storefront {
 			return self
 		}
 
+		/// Interaction of the current visitor consent with the configured consent 
+		/// policies of the shop. 
+		@discardableResult
+		open func consentManagement(alias: String? = nil, _ subfields: (ConsentManagementQuery) -> Void) -> QueryRootQuery {
+			let subquery = ConsentManagementQuery()
+			subfields(subquery)
+
+			addField(field: "consentManagement", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The customer associated with the given access token. Tokens are obtained by 
 		/// using the [`customerAccessTokenCreate` 
 		/// mutation](https://shopify.dev/docs/api/storefront/latest/mutations/customerAccessTokenCreate). 
@@ -1201,6 +1212,12 @@ extension Storefront {
 				}
 				return try CollectionConnection(fields: value)
 
+				case "consentManagement":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try ConsentManagement(fields: value)
+
 				case "customer":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -1500,6 +1517,16 @@ extension Storefront {
 
 		func internalGetCollections(alias: String? = nil) -> Storefront.CollectionConnection {
 			return field(field: "collections", aliasSuffix: alias) as! Storefront.CollectionConnection
+		}
+
+		/// Interaction of the current visitor consent with the configured consent 
+		/// policies of the shop. 
+		open var consentManagement: Storefront.ConsentManagement {
+			return internalGetConsentManagement()
+		}
+
+		func internalGetConsentManagement(alias: String? = nil) -> Storefront.ConsentManagement {
+			return field(field: "consentManagement", aliasSuffix: alias) as! Storefront.ConsentManagement
 		}
 
 		/// The customer associated with the given access token. Tokens are obtained by 
@@ -1874,6 +1901,10 @@ extension Storefront {
 					case "collections":
 					response.append(internalGetCollections())
 					response.append(contentsOf: internalGetCollections().childResponseObjectMap())
+
+					case "consentManagement":
+					response.append(internalGetConsentManagement())
+					response.append(contentsOf: internalGetConsentManagement().childResponseObjectMap())
 
 					case "customer":
 					if let value = internalGetCustomer() {
