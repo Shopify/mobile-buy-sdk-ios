@@ -47,8 +47,17 @@ extension Storefront {
 		/// The specified address field is too long. 
 		case addressFieldIsTooLong = "ADDRESS_FIELD_IS_TOO_LONG"
 
+		/// Bundles and addons cannot be mixed. 
+		case bundlesAndAddonsCannotBeMixed = "BUNDLES_AND_ADDONS_CANNOT_BE_MIXED"
+
+		/// Buyer cannot purchase for company location. 
+		case buyerCannotPurchaseForCompanyLocation = "BUYER_CANNOT_PURCHASE_FOR_COMPANY_LOCATION"
+
 		/// The cart is too large to save. 
 		case cartTooLarge = "CART_TOO_LARGE"
+
+		/// Delivery addresses cannot be added nor changed. 
+		case deliveryAddressNotEditable = "DELIVERY_ADDRESS_NOT_EDITABLE"
 
 		/// The input value is invalid. 
 		case invalid = "INVALID"
@@ -112,6 +121,15 @@ extension Storefront {
 
 		/// Only one delivery address can be selected. 
 		case onlyOneDeliveryAddressCanBeSelected = "ONLY_ONE_DELIVERY_ADDRESS_CAN_BE_SELECTED"
+
+		/// Parent line nesting is too deep or circular. 
+		case parentLineNestingTooDeep = "PARENT_LINE_NESTING_TOO_DEEP"
+
+		/// Parent line not found. 
+		case parentLineNotFound = "PARENT_LINE_NOT_FOUND"
+
+		/// Nested cartlines are blocked due to an incompatibility. 
+		case parentLineOperationBlocked = "PARENT_LINE_OPERATION_BLOCKED"
 
 		/// Credit card has expired. 
 		case paymentsCreditCardBaseExpired = "PAYMENTS_CREDIT_CARD_BASE_EXPIRED"

@@ -74,6 +74,9 @@ extension Storefront {
 		/// The merchandise is out of stock. 
 		case merchandiseOutOfStock = "MERCHANDISE_OUT_OF_STOCK"
 
+		/// Only one-time purchase is available for B2B orders. 
+		case merchandiseSellingPlanNotApplicableOnCompanyLocation = "MERCHANDISE_SELLING_PLAN_NOT_APPLICABLE_ON_COMPANY_LOCATION"
+
 		/// Gift cards are not available as a payment method. 
 		case paymentsGiftCardsUnavailable = "PAYMENTS_GIFT_CARDS_UNAVAILABLE"
 

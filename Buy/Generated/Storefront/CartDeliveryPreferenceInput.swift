@@ -81,7 +81,7 @@ extension Storefront {
 					fields.append("deliveryMethod:null")
 					break
 				}
-				fields.append("deliveryMethod:[\(deliveryMethod.map { "\($0.rawValue)" }.joined(separator: ","))]")
+				fields.append("deliveryMethod:[\(deliveryMethod.map{ "\($0.rawValue)" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
@@ -91,7 +91,7 @@ extension Storefront {
 					fields.append("pickupHandle:null")
 					break
 				}
-				fields.append("pickupHandle:[\(pickupHandle.map { "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
+				fields.append("pickupHandle:[\(pickupHandle.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 

@@ -111,7 +111,7 @@ extension Storefront {
 					fields.append("attributes:null")
 					break
 				}
-				fields.append("attributes:[\(attributes.map { "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("attributes:[\(attributes.map{ "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 

@@ -45,6 +45,13 @@ extension Storefront {
 			return self
 		}
 
+		/// The logical operator used by the filter. 
+		@discardableResult
+		open func `operator`(alias: String? = nil) -> FilterQuery {
+			addField(field: "operator", aliasSuffix: alias)
+			return self
+		}
+
 		/// Describes how to present the filter values. Returns a value only for 
 		/// filters of type `LIST`. Returns null for other types. 
 		@discardableResult
@@ -90,6 +97,13 @@ extension Storefront {
 				}
 				return value
 
+				case "operator":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Filter.self, field: fieldName, value: fieldValue)
+				}
+				return FilterOperatorType(rawValue: value) ?? .unknownValue
+
 				case "presentation":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
@@ -132,6 +146,15 @@ extension Storefront {
 			return field(field: "label", aliasSuffix: alias) as! String
 		}
 
+		/// The logical operator used by the filter. 
+		open var `operator`: Storefront.FilterOperatorType? {
+			return internalGetOperator()
+		}
+
+		func internalGetOperator(alias: String? = nil) -> Storefront.FilterOperatorType? {
+			return field(field: "operator", aliasSuffix: alias) as! Storefront.FilterOperatorType?
+		}
+
 		/// Describes how to present the filter values. Returns a value only for 
 		/// filters of type `LIST`. Returns null for other types. 
 		open var presentation: Storefront.FilterPresentation? {
@@ -160,7 +183,7 @@ extension Storefront {
 			return field(field: "values", aliasSuffix: alias) as! [Storefront.FilterValue]
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			return []
 		}
 	}

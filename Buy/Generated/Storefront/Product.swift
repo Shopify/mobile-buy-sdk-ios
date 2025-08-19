@@ -64,7 +64,7 @@ extension Storefront {
 			var args: [String] = []
 
 			if let selectedOptions = selectedOptions {
-				args.append("selectedOptions:[\(selectedOptions.map { "\($0.serialize())" }.joined(separator: ","))]")
+				args.append("selectedOptions:[\(selectedOptions.map{ "\($0.serialize())" }.joined(separator: ","))]")
 			}
 
 			if let ignoreUnknownOptions = ignoreUnknownOptions {
@@ -415,7 +415,7 @@ extension Storefront {
 		open func metafields(alias: String? = nil, identifiers: [HasMetafieldsIdentifier], _ subfields: (MetafieldQuery) -> Void) -> ProductQuery {
 			var args: [String] = []
 
-			args.append("identifiers:[\(identifiers.map { "\($0.serialize())" }.joined(separator: ","))]")
+			args.append("identifiers:[\(identifiers.map{ "\($0.serialize())" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -516,7 +516,7 @@ extension Storefront {
 			var args: [String] = []
 
 			if let selectedOptions = selectedOptions {
-				args.append("selectedOptions:[\(selectedOptions.map { "\($0.serialize())" }.joined(separator: ","))]")
+				args.append("selectedOptions:[\(selectedOptions.map{ "\($0.serialize())" }.joined(separator: ","))]")
 			}
 
 			if let ignoreUnknownOptions = ignoreUnknownOptions {
@@ -660,7 +660,7 @@ extension Storefront {
 		open func variantBySelectedOptions(alias: String? = nil, selectedOptions: [SelectedOptionInput], ignoreUnknownOptions: Bool? = nil, caseInsensitiveMatch: Bool? = nil, _ subfields: (ProductVariantQuery) -> Void) -> ProductQuery {
 			var args: [String] = []
 
-			args.append("selectedOptions:[\(selectedOptions.map { "\($0.serialize())" }.joined(separator: ","))]")
+			args.append("selectedOptions:[\(selectedOptions.map{ "\($0.serialize())" }.joined(separator: ","))]")
 
 			if let ignoreUnknownOptions = ignoreUnknownOptions {
 				args.append("ignoreUnknownOptions:\(ignoreUnknownOptions)")
@@ -1478,10 +1478,10 @@ extension Storefront {
 			return field(field: "vendor", aliasSuffix: alias) as! String
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch $0 {
+				switch($0) {
 					case "adjacentVariants":
 					internalGetAdjacentVariants().forEach {
 						response.append($0)

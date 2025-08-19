@@ -103,7 +103,7 @@ extension Storefront {
 		open func metafields(alias: String? = nil, identifiers: [HasMetafieldsIdentifier], _ subfields: (MetafieldQuery) -> Void) -> ShopQuery {
 			var args: [String] = []
 
-			args.append("identifiers:[\(identifiers.map { "\($0.serialize())" }.joined(separator: ","))]")
+			args.append("identifiers:[\(identifiers.map{ "\($0.serialize())" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -150,32 +150,68 @@ extension Storefront {
 		}
 
 		/// The shop’s privacy policy. 
+		///
+		/// - parameters:
+		///     - sanitized: Sanitize the policy content.
+		///
 		@discardableResult
-		open func privacyPolicy(alias: String? = nil, _ subfields: (ShopPolicyQuery) -> Void) -> ShopQuery {
+		open func privacyPolicy(alias: String? = nil, sanitized: Bool? = nil, _ subfields: (ShopPolicyQuery) -> Void) -> ShopQuery {
+			var args: [String] = []
+
+			if let sanitized = sanitized {
+				args.append("sanitized:\(sanitized)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
 			let subquery = ShopPolicyQuery()
 			subfields(subquery)
 
-			addField(field: "privacyPolicy", aliasSuffix: alias, subfields: subquery)
+			addField(field: "privacyPolicy", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
 		/// The shop’s refund policy. 
+		///
+		/// - parameters:
+		///     - sanitized: Sanitize the policy content.
+		///
 		@discardableResult
-		open func refundPolicy(alias: String? = nil, _ subfields: (ShopPolicyQuery) -> Void) -> ShopQuery {
+		open func refundPolicy(alias: String? = nil, sanitized: Bool? = nil, _ subfields: (ShopPolicyQuery) -> Void) -> ShopQuery {
+			var args: [String] = []
+
+			if let sanitized = sanitized {
+				args.append("sanitized:\(sanitized)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
 			let subquery = ShopPolicyQuery()
 			subfields(subquery)
 
-			addField(field: "refundPolicy", aliasSuffix: alias, subfields: subquery)
+			addField(field: "refundPolicy", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
 		/// The shop’s shipping policy. 
+		///
+		/// - parameters:
+		///     - sanitized: Sanitize the policy content.
+		///
 		@discardableResult
-		open func shippingPolicy(alias: String? = nil, _ subfields: (ShopPolicyQuery) -> Void) -> ShopQuery {
+		open func shippingPolicy(alias: String? = nil, sanitized: Bool? = nil, _ subfields: (ShopPolicyQuery) -> Void) -> ShopQuery {
+			var args: [String] = []
+
+			if let sanitized = sanitized {
+				args.append("sanitized:\(sanitized)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
 			let subquery = ShopPolicyQuery()
 			subfields(subquery)
 
-			addField(field: "shippingPolicy", aliasSuffix: alias, subfields: subquery)
+			addField(field: "shippingPolicy", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -197,22 +233,46 @@ extension Storefront {
 		}
 
 		/// The shop’s subscription policy. 
+		///
+		/// - parameters:
+		///     - sanitized: Sanitize the policy content.
+		///
 		@discardableResult
-		open func subscriptionPolicy(alias: String? = nil, _ subfields: (ShopPolicyWithDefaultQuery) -> Void) -> ShopQuery {
+		open func subscriptionPolicy(alias: String? = nil, sanitized: Bool? = nil, _ subfields: (ShopPolicyWithDefaultQuery) -> Void) -> ShopQuery {
+			var args: [String] = []
+
+			if let sanitized = sanitized {
+				args.append("sanitized:\(sanitized)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
 			let subquery = ShopPolicyWithDefaultQuery()
 			subfields(subquery)
 
-			addField(field: "subscriptionPolicy", aliasSuffix: alias, subfields: subquery)
+			addField(field: "subscriptionPolicy", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
 		/// The shop’s terms of service. 
+		///
+		/// - parameters:
+		///     - sanitized: Sanitize the policy content.
+		///
 		@discardableResult
-		open func termsOfService(alias: String? = nil, _ subfields: (ShopPolicyQuery) -> Void) -> ShopQuery {
+		open func termsOfService(alias: String? = nil, sanitized: Bool? = nil, _ subfields: (ShopPolicyQuery) -> Void) -> ShopQuery {
+			var args: [String] = []
+
+			if let sanitized = sanitized {
+				args.append("sanitized:\(sanitized)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
 			let subquery = ShopPolicyQuery()
 			subfields(subquery)
 
-			addField(field: "termsOfService", aliasSuffix: alias, subfields: subquery)
+			addField(field: "termsOfService", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 	}
@@ -454,6 +514,10 @@ extension Storefront {
 			return internalGetPrivacyPolicy()
 		}
 
+		open func aliasedPrivacyPolicy(alias: String) -> Storefront.ShopPolicy? {
+			return internalGetPrivacyPolicy(alias: alias)
+		}
+
 		func internalGetPrivacyPolicy(alias: String? = nil) -> Storefront.ShopPolicy? {
 			return field(field: "privacyPolicy", aliasSuffix: alias) as! Storefront.ShopPolicy?
 		}
@@ -463,6 +527,10 @@ extension Storefront {
 			return internalGetRefundPolicy()
 		}
 
+		open func aliasedRefundPolicy(alias: String) -> Storefront.ShopPolicy? {
+			return internalGetRefundPolicy(alias: alias)
+		}
+
 		func internalGetRefundPolicy(alias: String? = nil) -> Storefront.ShopPolicy? {
 			return field(field: "refundPolicy", aliasSuffix: alias) as! Storefront.ShopPolicy?
 		}
@@ -470,6 +538,10 @@ extension Storefront {
 		/// The shop’s shipping policy. 
 		open var shippingPolicy: Storefront.ShopPolicy? {
 			return internalGetShippingPolicy()
+		}
+
+		open func aliasedShippingPolicy(alias: String) -> Storefront.ShopPolicy? {
+			return internalGetShippingPolicy(alias: alias)
 		}
 
 		func internalGetShippingPolicy(alias: String? = nil) -> Storefront.ShopPolicy? {
@@ -499,6 +571,10 @@ extension Storefront {
 			return internalGetSubscriptionPolicy()
 		}
 
+		open func aliasedSubscriptionPolicy(alias: String) -> Storefront.ShopPolicyWithDefault? {
+			return internalGetSubscriptionPolicy(alias: alias)
+		}
+
 		func internalGetSubscriptionPolicy(alias: String? = nil) -> Storefront.ShopPolicyWithDefault? {
 			return field(field: "subscriptionPolicy", aliasSuffix: alias) as! Storefront.ShopPolicyWithDefault?
 		}
@@ -508,14 +584,18 @@ extension Storefront {
 			return internalGetTermsOfService()
 		}
 
+		open func aliasedTermsOfService(alias: String) -> Storefront.ShopPolicy? {
+			return internalGetTermsOfService(alias: alias)
+		}
+
 		func internalGetTermsOfService(alias: String? = nil) -> Storefront.ShopPolicy? {
 			return field(field: "termsOfService", aliasSuffix: alias) as! Storefront.ShopPolicy?
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch $0 {
+				switch($0) {
 					case "brand":
 					if let value = internalGetBrand() {
 						response.append(value)

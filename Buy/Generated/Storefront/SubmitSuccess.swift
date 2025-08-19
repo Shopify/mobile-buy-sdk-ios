@@ -92,7 +92,7 @@ extension Storefront {
 			return field(field: "redirectUrl", aliasSuffix: alias) as! URL
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			return []
 		}
 	}

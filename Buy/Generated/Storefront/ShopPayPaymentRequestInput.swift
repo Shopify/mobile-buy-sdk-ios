@@ -29,6 +29,9 @@ import Foundation
 extension Storefront {
 	/// The input fields represent a Shop Pay payment request. 
 	open class ShopPayPaymentRequestInput {
+		/// The shipping address for the payment request. 
+		open var shippingAddress: Input<ShopPayPaymentRequestContactFieldInput>
+
 		/// The discount codes for the payment request. The input must not contain more 
 		/// than `250` values. 
 		open var discountCodes: Input<[String]>
@@ -76,6 +79,7 @@ extension Storefront {
 		/// Creates the input object.
 		///
 		/// - parameters:
+		///     - shippingAddress: The shipping address for the payment request.
 		///     - discountCodes: The discount codes for the payment request.  The input must not contain more than `250` values.
 		///     - lineItems: The line items for the payment request.  The input must not contain more than `250` values.
 		///     - shippingLines: The shipping lines for the payment request.  The input must not contain more than `250` values.
@@ -90,11 +94,12 @@ extension Storefront {
 		///     - presentmentCurrency: The presentment currency for the payment request.
 		///     - paymentMethod: The encrypted payment method for the payment request.
 		///
-		public static func create(total: MoneyInput, subtotal: MoneyInput, locale: String, presentmentCurrency: CurrencyCode, discountCodes: Input<[String]> = .undefined, lineItems: Input<[ShopPayPaymentRequestLineItemInput]> = .undefined, shippingLines: Input<[ShopPayPaymentRequestShippingLineInput]> = .undefined, discounts: Input<[ShopPayPaymentRequestDiscountInput]> = .undefined, totalShippingPrice: Input<ShopPayPaymentRequestTotalShippingPriceInput> = .undefined, totalTax: Input<MoneyInput> = .undefined, deliveryMethods: Input<[ShopPayPaymentRequestDeliveryMethodInput]> = .undefined, selectedDeliveryMethodType: Input<ShopPayPaymentRequestDeliveryMethodType> = .undefined, paymentMethod: Input<String> = .undefined) -> ShopPayPaymentRequestInput {
-			return ShopPayPaymentRequestInput(total: total, subtotal: subtotal, locale: locale, presentmentCurrency: presentmentCurrency, discountCodes: discountCodes, lineItems: lineItems, shippingLines: shippingLines, discounts: discounts, totalShippingPrice: totalShippingPrice, totalTax: totalTax, deliveryMethods: deliveryMethods, selectedDeliveryMethodType: selectedDeliveryMethodType, paymentMethod: paymentMethod)
+		public static func create(total: MoneyInput, subtotal: MoneyInput, locale: String, presentmentCurrency: CurrencyCode, shippingAddress: Input<ShopPayPaymentRequestContactFieldInput> = .undefined, discountCodes: Input<[String]> = .undefined, lineItems: Input<[ShopPayPaymentRequestLineItemInput]> = .undefined, shippingLines: Input<[ShopPayPaymentRequestShippingLineInput]> = .undefined, discounts: Input<[ShopPayPaymentRequestDiscountInput]> = .undefined, totalShippingPrice: Input<ShopPayPaymentRequestTotalShippingPriceInput> = .undefined, totalTax: Input<MoneyInput> = .undefined, deliveryMethods: Input<[ShopPayPaymentRequestDeliveryMethodInput]> = .undefined, selectedDeliveryMethodType: Input<ShopPayPaymentRequestDeliveryMethodType> = .undefined, paymentMethod: Input<String> = .undefined) -> ShopPayPaymentRequestInput {
+			return ShopPayPaymentRequestInput(total: total, subtotal: subtotal, locale: locale, presentmentCurrency: presentmentCurrency, shippingAddress: shippingAddress, discountCodes: discountCodes, lineItems: lineItems, shippingLines: shippingLines, discounts: discounts, totalShippingPrice: totalShippingPrice, totalTax: totalTax, deliveryMethods: deliveryMethods, selectedDeliveryMethodType: selectedDeliveryMethodType, paymentMethod: paymentMethod)
 		}
 
-		private init(total: MoneyInput, subtotal: MoneyInput, locale: String, presentmentCurrency: CurrencyCode, discountCodes: Input<[String]> = .undefined, lineItems: Input<[ShopPayPaymentRequestLineItemInput]> = .undefined, shippingLines: Input<[ShopPayPaymentRequestShippingLineInput]> = .undefined, discounts: Input<[ShopPayPaymentRequestDiscountInput]> = .undefined, totalShippingPrice: Input<ShopPayPaymentRequestTotalShippingPriceInput> = .undefined, totalTax: Input<MoneyInput> = .undefined, deliveryMethods: Input<[ShopPayPaymentRequestDeliveryMethodInput]> = .undefined, selectedDeliveryMethodType: Input<ShopPayPaymentRequestDeliveryMethodType> = .undefined, paymentMethod: Input<String> = .undefined) {
+		private init(total: MoneyInput, subtotal: MoneyInput, locale: String, presentmentCurrency: CurrencyCode, shippingAddress: Input<ShopPayPaymentRequestContactFieldInput> = .undefined, discountCodes: Input<[String]> = .undefined, lineItems: Input<[ShopPayPaymentRequestLineItemInput]> = .undefined, shippingLines: Input<[ShopPayPaymentRequestShippingLineInput]> = .undefined, discounts: Input<[ShopPayPaymentRequestDiscountInput]> = .undefined, totalShippingPrice: Input<ShopPayPaymentRequestTotalShippingPriceInput> = .undefined, totalTax: Input<MoneyInput> = .undefined, deliveryMethods: Input<[ShopPayPaymentRequestDeliveryMethodInput]> = .undefined, selectedDeliveryMethodType: Input<ShopPayPaymentRequestDeliveryMethodType> = .undefined, paymentMethod: Input<String> = .undefined) {
+			self.shippingAddress = shippingAddress
 			self.discountCodes = discountCodes
 			self.lineItems = lineItems
 			self.shippingLines = shippingLines
@@ -113,6 +118,7 @@ extension Storefront {
 		/// Creates the input object.
 		///
 		/// - parameters:
+		///     - shippingAddress: The shipping address for the payment request.
 		///     - discountCodes: The discount codes for the payment request.  The input must not contain more than `250` values.
 		///     - lineItems: The line items for the payment request.  The input must not contain more than `250` values.
 		///     - shippingLines: The shipping lines for the payment request.  The input must not contain more than `250` values.
@@ -128,12 +134,22 @@ extension Storefront {
 		///     - paymentMethod: The encrypted payment method for the payment request.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
-		public convenience init(total: MoneyInput, subtotal: MoneyInput, locale: String, presentmentCurrency: CurrencyCode, discountCodes: [String]? = nil, lineItems: [ShopPayPaymentRequestLineItemInput]? = nil, shippingLines: [ShopPayPaymentRequestShippingLineInput]? = nil, discounts: [ShopPayPaymentRequestDiscountInput]? = nil, totalShippingPrice: ShopPayPaymentRequestTotalShippingPriceInput? = nil, totalTax: MoneyInput? = nil, deliveryMethods: [ShopPayPaymentRequestDeliveryMethodInput]? = nil, selectedDeliveryMethodType: ShopPayPaymentRequestDeliveryMethodType? = nil, paymentMethod: String? = nil) {
-			self.init(total: total, subtotal: subtotal, locale: locale, presentmentCurrency: presentmentCurrency, discountCodes: discountCodes.orUndefined, lineItems: lineItems.orUndefined, shippingLines: shippingLines.orUndefined, discounts: discounts.orUndefined, totalShippingPrice: totalShippingPrice.orUndefined, totalTax: totalTax.orUndefined, deliveryMethods: deliveryMethods.orUndefined, selectedDeliveryMethodType: selectedDeliveryMethodType.orUndefined, paymentMethod: paymentMethod.orUndefined)
+		public convenience init(total: MoneyInput, subtotal: MoneyInput, locale: String, presentmentCurrency: CurrencyCode, shippingAddress: ShopPayPaymentRequestContactFieldInput? = nil, discountCodes: [String]? = nil, lineItems: [ShopPayPaymentRequestLineItemInput]? = nil, shippingLines: [ShopPayPaymentRequestShippingLineInput]? = nil, discounts: [ShopPayPaymentRequestDiscountInput]? = nil, totalShippingPrice: ShopPayPaymentRequestTotalShippingPriceInput? = nil, totalTax: MoneyInput? = nil, deliveryMethods: [ShopPayPaymentRequestDeliveryMethodInput]? = nil, selectedDeliveryMethodType: ShopPayPaymentRequestDeliveryMethodType? = nil, paymentMethod: String? = nil) {
+			self.init(total: total, subtotal: subtotal, locale: locale, presentmentCurrency: presentmentCurrency, shippingAddress: shippingAddress.orUndefined, discountCodes: discountCodes.orUndefined, lineItems: lineItems.orUndefined, shippingLines: shippingLines.orUndefined, discounts: discounts.orUndefined, totalShippingPrice: totalShippingPrice.orUndefined, totalTax: totalTax.orUndefined, deliveryMethods: deliveryMethods.orUndefined, selectedDeliveryMethodType: selectedDeliveryMethodType.orUndefined, paymentMethod: paymentMethod.orUndefined)
 		}
 
 		internal func serialize() -> String {
 			var fields: [String] = []
+
+			switch shippingAddress {
+				case .value(let shippingAddress):
+				guard let shippingAddress = shippingAddress else {
+					fields.append("shippingAddress:null")
+					break
+				}
+				fields.append("shippingAddress:\(shippingAddress.serialize())")
+				case .undefined: break
+			}
 
 			switch discountCodes {
 				case .value(let discountCodes):
@@ -141,7 +157,7 @@ extension Storefront {
 					fields.append("discountCodes:null")
 					break
 				}
-				fields.append("discountCodes:[\(discountCodes.map { "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
+				fields.append("discountCodes:[\(discountCodes.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
@@ -151,7 +167,7 @@ extension Storefront {
 					fields.append("lineItems:null")
 					break
 				}
-				fields.append("lineItems:[\(lineItems.map { "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("lineItems:[\(lineItems.map{ "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
@@ -161,7 +177,7 @@ extension Storefront {
 					fields.append("shippingLines:null")
 					break
 				}
-				fields.append("shippingLines:[\(shippingLines.map { "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("shippingLines:[\(shippingLines.map{ "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
@@ -175,7 +191,7 @@ extension Storefront {
 					fields.append("discounts:null")
 					break
 				}
-				fields.append("discounts:[\(discounts.map { "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("discounts:[\(discounts.map{ "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
@@ -205,7 +221,7 @@ extension Storefront {
 					fields.append("deliveryMethods:null")
 					break
 				}
-				fields.append("deliveryMethods:[\(deliveryMethods.map { "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("deliveryMethods:[\(deliveryMethods.map{ "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 

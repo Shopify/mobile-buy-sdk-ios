@@ -86,7 +86,7 @@ extension Storefront {
 		/// The estimated cost of the merchandise that the buyer will pay for at 
 		/// checkout. The estimated costs are subject to change and changes will be 
 		/// reflected at checkout. 
-		@available(*, deprecated, message: "Use `cost` instead.")
+		@available(*, deprecated, message:"Use `cost` instead.")
 		@discardableResult
 		open func estimatedCost(alias: String? = nil, _ subfields: (CartLineEstimatedCostQuery) -> Void) -> CartLineQuery {
 			let subquery = CartLineEstimatedCostQuery()
@@ -103,6 +103,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The instructions for the line item. 
+		@discardableResult
+		open func instructions(alias: String? = nil, _ subfields: (CartLineInstructionsQuery) -> Void) -> CartLineQuery {
+			let subquery = CartLineInstructionsQuery()
+			subfields(subquery)
+
+			addField(field: "instructions", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The merchandise that the buyer intends to purchase. 
 		@discardableResult
 		open func merchandise(alias: String? = nil, _ subfields: (MerchandiseQuery) -> Void) -> CartLineQuery {
@@ -110,6 +120,16 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "merchandise", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// The parent of the line item. 
+		@discardableResult
+		open func parentRelationship(alias: String? = nil, _ subfields: (CartLineParentRelationshipQuery) -> Void) -> CartLineQuery {
+			let subquery = CartLineParentRelationshipQuery()
+			subfields(subquery)
+
+			addField(field: "parentRelationship", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -176,11 +196,24 @@ extension Storefront {
 				}
 				return GraphQL.ID(rawValue: value)
 
+				case "instructions":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: CartLine.self, field: fieldName, value: fieldValue)
+				}
+				return try CartLineInstructions(fields: value)
+
 				case "merchandise":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: CartLine.self, field: fieldName, value: fieldValue)
 				}
 				return try UnknownMerchandise.create(fields: value)
+
+				case "parentRelationship":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: CartLine.self, field: fieldName, value: fieldValue)
+				}
+				return try CartLineParentRelationship(fields: value)
 
 				case "quantity":
 				guard let value = value as? Int else {
@@ -245,7 +278,7 @@ extension Storefront {
 		/// The estimated cost of the merchandise that the buyer will pay for at 
 		/// checkout. The estimated costs are subject to change and changes will be 
 		/// reflected at checkout. 
-		@available(*, deprecated, message: "Use `cost` instead.")
+		@available(*, deprecated, message:"Use `cost` instead.")
 		open var estimatedCost: Storefront.CartLineEstimatedCost {
 			return internalGetEstimatedCost()
 		}
@@ -263,6 +296,15 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
+		/// The instructions for the line item. 
+		open var instructions: Storefront.CartLineInstructions {
+			return internalGetInstructions()
+		}
+
+		func internalGetInstructions(alias: String? = nil) -> Storefront.CartLineInstructions {
+			return field(field: "instructions", aliasSuffix: alias) as! Storefront.CartLineInstructions
+		}
+
 		/// The merchandise that the buyer intends to purchase. 
 		open var merchandise: Merchandise {
 			return internalGetMerchandise()
@@ -270,6 +312,15 @@ extension Storefront {
 
 		func internalGetMerchandise(alias: String? = nil) -> Merchandise {
 			return field(field: "merchandise", aliasSuffix: alias) as! Merchandise
+		}
+
+		/// The parent of the line item. 
+		open var parentRelationship: Storefront.CartLineParentRelationship? {
+			return internalGetParentRelationship()
+		}
+
+		func internalGetParentRelationship(alias: String? = nil) -> Storefront.CartLineParentRelationship? {
+			return field(field: "parentRelationship", aliasSuffix: alias) as! Storefront.CartLineParentRelationship?
 		}
 
 		/// The quantity of the merchandise that the customer intends to purchase. 
@@ -291,10 +342,10 @@ extension Storefront {
 			return field(field: "sellingPlanAllocation", aliasSuffix: alias) as! Storefront.SellingPlanAllocation?
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch $0 {
+				switch($0) {
 					case "attribute":
 					if let value = internalGetAttribute() {
 						response.append(value)
@@ -321,9 +372,19 @@ extension Storefront {
 					response.append(internalGetEstimatedCost())
 					response.append(contentsOf: internalGetEstimatedCost().childResponseObjectMap())
 
+					case "instructions":
+					response.append(internalGetInstructions())
+					response.append(contentsOf: internalGetInstructions().childResponseObjectMap())
+
 					case "merchandise":
 					response.append((internalGetMerchandise() as! GraphQL.AbstractResponse))
 					response.append(contentsOf: (internalGetMerchandise() as! GraphQL.AbstractResponse).childResponseObjectMap())
+
+					case "parentRelationship":
+					if let value = internalGetParentRelationship() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
 
 					case "sellingPlanAllocation":
 					if let value = internalGetSellingPlanAllocation() {

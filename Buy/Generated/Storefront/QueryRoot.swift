@@ -149,7 +149,7 @@ extension Storefront {
 		/// - parameters:
 		///     - handle: The handle of the blog.
 		///
-		@available(*, deprecated, message: "Use `blog` instead.")
+		@available(*, deprecated, message:"Use `blog` instead.")
 		@discardableResult
 		open func blogByHandle(alias: String? = nil, handle: String, _ subfields: (BlogQuery) -> Void) -> QueryRootQuery {
 			var args: [String] = []
@@ -298,7 +298,7 @@ extension Storefront {
 		/// - parameters:
 		///     - handle: The handle of the collection.
 		///
-		@available(*, deprecated, message: "Use `collection` instead.")
+		@available(*, deprecated, message:"Use `collection` instead.")
 		@discardableResult
 		open func collectionByHandle(alias: String? = nil, handle: String, _ subfields: (CollectionQuery) -> Void) -> QueryRootQuery {
 			var args: [String] = []
@@ -369,6 +369,17 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "collections", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Interaction of the current visitor consent with the configured consent 
+		/// policies of the shop. 
+		@discardableResult
+		open func consentManagement(alias: String? = nil, _ subfields: (ConsentManagementQuery) -> Void) -> QueryRootQuery {
+			let subquery = ConsentManagementQuery()
+			subfields(subquery)
+
+			addField(field: "consentManagement", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -587,7 +598,7 @@ extension Storefront {
 		open func nodes(alias: String? = nil, ids: [GraphQL.ID], _ subfields: (NodeQuery) -> Void) -> QueryRootQuery {
 			var args: [String] = []
 
-			args.append("ids:[\(ids.map { "\(GraphQL.quoteString(input: "\($0.rawValue)"))" }.joined(separator: ","))]")
+			args.append("ids:[\(ids.map{ "\(GraphQL.quoteString(input: "\($0.rawValue)"))" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -630,7 +641,7 @@ extension Storefront {
 		/// - parameters:
 		///     - handle: The handle of the page.
 		///
-		@available(*, deprecated, message: "Use `page` instead.")
+		@available(*, deprecated, message:"Use `page` instead.")
 		@discardableResult
 		open func pageByHandle(alias: String? = nil, handle: String, _ subfields: (PageQuery) -> Void) -> QueryRootQuery {
 			var args: [String] = []
@@ -744,11 +755,11 @@ extension Storefront {
 			}
 
 			if let searchableFields = searchableFields {
-				args.append("searchableFields:[\(searchableFields.map { "\($0.rawValue)" }.joined(separator: ","))]")
+				args.append("searchableFields:[\(searchableFields.map{ "\($0.rawValue)" }.joined(separator: ","))]")
 			}
 
 			if let types = types {
-				args.append("types:[\(types.map { "\($0.rawValue)" }.joined(separator: ","))]")
+				args.append("types:[\(types.map{ "\($0.rawValue)" }.joined(separator: ","))]")
 			}
 
 			if let unavailableProducts = unavailableProducts {
@@ -798,7 +809,7 @@ extension Storefront {
 		///        A handle can contain letters, hyphens (`-`), and numbers, but no spaces.
 		///        The handle is used in the online store URL for the product.
 		///
-		@available(*, deprecated, message: "Use `product` instead.")
+		@available(*, deprecated, message:"Use `product` instead.")
 		@discardableResult
 		open func productByHandle(alias: String? = nil, handle: String, _ subfields: (ProductQuery) -> Void) -> QueryRootQuery {
 			var args: [String] = []
@@ -1022,11 +1033,11 @@ extension Storefront {
 			}
 
 			if let productFilters = productFilters {
-				args.append("productFilters:[\(productFilters.map { "\($0.serialize())" }.joined(separator: ","))]")
+				args.append("productFilters:[\(productFilters.map{ "\($0.serialize())" }.joined(separator: ","))]")
 			}
 
 			if let types = types {
-				args.append("types:[\(types.map { "\($0.rawValue)" }.joined(separator: ","))]")
+				args.append("types:[\(types.map{ "\($0.rawValue)" }.joined(separator: ","))]")
 			}
 
 			if let unavailableProducts = unavailableProducts {
@@ -1200,6 +1211,12 @@ extension Storefront {
 					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
 				}
 				return try CollectionConnection(fields: value)
+
+				case "consentManagement":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try ConsentManagement(fields: value)
 
 				case "customer":
 				if value is NSNull { return nil }
@@ -1404,12 +1421,12 @@ extension Storefront {
 		}
 
 		/// Find a blog by its handle. 
-		@available(*, deprecated, message: "Use `blog` instead.")
+		@available(*, deprecated, message:"Use `blog` instead.")
 		open var blogByHandle: Storefront.Blog? {
 			return internalGetBlogByHandle()
 		}
 
-		@available(*, deprecated, message: "Use `blog` instead.")
+		@available(*, deprecated, message:"Use `blog` instead.")
 
 		open func aliasedBlogByHandle(alias: String) -> Storefront.Blog? {
 			return internalGetBlogByHandle(alias: alias)
@@ -1474,12 +1491,12 @@ extension Storefront {
 		}
 
 		/// Find a collection by its handle. 
-		@available(*, deprecated, message: "Use `collection` instead.")
+		@available(*, deprecated, message:"Use `collection` instead.")
 		open var collectionByHandle: Storefront.Collection? {
 			return internalGetCollectionByHandle()
 		}
 
-		@available(*, deprecated, message: "Use `collection` instead.")
+		@available(*, deprecated, message:"Use `collection` instead.")
 
 		open func aliasedCollectionByHandle(alias: String) -> Storefront.Collection? {
 			return internalGetCollectionByHandle(alias: alias)
@@ -1500,6 +1517,16 @@ extension Storefront {
 
 		func internalGetCollections(alias: String? = nil) -> Storefront.CollectionConnection {
 			return field(field: "collections", aliasSuffix: alias) as! Storefront.CollectionConnection
+		}
+
+		/// Interaction of the current visitor consent with the configured consent 
+		/// policies of the shop. 
+		open var consentManagement: Storefront.ConsentManagement {
+			return internalGetConsentManagement()
+		}
+
+		func internalGetConsentManagement(alias: String? = nil) -> Storefront.ConsentManagement {
+			return field(field: "consentManagement", aliasSuffix: alias) as! Storefront.ConsentManagement
 		}
 
 		/// The customer associated with the given access token. Tokens are obtained by 
@@ -1621,12 +1648,12 @@ extension Storefront {
 		}
 
 		/// Find a page by its handle. 
-		@available(*, deprecated, message: "Use `page` instead.")
+		@available(*, deprecated, message:"Use `page` instead.")
 		open var pageByHandle: Storefront.Page? {
 			return internalGetPageByHandle()
 		}
 
-		@available(*, deprecated, message: "Use `page` instead.")
+		@available(*, deprecated, message:"Use `page` instead.")
 
 		open func aliasedPageByHandle(alias: String) -> Storefront.Page? {
 			return internalGetPageByHandle(alias: alias)
@@ -1685,12 +1712,12 @@ extension Storefront {
 		}
 
 		/// Find a product by its handle. 
-		@available(*, deprecated, message: "Use `product` instead.")
+		@available(*, deprecated, message:"Use `product` instead.")
 		open var productByHandle: Storefront.Product? {
 			return internalGetProductByHandle()
 		}
 
-		@available(*, deprecated, message: "Use `product` instead.")
+		@available(*, deprecated, message:"Use `product` instead.")
 
 		open func aliasedProductByHandle(alias: String) -> Storefront.Product? {
 			return internalGetProductByHandle(alias: alias)
@@ -1817,10 +1844,10 @@ extension Storefront {
 			return field(field: "urlRedirects", aliasSuffix: alias) as! Storefront.UrlRedirectConnection
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch $0 {
+				switch($0) {
 					case "article":
 					if let value = internalGetArticle() {
 						response.append(value)
@@ -1874,6 +1901,10 @@ extension Storefront {
 					case "collections":
 					response.append(internalGetCollections())
 					response.append(contentsOf: internalGetCollections().childResponseObjectMap())
+
+					case "consentManagement":
+					response.append(internalGetConsentManagement())
+					response.append(contentsOf: internalGetConsentManagement().childResponseObjectMap())
 
 					case "customer":
 					if let value = internalGetCustomer() {

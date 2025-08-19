@@ -77,7 +77,7 @@ extension Storefront {
 					fields.append("discounts:null")
 					break
 				}
-				fields.append("discounts:[\(discounts.map { "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("discounts:[\(discounts.map{ "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 

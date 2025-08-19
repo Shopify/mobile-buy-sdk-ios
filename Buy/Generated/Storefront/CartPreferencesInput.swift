@@ -84,7 +84,7 @@ extension Storefront {
 					fields.append("wallet:null")
 					break
 				}
-				fields.append("wallet:[\(wallet.map { "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
+				fields.append("wallet:[\(wallet.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 

@@ -61,6 +61,9 @@ extension Storefront {
 
 		case deliveryCompanyTooLong = "DELIVERY_COMPANY_TOO_LONG"
 
+		/// Country is not supported. 
+		case deliveryCountryInvalid = "DELIVERY_COUNTRY_INVALID"
+
 		case deliveryCountryRequired = "DELIVERY_COUNTRY_REQUIRED"
 
 		case deliveryFirstNameInvalid = "DELIVERY_FIRST_NAME_INVALID"
@@ -140,6 +143,9 @@ extension Storefront {
 		case paymentsCompanyRequired = "PAYMENTS_COMPANY_REQUIRED"
 
 		case paymentsCompanyTooLong = "PAYMENTS_COMPANY_TOO_LONG"
+
+		/// Country is not supported. 
+		case paymentsCountryInvalid = "PAYMENTS_COUNTRY_INVALID"
 
 		case paymentsCountryRequired = "PAYMENTS_COUNTRY_REQUIRED"
 

@@ -164,7 +164,7 @@ extension Storefront {
 					fields.append("deliveryAddressPreferences:null")
 					break
 				}
-				fields.append("deliveryAddressPreferences:[\(deliveryAddressPreferences.map { "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("deliveryAddressPreferences:[\(deliveryAddressPreferences.map{ "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 

@@ -30,11 +30,17 @@ extension Storefront {
 	/// Digital wallet, such as Apple Pay, which can be used for accelerated 
 	/// checkouts. 
 	public enum DigitalWallet: String {
+		/// Amazon Pay. 
+		case amazonPay = "AMAZON_PAY"
+
 		/// Android Pay. 
 		case androidPay = "ANDROID_PAY"
 
 		/// Apple Pay. 
 		case applePay = "APPLE_PAY"
+
+		/// Facebook Pay. 
+		case facebookPay = "FACEBOOK_PAY"
 
 		/// Google Pay. 
 		case googlePay = "GOOGLE_PAY"

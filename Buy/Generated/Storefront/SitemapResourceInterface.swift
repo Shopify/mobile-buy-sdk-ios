@@ -68,6 +68,15 @@ extension Storefront {
 
 		/// Represents the common fields for all sitemap resource types. 
 		@discardableResult
+		open func onSitemapResourceBase(subfields: (SitemapResourceBaseQuery) -> Void) -> SitemapResourceInterfaceQuery {
+			let subquery = SitemapResourceBaseQuery()
+			subfields(subquery)
+			addInlineFragment(on: "SitemapResourceBase", subfields: subquery)
+			return self
+		}
+
+		/// Represents the common fields for all sitemap resource types. 
+		@discardableResult
 		open func onSitemapResourceMetaobject(subfields: (SitemapResourceMetaobjectQuery) -> Void) -> SitemapResourceInterfaceQuery {
 			let subquery = SitemapResourceMetaobjectQuery()
 			subfields(subquery)
@@ -107,6 +116,8 @@ extension Storefront {
 			switch typeName {
 				case "SitemapResource": return try SitemapResource.init(fields: fields)
 
+				case "SitemapResourceBase": return try SitemapResourceBase.init(fields: fields)
+
 				case "SitemapResourceMetaobject": return try SitemapResourceMetaobject.init(fields: fields)
 
 				default:
@@ -132,7 +143,7 @@ extension Storefront {
 			return field(field: "updatedAt", aliasSuffix: alias) as! Date
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			return []
 		}
 	}

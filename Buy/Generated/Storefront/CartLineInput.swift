@@ -42,6 +42,9 @@ extension Storefront {
 		/// The ID of the selling plan that the merchandise is being purchased with. 
 		open var sellingPlanId: Input<GraphQL.ID>
 
+		/// The parent line item of the cart line. 
+		open var parent: Input<CartLineParentInput>
+
 		/// Creates the input object.
 		///
 		/// - parameters:
@@ -49,16 +52,18 @@ extension Storefront {
 		///     - quantity: The quantity of the merchandise.
 		///     - merchandiseId: The ID of the merchandise that the buyer intends to purchase.
 		///     - sellingPlanId: The ID of the selling plan that the merchandise is being purchased with.
+		///     - parent: The parent line item of the cart line.
 		///
-		public static func create(merchandiseId: GraphQL.ID, attributes: Input<[AttributeInput]> = .undefined, quantity: Input<Int32> = .undefined, sellingPlanId: Input<GraphQL.ID> = .undefined) -> CartLineInput {
-			return CartLineInput(merchandiseId: merchandiseId, attributes: attributes, quantity: quantity, sellingPlanId: sellingPlanId)
+		public static func create(merchandiseId: GraphQL.ID, attributes: Input<[AttributeInput]> = .undefined, quantity: Input<Int32> = .undefined, sellingPlanId: Input<GraphQL.ID> = .undefined, parent: Input<CartLineParentInput> = .undefined) -> CartLineInput {
+			return CartLineInput(merchandiseId: merchandiseId, attributes: attributes, quantity: quantity, sellingPlanId: sellingPlanId, parent: parent)
 		}
 
-		private init(merchandiseId: GraphQL.ID, attributes: Input<[AttributeInput]> = .undefined, quantity: Input<Int32> = .undefined, sellingPlanId: Input<GraphQL.ID> = .undefined) {
+		private init(merchandiseId: GraphQL.ID, attributes: Input<[AttributeInput]> = .undefined, quantity: Input<Int32> = .undefined, sellingPlanId: Input<GraphQL.ID> = .undefined, parent: Input<CartLineParentInput> = .undefined) {
 			self.attributes = attributes
 			self.quantity = quantity
 			self.merchandiseId = merchandiseId
 			self.sellingPlanId = sellingPlanId
+			self.parent = parent
 		}
 
 		/// Creates the input object.
@@ -68,10 +73,11 @@ extension Storefront {
 		///     - quantity: The quantity of the merchandise.
 		///     - merchandiseId: The ID of the merchandise that the buyer intends to purchase.
 		///     - sellingPlanId: The ID of the selling plan that the merchandise is being purchased with.
+		///     - parent: The parent line item of the cart line.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
-		public convenience init(merchandiseId: GraphQL.ID, attributes: [AttributeInput]? = nil, quantity: Int32? = nil, sellingPlanId: GraphQL.ID? = nil) {
-			self.init(merchandiseId: merchandiseId, attributes: attributes.orUndefined, quantity: quantity.orUndefined, sellingPlanId: sellingPlanId.orUndefined)
+		public convenience init(merchandiseId: GraphQL.ID, attributes: [AttributeInput]? = nil, quantity: Int32? = nil, sellingPlanId: GraphQL.ID? = nil, parent: CartLineParentInput? = nil) {
+			self.init(merchandiseId: merchandiseId, attributes: attributes.orUndefined, quantity: quantity.orUndefined, sellingPlanId: sellingPlanId.orUndefined, parent: parent.orUndefined)
 		}
 
 		internal func serialize() -> String {
@@ -83,7 +89,7 @@ extension Storefront {
 					fields.append("attributes:null")
 					break
 				}
-				fields.append("attributes:[\(attributes.map { "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("attributes:[\(attributes.map{ "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
@@ -106,6 +112,16 @@ extension Storefront {
 					break
 				}
 				fields.append("sellingPlanId:\(GraphQL.quoteString(input: "\(sellingPlanId.rawValue)"))")
+				case .undefined: break
+			}
+
+			switch parent {
+				case .value(let parent):
+				guard let parent = parent else {
+					fields.append("parent:null")
+					break
+				}
+				fields.append("parent:\(parent.serialize())")
 				case .undefined: break
 			}
 

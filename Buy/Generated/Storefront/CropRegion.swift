@@ -38,6 +38,10 @@ extension Storefront {
 		/// Keep the left of the image. 
 		case `left` = "LEFT"
 
+		/// Crop the exact region of the image specified by the crop_left, crop_top, 
+		/// crop_width and crop_height parameters. 
+		case region = "REGION"
+
 		/// Keep the right of the image. 
 		case `right` = "RIGHT"
 

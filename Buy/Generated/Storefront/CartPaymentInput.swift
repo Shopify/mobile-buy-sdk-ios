@@ -49,6 +49,10 @@ extension Storefront {
 		/// method (like Shop Pay or Apple Pay). 
 		open var walletPaymentMethod: Input<CartWalletPaymentMethodInput>
 
+		/// The input fields to use when checking out a cart with a Stripe payment 
+		/// method. 
+		open var stripeSharedTokenPaymentMethod: Input<StripeSharedTokenPaymentMethodInput>
+
 		/// Creates the input object.
 		///
 		/// - parameters:
@@ -57,17 +61,19 @@ extension Storefront {
 		///     - freePaymentMethod: The input fields to use to checkout a cart without providing a payment method. Use this payment method input if the total cost of the cart is 0. 
 		///     - directPaymentMethod: The input fields to use when checking out a cart with a direct payment method (like a credit card). 
 		///     - walletPaymentMethod: The input fields to use when checking out a cart with a wallet payment method (like Shop Pay or Apple Pay). 
+		///     - stripeSharedTokenPaymentMethod: The input fields to use when checking out a cart with a Stripe payment method. 
 		///
-		public static func create(amount: MoneyInput, sourceIdentifier: Input<String> = .undefined, freePaymentMethod: Input<CartFreePaymentMethodInput> = .undefined, directPaymentMethod: Input<CartDirectPaymentMethodInput> = .undefined, walletPaymentMethod: Input<CartWalletPaymentMethodInput> = .undefined) -> CartPaymentInput {
-			return CartPaymentInput(amount: amount, sourceIdentifier: sourceIdentifier, freePaymentMethod: freePaymentMethod, directPaymentMethod: directPaymentMethod, walletPaymentMethod: walletPaymentMethod)
+		public static func create(amount: MoneyInput, sourceIdentifier: Input<String> = .undefined, freePaymentMethod: Input<CartFreePaymentMethodInput> = .undefined, directPaymentMethod: Input<CartDirectPaymentMethodInput> = .undefined, walletPaymentMethod: Input<CartWalletPaymentMethodInput> = .undefined, stripeSharedTokenPaymentMethod: Input<StripeSharedTokenPaymentMethodInput> = .undefined) -> CartPaymentInput {
+			return CartPaymentInput(amount: amount, sourceIdentifier: sourceIdentifier, freePaymentMethod: freePaymentMethod, directPaymentMethod: directPaymentMethod, walletPaymentMethod: walletPaymentMethod, stripeSharedTokenPaymentMethod: stripeSharedTokenPaymentMethod)
 		}
 
-		private init(amount: MoneyInput, sourceIdentifier: Input<String> = .undefined, freePaymentMethod: Input<CartFreePaymentMethodInput> = .undefined, directPaymentMethod: Input<CartDirectPaymentMethodInput> = .undefined, walletPaymentMethod: Input<CartWalletPaymentMethodInput> = .undefined) {
+		private init(amount: MoneyInput, sourceIdentifier: Input<String> = .undefined, freePaymentMethod: Input<CartFreePaymentMethodInput> = .undefined, directPaymentMethod: Input<CartDirectPaymentMethodInput> = .undefined, walletPaymentMethod: Input<CartWalletPaymentMethodInput> = .undefined, stripeSharedTokenPaymentMethod: Input<StripeSharedTokenPaymentMethodInput> = .undefined) {
 			self.amount = amount
 			self.sourceIdentifier = sourceIdentifier
 			self.freePaymentMethod = freePaymentMethod
 			self.directPaymentMethod = directPaymentMethod
 			self.walletPaymentMethod = walletPaymentMethod
+			self.stripeSharedTokenPaymentMethod = stripeSharedTokenPaymentMethod
 		}
 
 		/// Creates the input object.
@@ -78,10 +84,11 @@ extension Storefront {
 		///     - freePaymentMethod: The input fields to use to checkout a cart without providing a payment method. Use this payment method input if the total cost of the cart is 0. 
 		///     - directPaymentMethod: The input fields to use when checking out a cart with a direct payment method (like a credit card). 
 		///     - walletPaymentMethod: The input fields to use when checking out a cart with a wallet payment method (like Shop Pay or Apple Pay). 
+		///     - stripeSharedTokenPaymentMethod: The input fields to use when checking out a cart with a Stripe payment method. 
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
-		public convenience init(amount: MoneyInput, sourceIdentifier: String? = nil, freePaymentMethod: CartFreePaymentMethodInput? = nil, directPaymentMethod: CartDirectPaymentMethodInput? = nil, walletPaymentMethod: CartWalletPaymentMethodInput? = nil) {
-			self.init(amount: amount, sourceIdentifier: sourceIdentifier.orUndefined, freePaymentMethod: freePaymentMethod.orUndefined, directPaymentMethod: directPaymentMethod.orUndefined, walletPaymentMethod: walletPaymentMethod.orUndefined)
+		public convenience init(amount: MoneyInput, sourceIdentifier: String? = nil, freePaymentMethod: CartFreePaymentMethodInput? = nil, directPaymentMethod: CartDirectPaymentMethodInput? = nil, walletPaymentMethod: CartWalletPaymentMethodInput? = nil, stripeSharedTokenPaymentMethod: StripeSharedTokenPaymentMethodInput? = nil) {
+			self.init(amount: amount, sourceIdentifier: sourceIdentifier.orUndefined, freePaymentMethod: freePaymentMethod.orUndefined, directPaymentMethod: directPaymentMethod.orUndefined, walletPaymentMethod: walletPaymentMethod.orUndefined, stripeSharedTokenPaymentMethod: stripeSharedTokenPaymentMethod.orUndefined)
 		}
 
 		internal func serialize() -> String {
@@ -126,6 +133,16 @@ extension Storefront {
 					break
 				}
 				fields.append("walletPaymentMethod:\(walletPaymentMethod.serialize())")
+				case .undefined: break
+			}
+
+			switch stripeSharedTokenPaymentMethod {
+				case .value(let stripeSharedTokenPaymentMethod):
+				guard let stripeSharedTokenPaymentMethod = stripeSharedTokenPaymentMethod else {
+					fields.append("stripeSharedTokenPaymentMethod:null")
+					break
+				}
+				fields.append("stripeSharedTokenPaymentMethod:\(stripeSharedTokenPaymentMethod.serialize())")
 				case .undefined: break
 			}
 

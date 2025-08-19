@@ -85,7 +85,7 @@ extension Storefront {
 			return field(field: "addresses", aliasSuffix: alias) as! [Storefront.CartSelectableAddress]
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			return []
 		}
 	}

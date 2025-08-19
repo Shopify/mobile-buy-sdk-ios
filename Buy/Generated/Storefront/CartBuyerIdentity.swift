@@ -56,7 +56,7 @@ extension Storefront {
 		/// addresses are now part of the `CartDelivery` object and managed with three 
 		/// new mutations: - `cartDeliveryAddressAdd` - `cartDeliveryAddressUpdate` - 
 		/// `cartDeliveryAddressDelete` 
-		@available(*, deprecated, message: "Use `cart.delivery` instead.")
+		@available(*, deprecated, message:"Use `cart.delivery` instead.")
 		@discardableResult
 		open func deliveryAddressPreferences(alias: String? = nil, _ subfields: (DeliveryAddressQuery) -> Void) -> CartBuyerIdentityQuery {
 			let subquery = DeliveryAddressQuery()
@@ -190,7 +190,7 @@ extension Storefront {
 		/// addresses are now part of the `CartDelivery` object and managed with three 
 		/// new mutations: - `cartDeliveryAddressAdd` - `cartDeliveryAddressUpdate` - 
 		/// `cartDeliveryAddressDelete` 
-		@available(*, deprecated, message: "Use `cart.delivery` instead.")
+		@available(*, deprecated, message:"Use `cart.delivery` instead.")
 		open var deliveryAddressPreferences: [DeliveryAddress] {
 			return internalGetDeliveryAddressPreferences()
 		}
@@ -238,10 +238,10 @@ extension Storefront {
 			return field(field: "purchasingCompany", aliasSuffix: alias) as! Storefront.PurchasingCompany?
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch $0 {
+				switch($0) {
 					case "customer":
 					if let value = internalGetCustomer() {
 						response.append(value)

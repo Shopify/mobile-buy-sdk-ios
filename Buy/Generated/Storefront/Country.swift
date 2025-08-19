@@ -69,7 +69,7 @@ extension Storefront {
 		}
 
 		/// The market that includes this country. 
-		@available(*, deprecated, message: "This `market` field will be removed in a future version of the API.")
+		@available(*, deprecated, message:"This `market` field will be removed in a future version of the API.")
 		@discardableResult
 		open func market(alias: String? = nil, _ subfields: (MarketQuery) -> Void) -> CountryQuery {
 			let subquery = MarketQuery()
@@ -186,7 +186,7 @@ extension Storefront {
 		}
 
 		/// The market that includes this country. 
-		@available(*, deprecated, message: "This `market` field will be removed in a future version of the API.")
+		@available(*, deprecated, message:"This `market` field will be removed in a future version of the API.")
 		open var market: Storefront.Market? {
 			return internalGetMarket()
 		}
@@ -213,10 +213,10 @@ extension Storefront {
 			return field(field: "unitSystem", aliasSuffix: alias) as! Storefront.UnitSystem
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch $0 {
+				switch($0) {
 					case "availableLanguages":
 					internalGetAvailableLanguages().forEach {
 						response.append($0)

@@ -65,7 +65,7 @@ extension Storefront {
 					fields.append("addresses:null")
 					break
 				}
-				fields.append("addresses:[\(addresses.map { "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("addresses:[\(addresses.map{ "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 

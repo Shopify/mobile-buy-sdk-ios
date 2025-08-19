@@ -75,7 +75,7 @@ extension Storefront {
 
 		/// The market including the country of the active localized experience. Use 
 		/// the `@inContext` directive to change this value. 
-		@available(*, deprecated, message: "This `market` field will be removed in a future version of the API.")
+		@available(*, deprecated, message:"This `market` field will be removed in a future version of the API.")
 		@discardableResult
 		open func market(alias: String? = nil, _ subfields: (MarketQuery) -> Void) -> LocalizationQuery {
 			let subquery = MarketQuery()
@@ -168,7 +168,7 @@ extension Storefront {
 
 		/// The market including the country of the active localized experience. Use 
 		/// the `@inContext` directive to change this value. 
-		@available(*, deprecated, message: "This `market` field will be removed in a future version of the API.")
+		@available(*, deprecated, message:"This `market` field will be removed in a future version of the API.")
 		open var market: Storefront.Market {
 			return internalGetMarket()
 		}
@@ -177,10 +177,10 @@ extension Storefront {
 			return field(field: "market", aliasSuffix: alias) as! Storefront.Market
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch $0 {
+				switch($0) {
 					case "availableCountries":
 					internalGetAvailableCountries().forEach {
 						response.append($0)

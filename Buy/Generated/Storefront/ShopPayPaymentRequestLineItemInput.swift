@@ -32,6 +32,9 @@ extension Storefront {
 		/// The label of the line item. 
 		open var label: Input<String>
 
+		/// The amount of the line item. 
+		open var amount: Input<MoneyInput>
+
 		/// The quantity of the line item. 
 		open var quantity: Int32
 
@@ -68,6 +71,7 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - label: The label of the line item.
+		///     - amount: The amount of the line item.
 		///     - quantity: The quantity of the line item.
 		///     - sku: The SKU of the line item.
 		///     - requiresShipping: Whether the line item requires shipping.
@@ -79,12 +83,13 @@ extension Storefront {
 		///     - finalItemPrice: The final item price for the line item.
 		///     - itemDiscounts: The item discounts for the line item.  The input must not contain more than `250` values.
 		///
-		public static func create(quantity: Int32, label: Input<String> = .undefined, sku: Input<String> = .undefined, requiresShipping: Input<Bool> = .undefined, image: Input<ShopPayPaymentRequestImageInput> = .undefined, originalLinePrice: Input<MoneyInput> = .undefined, finalLinePrice: Input<MoneyInput> = .undefined, lineDiscounts: Input<[ShopPayPaymentRequestDiscountInput]> = .undefined, originalItemPrice: Input<MoneyInput> = .undefined, finalItemPrice: Input<MoneyInput> = .undefined, itemDiscounts: Input<[ShopPayPaymentRequestDiscountInput]> = .undefined) -> ShopPayPaymentRequestLineItemInput {
-			return ShopPayPaymentRequestLineItemInput(quantity: quantity, label: label, sku: sku, requiresShipping: requiresShipping, image: image, originalLinePrice: originalLinePrice, finalLinePrice: finalLinePrice, lineDiscounts: lineDiscounts, originalItemPrice: originalItemPrice, finalItemPrice: finalItemPrice, itemDiscounts: itemDiscounts)
+		public static func create(quantity: Int32, label: Input<String> = .undefined, amount: Input<MoneyInput> = .undefined, sku: Input<String> = .undefined, requiresShipping: Input<Bool> = .undefined, image: Input<ShopPayPaymentRequestImageInput> = .undefined, originalLinePrice: Input<MoneyInput> = .undefined, finalLinePrice: Input<MoneyInput> = .undefined, lineDiscounts: Input<[ShopPayPaymentRequestDiscountInput]> = .undefined, originalItemPrice: Input<MoneyInput> = .undefined, finalItemPrice: Input<MoneyInput> = .undefined, itemDiscounts: Input<[ShopPayPaymentRequestDiscountInput]> = .undefined) -> ShopPayPaymentRequestLineItemInput {
+			return ShopPayPaymentRequestLineItemInput(quantity: quantity, label: label, amount: amount, sku: sku, requiresShipping: requiresShipping, image: image, originalLinePrice: originalLinePrice, finalLinePrice: finalLinePrice, lineDiscounts: lineDiscounts, originalItemPrice: originalItemPrice, finalItemPrice: finalItemPrice, itemDiscounts: itemDiscounts)
 		}
 
-		private init(quantity: Int32, label: Input<String> = .undefined, sku: Input<String> = .undefined, requiresShipping: Input<Bool> = .undefined, image: Input<ShopPayPaymentRequestImageInput> = .undefined, originalLinePrice: Input<MoneyInput> = .undefined, finalLinePrice: Input<MoneyInput> = .undefined, lineDiscounts: Input<[ShopPayPaymentRequestDiscountInput]> = .undefined, originalItemPrice: Input<MoneyInput> = .undefined, finalItemPrice: Input<MoneyInput> = .undefined, itemDiscounts: Input<[ShopPayPaymentRequestDiscountInput]> = .undefined) {
+		private init(quantity: Int32, label: Input<String> = .undefined, amount: Input<MoneyInput> = .undefined, sku: Input<String> = .undefined, requiresShipping: Input<Bool> = .undefined, image: Input<ShopPayPaymentRequestImageInput> = .undefined, originalLinePrice: Input<MoneyInput> = .undefined, finalLinePrice: Input<MoneyInput> = .undefined, lineDiscounts: Input<[ShopPayPaymentRequestDiscountInput]> = .undefined, originalItemPrice: Input<MoneyInput> = .undefined, finalItemPrice: Input<MoneyInput> = .undefined, itemDiscounts: Input<[ShopPayPaymentRequestDiscountInput]> = .undefined) {
 			self.label = label
+			self.amount = amount
 			self.quantity = quantity
 			self.sku = sku
 			self.requiresShipping = requiresShipping
@@ -101,6 +106,7 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - label: The label of the line item.
+		///     - amount: The amount of the line item.
 		///     - quantity: The quantity of the line item.
 		///     - sku: The SKU of the line item.
 		///     - requiresShipping: Whether the line item requires shipping.
@@ -113,8 +119,8 @@ extension Storefront {
 		///     - itemDiscounts: The item discounts for the line item.  The input must not contain more than `250` values.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
-		public convenience init(quantity: Int32, label: String? = nil, sku: String? = nil, requiresShipping: Bool? = nil, image: ShopPayPaymentRequestImageInput? = nil, originalLinePrice: MoneyInput? = nil, finalLinePrice: MoneyInput? = nil, lineDiscounts: [ShopPayPaymentRequestDiscountInput]? = nil, originalItemPrice: MoneyInput? = nil, finalItemPrice: MoneyInput? = nil, itemDiscounts: [ShopPayPaymentRequestDiscountInput]? = nil) {
-			self.init(quantity: quantity, label: label.orUndefined, sku: sku.orUndefined, requiresShipping: requiresShipping.orUndefined, image: image.orUndefined, originalLinePrice: originalLinePrice.orUndefined, finalLinePrice: finalLinePrice.orUndefined, lineDiscounts: lineDiscounts.orUndefined, originalItemPrice: originalItemPrice.orUndefined, finalItemPrice: finalItemPrice.orUndefined, itemDiscounts: itemDiscounts.orUndefined)
+		public convenience init(quantity: Int32, label: String? = nil, amount: MoneyInput? = nil, sku: String? = nil, requiresShipping: Bool? = nil, image: ShopPayPaymentRequestImageInput? = nil, originalLinePrice: MoneyInput? = nil, finalLinePrice: MoneyInput? = nil, lineDiscounts: [ShopPayPaymentRequestDiscountInput]? = nil, originalItemPrice: MoneyInput? = nil, finalItemPrice: MoneyInput? = nil, itemDiscounts: [ShopPayPaymentRequestDiscountInput]? = nil) {
+			self.init(quantity: quantity, label: label.orUndefined, amount: amount.orUndefined, sku: sku.orUndefined, requiresShipping: requiresShipping.orUndefined, image: image.orUndefined, originalLinePrice: originalLinePrice.orUndefined, finalLinePrice: finalLinePrice.orUndefined, lineDiscounts: lineDiscounts.orUndefined, originalItemPrice: originalItemPrice.orUndefined, finalItemPrice: finalItemPrice.orUndefined, itemDiscounts: itemDiscounts.orUndefined)
 		}
 
 		internal func serialize() -> String {
@@ -127,6 +133,16 @@ extension Storefront {
 					break
 				}
 				fields.append("label:\(GraphQL.quoteString(input: label))")
+				case .undefined: break
+			}
+
+			switch amount {
+				case .value(let amount):
+				guard let amount = amount else {
+					fields.append("amount:null")
+					break
+				}
+				fields.append("amount:\(amount.serialize())")
 				case .undefined: break
 			}
 
@@ -188,7 +204,7 @@ extension Storefront {
 					fields.append("lineDiscounts:null")
 					break
 				}
-				fields.append("lineDiscounts:[\(lineDiscounts.map { "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("lineDiscounts:[\(lineDiscounts.map{ "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
@@ -218,7 +234,7 @@ extension Storefront {
 					fields.append("itemDiscounts:null")
 					break
 				}
-				fields.append("itemDiscounts:[\(itemDiscounts.map { "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("itemDiscounts:[\(itemDiscounts.map{ "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 

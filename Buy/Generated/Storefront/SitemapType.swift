@@ -44,6 +44,10 @@ extension Storefront {
 		/// are included in sitemap. 
 		case metaobject = "METAOBJECT"
 
+		/// Metaobject pages present in the sitemap. 
+		@available(*, deprecated, message:"Use `METAOBJECT` instead.")
+		case metaobjectPage = "METAOBJECT_PAGE"
+
 		/// Pages present in the sitemap. 
 		case page = "PAGE"
 

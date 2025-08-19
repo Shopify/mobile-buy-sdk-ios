@@ -32,6 +32,9 @@ extension Storefront {
 		/// Displayed as **Authorized**. 
 		case authorized = "AUTHORIZED"
 
+		/// Displayed as **Expired**. 
+		case expired = "EXPIRED"
+
 		/// Displayed as **Paid**. 
 		case paid = "PAID"
 

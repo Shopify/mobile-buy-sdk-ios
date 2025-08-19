@@ -29,6 +29,9 @@ import Foundation
 extension Storefront {
 	/// List of supported image content types. 
 	public enum ImageContentType: String {
+		/// A BMP image. 
+		case bmp = "BMP"
+
 		/// A JPG image. 
 		case jpg = "JPG"
 

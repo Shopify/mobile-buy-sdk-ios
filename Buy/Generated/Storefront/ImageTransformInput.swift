@@ -41,6 +41,9 @@ extension Storefront {
 		/// image is removed. 
 		open var crop: Input<CropRegion>
 
+		/// Defines an arbitrary cropping region. 
+		open var cropRegion: Input<CropRegionInput>
+
 		/// Image width in pixels between 1 and 5760. 
 		open var maxWidth: Input<Int32>
 
@@ -60,17 +63,19 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - crop: The region of the image to remain after cropping. Must be used in conjunction with the `maxWidth` and/or `maxHeight` fields, where the `maxWidth` and `maxHeight` aren't equal. The `crop` argument should coincide with the smaller value. A smaller `maxWidth` indicates a `LEFT` or `RIGHT` crop, while a smaller `maxHeight` indicates a `TOP` or `BOTTOM` crop. For example, `{ maxWidth: 5, maxHeight: 10, crop: LEFT }` will result in an image with a width of 5 and height of 10, where the right side of the image is removed. 
+		///     - cropRegion: Defines an arbitrary cropping region.
 		///     - maxWidth: Image width in pixels between 1 and 5760. 
 		///     - maxHeight: Image height in pixels between 1 and 5760. 
 		///     - scale: Image size multiplier for high-resolution retina displays. Must be within 1..3. 
 		///     - preferredContentType: Convert the source image into the preferred content type. Supported conversions: `.svg` to `.png`, any file type to `.jpg`, and any file type to `.webp`. 
 		///
-		public static func create(crop: Input<CropRegion> = .undefined, maxWidth: Input<Int32> = .undefined, maxHeight: Input<Int32> = .undefined, scale: Input<Int32> = .undefined, preferredContentType: Input<ImageContentType> = .undefined) -> ImageTransformInput {
-			return ImageTransformInput(crop: crop, maxWidth: maxWidth, maxHeight: maxHeight, scale: scale, preferredContentType: preferredContentType)
+		public static func create(crop: Input<CropRegion> = .undefined, cropRegion: Input<CropRegionInput> = .undefined, maxWidth: Input<Int32> = .undefined, maxHeight: Input<Int32> = .undefined, scale: Input<Int32> = .undefined, preferredContentType: Input<ImageContentType> = .undefined) -> ImageTransformInput {
+			return ImageTransformInput(crop: crop, cropRegion: cropRegion, maxWidth: maxWidth, maxHeight: maxHeight, scale: scale, preferredContentType: preferredContentType)
 		}
 
-		private init(crop: Input<CropRegion> = .undefined, maxWidth: Input<Int32> = .undefined, maxHeight: Input<Int32> = .undefined, scale: Input<Int32> = .undefined, preferredContentType: Input<ImageContentType> = .undefined) {
+		private init(crop: Input<CropRegion> = .undefined, cropRegion: Input<CropRegionInput> = .undefined, maxWidth: Input<Int32> = .undefined, maxHeight: Input<Int32> = .undefined, scale: Input<Int32> = .undefined, preferredContentType: Input<ImageContentType> = .undefined) {
 			self.crop = crop
+			self.cropRegion = cropRegion
 			self.maxWidth = maxWidth
 			self.maxHeight = maxHeight
 			self.scale = scale
@@ -81,14 +86,15 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - crop: The region of the image to remain after cropping. Must be used in conjunction with the `maxWidth` and/or `maxHeight` fields, where the `maxWidth` and `maxHeight` aren't equal. The `crop` argument should coincide with the smaller value. A smaller `maxWidth` indicates a `LEFT` or `RIGHT` crop, while a smaller `maxHeight` indicates a `TOP` or `BOTTOM` crop. For example, `{ maxWidth: 5, maxHeight: 10, crop: LEFT }` will result in an image with a width of 5 and height of 10, where the right side of the image is removed. 
+		///     - cropRegion: Defines an arbitrary cropping region.
 		///     - maxWidth: Image width in pixels between 1 and 5760. 
 		///     - maxHeight: Image height in pixels between 1 and 5760. 
 		///     - scale: Image size multiplier for high-resolution retina displays. Must be within 1..3. 
 		///     - preferredContentType: Convert the source image into the preferred content type. Supported conversions: `.svg` to `.png`, any file type to `.jpg`, and any file type to `.webp`. 
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
-		public convenience init(crop: CropRegion? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, scale: Int32? = nil, preferredContentType: ImageContentType? = nil) {
-			self.init(crop: crop.orUndefined, maxWidth: maxWidth.orUndefined, maxHeight: maxHeight.orUndefined, scale: scale.orUndefined, preferredContentType: preferredContentType.orUndefined)
+		public convenience init(crop: CropRegion? = nil, cropRegion: CropRegionInput? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, scale: Int32? = nil, preferredContentType: ImageContentType? = nil) {
+			self.init(crop: crop.orUndefined, cropRegion: cropRegion.orUndefined, maxWidth: maxWidth.orUndefined, maxHeight: maxHeight.orUndefined, scale: scale.orUndefined, preferredContentType: preferredContentType.orUndefined)
 		}
 
 		internal func serialize() -> String {
@@ -101,6 +107,16 @@ extension Storefront {
 					break
 				}
 				fields.append("crop:\(crop.rawValue)")
+				case .undefined: break
+			}
+
+			switch cropRegion {
+				case .value(let cropRegion):
+				guard let cropRegion = cropRegion else {
+					fields.append("cropRegion:null")
+					break
+				}
+				fields.append("cropRegion:\(cropRegion.serialize())")
 				case .undefined: break
 			}
 

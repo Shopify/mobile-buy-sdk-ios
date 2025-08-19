@@ -115,7 +115,7 @@ extension Storefront {
 					fields.append("attributes:null")
 					break
 				}
-				fields.append("attributes:[\(attributes.map { "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("attributes:[\(attributes.map{ "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
@@ -125,7 +125,7 @@ extension Storefront {
 					fields.append("lines:null")
 					break
 				}
-				fields.append("lines:[\(lines.map { "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("lines:[\(lines.map{ "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
@@ -135,7 +135,7 @@ extension Storefront {
 					fields.append("discountCodes:null")
 					break
 				}
-				fields.append("discountCodes:[\(discountCodes.map { "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
+				fields.append("discountCodes:[\(discountCodes.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
@@ -145,7 +145,7 @@ extension Storefront {
 					fields.append("giftCardCodes:null")
 					break
 				}
-				fields.append("giftCardCodes:[\(giftCardCodes.map { "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
+				fields.append("giftCardCodes:[\(giftCardCodes.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 
@@ -185,7 +185,7 @@ extension Storefront {
 					fields.append("metafields:null")
 					break
 				}
-				fields.append("metafields:[\(metafields.map { "\($0.serialize())" }.joined(separator: ","))]")
+				fields.append("metafields:[\(metafields.map{ "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 

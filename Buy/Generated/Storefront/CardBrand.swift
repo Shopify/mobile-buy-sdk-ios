@@ -38,11 +38,17 @@ extension Storefront {
 		/// Discover. 
 		case discover = "DISCOVER"
 
+		/// Elo. 
+		case elo = "ELO"
+
 		/// JCB. 
 		case jcb = "JCB"
 
 		/// Mastercard. 
 		case mastercard = "MASTERCARD"
+
+		/// UnionPay. 
+		case unionpay = "UNIONPAY"
 
 		/// Visa. 
 		case visa = "VISA"

@@ -48,6 +48,13 @@ extension Storefront {
 			return self
 		}
 
+		/// Whether duties are included in the prices of products in the cart. 
+		@discardableResult
+		open func dutiesIncluded(alias: String? = nil) -> CartCostQuery {
+			addField(field: "dutiesIncluded", aliasSuffix: alias)
+			return self
+		}
+
 		/// The amount, before taxes and cart-level discounts, for the customer to pay. 
 		@discardableResult
 		open func subtotalAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartCostQuery {
@@ -62,6 +69,13 @@ extension Storefront {
 		@discardableResult
 		open func subtotalAmountEstimated(alias: String? = nil) -> CartCostQuery {
 			addField(field: "subtotalAmountEstimated", aliasSuffix: alias)
+			return self
+		}
+
+		/// Whether taxes are included in the prices of products in the cart. 
+		@discardableResult
+		open func taxesIncluded(alias: String? = nil) -> CartCostQuery {
+			addField(field: "taxesIncluded", aliasSuffix: alias)
 			return self
 		}
 
@@ -83,7 +97,7 @@ extension Storefront {
 		}
 
 		/// The duty amount for the customer to pay at checkout. 
-		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
+		@available(*, deprecated, message:"Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		@discardableResult
 		open func totalDutyAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartCostQuery {
 			let subquery = MoneyV2Query()
@@ -94,7 +108,7 @@ extension Storefront {
 		}
 
 		/// Whether the total duty amount is estimated. 
-		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
+		@available(*, deprecated, message:"Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		@discardableResult
 		open func totalDutyAmountEstimated(alias: String? = nil) -> CartCostQuery {
 			addField(field: "totalDutyAmountEstimated", aliasSuffix: alias)
@@ -102,7 +116,7 @@ extension Storefront {
 		}
 
 		/// The tax amount for the customer to pay at checkout. 
-		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
+		@available(*, deprecated, message:"Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		@discardableResult
 		open func totalTaxAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartCostQuery {
 			let subquery = MoneyV2Query()
@@ -113,7 +127,7 @@ extension Storefront {
 		}
 
 		/// Whether the total tax amount is estimated. 
-		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
+		@available(*, deprecated, message:"Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		@discardableResult
 		open func totalTaxAmountEstimated(alias: String? = nil) -> CartCostQuery {
 			addField(field: "totalTaxAmountEstimated", aliasSuffix: alias)
@@ -137,6 +151,12 @@ extension Storefront {
 				}
 				return try MoneyV2(fields: value)
 
+				case "dutiesIncluded":
+				guard let value = value as? Bool else {
+					throw SchemaViolationError(type: CartCost.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
 				case "subtotalAmount":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: CartCost.self, field: fieldName, value: fieldValue)
@@ -144,6 +164,12 @@ extension Storefront {
 				return try MoneyV2(fields: value)
 
 				case "subtotalAmountEstimated":
+				guard let value = value as? Bool else {
+					throw SchemaViolationError(type: CartCost.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
+				case "taxesIncluded":
 				guard let value = value as? Bool else {
 					throw SchemaViolationError(type: CartCost.self, field: fieldName, value: fieldValue)
 				}
@@ -205,6 +231,15 @@ extension Storefront {
 			return field(field: "checkoutChargeAmount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
+		/// Whether duties are included in the prices of products in the cart. 
+		open var dutiesIncluded: Bool {
+			return internalGetDutiesIncluded()
+		}
+
+		func internalGetDutiesIncluded(alias: String? = nil) -> Bool {
+			return field(field: "dutiesIncluded", aliasSuffix: alias) as! Bool
+		}
+
 		/// The amount, before taxes and cart-level discounts, for the customer to pay. 
 		open var subtotalAmount: Storefront.MoneyV2 {
 			return internalGetSubtotalAmount()
@@ -221,6 +256,15 @@ extension Storefront {
 
 		func internalGetSubtotalAmountEstimated(alias: String? = nil) -> Bool {
 			return field(field: "subtotalAmountEstimated", aliasSuffix: alias) as! Bool
+		}
+
+		/// Whether taxes are included in the prices of products in the cart. 
+		open var taxesIncluded: Bool {
+			return internalGetTaxesIncluded()
+		}
+
+		func internalGetTaxesIncluded(alias: String? = nil) -> Bool {
+			return field(field: "taxesIncluded", aliasSuffix: alias) as! Bool
 		}
 
 		/// The total amount for the customer to pay. 
@@ -242,7 +286,7 @@ extension Storefront {
 		}
 
 		/// The duty amount for the customer to pay at checkout. 
-		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
+		@available(*, deprecated, message:"Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		open var totalDutyAmount: Storefront.MoneyV2? {
 			return internalGetTotalDutyAmount()
 		}
@@ -252,7 +296,7 @@ extension Storefront {
 		}
 
 		/// Whether the total duty amount is estimated. 
-		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
+		@available(*, deprecated, message:"Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		open var totalDutyAmountEstimated: Bool {
 			return internalGetTotalDutyAmountEstimated()
 		}
@@ -262,7 +306,7 @@ extension Storefront {
 		}
 
 		/// The tax amount for the customer to pay at checkout. 
-		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
+		@available(*, deprecated, message:"Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		open var totalTaxAmount: Storefront.MoneyV2? {
 			return internalGetTotalTaxAmount()
 		}
@@ -272,7 +316,7 @@ extension Storefront {
 		}
 
 		/// Whether the total tax amount is estimated. 
-		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
+		@available(*, deprecated, message:"Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		open var totalTaxAmountEstimated: Bool {
 			return internalGetTotalTaxAmountEstimated()
 		}
@@ -281,10 +325,10 @@ extension Storefront {
 			return field(field: "totalTaxAmountEstimated", aliasSuffix: alias) as! Bool
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch $0 {
+				switch($0) {
 					case "checkoutChargeAmount":
 					response.append(internalGetCheckoutChargeAmount())
 					response.append(contentsOf: internalGetCheckoutChargeAmount().childResponseObjectMap())

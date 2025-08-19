@@ -48,7 +48,7 @@ extension Storefront {
 		open func cartAttributesUpdate(alias: String? = nil, attributes: [AttributeInput], cartId: GraphQL.ID, _ subfields: (CartAttributesUpdatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
-			args.append("attributes:[\(attributes.map { "\($0.serialize())" }.joined(separator: ","))]")
+			args.append("attributes:[\(attributes.map{ "\($0.serialize())" }.joined(separator: ","))]")
 
 			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
 
@@ -114,6 +114,27 @@ extension Storefront {
 			return self
 		}
 
+		/// Creates a clone of the specified cart with all personally identifiable 
+		/// information removed. 
+		///
+		/// - parameters:
+		///     - cartId: The ID of the cart to clone.
+		///
+		@discardableResult
+		open func cartClone(alias: String? = nil, cartId: GraphQL.ID, _ subfields: (CartClonePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CartClonePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartClone", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Creates a new cart. 
 		///
 		/// - parameters:
@@ -150,7 +171,7 @@ extension Storefront {
 
 			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
 
-			args.append("addresses:[\(addresses.map { "\($0.serialize())" }.joined(separator: ","))]")
+			args.append("addresses:[\(addresses.map{ "\($0.serialize())" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -175,7 +196,7 @@ extension Storefront {
 
 			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
 
-			args.append("addressIds:[\(addressIds.map { "\(GraphQL.quoteString(input: "\($0.rawValue)"))" }.joined(separator: ","))]")
+			args.append("addressIds:[\(addressIds.map{ "\(GraphQL.quoteString(input: "\($0.rawValue)"))" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -183,6 +204,31 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "cartDeliveryAddressesRemove", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Replaces delivery addresses on the cart. 
+		///
+		/// - parameters:
+		///     - cartId: The ID of the cart.
+		///     - addresses: A list of delivery addresses to replace on the cart.
+		///        
+		///        The input must not contain more than `250` values.
+		///
+		@discardableResult
+		open func cartDeliveryAddressesReplace(alias: String? = nil, cartId: GraphQL.ID, addresses: [CartSelectableAddressInput], _ subfields: (CartDeliveryAddressesReplacePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
+
+			args.append("addresses:[\(addresses.map{ "\($0.serialize())" }.joined(separator: ","))]")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CartDeliveryAddressesReplacePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartDeliveryAddressesReplace", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -200,7 +246,7 @@ extension Storefront {
 
 			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
 
-			args.append("addresses:[\(addresses.map { "\($0.serialize())" }.joined(separator: ","))]")
+			args.append("addresses:[\(addresses.map{ "\($0.serialize())" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -220,16 +266,14 @@ extension Storefront {
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
-		open func cartDiscountCodesUpdate(alias: String? = nil, cartId: GraphQL.ID, discountCodes: [String]? = nil, _ subfields: (CartDiscountCodesUpdatePayloadQuery) -> Void) -> MutationQuery {
+		open func cartDiscountCodesUpdate(alias: String? = nil, cartId: GraphQL.ID, discountCodes: [String], _ subfields: (CartDiscountCodesUpdatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
 			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
 
-			if let discountCodes = discountCodes {
-				args.append("discountCodes:[\(discountCodes.map { "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
-			}
+			args.append("discountCodes:[\(discountCodes.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
 
-			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+			let argsString = "(\(args.joined(separator: ",")))"
 
 			let subquery = CartDiscountCodesUpdatePayloadQuery()
 			subfields(subquery)
@@ -252,7 +296,7 @@ extension Storefront {
 
 			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
 
-			args.append("appliedGiftCardIds:[\(appliedGiftCardIds.map { "\(GraphQL.quoteString(input: "\($0.rawValue)"))" }.joined(separator: ","))]")
+			args.append("appliedGiftCardIds:[\(appliedGiftCardIds.map{ "\(GraphQL.quoteString(input: "\($0.rawValue)"))" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -277,7 +321,7 @@ extension Storefront {
 
 			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
 
-			args.append("giftCardCodes:[\(giftCardCodes.map { "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
+			args.append("giftCardCodes:[\(giftCardCodes.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -302,7 +346,7 @@ extension Storefront {
 
 			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
 
-			args.append("lines:[\(lines.map { "\($0.serialize())" }.joined(separator: ","))]")
+			args.append("lines:[\(lines.map{ "\($0.serialize())" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -327,7 +371,7 @@ extension Storefront {
 
 			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
 
-			args.append("lineIds:[\(lineIds.map { "\(GraphQL.quoteString(input: "\($0.rawValue)"))" }.joined(separator: ","))]")
+			args.append("lineIds:[\(lineIds.map{ "\(GraphQL.quoteString(input: "\($0.rawValue)"))" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -352,7 +396,7 @@ extension Storefront {
 
 			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
 
-			args.append("lines:[\(lines.map { "\($0.serialize())" }.joined(separator: ","))]")
+			args.append("lines:[\(lines.map{ "\($0.serialize())" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -396,7 +440,7 @@ extension Storefront {
 		open func cartMetafieldsSet(alias: String? = nil, metafields: [CartMetafieldsSetInput], _ subfields: (CartMetafieldsSetPayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
-			args.append("metafields:[\(metafields.map { "\($0.serialize())" }.joined(separator: ","))]")
+			args.append("metafields:[\(metafields.map{ "\($0.serialize())" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -507,7 +551,7 @@ extension Storefront {
 
 			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
 
-			args.append("selectedDeliveryOptions:[\(selectedDeliveryOptions.map { "\($0.serialize())" }.joined(separator: ","))]")
+			args.append("selectedDeliveryOptions:[\(selectedDeliveryOptions.map{ "\($0.serialize())" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -791,6 +835,26 @@ extension Storefront {
 			return self
 		}
 
+		/// Subscribes a customer to the newsletter with an email address. 
+		///
+		/// - parameters:
+		///     - email: The customer's email address.
+		///
+		@discardableResult
+		open func customerEmailMarketingSubscribe(alias: String? = nil, email: String, _ subfields: (CustomerEmailMarketingSubscribePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("email:\(GraphQL.quoteString(input: email))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CustomerEmailMarketingSubscribePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "customerEmailMarketingSubscribe", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Sends a reset password email to the customer. The reset password email 
 		/// contains a reset password URL and token that you can pass to the 
 		/// [`customerResetByUrl`](https://shopify.dev/api/storefront/latest/mutations/customerResetByUrl) 
@@ -871,6 +935,26 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "customerResetByUrl", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Subscribes a customer to the newsletter with a phone number. 
+		///
+		/// - parameters:
+		///     - phoneNumber: The customer's phone number.
+		///
+		@discardableResult
+		open func customerSmsMarketingSubscribe(alias: String? = nil, phoneNumber: String, _ subfields: (CustomerSmsMarketingSubscribePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("phoneNumber:\(GraphQL.quoteString(input: phoneNumber))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CustomerSmsMarketingSubscribePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "customerSmsMarketingSubscribe", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -981,6 +1065,13 @@ extension Storefront {
 				}
 				return try CartBuyerIdentityUpdatePayload(fields: value)
 
+				case "cartClone":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartClonePayload(fields: value)
+
 				case "cartCreate":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -1001,6 +1092,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
 				}
 				return try CartDeliveryAddressesRemovePayload(fields: value)
+
+				case "cartDeliveryAddressesReplace":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartDeliveryAddressesReplacePayload(fields: value)
 
 				case "cartDeliveryAddressesUpdate":
 				if value is NSNull { return nil }
@@ -1184,6 +1282,13 @@ extension Storefront {
 				}
 				return try CustomerDefaultAddressUpdatePayload(fields: value)
 
+				case "customerEmailMarketingSubscribe":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CustomerEmailMarketingSubscribePayload(fields: value)
+
 				case "customerRecover":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -1204,6 +1309,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
 				}
 				return try CustomerResetByUrlPayload(fields: value)
+
+				case "customerSmsMarketingSubscribe":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CustomerSmsMarketingSubscribePayload(fields: value)
 
 				case "customerUpdate":
 				if value is NSNull { return nil }
@@ -1273,6 +1385,20 @@ extension Storefront {
 			return field(field: "cartBuyerIdentityUpdate", aliasSuffix: alias) as! Storefront.CartBuyerIdentityUpdatePayload?
 		}
 
+		/// Creates a clone of the specified cart with all personally identifiable 
+		/// information removed. 
+		open var cartClone: Storefront.CartClonePayload? {
+			return internalGetCartClone()
+		}
+
+		open func aliasedCartClone(alias: String) -> Storefront.CartClonePayload? {
+			return internalGetCartClone(alias: alias)
+		}
+
+		func internalGetCartClone(alias: String? = nil) -> Storefront.CartClonePayload? {
+			return field(field: "cartClone", aliasSuffix: alias) as! Storefront.CartClonePayload?
+		}
+
 		/// Creates a new cart. 
 		open var cartCreate: Storefront.CartCreatePayload? {
 			return internalGetCartCreate()
@@ -1310,6 +1436,19 @@ extension Storefront {
 
 		func internalGetCartDeliveryAddressesRemove(alias: String? = nil) -> Storefront.CartDeliveryAddressesRemovePayload? {
 			return field(field: "cartDeliveryAddressesRemove", aliasSuffix: alias) as! Storefront.CartDeliveryAddressesRemovePayload?
+		}
+
+		/// Replaces delivery addresses on the cart. 
+		open var cartDeliveryAddressesReplace: Storefront.CartDeliveryAddressesReplacePayload? {
+			return internalGetCartDeliveryAddressesReplace()
+		}
+
+		open func aliasedCartDeliveryAddressesReplace(alias: String) -> Storefront.CartDeliveryAddressesReplacePayload? {
+			return internalGetCartDeliveryAddressesReplace(alias: alias)
+		}
+
+		func internalGetCartDeliveryAddressesReplace(alias: String? = nil) -> Storefront.CartDeliveryAddressesReplacePayload? {
+			return field(field: "cartDeliveryAddressesReplace", aliasSuffix: alias) as! Storefront.CartDeliveryAddressesReplacePayload?
 		}
 
 		/// Updates one or more delivery addresses on a cart. 
@@ -1660,6 +1799,19 @@ extension Storefront {
 			return field(field: "customerDefaultAddressUpdate", aliasSuffix: alias) as! Storefront.CustomerDefaultAddressUpdatePayload?
 		}
 
+		/// Subscribes a customer to the newsletter with an email address. 
+		open var customerEmailMarketingSubscribe: Storefront.CustomerEmailMarketingSubscribePayload? {
+			return internalGetCustomerEmailMarketingSubscribe()
+		}
+
+		open func aliasedCustomerEmailMarketingSubscribe(alias: String) -> Storefront.CustomerEmailMarketingSubscribePayload? {
+			return internalGetCustomerEmailMarketingSubscribe(alias: alias)
+		}
+
+		func internalGetCustomerEmailMarketingSubscribe(alias: String? = nil) -> Storefront.CustomerEmailMarketingSubscribePayload? {
+			return field(field: "customerEmailMarketingSubscribe", aliasSuffix: alias) as! Storefront.CustomerEmailMarketingSubscribePayload?
+		}
+
 		/// Sends a reset password email to the customer. The reset password email 
 		/// contains a reset password URL and token that you can pass to the 
 		/// [`customerResetByUrl`](https://shopify.dev/api/storefront/latest/mutations/customerResetByUrl) 
@@ -1716,6 +1868,19 @@ extension Storefront {
 			return field(field: "customerResetByUrl", aliasSuffix: alias) as! Storefront.CustomerResetByUrlPayload?
 		}
 
+		/// Subscribes a customer to the newsletter with a phone number. 
+		open var customerSmsMarketingSubscribe: Storefront.CustomerSmsMarketingSubscribePayload? {
+			return internalGetCustomerSmsMarketingSubscribe()
+		}
+
+		open func aliasedCustomerSmsMarketingSubscribe(alias: String) -> Storefront.CustomerSmsMarketingSubscribePayload? {
+			return internalGetCustomerSmsMarketingSubscribe(alias: alias)
+		}
+
+		func internalGetCustomerSmsMarketingSubscribe(alias: String? = nil) -> Storefront.CustomerSmsMarketingSubscribePayload? {
+			return field(field: "customerSmsMarketingSubscribe", aliasSuffix: alias) as! Storefront.CustomerSmsMarketingSubscribePayload?
+		}
+
 		/// Updates an existing customer. 
 		open var customerUpdate: Storefront.CustomerUpdatePayload? {
 			return internalGetCustomerUpdate()
@@ -1755,10 +1920,10 @@ extension Storefront {
 			return field(field: "shopPayPaymentRequestSessionSubmit", aliasSuffix: alias) as! Storefront.ShopPayPaymentRequestSessionSubmitPayload?
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch $0 {
+				switch($0) {
 					case "cartAttributesUpdate":
 					if let value = internalGetCartAttributesUpdate() {
 						response.append(value)
@@ -1777,6 +1942,12 @@ extension Storefront {
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
+					case "cartClone":
+					if let value = internalGetCartClone() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "cartCreate":
 					if let value = internalGetCartCreate() {
 						response.append(value)
@@ -1791,6 +1962,12 @@ extension Storefront {
 
 					case "cartDeliveryAddressesRemove":
 					if let value = internalGetCartDeliveryAddressesRemove() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "cartDeliveryAddressesReplace":
+					if let value = internalGetCartDeliveryAddressesReplace() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
@@ -1951,6 +2128,12 @@ extension Storefront {
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
+					case "customerEmailMarketingSubscribe":
+					if let value = internalGetCustomerEmailMarketingSubscribe() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "customerRecover":
 					if let value = internalGetCustomerRecover() {
 						response.append(value)
@@ -1965,6 +2148,12 @@ extension Storefront {
 
 					case "customerResetByUrl":
 					if let value = internalGetCustomerResetByUrl() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "customerSmsMarketingSubscribe":
+					if let value = internalGetCustomerSmsMarketingSubscribe() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

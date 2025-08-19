@@ -45,6 +45,13 @@ extension Storefront {
 			return self
 		}
 
+		/// The string format of the delivery promise. 
+		@discardableResult
+		open func deliveryPromise(alias: String? = nil) -> CartDeliveryOptionQuery {
+			addField(field: "deliveryPromise", aliasSuffix: alias)
+			return self
+		}
+
 		/// The description of the delivery option. 
 		@discardableResult
 		open func description(alias: String? = nil) -> CartDeliveryOptionQuery {
@@ -66,6 +73,28 @@ extension Storefront {
 		@discardableResult
 		open func handle(alias: String? = nil) -> CartDeliveryOptionQuery {
 			addField(field: "handle", aliasSuffix: alias)
+			return self
+		}
+
+		/// The maximum date and time by which the delivery is expected to be 
+		/// completed. You must enable [processing 
+		/// time](https://help.shopify.com/manual/shipping/setting-up-and-managing-your-shipping/set-up-delivery-dates) 
+		/// or enroll in [Shopify Logistics](https://www.shopify.com/fulfillment) to 
+		/// have access to this field. 
+		@discardableResult
+		open func maxEstimatedDeliveryDate(alias: String? = nil) -> CartDeliveryOptionQuery {
+			addField(field: "maxEstimatedDeliveryDate", aliasSuffix: alias)
+			return self
+		}
+
+		/// The minimum date and time by which the delivery is expected to be 
+		/// completed. You must enable [processing 
+		/// time](https://help.shopify.com/manual/shipping/setting-up-and-managing-your-shipping/set-up-delivery-dates) 
+		/// or enroll in [Shopify Logistics](https://www.shopify.com/fulfillment) to 
+		/// have access to this field. 
+		@discardableResult
+		open func minEstimatedDeliveryDate(alias: String? = nil) -> CartDeliveryOptionQuery {
+			addField(field: "minEstimatedDeliveryDate", aliasSuffix: alias)
 			return self
 		}
 
@@ -97,6 +126,13 @@ extension Storefront {
 				}
 				return DeliveryMethodType(rawValue: value) ?? .unknownValue
 
+				case "deliveryPromise":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: CartDeliveryOption.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
 				case "description":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
@@ -111,6 +147,20 @@ extension Storefront {
 				return try MoneyV2(fields: value)
 
 				case "handle":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: CartDeliveryOption.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
+				case "maxEstimatedDeliveryDate":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: CartDeliveryOption.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
+				case "minEstimatedDeliveryDate":
+				if value is NSNull { return nil }
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: CartDeliveryOption.self, field: fieldName, value: fieldValue)
 				}
@@ -146,6 +196,15 @@ extension Storefront {
 			return field(field: "deliveryMethodType", aliasSuffix: alias) as! Storefront.DeliveryMethodType
 		}
 
+		/// The string format of the delivery promise. 
+		open var deliveryPromise: String? {
+			return internalGetDeliveryPromise()
+		}
+
+		func internalGetDeliveryPromise(alias: String? = nil) -> String? {
+			return field(field: "deliveryPromise", aliasSuffix: alias) as! String?
+		}
+
 		/// The description of the delivery option. 
 		open var description: String? {
 			return internalGetDescription()
@@ -173,6 +232,32 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
+		/// The maximum date and time by which the delivery is expected to be 
+		/// completed. You must enable [processing 
+		/// time](https://help.shopify.com/manual/shipping/setting-up-and-managing-your-shipping/set-up-delivery-dates) 
+		/// or enroll in [Shopify Logistics](https://www.shopify.com/fulfillment) to 
+		/// have access to this field. 
+		open var maxEstimatedDeliveryDate: String? {
+			return internalGetMaxEstimatedDeliveryDate()
+		}
+
+		func internalGetMaxEstimatedDeliveryDate(alias: String? = nil) -> String? {
+			return field(field: "maxEstimatedDeliveryDate", aliasSuffix: alias) as! String?
+		}
+
+		/// The minimum date and time by which the delivery is expected to be 
+		/// completed. You must enable [processing 
+		/// time](https://help.shopify.com/manual/shipping/setting-up-and-managing-your-shipping/set-up-delivery-dates) 
+		/// or enroll in [Shopify Logistics](https://www.shopify.com/fulfillment) to 
+		/// have access to this field. 
+		open var minEstimatedDeliveryDate: String? {
+			return internalGetMinEstimatedDeliveryDate()
+		}
+
+		func internalGetMinEstimatedDeliveryDate(alias: String? = nil) -> String? {
+			return field(field: "minEstimatedDeliveryDate", aliasSuffix: alias) as! String?
+		}
+
 		/// The title of the delivery option. 
 		open var title: String? {
 			return internalGetTitle()
@@ -182,10 +267,10 @@ extension Storefront {
 			return field(field: "title", aliasSuffix: alias) as! String?
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch $0 {
+				switch($0) {
 					case "estimatedCost":
 					response.append(internalGetEstimatedCost())
 					response.append(contentsOf: internalGetEstimatedCost().childResponseObjectMap())

@@ -31,6 +31,17 @@ extension Storefront {
 	open class ShopPayPaymentRequestLineItemQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ShopPayPaymentRequestLineItem
 
+		/// The amount for the line item. 
+		@available(*, deprecated, message:"This field is deprecated. Use final_line_price instead.")
+		@discardableResult
+		open func amount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ShopPayPaymentRequestLineItemQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "amount", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The final item price for the line item. 
 		@discardableResult
 		open func finalItemPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ShopPayPaymentRequestLineItemQuery {
@@ -137,6 +148,12 @@ extension Storefront {
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "amount":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: ShopPayPaymentRequestLineItem.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2(fields: value)
+
 				case "finalItemPrice":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: ShopPayPaymentRequestLineItem.self, field: fieldName, value: fieldValue)
@@ -213,6 +230,16 @@ extension Storefront {
 				default:
 				throw SchemaViolationError(type: ShopPayPaymentRequestLineItem.self, field: fieldName, value: fieldValue)
 			}
+		}
+
+		/// The amount for the line item. 
+		@available(*, deprecated, message:"This field is deprecated. Use final_line_price instead.")
+		open var amount: Storefront.MoneyV2 {
+			return internalGetAmount()
+		}
+
+		func internalGetAmount(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "amount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
 		/// The final item price for the line item. 
@@ -314,10 +341,14 @@ extension Storefront {
 			return field(field: "sku", aliasSuffix: alias) as! String?
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch $0 {
+				switch($0) {
+					case "amount":
+					response.append(internalGetAmount())
+					response.append(contentsOf: internalGetAmount().childResponseObjectMap())
+
 					case "finalItemPrice":
 					response.append(internalGetFinalItemPrice())
 					response.append(contentsOf: internalGetFinalItemPrice().childResponseObjectMap())

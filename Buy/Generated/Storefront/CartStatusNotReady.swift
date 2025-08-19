@@ -97,10 +97,10 @@ extension Storefront {
 			return field(field: "errors", aliasSuffix: alias) as! [Storefront.CartOperationError]
 		}
 
-		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
-				switch $0 {
+				switch($0) {
 					case "cart":
 					if let value = internalGetCart() {
 						response.append(value)
