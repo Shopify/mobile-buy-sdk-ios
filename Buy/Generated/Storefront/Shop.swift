@@ -58,6 +58,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The shop's contact information.
+		@discardableResult
+		open func contactInformation(alias: String? = nil, _ subfields: (ShopPolicyQuery) -> Void) -> ShopQuery {
+			let subquery = ShopPolicyQuery()
+			subfields(subquery)
+
+			addField(field: "contactInformation", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// Translations for customer accounts.
 		@discardableResult
 		open func customerAccountTranslations(alias: String? = nil, _ subfields: (TranslationQuery) -> Void) -> ShopQuery {
@@ -87,6 +97,16 @@ extension Storefront {
 		@discardableResult
 		open func id(alias: String? = nil) -> ShopQuery {
 			addField(field: "id", aliasSuffix: alias)
+			return self
+		}
+
+		/// The shop's legal notice.
+		@discardableResult
+		open func legalNotice(alias: String? = nil, _ subfields: (ShopPolicyQuery) -> Void) -> ShopQuery {
+			let subquery = ShopPolicyQuery()
+			subfields(subquery)
+
+			addField(field: "legalNotice", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -242,6 +262,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The shop's terms of sale.
+		@discardableResult
+		open func termsOfSale(alias: String? = nil, _ subfields: (ShopPolicyQuery) -> Void) -> ShopQuery {
+			let subquery = ShopPolicyQuery()
+			subfields(subquery)
+
+			addField(field: "termsOfSale", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The shop’s terms of service.
 		@discardableResult
 		open func termsOfService(alias: String? = nil, _ subfields: (ShopPolicyQuery) -> Void) -> ShopQuery {
@@ -284,6 +314,13 @@ extension Storefront {
 				}
 				return try Brand(fields: value)
 
+				case "contactInformation":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
+				}
+				return try ShopPolicy(fields: value)
+
 				case "customerAccountTranslations":
 				if value is NSNull { return nil }
 				guard let value = value as? [[String: Any]] else {
@@ -310,6 +347,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.ID(rawValue: value)
+
+				case "legalNotice":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
+				}
+				return try ShopPolicy(fields: value)
 
 				case "metafield":
 				if value is NSNull { return nil }
@@ -399,6 +443,13 @@ extension Storefront {
 				}
 				return try ShopPolicyWithDefault(fields: value)
 
+				case "termsOfSale":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
+				}
+				return try ShopPolicy(fields: value)
+
 				case "termsOfService":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -418,6 +469,15 @@ extension Storefront {
 
 		func internalGetBrand(alias: String? = nil) -> Storefront.Brand? {
 			return field(field: "brand", aliasSuffix: alias) as! Storefront.Brand?
+		}
+
+		/// The shop's contact information.
+		open var contactInformation: Storefront.ShopPolicy? {
+			return internalGetContactInformation()
+		}
+
+		func internalGetContactInformation(alias: String? = nil) -> Storefront.ShopPolicy? {
+			return field(field: "contactInformation", aliasSuffix: alias) as! Storefront.ShopPolicy?
 		}
 
 		/// Translations for customer accounts.
@@ -455,6 +515,15 @@ extension Storefront {
 
 		func internalGetId(alias: String? = nil) -> GraphQL.ID {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
+		}
+
+		/// The shop's legal notice.
+		open var legalNotice: Storefront.ShopPolicy? {
+			return internalGetLegalNotice()
+		}
+
+		func internalGetLegalNotice(alias: String? = nil) -> Storefront.ShopPolicy? {
+			return field(field: "legalNotice", aliasSuffix: alias) as! Storefront.ShopPolicy?
 		}
 
 		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
@@ -586,6 +655,15 @@ extension Storefront {
 			return field(field: "subscriptionPolicy", aliasSuffix: alias) as! Storefront.ShopPolicyWithDefault?
 		}
 
+		/// The shop's terms of sale.
+		open var termsOfSale: Storefront.ShopPolicy? {
+			return internalGetTermsOfSale()
+		}
+
+		func internalGetTermsOfSale(alias: String? = nil) -> Storefront.ShopPolicy? {
+			return field(field: "termsOfSale", aliasSuffix: alias) as! Storefront.ShopPolicy?
+		}
+
 		/// The shop’s terms of service.
 		open var termsOfService: Storefront.ShopPolicy? {
 			return internalGetTermsOfService()
@@ -605,12 +683,24 @@ extension Storefront {
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
+					case "contactInformation":
+					if let value = internalGetContactInformation() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "customerAccountTranslations":
 					if let value = internalGetCustomerAccountTranslations() {
 						value.forEach {
 							response.append($0)
 							response.append(contentsOf: $0.childResponseObjectMap())
 						}
+					}
+
+					case "legalNotice":
+					if let value = internalGetLegalNotice() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
 					case "metafield":
@@ -667,6 +757,12 @@ extension Storefront {
 
 					case "subscriptionPolicy":
 					if let value = internalGetSubscriptionPolicy() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "termsOfSale":
+					if let value = internalGetTermsOfSale() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
