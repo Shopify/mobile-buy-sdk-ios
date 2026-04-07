@@ -108,6 +108,9 @@ extension Storefront {
 		/// The quantity must be below the specified maximum for the item.
 		case maximumExceeded = "MAXIMUM_EXCEEDED"
 
+		/// An error occurred while processing cart transformations.
+		case merchandiseLineTransformersRunError = "MERCHANDISE_LINE_TRANSFORMERS_RUN_ERROR"
+
 		/// Item cannot be purchased as configured.
 		case merchandiseNotApplicable = "MERCHANDISE_NOT_APPLICABLE"
 
