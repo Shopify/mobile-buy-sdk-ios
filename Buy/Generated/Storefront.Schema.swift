@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2025 Shopify Inc. All rights reserved.
+//  Copyright (c) 2026 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -26,6 +26,6 @@
 
 extension Storefront {
   enum Schema {
-    static let version = "2025-10"
+    static let version = "2026-01"
   }
 }

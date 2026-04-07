@@ -1,5 +1,5 @@
 //
-//  CartAddress.swift
+//  SocialLoginProvider.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -26,52 +26,44 @@
 
 import Foundation
 
-/// A delivery address of the buyer that is interacting with the cart.
-public protocol CartAddress {
-}
-
 extension Storefront {
-	/// A delivery address of the buyer that is interacting with the cart.
-	open class CartAddressQuery: GraphQL.AbstractQuery, GraphQLQuery {
-		public typealias Response = CartAddress
+	/// A social login provider for customer accounts.
+	open class SocialLoginProviderQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = SocialLoginProvider
 
-		override init() {
-			super.init()
-			addField(field: "__typename")
-		}
-
-		/// A delivery address of the buyer that is interacting with the cart.
+		/// The handle of the social login provider.
 		@discardableResult
-		open func onCartDeliveryAddress(subfields: (CartDeliveryAddressQuery) -> Void) -> CartAddressQuery {
-			let subquery = CartDeliveryAddressQuery()
-			subfields(subquery)
-			addInlineFragment(on: "CartDeliveryAddress", subfields: subquery)
+		open func handle(alias: String? = nil) -> SocialLoginProviderQuery {
+			addField(field: "handle", aliasSuffix: alias)
 			return self
 		}
 	}
 
-	/// A delivery address of the buyer that is interacting with the cart.
-	open class UnknownCartAddress: GraphQL.AbstractResponse, GraphQLObject, CartAddress {
-		public typealias Query = CartAddressQuery
+	/// A social login provider for customer accounts.
+	open class SocialLoginProvider: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = SocialLoginProviderQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "handle":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: SocialLoginProvider.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
 				default:
-				throw SchemaViolationError(type: UnknownCartAddress.self, field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: SocialLoginProvider.self, field: fieldName, value: fieldValue)
 			}
 		}
 
-		internal static func create(fields: [String: Any]) throws -> CartAddress {
-			guard let typeName = fields["__typename"] as? String else {
-				throw SchemaViolationError(type: UnknownCartAddress.self, field: "__typename", value: fields["__typename"] ?? NSNull())
-			}
-			switch typeName {
-				case "CartDeliveryAddress": return try CartDeliveryAddress.init(fields: fields)
+		/// The handle of the social login provider.
+		open var handle: String {
+			return internalGetHandle()
+		}
 
-				default:
-				return try UnknownCartAddress.init(fields: fields)
-			}
+		func internalGetHandle(alias: String? = nil) -> String {
+			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {

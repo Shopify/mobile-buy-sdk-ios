@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2025 Shopify Inc. All rights reserved.
+//  Copyright (c) 2026 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -304,16 +304,14 @@ extension Storefront {
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
-		open func cartDiscountCodesUpdate(alias: String? = nil, cartId: GraphQL.ID, discountCodes: [String]? = nil, _ subfields: (CartDiscountCodesUpdatePayloadQuery) -> Void) -> MutationQuery {
+		open func cartDiscountCodesUpdate(alias: String? = nil, cartId: GraphQL.ID, discountCodes: [String], _ subfields: (CartDiscountCodesUpdatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
 			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
 
-			if let discountCodes = discountCodes {
-				args.append("discountCodes:[\(discountCodes.map { "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
-			}
+			args.append("discountCodes:[\(discountCodes.map { "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
 
-			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+			let argsString = "(\(args.joined(separator: ",")))"
 
 			let subquery = CartDiscountCodesUpdatePayloadQuery()
 			subfields(subquery)

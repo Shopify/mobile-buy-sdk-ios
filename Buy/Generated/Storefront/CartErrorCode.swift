@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2025 Shopify Inc. All rights reserved.
+//  Copyright (c) 2026 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -59,6 +59,9 @@ extension Storefront {
 
 		/// The cart is too large to save.
 		case cartTooLarge = "CART_TOO_LARGE"
+
+		/// The specified gift card recipient is invalid.
+		case giftCardRecipientInvalid = "GIFT_CARD_RECIPIENT_INVALID"
 
 		/// The input value is invalid.
 		case invalid = "INVALID"
@@ -125,6 +128,9 @@ extension Storefront {
 
 		/// Only one delivery address can be selected.
 		case onlyOneDeliveryAddressCanBeSelected = "ONLY_ONE_DELIVERY_ADDRESS_CAN_BE_SELECTED"
+
+		/// Cannot reference existing parent lines by variant_id.
+		case parentLineInvalidReference = "PARENT_LINE_INVALID_REFERENCE"
 
 		/// Parent line nesting is too deep or circular.
 		case parentLineNestingTooDeep = "PARENT_LINE_NESTING_TOO_DEEP"
