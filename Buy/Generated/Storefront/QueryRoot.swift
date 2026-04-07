@@ -27,8 +27,25 @@
 import Foundation
 
 extension Storefront {
-	/// The schema’s entry-point for queries. This acts as the public, top-level 
-	/// API from which all queries must start. 
+	/// The entry point for all Storefront API queries. Provides access to shop
+	/// resources including products, collections, carts, and customer data, as
+	/// well as content like articles and pages. This query acts as the public,
+	/// top-level type from which all queries must start. Use individual queries
+	/// like
+	/// [`product`](https://shopify.dev/docs/api/storefront/current/queries/product)
+	/// or
+	/// [`collection`](https://shopify.dev/docs/api/storefront/current/queries/collection)
+	/// to fetch specific resources by ID or handle. Use plural queries like
+	/// [`products`](https://shopify.dev/docs/api/storefront/current/queries/products)
+	/// or
+	/// [`collections`](https://shopify.dev/docs/api/storefront/current/queries/collections)
+	/// to retrieve paginated lists with optional filtering and sorting. The
+	/// [`search`](https://shopify.dev/docs/api/storefront/current/queries/search)
+	/// and
+	/// [`predictiveSearch`](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch)
+	/// queries enable storefront search functionality. Explore queries
+	/// interactively with the [GraphiQL explorer and sample query
+	/// kit](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/api-exploration).
 	open class QueryRootQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = QueryRoot
 
@@ -36,7 +53,16 @@ extension Storefront {
 			return "query " + super.description
 		}
 
-		/// Fetch a specific Article by its ID. 
+		/// Returns an
+		/// [`Article`](https://shopify.dev/docs/api/storefront/current/objects/Article)
+		/// by its ID. Each article belongs to a
+		/// [`Blog`](https://shopify.dev/docs/api/storefront/current/objects/Blog) and
+		/// includes content in both plain text and HTML formats,
+		/// [`ArticleAuthor`](https://shopify.dev/docs/api/storefront/current/objects/ArticleAuthor)
+		/// information,
+		/// [`Comment`](https://shopify.dev/docs/api/storefront/current/objects/Comment)
+		/// objects, tags, and
+		/// [`SEO`](https://shopify.dev/docs/api/storefront/current/objects/SEO) data.
 		///
 		/// - parameters:
 		///     - id: The ID of the `Article`.
@@ -56,7 +82,14 @@ extension Storefront {
 			return self
 		}
 
-		/// List of the shop's articles. 
+		/// Returns a paginated list of
+		/// [`Article`](https://shopify.dev/docs/api/storefront/current/objects/Article)
+		/// objects from the shop's
+		/// [`Blog`](https://shopify.dev/docs/api/storefront/current/objects/Blog)
+		/// objects. Each article is a blog post containing content, author
+		/// information, tags, and optional images. Use the `query` argument to filter
+		/// results by author, blog title, tags, or date fields. Sort results using the
+		/// `sortKey` argument and reverse them with the `reverse` argument.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -117,7 +150,15 @@ extension Storefront {
 			return self
 		}
 
-		/// Fetch a specific `Blog` by one of its unique attributes. 
+		/// Retrieves a
+		/// [`Blog`](https://shopify.dev/docs/api/storefront/current/objects/Blog) by
+		/// its handle or ID. A blog organizes
+		/// [`Article`](https://shopify.dev/docs/api/storefront/current/objects/Article)
+		/// objects for the online store and includes author information,
+		/// [`SEO`](https://shopify.dev/docs/api/storefront/current/objects/SEO)
+		/// settings, and custom
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// objects.
 		///
 		/// - parameters:
 		///     - handle: The handle of the `Blog`.
@@ -144,7 +185,15 @@ extension Storefront {
 			return self
 		}
 
-		/// Find a blog by its handle. 
+		/// Retrieves a
+		/// [`Blog`](https://shopify.dev/docs/api/storefront/current/objects/Blog) by
+		/// its handle. A blog organizes
+		/// [`Article`](https://shopify.dev/docs/api/storefront/current/objects/Article)
+		/// objects for the online store and includes author information,
+		/// [`SEO`](https://shopify.dev/docs/api/storefront/current/objects/SEO)
+		/// settings, and custom
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// objects.
 		///
 		/// - parameters:
 		///     - handle: The handle of the blog.
@@ -165,7 +214,11 @@ extension Storefront {
 			return self
 		}
 
-		/// List of the shop's blogs. 
+		/// Returns a paginated list of the shop's
+		/// [`Blog`](https://shopify.dev/docs/api/storefront/current/objects/Blog)
+		/// objects. Each blog serves as a container for
+		/// [`Article`](https://shopify.dev/docs/api/storefront/current/objects/Article)
+		/// objects.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -224,9 +277,16 @@ extension Storefront {
 			return self
 		}
 
-		/// Retrieve a cart by its ID. For more information, refer to [Manage a cart 
-		/// with the Storefront 
-		/// API](https://shopify.dev/custom-storefronts/cart/manage). 
+		/// Returns a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart) by
+		/// its ID. The cart contains the merchandise lines a buyer intends to
+		/// purchase, along with estimated costs, applied discounts, gift cards, and
+		/// delivery options. Use the
+		/// [`checkoutUrl`](https://shopify.dev/docs/api/storefront/latest/queries/cart#returns-Cart.fields.checkoutUrl)
+		/// field to redirect buyers to Shopify's web checkout when they're ready to
+		/// complete their purchase. For more information, refer to [Manage a cart with
+		/// the Storefront
+		/// API](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/cart/manage).
 		///
 		/// - parameters:
 		///     - id: The ID of the cart.
@@ -246,7 +306,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A poll for the status of the cart checkout completion and order creation. 
+		/// A poll for the status of the cart checkout completion and order creation.
 		///
 		/// - parameters:
 		///     - attemptId: The ID of the attempt.
@@ -266,7 +326,11 @@ extension Storefront {
 			return self
 		}
 
-		/// Fetch a specific `Collection` by one of its unique attributes. 
+		/// Retrieves a single
+		/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection)
+		/// by its ID or handle. Use the
+		/// [`products`](https://shopify.dev/docs/api/storefront/current/objects/Collection#field-Collection.fields.products)
+		/// field to access items in the collection.
 		///
 		/// - parameters:
 		///     - id: The ID of the `Collection`.
@@ -293,7 +357,10 @@ extension Storefront {
 			return self
 		}
 
-		/// Find a collection by its handle. 
+		/// Retrieves a
+		/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection)
+		/// by its URL-friendly handle. Handles are automatically generated from
+		/// collection titles but merchants can customize them.
 		///
 		/// - parameters:
 		///     - handle: The handle of the collection.
@@ -314,7 +381,10 @@ extension Storefront {
 			return self
 		}
 
-		/// List of the shop’s collections. 
+		/// Returns a paginated list of the shop's
+		/// [collections](https://shopify.dev/docs/api/storefront/current/objects/Collection).
+		/// Each `Collection` object includes a nested connection to its
+		/// [products](https://shopify.dev/docs/api/storefront/current/objects/Collection#field-Collection.fields.products).
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -372,9 +442,17 @@ extension Storefront {
 			return self
 		}
 
-		/// The customer associated with the given access token. Tokens are obtained by 
-		/// using the [`customerAccessTokenCreate` 
-		/// mutation](https://shopify.dev/docs/api/storefront/latest/mutations/customerAccessTokenCreate). 
+		/// Retrieves the
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// associated with the provided access token. Use the
+		/// [`customerAccessTokenCreate`](https://shopify.dev/docs/api/storefront/current/mutations/customerAccessTokenCreate)
+		/// mutation to obtain an access token using legacy customer account
+		/// authentication (email and password). The returned customer includes data
+		/// such as contact information,
+		/// [addresses](https://shopify.dev/docs/api/storefront/current/objects/MailingAddress),
+		/// [orders](https://shopify.dev/docs/api/storefront/current/objects/Order),
+		/// and [custom data](https://shopify.dev/docs/apps/build/custom-data)
+		/// associated with the customer.
 		///
 		/// - parameters:
 		///     - customerAccessToken: The customer access token.
@@ -394,7 +472,16 @@ extension Storefront {
 			return self
 		}
 
-		/// Returns the localized experiences configured for the shop. 
+		/// Returns the shop's localization settings. Use this query to build [country
+		/// and language
+		/// selectors](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/markets)
+		/// for your storefront. The
+		/// [`country`](https://shopify.dev/docs/api/storefront/latest/queries/localization#returns-Localization.fields.country)
+		/// and
+		/// [`language`](https://shopify.dev/docs/api/storefront/latest/queries/localization#returns-Localization.fields.language)
+		/// fields reflect the active localized experience. To change the context, use
+		/// the [`@inContext`](https://shopify.dev/docs/api/storefront#directives)
+		/// directive with your desired country or language code.
 		@discardableResult
 		open func localization(alias: String? = nil, _ subfields: (LocalizationQuery) -> Void) -> QueryRootQuery {
 			let subquery = LocalizationQuery()
@@ -404,8 +491,16 @@ extension Storefront {
 			return self
 		}
 
-		/// List of the shop's locations that support in-store pickup. When sorting by 
-		/// distance, you must specify a location via the `near` argument. 
+		/// Returns shop locations that support in-store pickup. Use the `near`
+		/// argument with
+		/// [`GeoCoordinateInput`](https://shopify.dev/docs/api/storefront/current/input-objects/GeoCoordinateInput)
+		/// to sort results by proximity to the customer's location. When sorting by
+		/// distance, set `sortKey` to
+		/// [`DISTANCE`](https://shopify.dev/docs/api/storefront/current/queries/locations#arguments-sortKey.enums.DISTANCE)
+		/// and provide coordinates using the
+		/// [`near`](https://shopify.dev/docs/api/storefront/current/queries/locations#arguments-near)
+		/// argument. Learn more about [supporting local pickup on
+		/// storefronts](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/products-collections/local-pickup).
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -457,9 +552,19 @@ extension Storefront {
 			return self
 		}
 
-		/// Retrieve a [navigation 
-		/// menu](https://help.shopify.com/manual/online-store/menus-and-links) by its 
-		/// handle. 
+		/// Retrieves a
+		/// [`Menu`](https://shopify.dev/docs/api/storefront/current/objects/Menu) by
+		/// its handle. Menus are [hierarchical navigation
+		/// structures](https://help.shopify.com/manual/online-store/menus-and-links)
+		/// that merchants configure for their storefront, such as header and footer
+		/// navigation. Each menu contains
+		/// [`MenuItem`](https://shopify.dev/docs/api/storefront/current/objects/MenuItem)
+		/// objects that can nest up to three levels deep, with each item linking to
+		/// [collections](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [pages](https://shopify.dev/docs/api/storefront/current/objects/Page),
+		/// [blogs](https://shopify.dev/docs/api/storefront/current/objects/Blog), or
+		/// external URLs.
 		///
 		/// - parameters:
 		///     - handle: The navigation menu's handle.
@@ -479,7 +584,14 @@ extension Storefront {
 			return self
 		}
 
-		/// Fetch a specific Metaobject by one of its unique identifiers. 
+		/// Retrieves a single
+		/// [`Metaobject`](https://shopify.dev/docs/api/storefront/current/objects/Metaobject)
+		/// by either its [`global
+		/// ID`](https://shopify.dev/docs/api/storefront/current/queries/metaobject#arguments-id)
+		/// or its
+		/// [`handle`](https://shopify.dev/docs/api/storefront/current/queries/metaobject#arguments-handle).
+		/// > Note: > When using the handle, you must also provide the metaobject type
+		/// because handles are only unique within a type.
 		///
 		/// - parameters:
 		///     - id: The ID of the metaobject.
@@ -506,7 +618,14 @@ extension Storefront {
 			return self
 		}
 
-		/// All active metaobjects for the shop. 
+		/// Returns a paginated list of
+		/// [`Metaobject`](https://shopify.dev/docs/api/storefront/current/objects/Metaobject)
+		/// entries for a specific type. Metaobjects are [custom data
+		/// structures](https://shopify.dev/docs/apps/build/metaobjects) that extend
+		/// Shopify's data model with merchant-defined or app-defined content like size
+		/// charts, product highlights, or custom sections. The required `type`
+		/// argument specifies which metaobject type to retrieve. You can sort results
+		/// by `id` or `updated_at` using the `sortKey` argument.
 		///
 		/// - parameters:
 		///     - type: The type of metaobject to retrieve.
@@ -556,7 +675,13 @@ extension Storefront {
 			return self
 		}
 
-		/// Returns a specific node by ID. 
+		/// Retrieves any object that implements the
+		/// [`Node`](https://shopify.dev/docs/api/storefront/current/interfaces/Node)
+		/// interface by its globally-unique ID. Use inline fragments to access
+		/// type-specific fields on the returned object. This query follows the [Relay
+		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface)
+		/// and is commonly used for refetching objects when you have their ID but need
+		/// updated data.
 		///
 		/// - parameters:
 		///     - id: The ID of the Node to return.
@@ -576,11 +701,19 @@ extension Storefront {
 			return self
 		}
 
-		/// Returns the list of nodes with the given IDs. 
+		/// Retrieves multiple objects by their global IDs in a single request. Any
+		/// object that implements the
+		/// [`Node`](https://shopify.dev/docs/api/storefront/current/interfaces/Node)
+		/// interface can be fetched, including
+		/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [collections](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// and [pages](https://shopify.dev/docs/api/storefront/current/objects/Page).
+		/// Use inline fragments to access type-specific fields on the returned
+		/// objects. The input accepts up to 250 IDs.
 		///
 		/// - parameters:
 		///     - ids: The IDs of the Nodes to return.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -598,7 +731,20 @@ extension Storefront {
 			return self
 		}
 
-		/// Fetch a specific `Page` by one of its unique attributes. 
+		/// Retrieves a
+		/// [`Page`](https://shopify.dev/docs/api/storefront/current/objects/Page) by
+		/// its
+		/// [`handle`](https://shopify.dev/docs/api/storefront/current/queries/page#arguments-handle)
+		/// or
+		/// [`id`](https://shopify.dev/docs/api/storefront/current/queries/page#arguments-id).
+		/// Pages are static content pages that merchants display outside their product
+		/// catalog, such as "About Us," "Contact," or policy pages. The returned page
+		/// includes information such as the [HTML body
+		/// content](https://shopify.dev/docs/api/storefront/current/queries/page#returns-Page.fields.body),
+		/// [`SEO`](https://shopify.dev/docs/api/storefront/current/objects/SEO)
+		/// information, and any associated
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// objects.
 		///
 		/// - parameters:
 		///     - handle: The handle of the `Page`.
@@ -625,7 +771,9 @@ extension Storefront {
 			return self
 		}
 
-		/// Find a page by its handle. 
+		/// Retrieves a
+		/// [`Page`](https://shopify.dev/docs/api/storefront/current/objects/Page) by
+		/// its handle.
 		///
 		/// - parameters:
 		///     - handle: The handle of the page.
@@ -646,7 +794,10 @@ extension Storefront {
 			return self
 		}
 
-		/// List of the shop's pages. 
+		/// Returns a paginated list of the shop's content
+		/// [pages](https://shopify.dev/docs/api/storefront/current/objects/Page).
+		/// Pages are custom HTML content like "About Us", "Contact", or policy
+		/// information that merchants display outside their product catalog.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -705,7 +856,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Settings related to payments. 
+		/// Settings related to payments.
 		@discardableResult
 		open func paymentSettings(alias: String? = nil, _ subfields: (PaymentSettingsQuery) -> Void) -> QueryRootQuery {
 			let subquery = PaymentSettingsQuery()
@@ -715,17 +866,31 @@ extension Storefront {
 			return self
 		}
 
-		/// List of the predictive search results. 
+		/// Returns suggested results as customers type in a search field, enabling
+		/// type-ahead search experiences. The query matches
+		/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [collections](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// [pages](https://shopify.dev/docs/api/storefront/current/objects/Page), and
+		/// [articles](https://shopify.dev/docs/api/storefront/current/objects/Article)
+		/// based on partial search terms, and also provides [search query
+		/// suggestions](https://shopify.dev/docs/api/storefront/current/objects/SearchQuerySuggestion)
+		/// to help customers refine their search. You can filter results by resource
+		/// type and limit the quantity. The
+		/// [`limitScope`](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch#arguments-limitScope)
+		/// argument controls whether limits apply across all result types or per type.
+		/// Use
+		/// [`unavailableProducts`](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch#arguments-unavailableProducts)
+		/// to control how out-of-stock products appear in results.
 		///
 		/// - parameters:
 		///     - limit: Limits the number of results based on `limit_scope`. The value can range from 1 to 10, and the default is 10.
 		///     - limitScope: Decides the distribution of results.
 		///     - query: The search query.
 		///     - searchableFields: Specifies the list of resource fields to use for search. The default fields searched on are TITLE, PRODUCT_TYPE, VARIANT_TITLE, and VENDOR. For the best search experience, you should search on the default field set.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///     - types: The types of resources to search for.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///     - unavailableProducts: Specifies how unavailable products are displayed in the search results.
 		///
@@ -764,7 +929,13 @@ extension Storefront {
 			return self
 		}
 
-		/// Fetch a specific `Product` by one of its unique attributes. 
+		/// Retrieves a single
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product)
+		/// by its ID or handle. Use this query to build product detail pages, access
+		/// variant and pricing information, or fetch product media and
+		/// [metafields](https://shopify.dev/docs/api/storefront/current/objects/Metafield).
+		/// See some [examples of querying
+		/// products](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/products-collections/getting-started).
 		///
 		/// - parameters:
 		///     - id: The ID of the `Product`.
@@ -791,7 +962,11 @@ extension Storefront {
 			return self
 		}
 
-		/// Find a product by its handle. 
+		/// Retrieves a
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product)
+		/// by its handle. The handle is a URL-friendly identifier that's automatically
+		/// generated from the product's title. If no product exists with the specified
+		/// handle, returns `null`.
 		///
 		/// - parameters:
 		///     - handle: A unique, human-readable string of the product's title.
@@ -814,10 +989,18 @@ extension Storefront {
 			return self
 		}
 
-		/// Find recommended products related to a given `product_id`. To learn more 
-		/// about how recommendations are generated, see [*Showing product 
-		/// recommendations on product 
-		/// pages*](https://help.shopify.com/themes/development/recommended-products). 
+		/// Returns recommended products for a given product, identified by either ID
+		/// or handle. Use the
+		/// [`intent`](https://shopify.dev/docs/api/storefront/current/enums/ProductRecommendationIntent)
+		/// argument to control the recommendation strategy. Shopify [auto-generates
+		/// related
+		/// recommendations](https://shopify.dev/docs/storefronts/themes/product-merchandising/recommendations)
+		/// based on sales data, product descriptions, and collection relationships.
+		/// Complementary recommendations require [manual
+		/// configuration](https://help.shopify.com/manual/online-store/storefront-search/search-and-discovery-recommendations)
+		/// through the Shopify Search & Discovery app. Returns up to ten
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product)
+		/// objects.
 		///
 		/// - parameters:
 		///     - productId: The id of the product.
@@ -849,8 +1032,10 @@ extension Storefront {
 			return self
 		}
 
-		/// Tags added to products. Additional access scope required: 
-		/// unauthenticated_read_product_tags. 
+		/// Returns a paginated list of all tags that have been added to
+		/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product)
+		/// in the shop. Useful for building tag-based product filtering or navigation
+		/// in a storefront.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -870,8 +1055,11 @@ extension Storefront {
 			return self
 		}
 
-		/// List of product types for the shop's products that are published to your 
-		/// app. 
+		/// Returns a list of product types from the shop's
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product)
+		/// objects that are published to your app. Use this query to build [filtering
+		/// interfaces](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/products-collections/filter-products)
+		/// or navigation menus based on product categorization.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -891,9 +1079,11 @@ extension Storefront {
 			return self
 		}
 
-		/// Returns a list of the shop's products. For storefront search, use the 
-		/// [`search`](https://shopify.dev/docs/api/storefront/latest/queries/search) 
-		/// query. 
+		/// Returns a paginated list of the shop's
+		/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product).
+		/// For full-text storefront search, use the
+		/// [`search`](https://shopify.dev/docs/api/storefront/current/queries/search)
+		/// query instead.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -957,8 +1147,9 @@ extension Storefront {
 			return self
 		}
 
-		/// The list of public Storefront API versions, including supported, release 
-		/// candidate and unstable versions. 
+		/// Returns all public Storefront [API
+		/// versions](https://shopify.dev/docs/api/storefront/current/objects/ApiVersion),
+		/// including supported, release candidate, and unstable versions.
 		@discardableResult
 		open func publicApiVersions(alias: String? = nil, _ subfields: (ApiVersionQuery) -> Void) -> QueryRootQuery {
 			let subquery = ApiVersionQuery()
@@ -968,7 +1159,18 @@ extension Storefront {
 			return self
 		}
 
-		/// List of the search results. 
+		/// Returns paginated search results for
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [`Page`](https://shopify.dev/docs/api/storefront/current/objects/Page), and
+		/// [`Article`](https://shopify.dev/docs/api/storefront/current/objects/Article)
+		/// resources based on a query string. Results are sorted by relevance by
+		/// default. The response includes the total result count and available product
+		/// filters for building [faceted search
+		/// interfaces](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/products-collections/filter-products).
+		/// Use the
+		/// [`prefix`](https://shopify.dev/docs/api/storefront/current/enums/SearchPrefixQueryType)
+		/// argument to enable partial word matching on the last search term, allowing
+		/// queries like "winter snow" to match "snowboard" or "snowshoe".
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -980,10 +1182,10 @@ extension Storefront {
 		///     - query: The search query.
 		///     - prefix: Specifies whether to perform a partial word match on the last search term.
 		///     - productFilters: Returns a subset of products matching all product filters.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///     - types: The types of resources to search for.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///     - unavailableProducts: Specifies how unavailable products or variants are displayed in the search results.
 		///
@@ -1042,7 +1244,18 @@ extension Storefront {
 			return self
 		}
 
-		/// The shop associated with the storefront access token. 
+		/// Returns the
+		/// [`Shop`](https://shopify.dev/docs/api/storefront/current/objects/Shop)
+		/// associated with the storefront access token. The `Shop` object provides
+		/// general store information such as the shop name, description, and primary
+		/// domain. Use this query to access data like store policies,
+		/// [`PaymentSettings`](https://shopify.dev/docs/api/storefront/current/objects/PaymentSettings),
+		/// [`Brand`](https://shopify.dev/docs/api/storefront/current/objects/Brand)
+		/// configuration, and shipping destinations. It also exposes
+		/// [`ShopPayInstallmentsPricing`](https://shopify.dev/docs/api/storefront/current/objects/ShopPayInstallmentsPricing)
+		/// and
+		/// [`SocialLoginProvider`](https://shopify.dev/docs/api/storefront/current/objects/SocialLoginProvider)
+		/// options for customer accounts.
 		@discardableResult
 		open func shop(alias: String? = nil, _ subfields: (ShopQuery) -> Void) -> QueryRootQuery {
 			let subquery = ShopQuery()
@@ -1052,7 +1265,18 @@ extension Storefront {
 			return self
 		}
 
-		/// Contains all fields required to generate sitemaps. 
+		/// Returns sitemap data for a specific resource type, enabling headless
+		/// storefronts to generate XML sitemaps for search engine optimization. The
+		/// query provides a page count and paginated access to resources like
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// [`Page`](https://shopify.dev/docs/api/storefront/current/objects/Page), and
+		/// [`Blog`](https://shopify.dev/docs/api/storefront/current/objects/Blog)
+		/// objects. When paginating through resources, the number of items per page
+		/// varies from 0 to 250, and empty pages can occur without indicating the end
+		/// of results. Always check
+		/// [`hasNextPage`](https://shopify.dev/docs/api/storefront/current/objects/PaginatedSitemapResources#field-PaginatedSitemapResources.fields.hasNextPage)
+		/// to determine if more pages are available.
 		///
 		/// - parameters:
 		///     - type: The type of the resource for the sitemap.
@@ -1072,7 +1296,10 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of redirects for a shop. 
+		/// Returns a paginated list of
+		/// [`UrlRedirect`](https://shopify.dev/docs/api/storefront/current/objects/UrlRedirect)
+		/// objects configured for the shop. Each redirect maps an old path to a target
+		/// location.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -1126,8 +1353,25 @@ extension Storefront {
 		}
 	}
 
-	/// The schema’s entry-point for queries. This acts as the public, top-level 
-	/// API from which all queries must start. 
+	/// The entry point for all Storefront API queries. Provides access to shop
+	/// resources including products, collections, carts, and customer data, as
+	/// well as content like articles and pages. This query acts as the public,
+	/// top-level type from which all queries must start. Use individual queries
+	/// like
+	/// [`product`](https://shopify.dev/docs/api/storefront/current/queries/product)
+	/// or
+	/// [`collection`](https://shopify.dev/docs/api/storefront/current/queries/collection)
+	/// to fetch specific resources by ID or handle. Use plural queries like
+	/// [`products`](https://shopify.dev/docs/api/storefront/current/queries/products)
+	/// or
+	/// [`collections`](https://shopify.dev/docs/api/storefront/current/queries/collections)
+	/// to retrieve paginated lists with optional filtering and sorting. The
+	/// [`search`](https://shopify.dev/docs/api/storefront/current/queries/search)
+	/// and
+	/// [`predictiveSearch`](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch)
+	/// queries enable storefront search functionality. Explore queries
+	/// interactively with the [GraphiQL explorer and sample query
+	/// kit](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/api-exploration).
 	open class QueryRoot: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = QueryRootQuery
 
@@ -1364,7 +1608,16 @@ extension Storefront {
 			}
 		}
 
-		/// Fetch a specific Article by its ID. 
+		/// Returns an
+		/// [`Article`](https://shopify.dev/docs/api/storefront/current/objects/Article)
+		/// by its ID. Each article belongs to a
+		/// [`Blog`](https://shopify.dev/docs/api/storefront/current/objects/Blog) and
+		/// includes content in both plain text and HTML formats,
+		/// [`ArticleAuthor`](https://shopify.dev/docs/api/storefront/current/objects/ArticleAuthor)
+		/// information,
+		/// [`Comment`](https://shopify.dev/docs/api/storefront/current/objects/Comment)
+		/// objects, tags, and
+		/// [`SEO`](https://shopify.dev/docs/api/storefront/current/objects/SEO) data.
 		open var article: Storefront.Article? {
 			return internalGetArticle()
 		}
@@ -1377,7 +1630,14 @@ extension Storefront {
 			return field(field: "article", aliasSuffix: alias) as! Storefront.Article?
 		}
 
-		/// List of the shop's articles. 
+		/// Returns a paginated list of
+		/// [`Article`](https://shopify.dev/docs/api/storefront/current/objects/Article)
+		/// objects from the shop's
+		/// [`Blog`](https://shopify.dev/docs/api/storefront/current/objects/Blog)
+		/// objects. Each article is a blog post containing content, author
+		/// information, tags, and optional images. Use the `query` argument to filter
+		/// results by author, blog title, tags, or date fields. Sort results using the
+		/// `sortKey` argument and reverse them with the `reverse` argument.
 		open var articles: Storefront.ArticleConnection {
 			return internalGetArticles()
 		}
@@ -1390,7 +1650,15 @@ extension Storefront {
 			return field(field: "articles", aliasSuffix: alias) as! Storefront.ArticleConnection
 		}
 
-		/// Fetch a specific `Blog` by one of its unique attributes. 
+		/// Retrieves a
+		/// [`Blog`](https://shopify.dev/docs/api/storefront/current/objects/Blog) by
+		/// its handle or ID. A blog organizes
+		/// [`Article`](https://shopify.dev/docs/api/storefront/current/objects/Article)
+		/// objects for the online store and includes author information,
+		/// [`SEO`](https://shopify.dev/docs/api/storefront/current/objects/SEO)
+		/// settings, and custom
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// objects.
 		open var blog: Storefront.Blog? {
 			return internalGetBlog()
 		}
@@ -1403,7 +1671,15 @@ extension Storefront {
 			return field(field: "blog", aliasSuffix: alias) as! Storefront.Blog?
 		}
 
-		/// Find a blog by its handle. 
+		/// Retrieves a
+		/// [`Blog`](https://shopify.dev/docs/api/storefront/current/objects/Blog) by
+		/// its handle. A blog organizes
+		/// [`Article`](https://shopify.dev/docs/api/storefront/current/objects/Article)
+		/// objects for the online store and includes author information,
+		/// [`SEO`](https://shopify.dev/docs/api/storefront/current/objects/SEO)
+		/// settings, and custom
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// objects.
 		@available(*, deprecated, message: "Use `blog` instead.")
 		open var blogByHandle: Storefront.Blog? {
 			return internalGetBlogByHandle()
@@ -1419,7 +1695,11 @@ extension Storefront {
 			return field(field: "blogByHandle", aliasSuffix: alias) as! Storefront.Blog?
 		}
 
-		/// List of the shop's blogs. 
+		/// Returns a paginated list of the shop's
+		/// [`Blog`](https://shopify.dev/docs/api/storefront/current/objects/Blog)
+		/// objects. Each blog serves as a container for
+		/// [`Article`](https://shopify.dev/docs/api/storefront/current/objects/Article)
+		/// objects.
 		open var blogs: Storefront.BlogConnection {
 			return internalGetBlogs()
 		}
@@ -1432,9 +1712,16 @@ extension Storefront {
 			return field(field: "blogs", aliasSuffix: alias) as! Storefront.BlogConnection
 		}
 
-		/// Retrieve a cart by its ID. For more information, refer to [Manage a cart 
-		/// with the Storefront 
-		/// API](https://shopify.dev/custom-storefronts/cart/manage). 
+		/// Returns a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart) by
+		/// its ID. The cart contains the merchandise lines a buyer intends to
+		/// purchase, along with estimated costs, applied discounts, gift cards, and
+		/// delivery options. Use the
+		/// [`checkoutUrl`](https://shopify.dev/docs/api/storefront/latest/queries/cart#returns-Cart.fields.checkoutUrl)
+		/// field to redirect buyers to Shopify's web checkout when they're ready to
+		/// complete their purchase. For more information, refer to [Manage a cart with
+		/// the Storefront
+		/// API](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/cart/manage).
 		open var cart: Storefront.Cart? {
 			return internalGetCart()
 		}
@@ -1447,7 +1734,7 @@ extension Storefront {
 			return field(field: "cart", aliasSuffix: alias) as! Storefront.Cart?
 		}
 
-		/// A poll for the status of the cart checkout completion and order creation. 
+		/// A poll for the status of the cart checkout completion and order creation.
 		open var cartCompletionAttempt: CartCompletionAttemptResult? {
 			return internalGetCartCompletionAttempt()
 		}
@@ -1460,7 +1747,11 @@ extension Storefront {
 			return field(field: "cartCompletionAttempt", aliasSuffix: alias) as! CartCompletionAttemptResult?
 		}
 
-		/// Fetch a specific `Collection` by one of its unique attributes. 
+		/// Retrieves a single
+		/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection)
+		/// by its ID or handle. Use the
+		/// [`products`](https://shopify.dev/docs/api/storefront/current/objects/Collection#field-Collection.fields.products)
+		/// field to access items in the collection.
 		open var collection: Storefront.Collection? {
 			return internalGetCollection()
 		}
@@ -1473,7 +1764,10 @@ extension Storefront {
 			return field(field: "collection", aliasSuffix: alias) as! Storefront.Collection?
 		}
 
-		/// Find a collection by its handle. 
+		/// Retrieves a
+		/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection)
+		/// by its URL-friendly handle. Handles are automatically generated from
+		/// collection titles but merchants can customize them.
 		@available(*, deprecated, message: "Use `collection` instead.")
 		open var collectionByHandle: Storefront.Collection? {
 			return internalGetCollectionByHandle()
@@ -1489,7 +1783,10 @@ extension Storefront {
 			return field(field: "collectionByHandle", aliasSuffix: alias) as! Storefront.Collection?
 		}
 
-		/// List of the shop’s collections. 
+		/// Returns a paginated list of the shop's
+		/// [collections](https://shopify.dev/docs/api/storefront/current/objects/Collection).
+		/// Each `Collection` object includes a nested connection to its
+		/// [products](https://shopify.dev/docs/api/storefront/current/objects/Collection#field-Collection.fields.products).
 		open var collections: Storefront.CollectionConnection {
 			return internalGetCollections()
 		}
@@ -1502,9 +1799,17 @@ extension Storefront {
 			return field(field: "collections", aliasSuffix: alias) as! Storefront.CollectionConnection
 		}
 
-		/// The customer associated with the given access token. Tokens are obtained by 
-		/// using the [`customerAccessTokenCreate` 
-		/// mutation](https://shopify.dev/docs/api/storefront/latest/mutations/customerAccessTokenCreate). 
+		/// Retrieves the
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// associated with the provided access token. Use the
+		/// [`customerAccessTokenCreate`](https://shopify.dev/docs/api/storefront/current/mutations/customerAccessTokenCreate)
+		/// mutation to obtain an access token using legacy customer account
+		/// authentication (email and password). The returned customer includes data
+		/// such as contact information,
+		/// [addresses](https://shopify.dev/docs/api/storefront/current/objects/MailingAddress),
+		/// [orders](https://shopify.dev/docs/api/storefront/current/objects/Order),
+		/// and [custom data](https://shopify.dev/docs/apps/build/custom-data)
+		/// associated with the customer.
 		open var customer: Storefront.Customer? {
 			return internalGetCustomer()
 		}
@@ -1517,7 +1822,16 @@ extension Storefront {
 			return field(field: "customer", aliasSuffix: alias) as! Storefront.Customer?
 		}
 
-		/// Returns the localized experiences configured for the shop. 
+		/// Returns the shop's localization settings. Use this query to build [country
+		/// and language
+		/// selectors](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/markets)
+		/// for your storefront. The
+		/// [`country`](https://shopify.dev/docs/api/storefront/latest/queries/localization#returns-Localization.fields.country)
+		/// and
+		/// [`language`](https://shopify.dev/docs/api/storefront/latest/queries/localization#returns-Localization.fields.language)
+		/// fields reflect the active localized experience. To change the context, use
+		/// the [`@inContext`](https://shopify.dev/docs/api/storefront#directives)
+		/// directive with your desired country or language code.
 		open var localization: Storefront.Localization {
 			return internalGetLocalization()
 		}
@@ -1526,8 +1840,16 @@ extension Storefront {
 			return field(field: "localization", aliasSuffix: alias) as! Storefront.Localization
 		}
 
-		/// List of the shop's locations that support in-store pickup. When sorting by 
-		/// distance, you must specify a location via the `near` argument. 
+		/// Returns shop locations that support in-store pickup. Use the `near`
+		/// argument with
+		/// [`GeoCoordinateInput`](https://shopify.dev/docs/api/storefront/current/input-objects/GeoCoordinateInput)
+		/// to sort results by proximity to the customer's location. When sorting by
+		/// distance, set `sortKey` to
+		/// [`DISTANCE`](https://shopify.dev/docs/api/storefront/current/queries/locations#arguments-sortKey.enums.DISTANCE)
+		/// and provide coordinates using the
+		/// [`near`](https://shopify.dev/docs/api/storefront/current/queries/locations#arguments-near)
+		/// argument. Learn more about [supporting local pickup on
+		/// storefronts](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/products-collections/local-pickup).
 		open var locations: Storefront.LocationConnection {
 			return internalGetLocations()
 		}
@@ -1540,9 +1862,19 @@ extension Storefront {
 			return field(field: "locations", aliasSuffix: alias) as! Storefront.LocationConnection
 		}
 
-		/// Retrieve a [navigation 
-		/// menu](https://help.shopify.com/manual/online-store/menus-and-links) by its 
-		/// handle. 
+		/// Retrieves a
+		/// [`Menu`](https://shopify.dev/docs/api/storefront/current/objects/Menu) by
+		/// its handle. Menus are [hierarchical navigation
+		/// structures](https://help.shopify.com/manual/online-store/menus-and-links)
+		/// that merchants configure for their storefront, such as header and footer
+		/// navigation. Each menu contains
+		/// [`MenuItem`](https://shopify.dev/docs/api/storefront/current/objects/MenuItem)
+		/// objects that can nest up to three levels deep, with each item linking to
+		/// [collections](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [pages](https://shopify.dev/docs/api/storefront/current/objects/Page),
+		/// [blogs](https://shopify.dev/docs/api/storefront/current/objects/Blog), or
+		/// external URLs.
 		open var menu: Storefront.Menu? {
 			return internalGetMenu()
 		}
@@ -1555,7 +1887,14 @@ extension Storefront {
 			return field(field: "menu", aliasSuffix: alias) as! Storefront.Menu?
 		}
 
-		/// Fetch a specific Metaobject by one of its unique identifiers. 
+		/// Retrieves a single
+		/// [`Metaobject`](https://shopify.dev/docs/api/storefront/current/objects/Metaobject)
+		/// by either its [`global
+		/// ID`](https://shopify.dev/docs/api/storefront/current/queries/metaobject#arguments-id)
+		/// or its
+		/// [`handle`](https://shopify.dev/docs/api/storefront/current/queries/metaobject#arguments-handle).
+		/// > Note: > When using the handle, you must also provide the metaobject type
+		/// because handles are only unique within a type.
 		open var metaobject: Storefront.Metaobject? {
 			return internalGetMetaobject()
 		}
@@ -1568,7 +1907,14 @@ extension Storefront {
 			return field(field: "metaobject", aliasSuffix: alias) as! Storefront.Metaobject?
 		}
 
-		/// All active metaobjects for the shop. 
+		/// Returns a paginated list of
+		/// [`Metaobject`](https://shopify.dev/docs/api/storefront/current/objects/Metaobject)
+		/// entries for a specific type. Metaobjects are [custom data
+		/// structures](https://shopify.dev/docs/apps/build/metaobjects) that extend
+		/// Shopify's data model with merchant-defined or app-defined content like size
+		/// charts, product highlights, or custom sections. The required `type`
+		/// argument specifies which metaobject type to retrieve. You can sort results
+		/// by `id` or `updated_at` using the `sortKey` argument.
 		open var metaobjects: Storefront.MetaobjectConnection {
 			return internalGetMetaobjects()
 		}
@@ -1581,7 +1927,13 @@ extension Storefront {
 			return field(field: "metaobjects", aliasSuffix: alias) as! Storefront.MetaobjectConnection
 		}
 
-		/// Returns a specific node by ID. 
+		/// Retrieves any object that implements the
+		/// [`Node`](https://shopify.dev/docs/api/storefront/current/interfaces/Node)
+		/// interface by its globally-unique ID. Use inline fragments to access
+		/// type-specific fields on the returned object. This query follows the [Relay
+		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface)
+		/// and is commonly used for refetching objects when you have their ID but need
+		/// updated data.
 		open var node: Node? {
 			return internalGetNode()
 		}
@@ -1594,7 +1946,15 @@ extension Storefront {
 			return field(field: "node", aliasSuffix: alias) as! Node?
 		}
 
-		/// Returns the list of nodes with the given IDs. 
+		/// Retrieves multiple objects by their global IDs in a single request. Any
+		/// object that implements the
+		/// [`Node`](https://shopify.dev/docs/api/storefront/current/interfaces/Node)
+		/// interface can be fetched, including
+		/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [collections](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// and [pages](https://shopify.dev/docs/api/storefront/current/objects/Page).
+		/// Use inline fragments to access type-specific fields on the returned
+		/// objects. The input accepts up to 250 IDs.
 		open var nodes: [Node?] {
 			return internalGetNodes()
 		}
@@ -1607,7 +1967,20 @@ extension Storefront {
 			return field(field: "nodes", aliasSuffix: alias) as! [Node?]
 		}
 
-		/// Fetch a specific `Page` by one of its unique attributes. 
+		/// Retrieves a
+		/// [`Page`](https://shopify.dev/docs/api/storefront/current/objects/Page) by
+		/// its
+		/// [`handle`](https://shopify.dev/docs/api/storefront/current/queries/page#arguments-handle)
+		/// or
+		/// [`id`](https://shopify.dev/docs/api/storefront/current/queries/page#arguments-id).
+		/// Pages are static content pages that merchants display outside their product
+		/// catalog, such as "About Us," "Contact," or policy pages. The returned page
+		/// includes information such as the [HTML body
+		/// content](https://shopify.dev/docs/api/storefront/current/queries/page#returns-Page.fields.body),
+		/// [`SEO`](https://shopify.dev/docs/api/storefront/current/objects/SEO)
+		/// information, and any associated
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// objects.
 		open var page: Storefront.Page? {
 			return internalGetPage()
 		}
@@ -1620,7 +1993,9 @@ extension Storefront {
 			return field(field: "page", aliasSuffix: alias) as! Storefront.Page?
 		}
 
-		/// Find a page by its handle. 
+		/// Retrieves a
+		/// [`Page`](https://shopify.dev/docs/api/storefront/current/objects/Page) by
+		/// its handle.
 		@available(*, deprecated, message: "Use `page` instead.")
 		open var pageByHandle: Storefront.Page? {
 			return internalGetPageByHandle()
@@ -1636,7 +2011,10 @@ extension Storefront {
 			return field(field: "pageByHandle", aliasSuffix: alias) as! Storefront.Page?
 		}
 
-		/// List of the shop's pages. 
+		/// Returns a paginated list of the shop's content
+		/// [pages](https://shopify.dev/docs/api/storefront/current/objects/Page).
+		/// Pages are custom HTML content like "About Us", "Contact", or policy
+		/// information that merchants display outside their product catalog.
 		open var pages: Storefront.PageConnection {
 			return internalGetPages()
 		}
@@ -1649,7 +2027,7 @@ extension Storefront {
 			return field(field: "pages", aliasSuffix: alias) as! Storefront.PageConnection
 		}
 
-		/// Settings related to payments. 
+		/// Settings related to payments.
 		open var paymentSettings: Storefront.PaymentSettings {
 			return internalGetPaymentSettings()
 		}
@@ -1658,7 +2036,21 @@ extension Storefront {
 			return field(field: "paymentSettings", aliasSuffix: alias) as! Storefront.PaymentSettings
 		}
 
-		/// List of the predictive search results. 
+		/// Returns suggested results as customers type in a search field, enabling
+		/// type-ahead search experiences. The query matches
+		/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [collections](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// [pages](https://shopify.dev/docs/api/storefront/current/objects/Page), and
+		/// [articles](https://shopify.dev/docs/api/storefront/current/objects/Article)
+		/// based on partial search terms, and also provides [search query
+		/// suggestions](https://shopify.dev/docs/api/storefront/current/objects/SearchQuerySuggestion)
+		/// to help customers refine their search. You can filter results by resource
+		/// type and limit the quantity. The
+		/// [`limitScope`](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch#arguments-limitScope)
+		/// argument controls whether limits apply across all result types or per type.
+		/// Use
+		/// [`unavailableProducts`](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch#arguments-unavailableProducts)
+		/// to control how out-of-stock products appear in results.
 		open var predictiveSearch: Storefront.PredictiveSearchResult? {
 			return internalGetPredictiveSearch()
 		}
@@ -1671,7 +2063,13 @@ extension Storefront {
 			return field(field: "predictiveSearch", aliasSuffix: alias) as! Storefront.PredictiveSearchResult?
 		}
 
-		/// Fetch a specific `Product` by one of its unique attributes. 
+		/// Retrieves a single
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product)
+		/// by its ID or handle. Use this query to build product detail pages, access
+		/// variant and pricing information, or fetch product media and
+		/// [metafields](https://shopify.dev/docs/api/storefront/current/objects/Metafield).
+		/// See some [examples of querying
+		/// products](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/products-collections/getting-started).
 		open var product: Storefront.Product? {
 			return internalGetProduct()
 		}
@@ -1684,7 +2082,11 @@ extension Storefront {
 			return field(field: "product", aliasSuffix: alias) as! Storefront.Product?
 		}
 
-		/// Find a product by its handle. 
+		/// Retrieves a
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product)
+		/// by its handle. The handle is a URL-friendly identifier that's automatically
+		/// generated from the product's title. If no product exists with the specified
+		/// handle, returns `null`.
 		@available(*, deprecated, message: "Use `product` instead.")
 		open var productByHandle: Storefront.Product? {
 			return internalGetProductByHandle()
@@ -1700,10 +2102,18 @@ extension Storefront {
 			return field(field: "productByHandle", aliasSuffix: alias) as! Storefront.Product?
 		}
 
-		/// Find recommended products related to a given `product_id`. To learn more 
-		/// about how recommendations are generated, see [*Showing product 
-		/// recommendations on product 
-		/// pages*](https://help.shopify.com/themes/development/recommended-products). 
+		/// Returns recommended products for a given product, identified by either ID
+		/// or handle. Use the
+		/// [`intent`](https://shopify.dev/docs/api/storefront/current/enums/ProductRecommendationIntent)
+		/// argument to control the recommendation strategy. Shopify [auto-generates
+		/// related
+		/// recommendations](https://shopify.dev/docs/storefronts/themes/product-merchandising/recommendations)
+		/// based on sales data, product descriptions, and collection relationships.
+		/// Complementary recommendations require [manual
+		/// configuration](https://help.shopify.com/manual/online-store/storefront-search/search-and-discovery-recommendations)
+		/// through the Shopify Search & Discovery app. Returns up to ten
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product)
+		/// objects.
 		open var productRecommendations: [Storefront.Product]? {
 			return internalGetProductRecommendations()
 		}
@@ -1716,8 +2126,10 @@ extension Storefront {
 			return field(field: "productRecommendations", aliasSuffix: alias) as! [Storefront.Product]?
 		}
 
-		/// Tags added to products. Additional access scope required: 
-		/// unauthenticated_read_product_tags. 
+		/// Returns a paginated list of all tags that have been added to
+		/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product)
+		/// in the shop. Useful for building tag-based product filtering or navigation
+		/// in a storefront.
 		open var productTags: Storefront.StringConnection {
 			return internalGetProductTags()
 		}
@@ -1730,8 +2142,11 @@ extension Storefront {
 			return field(field: "productTags", aliasSuffix: alias) as! Storefront.StringConnection
 		}
 
-		/// List of product types for the shop's products that are published to your 
-		/// app. 
+		/// Returns a list of product types from the shop's
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product)
+		/// objects that are published to your app. Use this query to build [filtering
+		/// interfaces](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/products-collections/filter-products)
+		/// or navigation menus based on product categorization.
 		open var productTypes: Storefront.StringConnection {
 			return internalGetProductTypes()
 		}
@@ -1744,9 +2159,11 @@ extension Storefront {
 			return field(field: "productTypes", aliasSuffix: alias) as! Storefront.StringConnection
 		}
 
-		/// Returns a list of the shop's products. For storefront search, use the 
-		/// [`search`](https://shopify.dev/docs/api/storefront/latest/queries/search) 
-		/// query. 
+		/// Returns a paginated list of the shop's
+		/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product).
+		/// For full-text storefront search, use the
+		/// [`search`](https://shopify.dev/docs/api/storefront/current/queries/search)
+		/// query instead.
 		open var products: Storefront.ProductConnection {
 			return internalGetProducts()
 		}
@@ -1759,8 +2176,9 @@ extension Storefront {
 			return field(field: "products", aliasSuffix: alias) as! Storefront.ProductConnection
 		}
 
-		/// The list of public Storefront API versions, including supported, release 
-		/// candidate and unstable versions. 
+		/// Returns all public Storefront [API
+		/// versions](https://shopify.dev/docs/api/storefront/current/objects/ApiVersion),
+		/// including supported, release candidate, and unstable versions.
 		open var publicApiVersions: [Storefront.ApiVersion] {
 			return internalGetPublicApiVersions()
 		}
@@ -1769,7 +2187,18 @@ extension Storefront {
 			return field(field: "publicApiVersions", aliasSuffix: alias) as! [Storefront.ApiVersion]
 		}
 
-		/// List of the search results. 
+		/// Returns paginated search results for
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [`Page`](https://shopify.dev/docs/api/storefront/current/objects/Page), and
+		/// [`Article`](https://shopify.dev/docs/api/storefront/current/objects/Article)
+		/// resources based on a query string. Results are sorted by relevance by
+		/// default. The response includes the total result count and available product
+		/// filters for building [faceted search
+		/// interfaces](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/products-collections/filter-products).
+		/// Use the
+		/// [`prefix`](https://shopify.dev/docs/api/storefront/current/enums/SearchPrefixQueryType)
+		/// argument to enable partial word matching on the last search term, allowing
+		/// queries like "winter snow" to match "snowboard" or "snowshoe".
 		open var search: Storefront.SearchResultItemConnection {
 			return internalGetSearch()
 		}
@@ -1782,7 +2211,18 @@ extension Storefront {
 			return field(field: "search", aliasSuffix: alias) as! Storefront.SearchResultItemConnection
 		}
 
-		/// The shop associated with the storefront access token. 
+		/// Returns the
+		/// [`Shop`](https://shopify.dev/docs/api/storefront/current/objects/Shop)
+		/// associated with the storefront access token. The `Shop` object provides
+		/// general store information such as the shop name, description, and primary
+		/// domain. Use this query to access data like store policies,
+		/// [`PaymentSettings`](https://shopify.dev/docs/api/storefront/current/objects/PaymentSettings),
+		/// [`Brand`](https://shopify.dev/docs/api/storefront/current/objects/Brand)
+		/// configuration, and shipping destinations. It also exposes
+		/// [`ShopPayInstallmentsPricing`](https://shopify.dev/docs/api/storefront/current/objects/ShopPayInstallmentsPricing)
+		/// and
+		/// [`SocialLoginProvider`](https://shopify.dev/docs/api/storefront/current/objects/SocialLoginProvider)
+		/// options for customer accounts.
 		open var shop: Storefront.Shop {
 			return internalGetShop()
 		}
@@ -1791,7 +2231,18 @@ extension Storefront {
 			return field(field: "shop", aliasSuffix: alias) as! Storefront.Shop
 		}
 
-		/// Contains all fields required to generate sitemaps. 
+		/// Returns sitemap data for a specific resource type, enabling headless
+		/// storefronts to generate XML sitemaps for search engine optimization. The
+		/// query provides a page count and paginated access to resources like
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// [`Page`](https://shopify.dev/docs/api/storefront/current/objects/Page), and
+		/// [`Blog`](https://shopify.dev/docs/api/storefront/current/objects/Blog)
+		/// objects. When paginating through resources, the number of items per page
+		/// varies from 0 to 250, and empty pages can occur without indicating the end
+		/// of results. Always check
+		/// [`hasNextPage`](https://shopify.dev/docs/api/storefront/current/objects/PaginatedSitemapResources#field-PaginatedSitemapResources.fields.hasNextPage)
+		/// to determine if more pages are available.
 		open var sitemap: Storefront.Sitemap {
 			return internalGetSitemap()
 		}
@@ -1804,7 +2255,10 @@ extension Storefront {
 			return field(field: "sitemap", aliasSuffix: alias) as! Storefront.Sitemap
 		}
 
-		/// A list of redirects for a shop. 
+		/// Returns a paginated list of
+		/// [`UrlRedirect`](https://shopify.dev/docs/api/storefront/current/objects/UrlRedirect)
+		/// objects configured for the shop. Each redirect maps an old path to a target
+		/// location.
 		open var urlRedirects: Storefront.UrlRedirectConnection {
 			return internalGetUrlRedirects()
 		}

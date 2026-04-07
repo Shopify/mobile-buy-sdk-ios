@@ -27,19 +27,31 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a generic custom attribute, such as whether an order is a 
-	/// customer's first. 
+	/// A custom key-value pair for storing additional information on
+	/// [carts](https://shopify.dev/docs/api/storefront/current/objects/Cart),
+	/// [cart
+	/// lines](https://shopify.dev/docs/api/storefront/current/objects/CartLine),
+	/// [orders](https://shopify.dev/docs/api/storefront/current/objects/Order),
+	/// and [order line
+	/// items](https://shopify.dev/docs/api/storefront/current/objects/OrderLineItem).
+	/// Common uses include gift wrapping requests, customer notes, and tracking
+	/// whether a customer is a first-time buyer. Attributes set on a cart carry
+	/// over to the resulting order after checkout. Use the
+	/// [`cartAttributesUpdate`](https://shopify.dev/docs/api/storefront/current/mutations/cartAttributesUpdate)
+	/// mutation to add or modify cart attributes. For a step-by-step guide, see
+	/// [managing carts with the Storefront
+	/// API](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/cart/manage).
 	open class AttributeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Attribute
 
-		/// The key or name of the attribute. For example, `"customersFirstOrder"`. 
+		/// The key or name of the attribute. For example, `"customersFirstOrder"`.
 		@discardableResult
 		open func key(alias: String? = nil) -> AttributeQuery {
 			addField(field: "key", aliasSuffix: alias)
 			return self
 		}
 
-		/// The value of the attribute. For example, `"true"`. 
+		/// The value of the attribute. For example, `"true"`.
 		@discardableResult
 		open func value(alias: String? = nil) -> AttributeQuery {
 			addField(field: "value", aliasSuffix: alias)
@@ -47,8 +59,20 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a generic custom attribute, such as whether an order is a 
-	/// customer's first. 
+	/// A custom key-value pair for storing additional information on
+	/// [carts](https://shopify.dev/docs/api/storefront/current/objects/Cart),
+	/// [cart
+	/// lines](https://shopify.dev/docs/api/storefront/current/objects/CartLine),
+	/// [orders](https://shopify.dev/docs/api/storefront/current/objects/Order),
+	/// and [order line
+	/// items](https://shopify.dev/docs/api/storefront/current/objects/OrderLineItem).
+	/// Common uses include gift wrapping requests, customer notes, and tracking
+	/// whether a customer is a first-time buyer. Attributes set on a cart carry
+	/// over to the resulting order after checkout. Use the
+	/// [`cartAttributesUpdate`](https://shopify.dev/docs/api/storefront/current/mutations/cartAttributesUpdate)
+	/// mutation to add or modify cart attributes. For a step-by-step guide, see
+	/// [managing carts with the Storefront
+	/// API](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/cart/manage).
 	open class Attribute: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = AttributeQuery
 
@@ -73,7 +97,7 @@ extension Storefront {
 			}
 		}
 
-		/// The key or name of the attribute. For example, `"customersFirstOrder"`. 
+		/// The key or name of the attribute. For example, `"customersFirstOrder"`.
 		open var key: String {
 			return internalGetKey()
 		}
@@ -82,7 +106,7 @@ extension Storefront {
 			return field(field: "key", aliasSuffix: alias) as! String
 		}
 
-		/// The value of the attribute. For example, `"true"`. 
+		/// The value of the attribute. For example, `"true"`.
 		open var value: String? {
 			return internalGetValue()
 		}

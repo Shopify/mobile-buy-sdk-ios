@@ -27,14 +27,17 @@
 import Foundation
 
 extension Storefront {
-	/// A cart represents the merchandise that a buyer intends to purchase, and the 
-	/// estimated cost associated with the cart. Learn how to [interact with a 
-	/// cart](https://shopify.dev/custom-storefronts/internationalization/international-pricing) 
-	/// during a customer's session. 
+	/// A cart represents the merchandise that a buyer intends to purchase, and the
+	/// estimated cost associated with the cart, throughout a customer's session.
+	/// Use the
+	/// [`checkoutUrl`](https://shopify.dev/docs/api/storefront/current/objects/Cart#field-checkoutUrl)
+	/// field to direct buyers to Shopify's web checkout to complete their
+	/// purchase. Learn more about [interacting with
+	/// carts](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/cart/manage).
 	open class CartQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Cart
 
-		/// The gift cards that have been applied to the cart. 
+		/// The gift cards that have been applied to the cart.
 		@discardableResult
 		open func appliedGiftCards(alias: String? = nil, _ subfields: (AppliedGiftCardQuery) -> Void) -> CartQuery {
 			let subquery = AppliedGiftCardQuery()
@@ -44,7 +47,7 @@ extension Storefront {
 			return self
 		}
 
-		/// An attribute associated with the cart. 
+		/// An attribute associated with the cart.
 		///
 		/// - parameters:
 		///     - key: The key of the attribute.
@@ -64,8 +67,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The attributes associated with the cart. Attributes are represented as 
-		/// key-value pairs. 
+		/// The attributes associated with the cart. Attributes are represented as
+		/// key-value pairs.
 		@discardableResult
 		open func attributes(alias: String? = nil, _ subfields: (AttributeQuery) -> Void) -> CartQuery {
 			let subquery = AttributeQuery()
@@ -75,7 +78,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Information about the buyer that's interacting with the cart. 
+		/// Information about the buyer that's interacting with the cart.
 		@discardableResult
 		open func buyerIdentity(alias: String? = nil, _ subfields: (CartBuyerIdentityQuery) -> Void) -> CartQuery {
 			let subquery = CartBuyerIdentityQuery()
@@ -85,17 +88,17 @@ extension Storefront {
 			return self
 		}
 
-		/// The URL of the checkout for the cart. 
+		/// The URL of the checkout for the cart.
 		@discardableResult
 		open func checkoutUrl(alias: String? = nil) -> CartQuery {
 			addField(field: "checkoutUrl", aliasSuffix: alias)
 			return self
 		}
 
-		/// The estimated costs that the buyer will pay at checkout. The costs are 
-		/// subject to change and changes will be reflected at checkout. The `cost` 
-		/// field uses the `buyerIdentity` field to determine [international 
-		/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing). 
+		/// The estimated costs that the buyer will pay at checkout. The costs are
+		/// subject to change and changes will be reflected at checkout. The `cost`
+		/// field uses the `buyerIdentity` field to determine [international
+		/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing).
 		@discardableResult
 		open func cost(alias: String? = nil, _ subfields: (CartCostQuery) -> Void) -> CartQuery {
 			let subquery = CartCostQuery()
@@ -105,14 +108,14 @@ extension Storefront {
 			return self
 		}
 
-		/// The date and time when the cart was created. 
+		/// The date and time when the cart was created.
 		@discardableResult
 		open func createdAt(alias: String? = nil) -> CartQuery {
 			addField(field: "createdAt", aliasSuffix: alias)
 			return self
 		}
 
-		/// The delivery properties of the cart. 
+		/// The delivery properties of the cart.
 		@discardableResult
 		open func delivery(alias: String? = nil, _ subfields: (CartDeliveryQuery) -> Void) -> CartQuery {
 			let subquery = CartDeliveryQuery()
@@ -122,9 +125,9 @@ extension Storefront {
 			return self
 		}
 
-		/// The delivery groups available for the cart, based on the buyer identity 
-		/// default delivery address preference or the default address of the logged-in 
-		/// customer. 
+		/// The delivery groups available for the cart, based on the buyer identity
+		/// default delivery address preference or the default address of the logged-in
+		/// customer.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -133,9 +136,9 @@ extension Storefront {
 		///     - before: Returns the elements that come before the specified cursor.
 		///     - reverse: Reverse the order of the underlying list.
 		///     - withCarrierRates: Whether to include [carrier-calculated delivery rates](https://help.shopify.com/en/manual/shipping/setting-up-and-managing-your-shipping/enabling-shipping-carriers) in the response.
-		///        
+		///
 		///        By default, only static shipping rates are returned. This argument requires mandatory usage of the [`@defer` directive](https://shopify.dev/docs/api/storefront#directives).
-		///        
+		///
 		///        For more information, refer to [fetching carrier-calculated rates for the cart using `@defer`](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/defer#fetching-carrier-calculated-rates-for-the-cart-using-defer).
 		///
 		@discardableResult
@@ -175,7 +178,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The discounts that have been applied to the entire cart. 
+		/// The discounts that have been applied to the entire cart.
+		@available(*, deprecated, message: "Use `cart.lines[].discountAllocations(lineLevelOnly: false)` and `cart.deliveryGroups[].discountAllocations` instead.")
 		@discardableResult
 		open func discountAllocations(alias: String? = nil, _ subfields: (CartDiscountAllocationQuery) -> Void) -> CartQuery {
 			let subquery = CartDiscountAllocationQuery()
@@ -185,7 +189,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The case-insensitive discount codes that the customer added at checkout. 
+		/// The case-insensitive discount codes that the customer added at checkout.
 		@discardableResult
 		open func discountCodes(alias: String? = nil, _ subfields: (CartDiscountCodeQuery) -> Void) -> CartQuery {
 			let subquery = CartDiscountCodeQuery()
@@ -195,11 +199,11 @@ extension Storefront {
 			return self
 		}
 
-		/// The estimated costs that the buyer will pay at checkout. The estimated 
-		/// costs are subject to change and changes will be reflected at checkout. The 
-		/// `estimatedCost` field uses the `buyerIdentity` field to determine 
-		/// [international 
-		/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing). 
+		/// The estimated costs that the buyer will pay at checkout. The estimated
+		/// costs are subject to change and changes will be reflected at checkout. The
+		/// `estimatedCost` field uses the `buyerIdentity` field to determine
+		/// [international
+		/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing).
 		@available(*, deprecated, message: "Use `cost` instead.")
 		@discardableResult
 		open func estimatedCost(alias: String? = nil, _ subfields: (CartEstimatedCostQuery) -> Void) -> CartQuery {
@@ -210,15 +214,15 @@ extension Storefront {
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> CartQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// A list of lines containing information about the items the customer intends 
-		/// to purchase. 
+		/// A list of lines containing information about the items the customer intends
+		/// to purchase.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -260,9 +264,9 @@ extension Storefront {
 			return self
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		///
 		/// - parameters:
 		///     - namespace: The container the metafield belongs to. If omitted, the app-reserved namespace will be used.
@@ -287,12 +291,12 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		///
 		/// - parameters:
 		///     - identifiers: The list of metafields to retrieve by namespace and key.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -310,22 +314,22 @@ extension Storefront {
 			return self
 		}
 
-		/// A note that's associated with the cart. For example, the note can be a 
-		/// personalized message to the buyer. 
+		/// A note that's associated with the cart. For example, the note can be a
+		/// personalized message to the buyer.
 		@discardableResult
 		open func note(alias: String? = nil) -> CartQuery {
 			addField(field: "note", aliasSuffix: alias)
 			return self
 		}
 
-		/// The total number of items in the cart. 
+		/// The total number of items in the cart.
 		@discardableResult
 		open func totalQuantity(alias: String? = nil) -> CartQuery {
 			addField(field: "totalQuantity", aliasSuffix: alias)
 			return self
 		}
 
-		/// The date and time when the cart was updated. 
+		/// The date and time when the cart was updated.
 		@discardableResult
 		open func updatedAt(alias: String? = nil) -> CartQuery {
 			addField(field: "updatedAt", aliasSuffix: alias)
@@ -333,10 +337,13 @@ extension Storefront {
 		}
 	}
 
-	/// A cart represents the merchandise that a buyer intends to purchase, and the 
-	/// estimated cost associated with the cart. Learn how to [interact with a 
-	/// cart](https://shopify.dev/custom-storefronts/internationalization/international-pricing) 
-	/// during a customer's session. 
+	/// A cart represents the merchandise that a buyer intends to purchase, and the
+	/// estimated cost associated with the cart, throughout a customer's session.
+	/// Use the
+	/// [`checkoutUrl`](https://shopify.dev/docs/api/storefront/current/objects/Cart#field-checkoutUrl)
+	/// field to direct buyers to Shopify's web checkout to complete their
+	/// purchase. Learn more about [interacting with
+	/// carts](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/cart/manage).
 	open class Cart: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node {
 		public typealias Query = CartQuery
 
@@ -469,7 +476,7 @@ extension Storefront {
 			}
 		}
 
-		/// The gift cards that have been applied to the cart. 
+		/// The gift cards that have been applied to the cart.
 		open var appliedGiftCards: [Storefront.AppliedGiftCard] {
 			return internalGetAppliedGiftCards()
 		}
@@ -478,7 +485,7 @@ extension Storefront {
 			return field(field: "appliedGiftCards", aliasSuffix: alias) as! [Storefront.AppliedGiftCard]
 		}
 
-		/// An attribute associated with the cart. 
+		/// An attribute associated with the cart.
 		open var attribute: Storefront.Attribute? {
 			return internalGetAttribute()
 		}
@@ -491,8 +498,8 @@ extension Storefront {
 			return field(field: "attribute", aliasSuffix: alias) as! Storefront.Attribute?
 		}
 
-		/// The attributes associated with the cart. Attributes are represented as 
-		/// key-value pairs. 
+		/// The attributes associated with the cart. Attributes are represented as
+		/// key-value pairs.
 		open var attributes: [Storefront.Attribute] {
 			return internalGetAttributes()
 		}
@@ -501,7 +508,7 @@ extension Storefront {
 			return field(field: "attributes", aliasSuffix: alias) as! [Storefront.Attribute]
 		}
 
-		/// Information about the buyer that's interacting with the cart. 
+		/// Information about the buyer that's interacting with the cart.
 		open var buyerIdentity: Storefront.CartBuyerIdentity {
 			return internalGetBuyerIdentity()
 		}
@@ -510,7 +517,7 @@ extension Storefront {
 			return field(field: "buyerIdentity", aliasSuffix: alias) as! Storefront.CartBuyerIdentity
 		}
 
-		/// The URL of the checkout for the cart. 
+		/// The URL of the checkout for the cart.
 		open var checkoutUrl: URL {
 			return internalGetCheckoutUrl()
 		}
@@ -519,10 +526,10 @@ extension Storefront {
 			return field(field: "checkoutUrl", aliasSuffix: alias) as! URL
 		}
 
-		/// The estimated costs that the buyer will pay at checkout. The costs are 
-		/// subject to change and changes will be reflected at checkout. The `cost` 
-		/// field uses the `buyerIdentity` field to determine [international 
-		/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing). 
+		/// The estimated costs that the buyer will pay at checkout. The costs are
+		/// subject to change and changes will be reflected at checkout. The `cost`
+		/// field uses the `buyerIdentity` field to determine [international
+		/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing).
 		open var cost: Storefront.CartCost {
 			return internalGetCost()
 		}
@@ -531,7 +538,7 @@ extension Storefront {
 			return field(field: "cost", aliasSuffix: alias) as! Storefront.CartCost
 		}
 
-		/// The date and time when the cart was created. 
+		/// The date and time when the cart was created.
 		open var createdAt: Date {
 			return internalGetCreatedAt()
 		}
@@ -540,7 +547,7 @@ extension Storefront {
 			return field(field: "createdAt", aliasSuffix: alias) as! Date
 		}
 
-		/// The delivery properties of the cart. 
+		/// The delivery properties of the cart.
 		open var delivery: Storefront.CartDelivery {
 			return internalGetDelivery()
 		}
@@ -549,9 +556,9 @@ extension Storefront {
 			return field(field: "delivery", aliasSuffix: alias) as! Storefront.CartDelivery
 		}
 
-		/// The delivery groups available for the cart, based on the buyer identity 
-		/// default delivery address preference or the default address of the logged-in 
-		/// customer. 
+		/// The delivery groups available for the cart, based on the buyer identity
+		/// default delivery address preference or the default address of the logged-in
+		/// customer.
 		open var deliveryGroups: Storefront.CartDeliveryGroupConnection {
 			return internalGetDeliveryGroups()
 		}
@@ -564,7 +571,8 @@ extension Storefront {
 			return field(field: "deliveryGroups", aliasSuffix: alias) as! Storefront.CartDeliveryGroupConnection
 		}
 
-		/// The discounts that have been applied to the entire cart. 
+		/// The discounts that have been applied to the entire cart.
+		@available(*, deprecated, message: "Use `cart.lines[].discountAllocations(lineLevelOnly: false)` and `cart.deliveryGroups[].discountAllocations` instead.")
 		open var discountAllocations: [CartDiscountAllocation] {
 			return internalGetDiscountAllocations()
 		}
@@ -573,7 +581,7 @@ extension Storefront {
 			return field(field: "discountAllocations", aliasSuffix: alias) as! [CartDiscountAllocation]
 		}
 
-		/// The case-insensitive discount codes that the customer added at checkout. 
+		/// The case-insensitive discount codes that the customer added at checkout.
 		open var discountCodes: [Storefront.CartDiscountCode] {
 			return internalGetDiscountCodes()
 		}
@@ -582,11 +590,11 @@ extension Storefront {
 			return field(field: "discountCodes", aliasSuffix: alias) as! [Storefront.CartDiscountCode]
 		}
 
-		/// The estimated costs that the buyer will pay at checkout. The estimated 
-		/// costs are subject to change and changes will be reflected at checkout. The 
-		/// `estimatedCost` field uses the `buyerIdentity` field to determine 
-		/// [international 
-		/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing). 
+		/// The estimated costs that the buyer will pay at checkout. The estimated
+		/// costs are subject to change and changes will be reflected at checkout. The
+		/// `estimatedCost` field uses the `buyerIdentity` field to determine
+		/// [international
+		/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing).
 		@available(*, deprecated, message: "Use `cost` instead.")
 		open var estimatedCost: Storefront.CartEstimatedCost {
 			return internalGetEstimatedCost()
@@ -596,7 +604,7 @@ extension Storefront {
 			return field(field: "estimatedCost", aliasSuffix: alias) as! Storefront.CartEstimatedCost
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -605,8 +613,8 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// A list of lines containing information about the items the customer intends 
-		/// to purchase. 
+		/// A list of lines containing information about the items the customer intends
+		/// to purchase.
 		open var lines: Storefront.BaseCartLineConnection {
 			return internalGetLines()
 		}
@@ -619,9 +627,9 @@ extension Storefront {
 			return field(field: "lines", aliasSuffix: alias) as! Storefront.BaseCartLineConnection
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		open var metafield: Storefront.Metafield? {
 			return internalGetMetafield()
 		}
@@ -634,8 +642,8 @@ extension Storefront {
 			return field(field: "metafield", aliasSuffix: alias) as! Storefront.Metafield?
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		open var metafields: [Storefront.Metafield?] {
 			return internalGetMetafields()
 		}
@@ -648,8 +656,8 @@ extension Storefront {
 			return field(field: "metafields", aliasSuffix: alias) as! [Storefront.Metafield?]
 		}
 
-		/// A note that's associated with the cart. For example, the note can be a 
-		/// personalized message to the buyer. 
+		/// A note that's associated with the cart. For example, the note can be a
+		/// personalized message to the buyer.
 		open var note: String? {
 			return internalGetNote()
 		}
@@ -658,7 +666,7 @@ extension Storefront {
 			return field(field: "note", aliasSuffix: alias) as! String?
 		}
 
-		/// The total number of items in the cart. 
+		/// The total number of items in the cart.
 		open var totalQuantity: Int32 {
 			return internalGetTotalQuantity()
 		}
@@ -667,7 +675,7 @@ extension Storefront {
 			return field(field: "totalQuantity", aliasSuffix: alias) as! Int32
 		}
 
-		/// The date and time when the cart was updated. 
+		/// The date and time when the cart was updated.
 		open var updatedAt: Date {
 			return internalGetUpdatedAt()
 		}

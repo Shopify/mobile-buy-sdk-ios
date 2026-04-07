@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Details about the gift card used on the checkout. 
+	/// Details about the gift card used on the checkout.
 	open class AppliedGiftCardQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = AppliedGiftCard
 
-		/// The amount that was taken from the gift card by applying it. 
+		/// The amount that was taken from the gift card by applying it.
 		@discardableResult
 		open func amountUsed(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> AppliedGiftCardQuery {
 			let subquery = MoneyV2Query()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The amount that was taken from the gift card by applying it. 
+		/// The amount that was taken from the gift card by applying it.
 		@available(*, deprecated, message: "Use `amountUsed` instead.")
 		@discardableResult
 		open func amountUsedV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> AppliedGiftCardQuery {
@@ -52,7 +52,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The amount left on the gift card. 
+		/// The amount left on the gift card.
 		@discardableResult
 		open func balance(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> AppliedGiftCardQuery {
 			let subquery = MoneyV2Query()
@@ -62,7 +62,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The amount left on the gift card. 
+		/// The amount left on the gift card.
 		@available(*, deprecated, message: "Use `balance` instead.")
 		@discardableResult
 		open func balanceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> AppliedGiftCardQuery {
@@ -73,21 +73,21 @@ extension Storefront {
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> AppliedGiftCardQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The last characters of the gift card. 
+		/// The last characters of the gift card.
 		@discardableResult
 		open func lastCharacters(alias: String? = nil) -> AppliedGiftCardQuery {
 			addField(field: "lastCharacters", aliasSuffix: alias)
 			return self
 		}
 
-		/// The amount that was applied to the checkout in its currency. 
+		/// The amount that was applied to the checkout in its currency.
 		@discardableResult
 		open func presentmentAmountUsed(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> AppliedGiftCardQuery {
 			let subquery = MoneyV2Query()
@@ -98,7 +98,7 @@ extension Storefront {
 		}
 	}
 
-	/// Details about the gift card used on the checkout. 
+	/// Details about the gift card used on the checkout.
 	open class AppliedGiftCard: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = AppliedGiftCardQuery
 
@@ -152,7 +152,7 @@ extension Storefront {
 			}
 		}
 
-		/// The amount that was taken from the gift card by applying it. 
+		/// The amount that was taken from the gift card by applying it.
 		open var amountUsed: Storefront.MoneyV2 {
 			return internalGetAmountUsed()
 		}
@@ -161,7 +161,7 @@ extension Storefront {
 			return field(field: "amountUsed", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The amount that was taken from the gift card by applying it. 
+		/// The amount that was taken from the gift card by applying it.
 		@available(*, deprecated, message: "Use `amountUsed` instead.")
 		open var amountUsedV2: Storefront.MoneyV2 {
 			return internalGetAmountUsedV2()
@@ -171,7 +171,7 @@ extension Storefront {
 			return field(field: "amountUsedV2", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The amount left on the gift card. 
+		/// The amount left on the gift card.
 		open var balance: Storefront.MoneyV2 {
 			return internalGetBalance()
 		}
@@ -180,7 +180,7 @@ extension Storefront {
 			return field(field: "balance", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The amount left on the gift card. 
+		/// The amount left on the gift card.
 		@available(*, deprecated, message: "Use `balance` instead.")
 		open var balanceV2: Storefront.MoneyV2 {
 			return internalGetBalanceV2()
@@ -190,7 +190,7 @@ extension Storefront {
 			return field(field: "balanceV2", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -199,7 +199,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The last characters of the gift card. 
+		/// The last characters of the gift card.
 		open var lastCharacters: String {
 			return internalGetLastCharacters()
 		}
@@ -208,7 +208,7 @@ extension Storefront {
 			return field(field: "lastCharacters", aliasSuffix: alias) as! String
 		}
 
-		/// The amount that was applied to the checkout in its currency. 
+		/// The amount that was applied to the checkout in its currency.
 		open var presentmentAmountUsed: Storefront.MoneyV2 {
 			return internalGetPresentmentAmountUsed()
 		}

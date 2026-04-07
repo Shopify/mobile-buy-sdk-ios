@@ -27,49 +27,57 @@
 import Foundation
 
 extension Storefront {
-	/// Discount code applications capture the intentions of a discount code at the 
-	/// time that it is applied. 
+	/// Records the configuration and intent of a [discount
+	/// code](https://help.shopify.com/manual/discounts/discount-methods/discount-codes)
+	/// when a customer applies it. This includes the code string, allocation
+	/// method, target type, and discount value at the time of application. The
+	/// [`applicable`](https://shopify.dev/docs/api/storefront/latest/objects/DiscountCodeApplication#field-DiscountCodeApplication.fields.applicable)
+	/// field indicates whether the code was successfully applied. > Note: > To see
+	/// the actual amounts discounted on specific line items or shipping lines, use
+	/// the
+	/// [`DiscountAllocation`](https://shopify.dev/docs/api/storefront/current/objects/DiscountAllocation)
+	/// object instead.
 	open class DiscountCodeApplicationQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = DiscountCodeApplication
 
-		/// The method by which the discount's value is allocated to its entitled 
-		/// items. 
+		/// The method by which the discount's value is allocated to its entitled
+		/// items.
 		@discardableResult
 		open func allocationMethod(alias: String? = nil) -> DiscountCodeApplicationQuery {
 			addField(field: "allocationMethod", aliasSuffix: alias)
 			return self
 		}
 
-		/// Specifies whether the discount code was applied successfully. 
+		/// Specifies whether the discount code was applied successfully.
 		@discardableResult
 		open func applicable(alias: String? = nil) -> DiscountCodeApplicationQuery {
 			addField(field: "applicable", aliasSuffix: alias)
 			return self
 		}
 
-		/// The string identifying the discount code that was used at the time of 
-		/// application. 
+		/// The string identifying the discount code that was used at the time of
+		/// application.
 		@discardableResult
 		open func code(alias: String? = nil) -> DiscountCodeApplicationQuery {
 			addField(field: "code", aliasSuffix: alias)
 			return self
 		}
 
-		/// Which lines of targetType that the discount is allocated over. 
+		/// Which lines of targetType that the discount is allocated over.
 		@discardableResult
 		open func targetSelection(alias: String? = nil) -> DiscountCodeApplicationQuery {
 			addField(field: "targetSelection", aliasSuffix: alias)
 			return self
 		}
 
-		/// The type of line that the discount is applicable towards. 
+		/// The type of line that the discount is applicable towards.
 		@discardableResult
 		open func targetType(alias: String? = nil) -> DiscountCodeApplicationQuery {
 			addField(field: "targetType", aliasSuffix: alias)
 			return self
 		}
 
-		/// The value of the discount application. 
+		/// The value of the discount application.
 		@discardableResult
 		open func value(alias: String? = nil, _ subfields: (PricingValueQuery) -> Void) -> DiscountCodeApplicationQuery {
 			let subquery = PricingValueQuery()
@@ -80,8 +88,16 @@ extension Storefront {
 		}
 	}
 
-	/// Discount code applications capture the intentions of a discount code at the 
-	/// time that it is applied. 
+	/// Records the configuration and intent of a [discount
+	/// code](https://help.shopify.com/manual/discounts/discount-methods/discount-codes)
+	/// when a customer applies it. This includes the code string, allocation
+	/// method, target type, and discount value at the time of application. The
+	/// [`applicable`](https://shopify.dev/docs/api/storefront/latest/objects/DiscountCodeApplication#field-DiscountCodeApplication.fields.applicable)
+	/// field indicates whether the code was successfully applied. > Note: > To see
+	/// the actual amounts discounted on specific line items or shipping lines, use
+	/// the
+	/// [`DiscountAllocation`](https://shopify.dev/docs/api/storefront/current/objects/DiscountAllocation)
+	/// object instead.
 	open class DiscountCodeApplication: GraphQL.AbstractResponse, GraphQLObject, DiscountApplication {
 		public typealias Query = DiscountCodeApplicationQuery
 
@@ -129,8 +145,8 @@ extension Storefront {
 			}
 		}
 
-		/// The method by which the discount's value is allocated to its entitled 
-		/// items. 
+		/// The method by which the discount's value is allocated to its entitled
+		/// items.
 		open var allocationMethod: Storefront.DiscountApplicationAllocationMethod {
 			return internalGetAllocationMethod()
 		}
@@ -139,7 +155,7 @@ extension Storefront {
 			return field(field: "allocationMethod", aliasSuffix: alias) as! Storefront.DiscountApplicationAllocationMethod
 		}
 
-		/// Specifies whether the discount code was applied successfully. 
+		/// Specifies whether the discount code was applied successfully.
 		open var applicable: Bool {
 			return internalGetApplicable()
 		}
@@ -148,8 +164,8 @@ extension Storefront {
 			return field(field: "applicable", aliasSuffix: alias) as! Bool
 		}
 
-		/// The string identifying the discount code that was used at the time of 
-		/// application. 
+		/// The string identifying the discount code that was used at the time of
+		/// application.
 		open var code: String {
 			return internalGetCode()
 		}
@@ -158,7 +174,7 @@ extension Storefront {
 			return field(field: "code", aliasSuffix: alias) as! String
 		}
 
-		/// Which lines of targetType that the discount is allocated over. 
+		/// Which lines of targetType that the discount is allocated over.
 		open var targetSelection: Storefront.DiscountApplicationTargetSelection {
 			return internalGetTargetSelection()
 		}
@@ -167,7 +183,7 @@ extension Storefront {
 			return field(field: "targetSelection", aliasSuffix: alias) as! Storefront.DiscountApplicationTargetSelection
 		}
 
-		/// The type of line that the discount is applicable towards. 
+		/// The type of line that the discount is applicable towards.
 		open var targetType: Storefront.DiscountApplicationTargetType {
 			return internalGetTargetType()
 		}
@@ -176,7 +192,7 @@ extension Storefront {
 			return field(field: "targetType", aliasSuffix: alias) as! Storefront.DiscountApplicationTargetType
 		}
 
-		/// The value of the discount application. 
+		/// The value of the discount application.
 		open var value: PricingValue {
 			return internalGetValue()
 		}

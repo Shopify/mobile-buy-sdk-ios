@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a shipping total for a Shop Pay payment request. 
+	/// Represents a shipping total for a Shop Pay payment request.
 	open class ShopPayPaymentRequestTotalShippingPriceQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ShopPayPaymentRequestTotalShippingPrice
 
-		/// The discounts for the shipping total. 
+		/// The discounts for the shipping total.
 		@discardableResult
 		open func discounts(alias: String? = nil, _ subfields: (ShopPayPaymentRequestDiscountQuery) -> Void) -> ShopPayPaymentRequestTotalShippingPriceQuery {
 			let subquery = ShopPayPaymentRequestDiscountQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The final total for the shipping total. 
+		/// The final total for the shipping total.
 		@discardableResult
 		open func finalTotal(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ShopPayPaymentRequestTotalShippingPriceQuery {
 			let subquery = MoneyV2Query()
@@ -51,7 +51,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The original total for the shipping total. 
+		/// The original total for the shipping total.
 		@discardableResult
 		open func originalTotal(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ShopPayPaymentRequestTotalShippingPriceQuery {
 			let subquery = MoneyV2Query()
@@ -62,7 +62,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a shipping total for a Shop Pay payment request. 
+	/// Represents a shipping total for a Shop Pay payment request.
 	open class ShopPayPaymentRequestTotalShippingPrice: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ShopPayPaymentRequestTotalShippingPriceQuery
 
@@ -93,7 +93,7 @@ extension Storefront {
 			}
 		}
 
-		/// The discounts for the shipping total. 
+		/// The discounts for the shipping total.
 		open var discounts: [Storefront.ShopPayPaymentRequestDiscount] {
 			return internalGetDiscounts()
 		}
@@ -102,7 +102,7 @@ extension Storefront {
 			return field(field: "discounts", aliasSuffix: alias) as! [Storefront.ShopPayPaymentRequestDiscount]
 		}
 
-		/// The final total for the shipping total. 
+		/// The final total for the shipping total.
 		open var finalTotal: Storefront.MoneyV2 {
 			return internalGetFinalTotal()
 		}
@@ -111,7 +111,7 @@ extension Storefront {
 			return field(field: "finalTotal", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The original total for the shipping total. 
+		/// The original total for the shipping total.
 		open var originalTotal: Storefront.MoneyV2? {
 			return internalGetOriginalTotal()
 		}

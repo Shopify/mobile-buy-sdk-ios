@@ -27,81 +27,81 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a contact field for a Shop Pay payment request. 
+	/// Represents a contact field for a Shop Pay payment request.
 	open class ShopPayPaymentRequestContactFieldQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ShopPayPaymentRequestContactField
 
-		/// The first address line of the contact field. 
+		/// The first address line of the contact field.
 		@discardableResult
 		open func address1(alias: String? = nil) -> ShopPayPaymentRequestContactFieldQuery {
 			addField(field: "address1", aliasSuffix: alias)
 			return self
 		}
 
-		/// The second address line of the contact field. 
+		/// The second address line of the contact field.
 		@discardableResult
 		open func address2(alias: String? = nil) -> ShopPayPaymentRequestContactFieldQuery {
 			addField(field: "address2", aliasSuffix: alias)
 			return self
 		}
 
-		/// The city of the contact field. 
+		/// The city of the contact field.
 		@discardableResult
 		open func city(alias: String? = nil) -> ShopPayPaymentRequestContactFieldQuery {
 			addField(field: "city", aliasSuffix: alias)
 			return self
 		}
 
-		/// The company name of the contact field. 
+		/// The company name of the contact field.
 		@discardableResult
 		open func companyName(alias: String? = nil) -> ShopPayPaymentRequestContactFieldQuery {
 			addField(field: "companyName", aliasSuffix: alias)
 			return self
 		}
 
-		/// The country of the contact field. 
+		/// The country of the contact field.
 		@discardableResult
 		open func countryCode(alias: String? = nil) -> ShopPayPaymentRequestContactFieldQuery {
 			addField(field: "countryCode", aliasSuffix: alias)
 			return self
 		}
 
-		/// The email of the contact field. 
+		/// The email of the contact field.
 		@discardableResult
 		open func email(alias: String? = nil) -> ShopPayPaymentRequestContactFieldQuery {
 			addField(field: "email", aliasSuffix: alias)
 			return self
 		}
 
-		/// The first name of the contact field. 
+		/// The first name of the contact field.
 		@discardableResult
 		open func firstName(alias: String? = nil) -> ShopPayPaymentRequestContactFieldQuery {
 			addField(field: "firstName", aliasSuffix: alias)
 			return self
 		}
 
-		/// The first name of the contact field. 
+		/// The first name of the contact field.
 		@discardableResult
 		open func lastName(alias: String? = nil) -> ShopPayPaymentRequestContactFieldQuery {
 			addField(field: "lastName", aliasSuffix: alias)
 			return self
 		}
 
-		/// The phone number of the contact field. 
+		/// The phone number of the contact field.
 		@discardableResult
 		open func phone(alias: String? = nil) -> ShopPayPaymentRequestContactFieldQuery {
 			addField(field: "phone", aliasSuffix: alias)
 			return self
 		}
 
-		/// The postal code of the contact field. 
+		/// The postal code of the contact field.
 		@discardableResult
 		open func postalCode(alias: String? = nil) -> ShopPayPaymentRequestContactFieldQuery {
 			addField(field: "postalCode", aliasSuffix: alias)
 			return self
 		}
 
-		/// The province of the contact field. 
+		/// The province of the contact field.
 		@discardableResult
 		open func provinceCode(alias: String? = nil) -> ShopPayPaymentRequestContactFieldQuery {
 			addField(field: "provinceCode", aliasSuffix: alias)
@@ -109,7 +109,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a contact field for a Shop Pay payment request. 
+	/// Represents a contact field for a Shop Pay payment request.
 	open class ShopPayPaymentRequestContactField: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ShopPayPaymentRequestContactFieldQuery
 
@@ -193,7 +193,7 @@ extension Storefront {
 			}
 		}
 
-		/// The first address line of the contact field. 
+		/// The first address line of the contact field.
 		open var address1: String {
 			return internalGetAddress1()
 		}
@@ -202,7 +202,7 @@ extension Storefront {
 			return field(field: "address1", aliasSuffix: alias) as! String
 		}
 
-		/// The second address line of the contact field. 
+		/// The second address line of the contact field.
 		open var address2: String? {
 			return internalGetAddress2()
 		}
@@ -211,7 +211,7 @@ extension Storefront {
 			return field(field: "address2", aliasSuffix: alias) as! String?
 		}
 
-		/// The city of the contact field. 
+		/// The city of the contact field.
 		open var city: String {
 			return internalGetCity()
 		}
@@ -220,7 +220,7 @@ extension Storefront {
 			return field(field: "city", aliasSuffix: alias) as! String
 		}
 
-		/// The company name of the contact field. 
+		/// The company name of the contact field.
 		open var companyName: String? {
 			return internalGetCompanyName()
 		}
@@ -229,7 +229,7 @@ extension Storefront {
 			return field(field: "companyName", aliasSuffix: alias) as! String?
 		}
 
-		/// The country of the contact field. 
+		/// The country of the contact field.
 		open var countryCode: String {
 			return internalGetCountryCode()
 		}
@@ -238,7 +238,7 @@ extension Storefront {
 			return field(field: "countryCode", aliasSuffix: alias) as! String
 		}
 
-		/// The email of the contact field. 
+		/// The email of the contact field.
 		open var email: String? {
 			return internalGetEmail()
 		}
@@ -247,7 +247,7 @@ extension Storefront {
 			return field(field: "email", aliasSuffix: alias) as! String?
 		}
 
-		/// The first name of the contact field. 
+		/// The first name of the contact field.
 		open var firstName: String {
 			return internalGetFirstName()
 		}
@@ -256,7 +256,7 @@ extension Storefront {
 			return field(field: "firstName", aliasSuffix: alias) as! String
 		}
 
-		/// The first name of the contact field. 
+		/// The first name of the contact field.
 		open var lastName: String {
 			return internalGetLastName()
 		}
@@ -265,7 +265,7 @@ extension Storefront {
 			return field(field: "lastName", aliasSuffix: alias) as! String
 		}
 
-		/// The phone number of the contact field. 
+		/// The phone number of the contact field.
 		open var phone: String? {
 			return internalGetPhone()
 		}
@@ -274,7 +274,7 @@ extension Storefront {
 			return field(field: "phone", aliasSuffix: alias) as! String?
 		}
 
-		/// The postal code of the contact field. 
+		/// The postal code of the contact field.
 		open var postalCode: String? {
 			return internalGetPostalCode()
 		}
@@ -283,7 +283,7 @@ extension Storefront {
 			return field(field: "postalCode", aliasSuffix: alias) as! String?
 		}
 
-		/// The province of the contact field. 
+		/// The province of the contact field.
 		open var provinceCode: String? {
 			return internalGetProvinceCode()
 		}

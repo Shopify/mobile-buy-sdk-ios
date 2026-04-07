@@ -27,12 +27,15 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a single line item in a fulfillment. There is at most one 
-	/// fulfillment line item for each order line item. 
+	/// Records how many units of an
+	/// [`OrderLineItem`](https://shopify.dev/docs/api/storefront/current/objects/OrderLineItem)
+	/// were included in a
+	/// [`Fulfillment`](https://shopify.dev/docs/api/storefront/current/objects/Fulfillment).
+	/// Each order line item has at most one fulfillment line item per fulfillment.
 	open class FulfillmentLineItemQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = FulfillmentLineItem
 
-		/// The associated order's line item. 
+		/// The associated order's line item.
 		@discardableResult
 		open func lineItem(alias: String? = nil, _ subfields: (OrderLineItemQuery) -> Void) -> FulfillmentLineItemQuery {
 			let subquery = OrderLineItemQuery()
@@ -42,7 +45,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The amount fulfilled in this fulfillment. 
+		/// The amount fulfilled in this fulfillment.
 		@discardableResult
 		open func quantity(alias: String? = nil) -> FulfillmentLineItemQuery {
 			addField(field: "quantity", aliasSuffix: alias)
@@ -50,8 +53,11 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a single line item in a fulfillment. There is at most one 
-	/// fulfillment line item for each order line item. 
+	/// Records how many units of an
+	/// [`OrderLineItem`](https://shopify.dev/docs/api/storefront/current/objects/OrderLineItem)
+	/// were included in a
+	/// [`Fulfillment`](https://shopify.dev/docs/api/storefront/current/objects/Fulfillment).
+	/// Each order line item has at most one fulfillment line item per fulfillment.
 	open class FulfillmentLineItem: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = FulfillmentLineItemQuery
 
@@ -75,7 +81,7 @@ extension Storefront {
 			}
 		}
 
-		/// The associated order's line item. 
+		/// The associated order's line item.
 		open var lineItem: Storefront.OrderLineItem {
 			return internalGetLineItem()
 		}
@@ -84,7 +90,7 @@ extension Storefront {
 			return field(field: "lineItem", aliasSuffix: alias) as! Storefront.OrderLineItem
 		}
 
-		/// The amount fulfilled in this fulfillment. 
+		/// The amount fulfilled in this fulfillment.
 		open var quantity: Int32 {
 			return internalGetQuantity()
 		}

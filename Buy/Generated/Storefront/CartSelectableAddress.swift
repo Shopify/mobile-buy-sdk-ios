@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// A selectable delivery address for a cart. 
+	/// A selectable delivery address for a cart.
 	open class CartSelectableAddressQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartSelectableAddress
 
-		/// The delivery address. 
+		/// The delivery address.
 		@discardableResult
 		open func address(alias: String? = nil, _ subfields: (CartAddressQuery) -> Void) -> CartSelectableAddressQuery {
 			let subquery = CartAddressQuery()
@@ -41,22 +41,22 @@ extension Storefront {
 			return self
 		}
 
-		/// A unique identifier for the address, specific to this cart. 
+		/// A unique identifier for the address, specific to this cart.
 		@discardableResult
 		open func id(alias: String? = nil) -> CartSelectableAddressQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// This delivery address will not be associated with the buyer after a 
-		/// successful checkout. 
+		/// This delivery address will not be associated with the buyer after a
+		/// successful checkout.
 		@discardableResult
 		open func oneTimeUse(alias: String? = nil) -> CartSelectableAddressQuery {
 			addField(field: "oneTimeUse", aliasSuffix: alias)
 			return self
 		}
 
-		/// Sets exactly one address as pre-selected for the buyer. 
+		/// Sets exactly one address as pre-selected for the buyer.
 		@discardableResult
 		open func selected(alias: String? = nil) -> CartSelectableAddressQuery {
 			addField(field: "selected", aliasSuffix: alias)
@@ -64,7 +64,7 @@ extension Storefront {
 		}
 	}
 
-	/// A selectable delivery address for a cart. 
+	/// A selectable delivery address for a cart.
 	open class CartSelectableAddress: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CartSelectableAddressQuery
 
@@ -100,7 +100,7 @@ extension Storefront {
 			}
 		}
 
-		/// The delivery address. 
+		/// The delivery address.
 		open var address: CartAddress {
 			return internalGetAddress()
 		}
@@ -109,7 +109,7 @@ extension Storefront {
 			return field(field: "address", aliasSuffix: alias) as! CartAddress
 		}
 
-		/// A unique identifier for the address, specific to this cart. 
+		/// A unique identifier for the address, specific to this cart.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -118,8 +118,8 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// This delivery address will not be associated with the buyer after a 
-		/// successful checkout. 
+		/// This delivery address will not be associated with the buyer after a
+		/// successful checkout.
 		open var oneTimeUse: Bool {
 			return internalGetOneTimeUse()
 		}
@@ -128,7 +128,7 @@ extension Storefront {
 			return field(field: "oneTimeUse", aliasSuffix: alias) as! Bool
 		}
 
-		/// Sets exactly one address as pre-selected for the buyer. 
+		/// Sets exactly one address as pre-selected for the buyer.
 		open var selected: Bool {
 			return internalGetSelected()
 		}

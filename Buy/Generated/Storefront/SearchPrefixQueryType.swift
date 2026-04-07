@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// Specifies whether to perform a partial word match on the last search term. 
+	/// Specifies whether to perform a partial word match on the last search term.
 	public enum SearchPrefixQueryType: String {
-		/// Perform a partial word match on the last search term. 
+		/// Perform a partial word match on the last search term.
 		case last = "LAST"
 
-		/// Don't perform a partial word match on the last search term. 
+		/// Don't perform a partial word match on the last search term.
 		case `none` = "NONE"
 
 		case unknownValue = ""

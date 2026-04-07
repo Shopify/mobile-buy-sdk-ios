@@ -26,8 +26,20 @@
 
 import Foundation
 
-/// The discounts that have been applied to the cart line. 
+/// A common interface for querying discount allocations regardless of how the
+/// discount was applied
+/// ([automatic](https://help.shopify.com/manual/discounts/discount-methods/automatic-discounts),
+/// [code](https://help.shopify.com/manual/discounts/discount-methods/discount-codes),
+/// or custom). Each implementation represents a different discount source.
+/// Tracks how a discount distributes across [cart
+/// lines](https://shopify.dev/docs/api/storefront/current/objects/CartLine).
+/// Each allocation includes the
+/// [`CartDiscountApplication`](https://shopify.dev/docs/api/storefront/current/objects/CartDiscountApplication)
+/// details, the discounted amount, and whether the discount targets line items
+/// or shipping.
 public protocol CartDiscountAllocation {
+	@available(*, deprecated, message: "Use `sourceDiscountApplication` instead.")
+
 	var discountApplication: Storefront.CartDiscountApplication { get }
 
 	var discountedAmount: Storefront.MoneyV2 { get }
@@ -36,11 +48,22 @@ public protocol CartDiscountAllocation {
 }
 
 extension Storefront {
-	/// The discounts that have been applied to the cart line. 
+	/// A common interface for querying discount allocations regardless of how the
+	/// discount was applied
+	/// ([automatic](https://help.shopify.com/manual/discounts/discount-methods/automatic-discounts),
+	/// [code](https://help.shopify.com/manual/discounts/discount-methods/discount-codes),
+	/// or custom). Each implementation represents a different discount source.
+	/// Tracks how a discount distributes across [cart
+	/// lines](https://shopify.dev/docs/api/storefront/current/objects/CartLine).
+	/// Each allocation includes the
+	/// [`CartDiscountApplication`](https://shopify.dev/docs/api/storefront/current/objects/CartDiscountApplication)
+	/// details, the discounted amount, and whether the discount targets line items
+	/// or shipping.
 	open class CartDiscountAllocationQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartDiscountAllocation
 
-		/// The discount that have been applied on the cart line. 
+		/// The discount that have been applied on the cart line.
+		@available(*, deprecated, message: "Use `sourceDiscountApplication` instead.")
 		@discardableResult
 		open func discountApplication(alias: String? = nil, _ subfields: (CartDiscountApplicationQuery) -> Void) -> CartDiscountAllocationQuery {
 			let subquery = CartDiscountApplicationQuery()
@@ -50,7 +73,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The discounted amount that has been applied to the cart line. 
+		/// The discounted amount that has been applied to the cart line.
 		@discardableResult
 		open func discountedAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartDiscountAllocationQuery {
 			let subquery = MoneyV2Query()
@@ -60,7 +83,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The type of line that the discount is applicable towards. 
+		/// The type of line that the discount is applicable towards.
 		@discardableResult
 		open func targetType(alias: String? = nil) -> CartDiscountAllocationQuery {
 			addField(field: "targetType", aliasSuffix: alias)
@@ -72,7 +95,17 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// The discounts that have been applied to the cart line. 
+		/// A common interface for querying discount allocations regardless of how the
+		/// discount was applied
+		/// ([automatic](https://help.shopify.com/manual/discounts/discount-methods/automatic-discounts),
+		/// [code](https://help.shopify.com/manual/discounts/discount-methods/discount-codes),
+		/// or custom). Each implementation represents a different discount source.
+		/// Tracks how a discount distributes across [cart
+		/// lines](https://shopify.dev/docs/api/storefront/current/objects/CartLine).
+		/// Each allocation includes the
+		/// [`CartDiscountApplication`](https://shopify.dev/docs/api/storefront/current/objects/CartDiscountApplication)
+		/// details, the discounted amount, and whether the discount targets line items
+		/// or shipping.
 		@discardableResult
 		open func onCartAutomaticDiscountAllocation(subfields: (CartAutomaticDiscountAllocationQuery) -> Void) -> CartDiscountAllocationQuery {
 			let subquery = CartAutomaticDiscountAllocationQuery()
@@ -81,7 +114,17 @@ extension Storefront {
 			return self
 		}
 
-		/// The discounts that have been applied to the cart line. 
+		/// A common interface for querying discount allocations regardless of how the
+		/// discount was applied
+		/// ([automatic](https://help.shopify.com/manual/discounts/discount-methods/automatic-discounts),
+		/// [code](https://help.shopify.com/manual/discounts/discount-methods/discount-codes),
+		/// or custom). Each implementation represents a different discount source.
+		/// Tracks how a discount distributes across [cart
+		/// lines](https://shopify.dev/docs/api/storefront/current/objects/CartLine).
+		/// Each allocation includes the
+		/// [`CartDiscountApplication`](https://shopify.dev/docs/api/storefront/current/objects/CartDiscountApplication)
+		/// details, the discounted amount, and whether the discount targets line items
+		/// or shipping.
 		@discardableResult
 		open func onCartCodeDiscountAllocation(subfields: (CartCodeDiscountAllocationQuery) -> Void) -> CartDiscountAllocationQuery {
 			let subquery = CartCodeDiscountAllocationQuery()
@@ -90,7 +133,17 @@ extension Storefront {
 			return self
 		}
 
-		/// The discounts that have been applied to the cart line. 
+		/// A common interface for querying discount allocations regardless of how the
+		/// discount was applied
+		/// ([automatic](https://help.shopify.com/manual/discounts/discount-methods/automatic-discounts),
+		/// [code](https://help.shopify.com/manual/discounts/discount-methods/discount-codes),
+		/// or custom). Each implementation represents a different discount source.
+		/// Tracks how a discount distributes across [cart
+		/// lines](https://shopify.dev/docs/api/storefront/current/objects/CartLine).
+		/// Each allocation includes the
+		/// [`CartDiscountApplication`](https://shopify.dev/docs/api/storefront/current/objects/CartDiscountApplication)
+		/// details, the discounted amount, and whether the discount targets line items
+		/// or shipping.
 		@discardableResult
 		open func onCartCustomDiscountAllocation(subfields: (CartCustomDiscountAllocationQuery) -> Void) -> CartDiscountAllocationQuery {
 			let subquery = CartCustomDiscountAllocationQuery()
@@ -100,7 +153,17 @@ extension Storefront {
 		}
 	}
 
-	/// The discounts that have been applied to the cart line. 
+	/// A common interface for querying discount allocations regardless of how the
+	/// discount was applied
+	/// ([automatic](https://help.shopify.com/manual/discounts/discount-methods/automatic-discounts),
+	/// [code](https://help.shopify.com/manual/discounts/discount-methods/discount-codes),
+	/// or custom). Each implementation represents a different discount source.
+	/// Tracks how a discount distributes across [cart
+	/// lines](https://shopify.dev/docs/api/storefront/current/objects/CartLine).
+	/// Each allocation includes the
+	/// [`CartDiscountApplication`](https://shopify.dev/docs/api/storefront/current/objects/CartDiscountApplication)
+	/// details, the discounted amount, and whether the discount targets line items
+	/// or shipping.
 	open class UnknownCartDiscountAllocation: GraphQL.AbstractResponse, GraphQLObject, CartDiscountAllocation {
 		public typealias Query = CartDiscountAllocationQuery
 
@@ -146,7 +209,8 @@ extension Storefront {
 			}
 		}
 
-		/// The discount that have been applied on the cart line. 
+		/// The discount that have been applied on the cart line.
+		@available(*, deprecated, message: "Use `sourceDiscountApplication` instead.")
 		open var discountApplication: Storefront.CartDiscountApplication {
 			return internalGetDiscountApplication()
 		}
@@ -155,7 +219,7 @@ extension Storefront {
 			return field(field: "discountApplication", aliasSuffix: alias) as! Storefront.CartDiscountApplication
 		}
 
-		/// The discounted amount that has been applied to the cart line. 
+		/// The discounted amount that has been applied to the cart line.
 		open var discountedAmount: Storefront.MoneyV2 {
 			return internalGetDiscountedAmount()
 		}
@@ -164,7 +228,7 @@ extension Storefront {
 			return field(field: "discountedAmount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The type of line that the discount is applicable towards. 
+		/// The type of line that the discount is applicable towards.
 		open var targetType: Storefront.DiscountApplicationTargetType {
 			return internalGetTargetType()
 		}

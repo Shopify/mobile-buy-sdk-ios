@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type for paginating through multiple ProductVariants. 
+	/// An auto-generated type for paginating through multiple ProductVariants.
 	open class ProductVariantConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ProductVariantConnection
 
-		/// A list of edges. 
+		/// A list of edges.
 		@discardableResult
 		open func edges(alias: String? = nil, _ subfields: (ProductVariantEdgeQuery) -> Void) -> ProductVariantConnectionQuery {
 			let subquery = ProductVariantEdgeQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of the nodes contained in ProductVariantEdge. 
+		/// A list of the nodes contained in ProductVariantEdge.
 		@discardableResult
 		open func nodes(alias: String? = nil, _ subfields: (ProductVariantQuery) -> Void) -> ProductVariantConnectionQuery {
 			let subquery = ProductVariantQuery()
@@ -51,7 +51,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> ProductVariantConnectionQuery {
 			let subquery = PageInfoQuery()
@@ -62,7 +62,7 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type for paginating through multiple ProductVariants. 
+	/// An auto-generated type for paginating through multiple ProductVariants.
 	open class ProductVariantConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ProductVariantConnectionQuery
 
@@ -92,7 +92,7 @@ extension Storefront {
 			}
 		}
 
-		/// A list of edges. 
+		/// A list of edges.
 		open var edges: [Storefront.ProductVariantEdge] {
 			return internalGetEdges()
 		}
@@ -101,7 +101,7 @@ extension Storefront {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.ProductVariantEdge]
 		}
 
-		/// A list of the nodes contained in ProductVariantEdge. 
+		/// A list of the nodes contained in ProductVariantEdge.
 		open var nodes: [Storefront.ProductVariant] {
 			return internalGetNodes()
 		}
@@ -110,7 +110,7 @@ extension Storefront {
 			return field(field: "nodes", aliasSuffix: alias) as! [Storefront.ProductVariant]
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
 		}

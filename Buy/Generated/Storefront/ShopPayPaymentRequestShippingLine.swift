@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a shipping line for a Shop Pay payment request. 
+	/// Represents a shipping line for a Shop Pay payment request.
 	open class ShopPayPaymentRequestShippingLineQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ShopPayPaymentRequestShippingLine
 
-		/// The amount for the shipping line. 
+		/// The amount for the shipping line.
 		@discardableResult
 		open func amount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ShopPayPaymentRequestShippingLineQuery {
 			let subquery = MoneyV2Query()
@@ -41,14 +41,14 @@ extension Storefront {
 			return self
 		}
 
-		/// The code of the shipping line. 
+		/// The code of the shipping line.
 		@discardableResult
 		open func code(alias: String? = nil) -> ShopPayPaymentRequestShippingLineQuery {
 			addField(field: "code", aliasSuffix: alias)
 			return self
 		}
 
-		/// The label of the shipping line. 
+		/// The label of the shipping line.
 		@discardableResult
 		open func label(alias: String? = nil) -> ShopPayPaymentRequestShippingLineQuery {
 			addField(field: "label", aliasSuffix: alias)
@@ -56,7 +56,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a shipping line for a Shop Pay payment request. 
+	/// Represents a shipping line for a Shop Pay payment request.
 	open class ShopPayPaymentRequestShippingLine: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ShopPayPaymentRequestShippingLineQuery
 
@@ -86,7 +86,7 @@ extension Storefront {
 			}
 		}
 
-		/// The amount for the shipping line. 
+		/// The amount for the shipping line.
 		open var amount: Storefront.MoneyV2 {
 			return internalGetAmount()
 		}
@@ -95,7 +95,7 @@ extension Storefront {
 			return field(field: "amount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The code of the shipping line. 
+		/// The code of the shipping line.
 		open var code: String {
 			return internalGetCode()
 		}
@@ -104,7 +104,7 @@ extension Storefront {
 			return field(field: "code", aliasSuffix: alias) as! String
 		}
 
-		/// The label of the shipping line. 
+		/// The label of the shipping line.
 		open var label: String {
 			return internalGetLabel()
 		}

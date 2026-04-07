@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Return type for `customerRecover` mutation. 
+	/// Return type for `customerRecover` mutation.
 	open class CustomerRecoverPayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CustomerRecoverPayload
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		@discardableResult
 		open func customerUserErrors(alias: String? = nil, _ subfields: (CustomerUserErrorQuery) -> Void) -> CustomerRecoverPayloadQuery {
 			let subquery = CustomerUserErrorQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		@available(*, deprecated, message: "Use `customerUserErrors` instead.")
 		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerRecoverPayloadQuery {
@@ -53,7 +53,7 @@ extension Storefront {
 		}
 	}
 
-	/// Return type for `customerRecover` mutation. 
+	/// Return type for `customerRecover` mutation.
 	open class CustomerRecoverPayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CustomerRecoverPayloadQuery
 
@@ -77,7 +77,7 @@ extension Storefront {
 			}
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		open var customerUserErrors: [Storefront.CustomerUserError] {
 			return internalGetCustomerUserErrors()
 		}
@@ -86,7 +86,7 @@ extension Storefront {
 			return field(field: "customerUserErrors", aliasSuffix: alias) as! [Storefront.CustomerUserError]
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		@available(*, deprecated, message: "Use `customerUserErrors` instead.")
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()

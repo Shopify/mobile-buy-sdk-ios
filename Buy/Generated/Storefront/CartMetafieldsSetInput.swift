@@ -27,20 +27,20 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields for a cart metafield value to set. 
+	/// The input fields for a cart metafield value to set.
 	open class CartMetafieldsSetInput {
-		/// The ID of the cart resource. 
+		/// The ID of the cart resource.
 		open var ownerId: GraphQL.ID
 
-		/// The key name of the cart metafield. 
+		/// The key name of the cart metafield.
 		open var key: String
 
-		/// The data to store in the cart metafield. The data is always stored as a 
-		/// string, regardless of the metafield's type. 
+		/// The data to store in the cart metafield. The data is always stored as a
+		/// string, regardless of the metafield's type.
 		open var value: String
 
-		/// The type of data that the cart metafield stores. The type of data must be a 
-		/// [supported type](https://shopify.dev/apps/metafields/types). 
+		/// The type of data that the cart metafield stores. The type of data must be a
+		/// [supported type](https://shopify.dev/apps/metafields/types).
 		open var type: String
 
 		/// Creates the input object.
@@ -48,8 +48,8 @@ extension Storefront {
 		/// - parameters:
 		///     - ownerId: The ID of the cart resource.
 		///     - key: The key name of the cart metafield.
-		///     - value: The data to store in the cart metafield. The data is always stored as a string, regardless of the metafield's type. 
-		///     - type: The type of data that the cart metafield stores. The type of data must be a [supported type](https://shopify.dev/apps/metafields/types). 
+		///     - value: The data to store in the cart metafield. The data is always stored as a string, regardless of the metafield's type.
+		///     - type: The type of data that the cart metafield stores. The type of data must be a [supported type](https://shopify.dev/apps/metafields/types).
 		///
 		public static func create(ownerId: GraphQL.ID, key: String, value: String, type: String) -> CartMetafieldsSetInput {
 			return CartMetafieldsSetInput(ownerId: ownerId, key: key, value: value, type: type)
@@ -60,8 +60,8 @@ extension Storefront {
 		/// - parameters:
 		///     - ownerId: The ID of the cart resource.
 		///     - key: The key name of the cart metafield.
-		///     - value: The data to store in the cart metafield. The data is always stored as a string, regardless of the metafield's type. 
-		///     - type: The type of data that the cart metafield stores. The type of data must be a [supported type](https://shopify.dev/apps/metafields/types). 
+		///     - value: The data to store in the cart metafield. The data is always stored as a string, regardless of the metafield's type.
+		///     - type: The type of data that the cart metafield stores. The type of data must be a [supported type](https://shopify.dev/apps/metafields/types).
 		///
 		public init(ownerId: GraphQL.ID, key: String, value: String, type: String) {
 			self.ownerId = ownerId

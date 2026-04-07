@@ -27,25 +27,25 @@
 import Foundation
 
 extension Storefront {
-	/// A currency. 
+	/// A currency.
 	open class CurrencyQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Currency
 
-		/// The ISO code of the currency. 
+		/// The ISO code of the currency.
 		@discardableResult
 		open func isoCode(alias: String? = nil) -> CurrencyQuery {
 			addField(field: "isoCode", aliasSuffix: alias)
 			return self
 		}
 
-		/// The name of the currency. 
+		/// The name of the currency.
 		@discardableResult
 		open func name(alias: String? = nil) -> CurrencyQuery {
 			addField(field: "name", aliasSuffix: alias)
 			return self
 		}
 
-		/// The symbol of the currency. 
+		/// The symbol of the currency.
 		@discardableResult
 		open func symbol(alias: String? = nil) -> CurrencyQuery {
 			addField(field: "symbol", aliasSuffix: alias)
@@ -53,7 +53,7 @@ extension Storefront {
 		}
 	}
 
-	/// A currency. 
+	/// A currency.
 	open class Currency: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CurrencyQuery
 
@@ -83,7 +83,7 @@ extension Storefront {
 			}
 		}
 
-		/// The ISO code of the currency. 
+		/// The ISO code of the currency.
 		open var isoCode: Storefront.CurrencyCode {
 			return internalGetIsoCode()
 		}
@@ -92,7 +92,7 @@ extension Storefront {
 			return field(field: "isoCode", aliasSuffix: alias) as! Storefront.CurrencyCode
 		}
 
-		/// The name of the currency. 
+		/// The name of the currency.
 		open var name: String {
 			return internalGetName()
 		}
@@ -101,7 +101,7 @@ extension Storefront {
 			return field(field: "name", aliasSuffix: alias) as! String
 		}
 
-		/// The symbol of the currency. 
+		/// The symbol of the currency.
 		open var symbol: String {
 			return internalGetSymbol()
 		}

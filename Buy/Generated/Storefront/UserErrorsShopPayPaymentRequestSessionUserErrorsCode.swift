@@ -27,16 +27,16 @@
 import Foundation
 
 extension Storefront {
-	/// Possible error codes that can be returned by 
-	/// `ShopPayPaymentRequestSessionUserErrors`. 
+	/// Possible error codes that can be returned by
+	/// `ShopPayPaymentRequestSessionUserErrors`.
 	public enum UserErrorsShopPayPaymentRequestSessionUserErrorsCode: String {
-		/// Idempotency key has already been used. 
+		/// Idempotency key has already been used.
 		case idempotencyKeyAlreadyUsed = "IDEMPOTENCY_KEY_ALREADY_USED"
 
-		/// Payment request input is invalid. 
+		/// Payment request input is invalid.
 		case paymentRequestInvalidInput = "PAYMENT_REQUEST_INVALID_INPUT"
 
-		/// Payment request not found. 
+		/// Payment request not found.
 		case paymentRequestNotFound = "PAYMENT_REQUEST_NOT_FOUND"
 
 		case unknownValue = ""

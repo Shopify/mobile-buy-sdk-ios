@@ -27,13 +27,13 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields for submitting wallet payment method information for 
-	/// checkout. 
+	/// The input fields for submitting wallet payment method information for
+	/// checkout.
 	open class CartWalletPaymentMethodInput {
-		/// The payment method information for the Apple Pay wallet. 
+		/// The payment method information for the Apple Pay wallet.
 		open var applePayWalletContent: Input<ApplePayWalletContentInput>
 
-		/// The payment method information for the Shop Pay wallet. 
+		/// The payment method information for the Shop Pay wallet.
 		open var shopPayWalletContent: Input<ShopPayWalletContentInput>
 
 		/// Creates the input object.

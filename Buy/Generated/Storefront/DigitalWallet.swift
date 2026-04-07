@@ -27,19 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// Digital wallet, such as Apple Pay, which can be used for accelerated 
-	/// checkouts. 
+	/// Digital wallet, such as Apple Pay, which can be used for accelerated
+	/// checkouts.
 	public enum DigitalWallet: String {
-		/// Android Pay. 
+		/// Android Pay.
 		case androidPay = "ANDROID_PAY"
 
-		/// Apple Pay. 
+		/// Apple Pay.
 		case applePay = "APPLE_PAY"
 
-		/// Google Pay. 
+		/// Google Pay.
 		case googlePay = "GOOGLE_PAY"
 
-		/// Shopify Pay. 
+		/// Shopify Pay.
 		case shopifyPay = "SHOPIFY_PAY"
 
 		case unknownValue = ""

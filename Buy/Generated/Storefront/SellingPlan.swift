@@ -27,11 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// Represents how products and variants can be sold and purchased. 
+	/// Represents deferred or recurring purchase options for
+	/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product)
+	/// and [product
+	/// variants](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant),
+	/// such as subscriptions, pre-orders, or try-before-you-buy. Each selling plan
+	/// belongs to a
+	/// [`SellingPlanGroup`](https://shopify.dev/docs/api/storefront/current/objects/SellingPlanGroup)
+	/// and defines billing, pricing, inventory, and delivery policies.
 	open class SellingPlanQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlan
 
-		/// The billing policy for the selling plan. 
+		/// The billing policy for the selling plan.
 		@discardableResult
 		open func billingPolicy(alias: String? = nil, _ subfields: (SellingPlanBillingPolicyQuery) -> Void) -> SellingPlanQuery {
 			let subquery = SellingPlanBillingPolicyQuery()
@@ -41,7 +48,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The initial payment due for the purchase. 
+		/// The initial payment due for the purchase.
 		@discardableResult
 		open func checkoutCharge(alias: String? = nil, _ subfields: (SellingPlanCheckoutChargeQuery) -> Void) -> SellingPlanQuery {
 			let subquery = SellingPlanCheckoutChargeQuery()
@@ -51,7 +58,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The delivery policy for the selling plan. 
+		/// The delivery policy for the selling plan.
 		@discardableResult
 		open func deliveryPolicy(alias: String? = nil, _ subfields: (SellingPlanDeliveryPolicyQuery) -> Void) -> SellingPlanQuery {
 			let subquery = SellingPlanDeliveryPolicyQuery()
@@ -61,23 +68,23 @@ extension Storefront {
 			return self
 		}
 
-		/// The description of the selling plan. 
+		/// The description of the selling plan.
 		@discardableResult
 		open func description(alias: String? = nil) -> SellingPlanQuery {
 			addField(field: "description", aliasSuffix: alias)
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> SellingPlanQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		///
 		/// - parameters:
 		///     - namespace: The container the metafield belongs to. If omitted, the app-reserved namespace will be used.
@@ -102,12 +109,12 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		///
 		/// - parameters:
 		///     - identifiers: The list of metafields to retrieve by namespace and key.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -125,22 +132,22 @@ extension Storefront {
 			return self
 		}
 
-		/// The name of the selling plan. For example, '6 weeks of prepaid granola, 
-		/// delivered weekly'. 
+		/// The name of the selling plan. For example, '6 weeks of prepaid granola,
+		/// delivered weekly'.
 		@discardableResult
 		open func name(alias: String? = nil) -> SellingPlanQuery {
 			addField(field: "name", aliasSuffix: alias)
 			return self
 		}
 
-		/// The selling plan options available in the drop-down list in the storefront. 
-		/// For example, 'Delivery every week' or 'Delivery every 2 weeks' specifies 
-		/// the delivery frequency options for the product. Individual selling plans 
-		/// contribute their options to the associated selling plan group. For example, 
-		/// a selling plan group might have an option called `option1: Delivery every`. 
-		/// One selling plan in that group could contribute `option1: 2 weeks` with the 
-		/// pricing for that option, and another selling plan could contribute 
-		/// `option1: 4 weeks`, with different pricing. 
+		/// The selling plan options available in the drop-down list in the storefront.
+		/// For example, 'Delivery every week' or 'Delivery every 2 weeks' specifies
+		/// the delivery frequency options for the product. Individual selling plans
+		/// contribute their options to the associated selling plan group. For example,
+		/// a selling plan group might have an option called `option1: Delivery every`.
+		/// One selling plan in that group could contribute `option1: 2 weeks` with the
+		/// pricing for that option, and another selling plan could contribute
+		/// `option1: 4 weeks`, with different pricing.
 		@discardableResult
 		open func options(alias: String? = nil, _ subfields: (SellingPlanOptionQuery) -> Void) -> SellingPlanQuery {
 			let subquery = SellingPlanOptionQuery()
@@ -150,8 +157,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The price adjustments that a selling plan makes when a variant is purchased 
-		/// with a selling plan. 
+		/// The price adjustments that a selling plan makes when a variant is purchased
+		/// with a selling plan.
 		@discardableResult
 		open func priceAdjustments(alias: String? = nil, _ subfields: (SellingPlanPriceAdjustmentQuery) -> Void) -> SellingPlanQuery {
 			let subquery = SellingPlanPriceAdjustmentQuery()
@@ -161,7 +168,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Whether purchasing the selling plan will result in multiple deliveries. 
+		/// Whether purchasing the selling plan will result in multiple deliveries.
 		@discardableResult
 		open func recurringDeliveries(alias: String? = nil) -> SellingPlanQuery {
 			addField(field: "recurringDeliveries", aliasSuffix: alias)
@@ -169,7 +176,14 @@ extension Storefront {
 		}
 	}
 
-	/// Represents how products and variants can be sold and purchased. 
+	/// Represents deferred or recurring purchase options for
+	/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product)
+	/// and [product
+	/// variants](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant),
+	/// such as subscriptions, pre-orders, or try-before-you-buy. Each selling plan
+	/// belongs to a
+	/// [`SellingPlanGroup`](https://shopify.dev/docs/api/storefront/current/objects/SellingPlanGroup)
+	/// and defines billing, pricing, inventory, and delivery policies.
 	open class SellingPlan: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource {
 		public typealias Query = SellingPlanQuery
 
@@ -255,7 +269,7 @@ extension Storefront {
 			}
 		}
 
-		/// The billing policy for the selling plan. 
+		/// The billing policy for the selling plan.
 		open var billingPolicy: SellingPlanBillingPolicy? {
 			return internalGetBillingPolicy()
 		}
@@ -264,7 +278,7 @@ extension Storefront {
 			return field(field: "billingPolicy", aliasSuffix: alias) as! SellingPlanBillingPolicy?
 		}
 
-		/// The initial payment due for the purchase. 
+		/// The initial payment due for the purchase.
 		open var checkoutCharge: Storefront.SellingPlanCheckoutCharge {
 			return internalGetCheckoutCharge()
 		}
@@ -273,7 +287,7 @@ extension Storefront {
 			return field(field: "checkoutCharge", aliasSuffix: alias) as! Storefront.SellingPlanCheckoutCharge
 		}
 
-		/// The delivery policy for the selling plan. 
+		/// The delivery policy for the selling plan.
 		open var deliveryPolicy: SellingPlanDeliveryPolicy? {
 			return internalGetDeliveryPolicy()
 		}
@@ -282,7 +296,7 @@ extension Storefront {
 			return field(field: "deliveryPolicy", aliasSuffix: alias) as! SellingPlanDeliveryPolicy?
 		}
 
-		/// The description of the selling plan. 
+		/// The description of the selling plan.
 		open var description: String? {
 			return internalGetDescription()
 		}
@@ -291,7 +305,7 @@ extension Storefront {
 			return field(field: "description", aliasSuffix: alias) as! String?
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -300,9 +314,9 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		open var metafield: Storefront.Metafield? {
 			return internalGetMetafield()
 		}
@@ -315,8 +329,8 @@ extension Storefront {
 			return field(field: "metafield", aliasSuffix: alias) as! Storefront.Metafield?
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		open var metafields: [Storefront.Metafield?] {
 			return internalGetMetafields()
 		}
@@ -329,8 +343,8 @@ extension Storefront {
 			return field(field: "metafields", aliasSuffix: alias) as! [Storefront.Metafield?]
 		}
 
-		/// The name of the selling plan. For example, '6 weeks of prepaid granola, 
-		/// delivered weekly'. 
+		/// The name of the selling plan. For example, '6 weeks of prepaid granola,
+		/// delivered weekly'.
 		open var name: String {
 			return internalGetName()
 		}
@@ -339,14 +353,14 @@ extension Storefront {
 			return field(field: "name", aliasSuffix: alias) as! String
 		}
 
-		/// The selling plan options available in the drop-down list in the storefront. 
-		/// For example, 'Delivery every week' or 'Delivery every 2 weeks' specifies 
-		/// the delivery frequency options for the product. Individual selling plans 
-		/// contribute their options to the associated selling plan group. For example, 
-		/// a selling plan group might have an option called `option1: Delivery every`. 
-		/// One selling plan in that group could contribute `option1: 2 weeks` with the 
-		/// pricing for that option, and another selling plan could contribute 
-		/// `option1: 4 weeks`, with different pricing. 
+		/// The selling plan options available in the drop-down list in the storefront.
+		/// For example, 'Delivery every week' or 'Delivery every 2 weeks' specifies
+		/// the delivery frequency options for the product. Individual selling plans
+		/// contribute their options to the associated selling plan group. For example,
+		/// a selling plan group might have an option called `option1: Delivery every`.
+		/// One selling plan in that group could contribute `option1: 2 weeks` with the
+		/// pricing for that option, and another selling plan could contribute
+		/// `option1: 4 weeks`, with different pricing.
 		open var options: [Storefront.SellingPlanOption] {
 			return internalGetOptions()
 		}
@@ -355,8 +369,8 @@ extension Storefront {
 			return field(field: "options", aliasSuffix: alias) as! [Storefront.SellingPlanOption]
 		}
 
-		/// The price adjustments that a selling plan makes when a variant is purchased 
-		/// with a selling plan. 
+		/// The price adjustments that a selling plan makes when a variant is purchased
+		/// with a selling plan.
 		open var priceAdjustments: [Storefront.SellingPlanPriceAdjustment] {
 			return internalGetPriceAdjustments()
 		}
@@ -365,7 +379,7 @@ extension Storefront {
 			return field(field: "priceAdjustments", aliasSuffix: alias) as! [Storefront.SellingPlanPriceAdjustment]
 		}
 
-		/// Whether purchasing the selling plan will result in multiple deliveries. 
+		/// Whether purchasing the selling plan will result in multiple deliveries.
 		open var recurringDeliveries: Bool {
 			return internalGetRecurringDeliveries()
 		}

@@ -27,50 +27,58 @@
 import Foundation
 
 extension Storefront {
-	/// Shopify merchants can create pages to hold static HTML content. Each Page 
-	/// object represents a custom page on the online store. 
+	/// A [custom content
+	/// page](https://help.shopify.com/manual/online-store/add-edit-pages) on a
+	/// merchant's store. Pages display HTML-formatted content, such as "About Us",
+	/// contact details, or store policies. Each page has a unique
+	/// [`handle`](https://shopify.dev/docs/api/storefront/current/objects/Page#field-Page.fields.handle)
+	/// for URL routing and includes
+	/// [`SEO`](https://shopify.dev/docs/api/storefront/current/objects/SEO)
+	/// information for search engine optimization. Pages support
+	/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+	/// attachments for storing additional custom data.
 	open class PageQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Page
 
-		/// The description of the page, complete with HTML formatting. 
+		/// The description of the page, complete with HTML formatting.
 		@discardableResult
 		open func body(alias: String? = nil) -> PageQuery {
 			addField(field: "body", aliasSuffix: alias)
 			return self
 		}
 
-		/// Summary of the page body. 
+		/// Summary of the page body.
 		@discardableResult
 		open func bodySummary(alias: String? = nil) -> PageQuery {
 			addField(field: "bodySummary", aliasSuffix: alias)
 			return self
 		}
 
-		/// The timestamp of the page creation. 
+		/// The timestamp of the page creation.
 		@discardableResult
 		open func createdAt(alias: String? = nil) -> PageQuery {
 			addField(field: "createdAt", aliasSuffix: alias)
 			return self
 		}
 
-		/// A human-friendly unique string for the page automatically generated from 
-		/// its title. 
+		/// A human-friendly unique string for the page automatically generated from
+		/// its title.
 		@discardableResult
 		open func handle(alias: String? = nil) -> PageQuery {
 			addField(field: "handle", aliasSuffix: alias)
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> PageQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		///
 		/// - parameters:
 		///     - namespace: The container the metafield belongs to. If omitted, the app-reserved namespace will be used.
@@ -95,12 +103,12 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		///
 		/// - parameters:
 		///     - identifiers: The list of metafields to retrieve by namespace and key.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -118,16 +126,16 @@ extension Storefront {
 			return self
 		}
 
-		/// The URL used for viewing the resource on the shop's Online Store. Returns 
-		/// `null` if the resource is currently not published to the Online Store sales 
-		/// channel. 
+		/// The URL used for viewing the resource on the shop's Online Store. Returns
+		/// `null` if the resource is currently not published to the Online Store sales
+		/// channel.
 		@discardableResult
 		open func onlineStoreUrl(alias: String? = nil) -> PageQuery {
 			addField(field: "onlineStoreUrl", aliasSuffix: alias)
 			return self
 		}
 
-		/// The page's SEO information. 
+		/// The page's SEO information.
 		@discardableResult
 		open func seo(alias: String? = nil, _ subfields: (SEOQuery) -> Void) -> PageQuery {
 			let subquery = SEOQuery()
@@ -137,27 +145,27 @@ extension Storefront {
 			return self
 		}
 
-		/// The title of the page. 
+		/// The title of the page.
 		@discardableResult
 		open func title(alias: String? = nil) -> PageQuery {
 			addField(field: "title", aliasSuffix: alias)
 			return self
 		}
 
-		/// URL parameters to be added to a page URL to track the origin of on-site 
-		/// search traffic for [analytics 
-		/// reporting](https://help.shopify.com/manual/reports-and-analytics/shopify-reports/report-types/default-reports/behaviour-reports). 
-		/// Returns a result when accessed through the 
-		/// [search](https://shopify.dev/docs/api/storefront/current/queries/search) or 
-		/// [predictiveSearch](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch) 
-		/// queries, otherwise returns null. 
+		/// URL parameters to be added to a page URL to track the origin of on-site
+		/// search traffic for [analytics
+		/// reporting](https://help.shopify.com/manual/reports-and-analytics/shopify-reports/report-types/default-reports/behaviour-reports).
+		/// Returns a result when accessed through the
+		/// [search](https://shopify.dev/docs/api/storefront/current/queries/search) or
+		/// [predictiveSearch](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch)
+		/// queries, otherwise returns null.
 		@discardableResult
 		open func trackingParameters(alias: String? = nil) -> PageQuery {
 			addField(field: "trackingParameters", aliasSuffix: alias)
 			return self
 		}
 
-		/// The timestamp of the latest page update. 
+		/// The timestamp of the latest page update.
 		@discardableResult
 		open func updatedAt(alias: String? = nil) -> PageQuery {
 			addField(field: "updatedAt", aliasSuffix: alias)
@@ -165,8 +173,16 @@ extension Storefront {
 		}
 	}
 
-	/// Shopify merchants can create pages to hold static HTML content. Each Page 
-	/// object represents a custom page on the online store. 
+	/// A [custom content
+	/// page](https://help.shopify.com/manual/online-store/add-edit-pages) on a
+	/// merchant's store. Pages display HTML-formatted content, such as "About Us",
+	/// contact details, or store policies. Each page has a unique
+	/// [`handle`](https://shopify.dev/docs/api/storefront/current/objects/Page#field-Page.fields.handle)
+	/// for URL routing and includes
+	/// [`SEO`](https://shopify.dev/docs/api/storefront/current/objects/SEO)
+	/// information for search engine optimization. Pages support
+	/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+	/// attachments for storing additional custom data.
 	open class Page: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MenuItemResource, MetafieldParentResource, MetafieldReference, Node, OnlineStorePublishable, SearchResultItem, Trackable {
 		public typealias Query = PageQuery
 
@@ -258,7 +274,7 @@ extension Storefront {
 			}
 		}
 
-		/// The description of the page, complete with HTML formatting. 
+		/// The description of the page, complete with HTML formatting.
 		open var body: String {
 			return internalGetBody()
 		}
@@ -267,7 +283,7 @@ extension Storefront {
 			return field(field: "body", aliasSuffix: alias) as! String
 		}
 
-		/// Summary of the page body. 
+		/// Summary of the page body.
 		open var bodySummary: String {
 			return internalGetBodySummary()
 		}
@@ -276,7 +292,7 @@ extension Storefront {
 			return field(field: "bodySummary", aliasSuffix: alias) as! String
 		}
 
-		/// The timestamp of the page creation. 
+		/// The timestamp of the page creation.
 		open var createdAt: Date {
 			return internalGetCreatedAt()
 		}
@@ -285,8 +301,8 @@ extension Storefront {
 			return field(field: "createdAt", aliasSuffix: alias) as! Date
 		}
 
-		/// A human-friendly unique string for the page automatically generated from 
-		/// its title. 
+		/// A human-friendly unique string for the page automatically generated from
+		/// its title.
 		open var handle: String {
 			return internalGetHandle()
 		}
@@ -295,7 +311,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -304,9 +320,9 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		open var metafield: Storefront.Metafield? {
 			return internalGetMetafield()
 		}
@@ -319,8 +335,8 @@ extension Storefront {
 			return field(field: "metafield", aliasSuffix: alias) as! Storefront.Metafield?
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		open var metafields: [Storefront.Metafield?] {
 			return internalGetMetafields()
 		}
@@ -333,9 +349,9 @@ extension Storefront {
 			return field(field: "metafields", aliasSuffix: alias) as! [Storefront.Metafield?]
 		}
 
-		/// The URL used for viewing the resource on the shop's Online Store. Returns 
-		/// `null` if the resource is currently not published to the Online Store sales 
-		/// channel. 
+		/// The URL used for viewing the resource on the shop's Online Store. Returns
+		/// `null` if the resource is currently not published to the Online Store sales
+		/// channel.
 		open var onlineStoreUrl: URL? {
 			return internalGetOnlineStoreUrl()
 		}
@@ -344,7 +360,7 @@ extension Storefront {
 			return field(field: "onlineStoreUrl", aliasSuffix: alias) as! URL?
 		}
 
-		/// The page's SEO information. 
+		/// The page's SEO information.
 		open var seo: Storefront.SEO? {
 			return internalGetSeo()
 		}
@@ -353,7 +369,7 @@ extension Storefront {
 			return field(field: "seo", aliasSuffix: alias) as! Storefront.SEO?
 		}
 
-		/// The title of the page. 
+		/// The title of the page.
 		open var title: String {
 			return internalGetTitle()
 		}
@@ -362,13 +378,13 @@ extension Storefront {
 			return field(field: "title", aliasSuffix: alias) as! String
 		}
 
-		/// URL parameters to be added to a page URL to track the origin of on-site 
-		/// search traffic for [analytics 
-		/// reporting](https://help.shopify.com/manual/reports-and-analytics/shopify-reports/report-types/default-reports/behaviour-reports). 
-		/// Returns a result when accessed through the 
-		/// [search](https://shopify.dev/docs/api/storefront/current/queries/search) or 
-		/// [predictiveSearch](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch) 
-		/// queries, otherwise returns null. 
+		/// URL parameters to be added to a page URL to track the origin of on-site
+		/// search traffic for [analytics
+		/// reporting](https://help.shopify.com/manual/reports-and-analytics/shopify-reports/report-types/default-reports/behaviour-reports).
+		/// Returns a result when accessed through the
+		/// [search](https://shopify.dev/docs/api/storefront/current/queries/search) or
+		/// [predictiveSearch](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch)
+		/// queries, otherwise returns null.
 		open var trackingParameters: String? {
 			return internalGetTrackingParameters()
 		}
@@ -377,7 +393,7 @@ extension Storefront {
 			return field(field: "trackingParameters", aliasSuffix: alias) as! String?
 		}
 
-		/// The timestamp of the latest page update. 
+		/// The timestamp of the latest page update.
 		open var updatedAt: Date {
 			return internalGetUpdatedAt()
 		}

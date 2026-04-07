@@ -27,17 +27,17 @@
 import Foundation
 
 extension Storefront {
-	/// The type of data that the filter group represents. For more information, 
-	/// refer to [Filter products in a collection with the Storefront API] 
-	/// (https://shopify.dev/custom-storefronts/products-collections/filter-products). 
+	/// The type of data that the filter group represents. For more information,
+	/// refer to [Filter products in a collection with the Storefront API]
+	/// (https://shopify.dev/custom-storefronts/products-collections/filter-products).
 	public enum FilterType: String {
-		/// A boolean value. 
+		/// A boolean value.
 		case boolean = "BOOLEAN"
 
-		/// A list of selectable values. 
+		/// A list of selectable values.
 		case list = "LIST"
 
-		/// A range of prices. 
+		/// A range of prices.
 		case priceRange = "PRICE_RANGE"
 
 		case unknownValue = ""

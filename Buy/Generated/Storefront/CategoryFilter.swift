@@ -27,10 +27,10 @@
 import Foundation
 
 extension Storefront {
-	/// A filter used to view a subset of products in a collection matching a 
-	/// specific category value. 
+	/// A filter used to view a subset of products in a collection matching a
+	/// specific category value.
 	open class CategoryFilter {
-		/// The id of the category to filter on. 
+		/// The id of the category to filter on.
 		open var id: String
 
 		/// Creates the input object.

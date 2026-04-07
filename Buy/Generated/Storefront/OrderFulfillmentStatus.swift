@@ -27,44 +27,49 @@
 import Foundation
 
 extension Storefront {
-	/// Represents the order's aggregated fulfillment status for display purposes. 
+	/// The aggregated fulfillment status of an
+	/// [`Order`](https://shopify.dev/docs/api/storefront/current/objects/Order),
+	/// summarizing the state of all line items. Used for display purposes.
+	/// Statuses range from unfulfilled to fully fulfilled, with intermediate
+	/// states such as in progress and on hold. Learn more about [order
+	/// statuses](https://help.shopify.com/manual/fulfillment/managing-orders/order-status).
 	public enum OrderFulfillmentStatus: String {
-		/// Displayed as **Fulfilled**. All of the items in the order have been 
-		/// fulfilled. 
+		/// Displayed as **Fulfilled**. All of the items in the order have been
+		/// fulfilled.
 		case fulfilled = "FULFILLED"
 
-		/// Displayed as **In progress**. Some of the items in the order have been 
-		/// fulfilled, or a request for fulfillment has been sent to the fulfillment 
-		/// service. 
+		/// Displayed as **In progress**. Some of the items in the order have been
+		/// fulfilled, or a request for fulfillment has been sent to the fulfillment
+		/// service.
 		case inProgress = "IN_PROGRESS"
 
-		/// Displayed as **On hold**. All of the unfulfilled items in this order are on 
-		/// hold. 
+		/// Displayed as **On hold**. All of the unfulfilled items in this order are on
+		/// hold.
 		case onHold = "ON_HOLD"
 
-		/// Displayed as **Open**. None of the items in the order have been fulfilled. 
-		/// Replaced by "UNFULFILLED" status. 
+		/// Displayed as **Open**. None of the items in the order have been fulfilled.
+		/// Replaced by "UNFULFILLED" status.
 		case `open` = "OPEN"
 
-		/// Displayed as **Partially fulfilled**. Some of the items in the order have 
-		/// been fulfilled. 
+		/// Displayed as **Partially fulfilled**. Some of the items in the order have
+		/// been fulfilled.
 		case partiallyFulfilled = "PARTIALLY_FULFILLED"
 
-		/// Displayed as **Pending fulfillment**. A request for fulfillment of some 
-		/// items awaits a response from the fulfillment service. Replaced by 
-		/// "IN_PROGRESS" status. 
+		/// Displayed as **Pending fulfillment**. A request for fulfillment of some
+		/// items awaits a response from the fulfillment service. Replaced by
+		/// "IN_PROGRESS" status.
 		case pendingFulfillment = "PENDING_FULFILLMENT"
 
-		/// Displayed as **Restocked**. All of the items in the order have been 
-		/// restocked. Replaced by "UNFULFILLED" status. 
+		/// Displayed as **Restocked**. All of the items in the order have been
+		/// restocked. Replaced by "UNFULFILLED" status.
 		case restocked = "RESTOCKED"
 
-		/// Displayed as **Scheduled**. All of the unfulfilled items in this order are 
-		/// scheduled for fulfillment at later time. 
+		/// Displayed as **Scheduled**. All of the unfulfilled items in this order are
+		/// scheduled for fulfillment at later time.
 		case scheduled = "SCHEDULED"
 
-		/// Displayed as **Unfulfilled**. None of the items in the order have been 
-		/// fulfilled. 
+		/// Displayed as **Unfulfilled**. None of the items in the order have been
+		/// fulfilled.
 		case unfulfilled = "UNFULFILLED"
 
 		case unknownValue = ""

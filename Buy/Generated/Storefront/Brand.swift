@@ -27,12 +27,15 @@
 import Foundation
 
 extension Storefront {
-	/// The store's [branding 
-	/// configuration](https://help.shopify.com/en/manual/promoting-marketing/managing-brand-assets). 
+	/// The store's [branding
+	/// configuration](https://help.shopify.com/manual/promoting-marketing/managing-brand-assets),
+	/// such as logos, colors, and slogan. Access this through the
+	/// [`Shop`](https://shopify.dev/docs/api/storefront/current/objects/Shop#field-Shop.fields.brand)
+	/// object to display consistent brand assets across your storefront.
 	open class BrandQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Brand
 
-		/// The colors of the store's brand. 
+		/// The colors of the store's brand.
 		@discardableResult
 		open func colors(alias: String? = nil, _ subfields: (BrandColorsQuery) -> Void) -> BrandQuery {
 			let subquery = BrandColorsQuery()
@@ -42,7 +45,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The store's cover image. 
+		/// The store's cover image.
 		@discardableResult
 		open func coverImage(alias: String? = nil, _ subfields: (MediaImageQuery) -> Void) -> BrandQuery {
 			let subquery = MediaImageQuery()
@@ -52,7 +55,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The store's default logo. 
+		/// The store's default logo.
 		@discardableResult
 		open func logo(alias: String? = nil, _ subfields: (MediaImageQuery) -> Void) -> BrandQuery {
 			let subquery = MediaImageQuery()
@@ -62,21 +65,21 @@ extension Storefront {
 			return self
 		}
 
-		/// The store's short description. 
+		/// The store's short description.
 		@discardableResult
 		open func shortDescription(alias: String? = nil) -> BrandQuery {
 			addField(field: "shortDescription", aliasSuffix: alias)
 			return self
 		}
 
-		/// The store's slogan. 
+		/// The store's slogan.
 		@discardableResult
 		open func slogan(alias: String? = nil) -> BrandQuery {
 			addField(field: "slogan", aliasSuffix: alias)
 			return self
 		}
 
-		/// The store's preferred logo for square UI elements. 
+		/// The store's preferred logo for square UI elements.
 		@discardableResult
 		open func squareLogo(alias: String? = nil, _ subfields: (MediaImageQuery) -> Void) -> BrandQuery {
 			let subquery = MediaImageQuery()
@@ -87,8 +90,11 @@ extension Storefront {
 		}
 	}
 
-	/// The store's [branding 
-	/// configuration](https://help.shopify.com/en/manual/promoting-marketing/managing-brand-assets). 
+	/// The store's [branding
+	/// configuration](https://help.shopify.com/manual/promoting-marketing/managing-brand-assets),
+	/// such as logos, colors, and slogan. Access this through the
+	/// [`Shop`](https://shopify.dev/docs/api/storefront/current/objects/Shop#field-Shop.fields.brand)
+	/// object to display consistent brand assets across your storefront.
 	open class Brand: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = BrandQuery
 
@@ -141,7 +147,7 @@ extension Storefront {
 			}
 		}
 
-		/// The colors of the store's brand. 
+		/// The colors of the store's brand.
 		open var colors: Storefront.BrandColors {
 			return internalGetColors()
 		}
@@ -150,7 +156,7 @@ extension Storefront {
 			return field(field: "colors", aliasSuffix: alias) as! Storefront.BrandColors
 		}
 
-		/// The store's cover image. 
+		/// The store's cover image.
 		open var coverImage: Storefront.MediaImage? {
 			return internalGetCoverImage()
 		}
@@ -159,7 +165,7 @@ extension Storefront {
 			return field(field: "coverImage", aliasSuffix: alias) as! Storefront.MediaImage?
 		}
 
-		/// The store's default logo. 
+		/// The store's default logo.
 		open var logo: Storefront.MediaImage? {
 			return internalGetLogo()
 		}
@@ -168,7 +174,7 @@ extension Storefront {
 			return field(field: "logo", aliasSuffix: alias) as! Storefront.MediaImage?
 		}
 
-		/// The store's short description. 
+		/// The store's short description.
 		open var shortDescription: String? {
 			return internalGetShortDescription()
 		}
@@ -177,7 +183,7 @@ extension Storefront {
 			return field(field: "shortDescription", aliasSuffix: alias) as! String?
 		}
 
-		/// The store's slogan. 
+		/// The store's slogan.
 		open var slogan: String? {
 			return internalGetSlogan()
 		}
@@ -186,7 +192,7 @@ extension Storefront {
 			return field(field: "slogan", aliasSuffix: alias) as! String?
 		}
 
-		/// The store's preferred logo for square UI elements. 
+		/// The store's preferred logo for square UI elements.
 		open var squareLogo: Storefront.MediaImage? {
 			return internalGetSquareLogo()
 		}

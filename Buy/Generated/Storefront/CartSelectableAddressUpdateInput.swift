@@ -27,22 +27,22 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields to update a line item on a cart. 
+	/// The input fields to update a line item on a cart.
 	open class CartSelectableAddressUpdateInput {
-		/// The id of the selectable address. 
+		/// The id of the selectable address.
 		open var id: GraphQL.ID
 
-		/// Exactly one kind of delivery address. 
+		/// Exactly one kind of delivery address.
 		open var address: Input<CartAddressInput>
 
-		/// Sets exactly one address as pre-selected for the buyer. 
+		/// Sets exactly one address as pre-selected for the buyer.
 		open var selected: Input<Bool>
 
-		/// When true, this delivery address will not be associated with the buyer 
-		/// after a successful checkout. 
+		/// When true, this delivery address will not be associated with the buyer
+		/// after a successful checkout.
 		open var oneTimeUse: Input<Bool>
 
-		/// Defines what kind of address validation is requested. 
+		/// Defines what kind of address validation is requested.
 		open var validationStrategy: Input<DeliveryAddressValidationStrategy>
 
 		/// Creates the input object.

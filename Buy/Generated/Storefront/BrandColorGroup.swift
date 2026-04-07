@@ -27,18 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// A group of related colors for the shop's brand. 
+	/// A group of related colors for the shop's brand.
 	open class BrandColorGroupQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = BrandColorGroup
 
-		/// The background color. 
+		/// The background color.
 		@discardableResult
 		open func background(alias: String? = nil) -> BrandColorGroupQuery {
 			addField(field: "background", aliasSuffix: alias)
 			return self
 		}
 
-		/// The foreground color. 
+		/// The foreground color.
 		@discardableResult
 		open func foreground(alias: String? = nil) -> BrandColorGroupQuery {
 			addField(field: "foreground", aliasSuffix: alias)
@@ -46,7 +46,7 @@ extension Storefront {
 		}
 	}
 
-	/// A group of related colors for the shop's brand. 
+	/// A group of related colors for the shop's brand.
 	open class BrandColorGroup: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = BrandColorGroupQuery
 
@@ -72,7 +72,7 @@ extension Storefront {
 			}
 		}
 
-		/// The background color. 
+		/// The background color.
 		open var background: String? {
 			return internalGetBackground()
 		}
@@ -81,7 +81,7 @@ extension Storefront {
 			return field(field: "background", aliasSuffix: alias) as! String?
 		}
 
-		/// The foreground color. 
+		/// The foreground color.
 		open var foreground: String? {
 			return internalGetForeground()
 		}

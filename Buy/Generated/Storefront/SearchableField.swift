@@ -27,34 +27,34 @@
 import Foundation
 
 extension Storefront {
-	/// Specifies the list of resource fields to search. 
+	/// Specifies the list of resource fields to search.
 	public enum SearchableField: String {
-		/// Author of the page or article. 
+		/// Author of the page or article.
 		case author = "AUTHOR"
 
-		/// Body of the page or article or product description or collection 
-		/// description. 
+		/// Body of the page or article or product description or collection
+		/// description.
 		case body = "BODY"
 
-		/// Product type. 
+		/// Product type.
 		case productType = "PRODUCT_TYPE"
 
-		/// Tag associated with the product or article. 
+		/// Tag associated with the product or article.
 		case tag = "TAG"
 
-		/// Title of the page or article or product title or collection title. 
+		/// Title of the page or article or product title or collection title.
 		case title = "TITLE"
 
-		/// Variant barcode. 
+		/// Variant barcode.
 		case variantsBarcode = "VARIANTS_BARCODE"
 
-		/// Variant SKU. 
+		/// Variant SKU.
 		case variantsSku = "VARIANTS_SKU"
 
-		/// Variant title. 
+		/// Variant title.
 		case variantsTitle = "VARIANTS_TITLE"
 
-		/// Product vendor. 
+		/// Product vendor.
 		case vendor = "VENDOR"
 
 		case unknownValue = ""

@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a line item for a Shop Pay payment request. 
+	/// Represents a line item for a Shop Pay payment request.
 	open class ShopPayPaymentRequestLineItemQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ShopPayPaymentRequestLineItem
 
-		/// The final item price for the line item. 
+		/// The final item price for the line item.
 		@discardableResult
 		open func finalItemPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ShopPayPaymentRequestLineItemQuery {
 			let subquery = MoneyV2Query()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The final line price for the line item. 
+		/// The final line price for the line item.
 		@discardableResult
 		open func finalLinePrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ShopPayPaymentRequestLineItemQuery {
 			let subquery = MoneyV2Query()
@@ -51,7 +51,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The image of the line item. 
+		/// The image of the line item.
 		@discardableResult
 		open func image(alias: String? = nil, _ subfields: (ShopPayPaymentRequestImageQuery) -> Void) -> ShopPayPaymentRequestLineItemQuery {
 			let subquery = ShopPayPaymentRequestImageQuery()
@@ -61,7 +61,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The item discounts for the line item. 
+		/// The item discounts for the line item.
 		@discardableResult
 		open func itemDiscounts(alias: String? = nil, _ subfields: (ShopPayPaymentRequestDiscountQuery) -> Void) -> ShopPayPaymentRequestLineItemQuery {
 			let subquery = ShopPayPaymentRequestDiscountQuery()
@@ -71,14 +71,14 @@ extension Storefront {
 			return self
 		}
 
-		/// The label of the line item. 
+		/// The label of the line item.
 		@discardableResult
 		open func label(alias: String? = nil) -> ShopPayPaymentRequestLineItemQuery {
 			addField(field: "label", aliasSuffix: alias)
 			return self
 		}
 
-		/// The line discounts for the line item. 
+		/// The line discounts for the line item.
 		@discardableResult
 		open func lineDiscounts(alias: String? = nil, _ subfields: (ShopPayPaymentRequestDiscountQuery) -> Void) -> ShopPayPaymentRequestLineItemQuery {
 			let subquery = ShopPayPaymentRequestDiscountQuery()
@@ -88,7 +88,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The original item price for the line item. 
+		/// The original item price for the line item.
 		@discardableResult
 		open func originalItemPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ShopPayPaymentRequestLineItemQuery {
 			let subquery = MoneyV2Query()
@@ -98,7 +98,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The original line price for the line item. 
+		/// The original line price for the line item.
 		@discardableResult
 		open func originalLinePrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ShopPayPaymentRequestLineItemQuery {
 			let subquery = MoneyV2Query()
@@ -108,21 +108,21 @@ extension Storefront {
 			return self
 		}
 
-		/// The quantity of the line item. 
+		/// The quantity of the line item.
 		@discardableResult
 		open func quantity(alias: String? = nil) -> ShopPayPaymentRequestLineItemQuery {
 			addField(field: "quantity", aliasSuffix: alias)
 			return self
 		}
 
-		/// Whether the line item requires shipping. 
+		/// Whether the line item requires shipping.
 		@discardableResult
 		open func requiresShipping(alias: String? = nil) -> ShopPayPaymentRequestLineItemQuery {
 			addField(field: "requiresShipping", aliasSuffix: alias)
 			return self
 		}
 
-		/// The SKU of the line item. 
+		/// The SKU of the line item.
 		@discardableResult
 		open func sku(alias: String? = nil) -> ShopPayPaymentRequestLineItemQuery {
 			addField(field: "sku", aliasSuffix: alias)
@@ -130,7 +130,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a line item for a Shop Pay payment request. 
+	/// Represents a line item for a Shop Pay payment request.
 	open class ShopPayPaymentRequestLineItem: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ShopPayPaymentRequestLineItemQuery
 
@@ -215,7 +215,7 @@ extension Storefront {
 			}
 		}
 
-		/// The final item price for the line item. 
+		/// The final item price for the line item.
 		open var finalItemPrice: Storefront.MoneyV2 {
 			return internalGetFinalItemPrice()
 		}
@@ -224,7 +224,7 @@ extension Storefront {
 			return field(field: "finalItemPrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The final line price for the line item. 
+		/// The final line price for the line item.
 		open var finalLinePrice: Storefront.MoneyV2 {
 			return internalGetFinalLinePrice()
 		}
@@ -233,7 +233,7 @@ extension Storefront {
 			return field(field: "finalLinePrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The image of the line item. 
+		/// The image of the line item.
 		open var image: Storefront.ShopPayPaymentRequestImage? {
 			return internalGetImage()
 		}
@@ -242,7 +242,7 @@ extension Storefront {
 			return field(field: "image", aliasSuffix: alias) as! Storefront.ShopPayPaymentRequestImage?
 		}
 
-		/// The item discounts for the line item. 
+		/// The item discounts for the line item.
 		open var itemDiscounts: [Storefront.ShopPayPaymentRequestDiscount]? {
 			return internalGetItemDiscounts()
 		}
@@ -251,7 +251,7 @@ extension Storefront {
 			return field(field: "itemDiscounts", aliasSuffix: alias) as! [Storefront.ShopPayPaymentRequestDiscount]?
 		}
 
-		/// The label of the line item. 
+		/// The label of the line item.
 		open var label: String {
 			return internalGetLabel()
 		}
@@ -260,7 +260,7 @@ extension Storefront {
 			return field(field: "label", aliasSuffix: alias) as! String
 		}
 
-		/// The line discounts for the line item. 
+		/// The line discounts for the line item.
 		open var lineDiscounts: [Storefront.ShopPayPaymentRequestDiscount]? {
 			return internalGetLineDiscounts()
 		}
@@ -269,7 +269,7 @@ extension Storefront {
 			return field(field: "lineDiscounts", aliasSuffix: alias) as! [Storefront.ShopPayPaymentRequestDiscount]?
 		}
 
-		/// The original item price for the line item. 
+		/// The original item price for the line item.
 		open var originalItemPrice: Storefront.MoneyV2? {
 			return internalGetOriginalItemPrice()
 		}
@@ -278,7 +278,7 @@ extension Storefront {
 			return field(field: "originalItemPrice", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
-		/// The original line price for the line item. 
+		/// The original line price for the line item.
 		open var originalLinePrice: Storefront.MoneyV2? {
 			return internalGetOriginalLinePrice()
 		}
@@ -287,7 +287,7 @@ extension Storefront {
 			return field(field: "originalLinePrice", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
-		/// The quantity of the line item. 
+		/// The quantity of the line item.
 		open var quantity: Int32 {
 			return internalGetQuantity()
 		}
@@ -296,7 +296,7 @@ extension Storefront {
 			return field(field: "quantity", aliasSuffix: alias) as! Int32
 		}
 
-		/// Whether the line item requires shipping. 
+		/// Whether the line item requires shipping.
 		open var requiresShipping: Bool? {
 			return internalGetRequiresShipping()
 		}
@@ -305,7 +305,7 @@ extension Storefront {
 			return field(field: "requiresShipping", aliasSuffix: alias) as! Bool?
 		}
 
-		/// The SKU of the line item. 
+		/// The SKU of the line item.
 		open var sku: String? {
 			return internalGetSku()
 		}

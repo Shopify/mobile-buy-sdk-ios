@@ -27,18 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a sitemap resource that is not a metaobject. 
+	/// Represents a sitemap resource that is not a metaobject.
 	open class SitemapResourceQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SitemapResource
 
-		/// Resource's handle. 
+		/// Resource's handle.
 		@discardableResult
 		open func handle(alias: String? = nil) -> SitemapResourceQuery {
 			addField(field: "handle", aliasSuffix: alias)
 			return self
 		}
 
-		/// Resource's image. 
+		/// Resource's image.
 		@discardableResult
 		open func image(alias: String? = nil, _ subfields: (SitemapImageQuery) -> Void) -> SitemapResourceQuery {
 			let subquery = SitemapImageQuery()
@@ -48,14 +48,14 @@ extension Storefront {
 			return self
 		}
 
-		/// Resource's title. 
+		/// Resource's title.
 		@discardableResult
 		open func title(alias: String? = nil) -> SitemapResourceQuery {
 			addField(field: "title", aliasSuffix: alias)
 			return self
 		}
 
-		/// The date and time when the resource was updated. 
+		/// The date and time when the resource was updated.
 		@discardableResult
 		open func updatedAt(alias: String? = nil) -> SitemapResourceQuery {
 			addField(field: "updatedAt", aliasSuffix: alias)
@@ -63,7 +63,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a sitemap resource that is not a metaobject. 
+	/// Represents a sitemap resource that is not a metaobject.
 	open class SitemapResource: GraphQL.AbstractResponse, GraphQLObject, SitemapResourceInterface {
 		public typealias Query = SitemapResourceQuery
 
@@ -101,7 +101,7 @@ extension Storefront {
 			}
 		}
 
-		/// Resource's handle. 
+		/// Resource's handle.
 		open var handle: String {
 			return internalGetHandle()
 		}
@@ -110,7 +110,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// Resource's image. 
+		/// Resource's image.
 		open var image: Storefront.SitemapImage? {
 			return internalGetImage()
 		}
@@ -119,7 +119,7 @@ extension Storefront {
 			return field(field: "image", aliasSuffix: alias) as! Storefront.SitemapImage?
 		}
 
-		/// Resource's title. 
+		/// Resource's title.
 		open var title: String? {
 			return internalGetTitle()
 		}
@@ -128,7 +128,7 @@ extension Storefront {
 			return field(field: "title", aliasSuffix: alias) as! String?
 		}
 
-		/// The date and time when the resource was updated. 
+		/// The date and time when the resource was updated.
 		open var updatedAt: Date {
 			return internalGetUpdatedAt()
 		}

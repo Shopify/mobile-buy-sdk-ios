@@ -27,18 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// Cart submit for checkout completion failed. 
+	/// Cart submit for checkout completion failed.
 	open class SubmitFailedQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SubmitFailed
 
-		/// The URL of the checkout for the cart. 
+		/// The URL of the checkout for the cart.
 		@discardableResult
 		open func checkoutUrl(alias: String? = nil) -> SubmitFailedQuery {
 			addField(field: "checkoutUrl", aliasSuffix: alias)
 			return self
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		@discardableResult
 		open func errors(alias: String? = nil, _ subfields: (SubmissionErrorQuery) -> Void) -> SubmitFailedQuery {
 			let subquery = SubmissionErrorQuery()
@@ -49,7 +49,7 @@ extension Storefront {
 		}
 	}
 
-	/// Cart submit for checkout completion failed. 
+	/// Cart submit for checkout completion failed.
 	open class SubmitFailed: GraphQL.AbstractResponse, GraphQLObject, CartSubmitForCompletionResult {
 		public typealias Query = SubmitFailedQuery
 
@@ -74,7 +74,7 @@ extension Storefront {
 			}
 		}
 
-		/// The URL of the checkout for the cart. 
+		/// The URL of the checkout for the cart.
 		open var checkoutUrl: URL? {
 			return internalGetCheckoutUrl()
 		}
@@ -83,7 +83,7 @@ extension Storefront {
 			return field(field: "checkoutUrl", aliasSuffix: alias) as! URL?
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		open var errors: [Storefront.SubmissionError] {
 			return internalGetErrors()
 		}

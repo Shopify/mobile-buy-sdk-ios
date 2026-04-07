@@ -27,25 +27,38 @@
 import Foundation
 
 extension Storefront {
-	/// A selectable value within a filter. 
+	/// A selectable option within a
+	/// [`Filter`](https://shopify.dev/docs/api/storefront/current/objects/Filter),
+	/// such as a specific color, size, or product type. Each value includes a
+	/// count of matching results and a human-readable label for display. The
+	/// [`input`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue#field-FilterValue.fields.input)
+	/// field provides ready-to-use JSON for building dynamic filtering interfaces.
+	/// You can combine the `input` values from multiple selected
+	/// [`FilterValue`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue)
+	/// objects to construct filter queries. Visual representations are available
+	/// through the
+	/// [`image`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue#field-FilterValue.fields.image)
+	/// or
+	/// [`swatch`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue#field-FilterValue.fields.swatch)
+	/// fields when the parent filter's presentation type supports them.
 	open class FilterValueQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = FilterValue
 
-		/// The number of results that match this filter value. 
+		/// The number of results that match this filter value.
 		@discardableResult
 		open func count(alias: String? = nil) -> FilterValueQuery {
 			addField(field: "count", aliasSuffix: alias)
 			return self
 		}
 
-		/// A unique identifier. 
+		/// A unique identifier.
 		@discardableResult
 		open func id(alias: String? = nil) -> FilterValueQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The visual representation when the filter's presentation is `IMAGE`. 
+		/// The visual representation when the filter's presentation is `IMAGE`.
 		@discardableResult
 		open func image(alias: String? = nil, _ subfields: (MediaImageQuery) -> Void) -> FilterValueQuery {
 			let subquery = MediaImageQuery()
@@ -55,24 +68,24 @@ extension Storefront {
 			return self
 		}
 
-		/// An input object that can be used to filter by this value on the parent 
-		/// field. The value is provided as a helper for building dynamic filtering UI. 
-		/// For example, if you have a list of selected `FilterValue` objects, you can 
-		/// combine their respective `input` values to use in a subsequent query. 
+		/// An input object that can be used to filter by this value on the parent
+		/// field. The value is provided as a helper for building dynamic filtering UI.
+		/// For example, if you have a list of selected `FilterValue` objects, you can
+		/// combine their respective `input` values to use in a subsequent query.
 		@discardableResult
 		open func input(alias: String? = nil) -> FilterValueQuery {
 			addField(field: "input", aliasSuffix: alias)
 			return self
 		}
 
-		/// A human-friendly string for this filter value. 
+		/// A human-friendly string for this filter value.
 		@discardableResult
 		open func label(alias: String? = nil) -> FilterValueQuery {
 			addField(field: "label", aliasSuffix: alias)
 			return self
 		}
 
-		/// The visual representation when the filter's presentation is `SWATCH`. 
+		/// The visual representation when the filter's presentation is `SWATCH`.
 		@discardableResult
 		open func swatch(alias: String? = nil, _ subfields: (SwatchQuery) -> Void) -> FilterValueQuery {
 			let subquery = SwatchQuery()
@@ -83,7 +96,20 @@ extension Storefront {
 		}
 	}
 
-	/// A selectable value within a filter. 
+	/// A selectable option within a
+	/// [`Filter`](https://shopify.dev/docs/api/storefront/current/objects/Filter),
+	/// such as a specific color, size, or product type. Each value includes a
+	/// count of matching results and a human-readable label for display. The
+	/// [`input`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue#field-FilterValue.fields.input)
+	/// field provides ready-to-use JSON for building dynamic filtering interfaces.
+	/// You can combine the `input` values from multiple selected
+	/// [`FilterValue`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue)
+	/// objects to construct filter queries. Visual representations are available
+	/// through the
+	/// [`image`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue#field-FilterValue.fields.image)
+	/// or
+	/// [`swatch`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue#field-FilterValue.fields.swatch)
+	/// fields when the parent filter's presentation type supports them.
 	open class FilterValue: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = FilterValueQuery
 
@@ -133,7 +159,7 @@ extension Storefront {
 			}
 		}
 
-		/// The number of results that match this filter value. 
+		/// The number of results that match this filter value.
 		open var count: Int32 {
 			return internalGetCount()
 		}
@@ -142,7 +168,7 @@ extension Storefront {
 			return field(field: "count", aliasSuffix: alias) as! Int32
 		}
 
-		/// A unique identifier. 
+		/// A unique identifier.
 		open var id: String {
 			return internalGetId()
 		}
@@ -151,7 +177,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! String
 		}
 
-		/// The visual representation when the filter's presentation is `IMAGE`. 
+		/// The visual representation when the filter's presentation is `IMAGE`.
 		open var image: Storefront.MediaImage? {
 			return internalGetImage()
 		}
@@ -160,10 +186,10 @@ extension Storefront {
 			return field(field: "image", aliasSuffix: alias) as! Storefront.MediaImage?
 		}
 
-		/// An input object that can be used to filter by this value on the parent 
-		/// field. The value is provided as a helper for building dynamic filtering UI. 
-		/// For example, if you have a list of selected `FilterValue` objects, you can 
-		/// combine their respective `input` values to use in a subsequent query. 
+		/// An input object that can be used to filter by this value on the parent
+		/// field. The value is provided as a helper for building dynamic filtering UI.
+		/// For example, if you have a list of selected `FilterValue` objects, you can
+		/// combine their respective `input` values to use in a subsequent query.
 		open var input: String {
 			return internalGetInput()
 		}
@@ -172,7 +198,7 @@ extension Storefront {
 			return field(field: "input", aliasSuffix: alias) as! String
 		}
 
-		/// A human-friendly string for this filter value. 
+		/// A human-friendly string for this filter value.
 		open var label: String {
 			return internalGetLabel()
 		}
@@ -181,7 +207,7 @@ extension Storefront {
 			return field(field: "label", aliasSuffix: alias) as! String
 		}
 
-		/// The visual representation when the filter's presentation is `SWATCH`. 
+		/// The visual representation when the filter's presentation is `SWATCH`.
 		open var swatch: Storefront.Swatch? {
 			return internalGetSwatch()
 		}

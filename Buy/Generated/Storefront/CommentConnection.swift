@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type for paginating through multiple Comments. 
+	/// An auto-generated type for paginating through multiple Comments.
 	open class CommentConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CommentConnection
 
-		/// A list of edges. 
+		/// A list of edges.
 		@discardableResult
 		open func edges(alias: String? = nil, _ subfields: (CommentEdgeQuery) -> Void) -> CommentConnectionQuery {
 			let subquery = CommentEdgeQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of the nodes contained in CommentEdge. 
+		/// A list of the nodes contained in CommentEdge.
 		@discardableResult
 		open func nodes(alias: String? = nil, _ subfields: (CommentQuery) -> Void) -> CommentConnectionQuery {
 			let subquery = CommentQuery()
@@ -51,7 +51,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> CommentConnectionQuery {
 			let subquery = PageInfoQuery()
@@ -62,7 +62,7 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type for paginating through multiple Comments. 
+	/// An auto-generated type for paginating through multiple Comments.
 	open class CommentConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CommentConnectionQuery
 
@@ -92,7 +92,7 @@ extension Storefront {
 			}
 		}
 
-		/// A list of edges. 
+		/// A list of edges.
 		open var edges: [Storefront.CommentEdge] {
 			return internalGetEdges()
 		}
@@ -101,7 +101,7 @@ extension Storefront {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.CommentEdge]
 		}
 
-		/// A list of the nodes contained in CommentEdge. 
+		/// A list of the nodes contained in CommentEdge.
 		open var nodes: [Storefront.Comment] {
 			return internalGetNodes()
 		}
@@ -110,7 +110,7 @@ extension Storefront {
 			return field(field: "nodes", aliasSuffix: alias) as! [Storefront.Comment]
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
 		}

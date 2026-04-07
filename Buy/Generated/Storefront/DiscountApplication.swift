@@ -26,8 +26,15 @@
 
 import Foundation
 
-/// Discount applications capture the intentions of a discount source at the 
-/// time of application. 
+/// Captures the intent of a discount at the time it was applied. Each
+/// implementation represents a different discount source, such as [automatic
+/// discounts](https://help.shopify.com/manual/discounts/discount-methods/automatic-discounts),
+/// [discount
+/// codes](https://help.shopify.com/manual/discounts/discount-methods/discount-codes),
+/// and manual discounts. The actual discounted amount on a line item or
+/// shipping line is represented by the
+/// [`DiscountAllocation`](https://shopify.dev/docs/api/storefront/current/objects/DiscountAllocation)
+/// object, which references the discount application it originated from.
 public protocol DiscountApplication {
 	var allocationMethod: Storefront.DiscountApplicationAllocationMethod { get }
 
@@ -39,34 +46,41 @@ public protocol DiscountApplication {
 }
 
 extension Storefront {
-	/// Discount applications capture the intentions of a discount source at the 
-	/// time of application. 
+	/// Captures the intent of a discount at the time it was applied. Each
+	/// implementation represents a different discount source, such as [automatic
+	/// discounts](https://help.shopify.com/manual/discounts/discount-methods/automatic-discounts),
+	/// [discount
+	/// codes](https://help.shopify.com/manual/discounts/discount-methods/discount-codes),
+	/// and manual discounts. The actual discounted amount on a line item or
+	/// shipping line is represented by the
+	/// [`DiscountAllocation`](https://shopify.dev/docs/api/storefront/current/objects/DiscountAllocation)
+	/// object, which references the discount application it originated from.
 	open class DiscountApplicationQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = DiscountApplication
 
-		/// The method by which the discount's value is allocated to its entitled 
-		/// items. 
+		/// The method by which the discount's value is allocated to its entitled
+		/// items.
 		@discardableResult
 		open func allocationMethod(alias: String? = nil) -> DiscountApplicationQuery {
 			addField(field: "allocationMethod", aliasSuffix: alias)
 			return self
 		}
 
-		/// Which lines of targetType that the discount is allocated over. 
+		/// Which lines of targetType that the discount is allocated over.
 		@discardableResult
 		open func targetSelection(alias: String? = nil) -> DiscountApplicationQuery {
 			addField(field: "targetSelection", aliasSuffix: alias)
 			return self
 		}
 
-		/// The type of line that the discount is applicable towards. 
+		/// The type of line that the discount is applicable towards.
 		@discardableResult
 		open func targetType(alias: String? = nil) -> DiscountApplicationQuery {
 			addField(field: "targetType", aliasSuffix: alias)
 			return self
 		}
 
-		/// The value of the discount application. 
+		/// The value of the discount application.
 		@discardableResult
 		open func value(alias: String? = nil, _ subfields: (PricingValueQuery) -> Void) -> DiscountApplicationQuery {
 			let subquery = PricingValueQuery()
@@ -81,8 +95,15 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// Discount applications capture the intentions of a discount source at the 
-		/// time of application. 
+		/// Captures the intent of a discount at the time it was applied. Each
+		/// implementation represents a different discount source, such as [automatic
+		/// discounts](https://help.shopify.com/manual/discounts/discount-methods/automatic-discounts),
+		/// [discount
+		/// codes](https://help.shopify.com/manual/discounts/discount-methods/discount-codes),
+		/// and manual discounts. The actual discounted amount on a line item or
+		/// shipping line is represented by the
+		/// [`DiscountAllocation`](https://shopify.dev/docs/api/storefront/current/objects/DiscountAllocation)
+		/// object, which references the discount application it originated from.
 		@discardableResult
 		open func onAutomaticDiscountApplication(subfields: (AutomaticDiscountApplicationQuery) -> Void) -> DiscountApplicationQuery {
 			let subquery = AutomaticDiscountApplicationQuery()
@@ -91,8 +112,15 @@ extension Storefront {
 			return self
 		}
 
-		/// Discount applications capture the intentions of a discount source at the 
-		/// time of application. 
+		/// Captures the intent of a discount at the time it was applied. Each
+		/// implementation represents a different discount source, such as [automatic
+		/// discounts](https://help.shopify.com/manual/discounts/discount-methods/automatic-discounts),
+		/// [discount
+		/// codes](https://help.shopify.com/manual/discounts/discount-methods/discount-codes),
+		/// and manual discounts. The actual discounted amount on a line item or
+		/// shipping line is represented by the
+		/// [`DiscountAllocation`](https://shopify.dev/docs/api/storefront/current/objects/DiscountAllocation)
+		/// object, which references the discount application it originated from.
 		@discardableResult
 		open func onDiscountCodeApplication(subfields: (DiscountCodeApplicationQuery) -> Void) -> DiscountApplicationQuery {
 			let subquery = DiscountCodeApplicationQuery()
@@ -101,8 +129,15 @@ extension Storefront {
 			return self
 		}
 
-		/// Discount applications capture the intentions of a discount source at the 
-		/// time of application. 
+		/// Captures the intent of a discount at the time it was applied. Each
+		/// implementation represents a different discount source, such as [automatic
+		/// discounts](https://help.shopify.com/manual/discounts/discount-methods/automatic-discounts),
+		/// [discount
+		/// codes](https://help.shopify.com/manual/discounts/discount-methods/discount-codes),
+		/// and manual discounts. The actual discounted amount on a line item or
+		/// shipping line is represented by the
+		/// [`DiscountAllocation`](https://shopify.dev/docs/api/storefront/current/objects/DiscountAllocation)
+		/// object, which references the discount application it originated from.
 		@discardableResult
 		open func onManualDiscountApplication(subfields: (ManualDiscountApplicationQuery) -> Void) -> DiscountApplicationQuery {
 			let subquery = ManualDiscountApplicationQuery()
@@ -111,8 +146,15 @@ extension Storefront {
 			return self
 		}
 
-		/// Discount applications capture the intentions of a discount source at the 
-		/// time of application. 
+		/// Captures the intent of a discount at the time it was applied. Each
+		/// implementation represents a different discount source, such as [automatic
+		/// discounts](https://help.shopify.com/manual/discounts/discount-methods/automatic-discounts),
+		/// [discount
+		/// codes](https://help.shopify.com/manual/discounts/discount-methods/discount-codes),
+		/// and manual discounts. The actual discounted amount on a line item or
+		/// shipping line is represented by the
+		/// [`DiscountAllocation`](https://shopify.dev/docs/api/storefront/current/objects/DiscountAllocation)
+		/// object, which references the discount application it originated from.
 		@discardableResult
 		open func onScriptDiscountApplication(subfields: (ScriptDiscountApplicationQuery) -> Void) -> DiscountApplicationQuery {
 			let subquery = ScriptDiscountApplicationQuery()
@@ -122,8 +164,15 @@ extension Storefront {
 		}
 	}
 
-	/// Discount applications capture the intentions of a discount source at the 
-	/// time of application. 
+	/// Captures the intent of a discount at the time it was applied. Each
+	/// implementation represents a different discount source, such as [automatic
+	/// discounts](https://help.shopify.com/manual/discounts/discount-methods/automatic-discounts),
+	/// [discount
+	/// codes](https://help.shopify.com/manual/discounts/discount-methods/discount-codes),
+	/// and manual discounts. The actual discounted amount on a line item or
+	/// shipping line is represented by the
+	/// [`DiscountAllocation`](https://shopify.dev/docs/api/storefront/current/objects/DiscountAllocation)
+	/// object, which references the discount application it originated from.
 	open class UnknownDiscountApplication: GraphQL.AbstractResponse, GraphQLObject, DiscountApplication {
 		public typealias Query = DiscountApplicationQuery
 
@@ -177,8 +226,8 @@ extension Storefront {
 			}
 		}
 
-		/// The method by which the discount's value is allocated to its entitled 
-		/// items. 
+		/// The method by which the discount's value is allocated to its entitled
+		/// items.
 		open var allocationMethod: Storefront.DiscountApplicationAllocationMethod {
 			return internalGetAllocationMethod()
 		}
@@ -187,7 +236,7 @@ extension Storefront {
 			return field(field: "allocationMethod", aliasSuffix: alias) as! Storefront.DiscountApplicationAllocationMethod
 		}
 
-		/// Which lines of targetType that the discount is allocated over. 
+		/// Which lines of targetType that the discount is allocated over.
 		open var targetSelection: Storefront.DiscountApplicationTargetSelection {
 			return internalGetTargetSelection()
 		}
@@ -196,7 +245,7 @@ extension Storefront {
 			return field(field: "targetSelection", aliasSuffix: alias) as! Storefront.DiscountApplicationTargetSelection
 		}
 
-		/// The type of line that the discount is applicable towards. 
+		/// The type of line that the discount is applicable towards.
 		open var targetType: Storefront.DiscountApplicationTargetType {
 			return internalGetTargetType()
 		}
@@ -205,7 +254,7 @@ extension Storefront {
 			return field(field: "targetType", aliasSuffix: alias) as! Storefront.DiscountApplicationTargetType
 		}
 
-		/// The value of the discount application. 
+		/// The value of the discount application.
 		open var value: PricingValue {
 			return internalGetValue()
 		}

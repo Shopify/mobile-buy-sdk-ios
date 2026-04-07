@@ -27,19 +27,26 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields for a selectable delivery address in a cart. 
+	/// The input fields for a selectable delivery address to present to the buyer.
+	/// Used by
+	/// [`CartDeliveryInput`](https://shopify.dev/docs/api/storefront/current/input-objects/CartDeliveryInput)
+	/// when creating a cart with the
+	/// [`cartCreate`](https://shopify.dev/docs/api/storefront/current/mutations/cartCreate)
+	/// mutation. You can pre-select an address for the buyer, mark it as one-time
+	/// use so it isn't saved after checkout, and specify how strictly the address
+	/// should be validated.
 	open class CartSelectableAddressInput {
-		/// Exactly one kind of delivery address. 
+		/// Exactly one kind of delivery address.
 		open var address: CartAddressInput
 
-		/// Sets exactly one address as pre-selected for the buyer. 
+		/// Sets exactly one address as pre-selected for the buyer.
 		open var selected: Input<Bool>
 
-		/// When true, this delivery address will not be associated with the buyer 
-		/// after a successful checkout. 
+		/// When true, this delivery address will not be associated with the buyer
+		/// after a successful checkout.
 		open var oneTimeUse: Input<Bool>
 
-		/// Defines what kind of address validation is requested. 
+		/// Defines what kind of address validation is requested.
 		open var validationStrategy: Input<DeliveryAddressValidationStrategy>
 
 		/// Creates the input object.

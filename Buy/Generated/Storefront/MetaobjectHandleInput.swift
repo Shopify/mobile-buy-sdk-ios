@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields used to retrieve a metaobject by handle. 
+	/// The input fields used to retrieve a metaobject by handle.
 	open class MetaobjectHandleInput {
-		/// The handle of the metaobject. 
+		/// The handle of the metaobject.
 		open var handle: String
 
-		/// The type of the metaobject. 
+		/// The type of the metaobject.
 		open var type: String
 
 		/// Creates the input object.

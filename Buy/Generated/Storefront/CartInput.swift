@@ -27,39 +27,45 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields to create a cart. 
+	/// The input fields for creating a
+	/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart).
+	/// Used by the
+	/// [`cartCreate`](https://shopify.dev/docs/api/storefront/current/mutations/cartCreate)
+	/// mutation. Accepts merchandise lines, discount codes, gift card codes, and a
+	/// note. You can also set custom attributes, metafields, buyer identity for
+	/// international pricing, and delivery addresses.
 	open class CartInput {
-		/// An array of key-value pairs that contains additional information about the 
-		/// cart. The input must not contain more than `250` values. 
+		/// An array of key-value pairs that contains additional information about the
+		/// cart. The input must not contain more than `250` values.
 		open var attributes: Input<[AttributeInput]>
 
-		/// A list of merchandise lines to add to the cart. The input must not contain 
-		/// more than `250` values. 
+		/// A list of merchandise lines to add to the cart. The input must not contain
+		/// more than `250` values.
 		open var lines: Input<[CartLineInput]>
 
-		/// The case-insensitive discount codes that the customer added at checkout. 
-		/// The input must not contain more than `250` values. 
+		/// The case-insensitive discount codes that the customer added at checkout.
+		/// The input must not contain more than `250` values.
 		open var discountCodes: Input<[String]>
 
-		/// The case-insensitive gift card codes. The input must not contain more than 
-		/// `250` values. 
+		/// The case-insensitive gift card codes. The input must not contain more than
+		/// `250` values.
 		open var giftCardCodes: Input<[String]>
 
-		/// A note that's associated with the cart. For example, the note can be a 
-		/// personalized message to the buyer. 
+		/// A note that's associated with the cart. For example, the note can be a
+		/// personalized message to the buyer.
 		open var note: Input<String>
 
-		/// The customer associated with the cart. Used to determine [international 
-		/// pricing] 
-		/// (https://shopify.dev/custom-storefronts/internationalization/international-pricing). 
-		/// Buyer identity should match the customer's shipping address. 
+		/// The customer associated with the cart. Used to determine [international
+		/// pricing]
+		/// (https://shopify.dev/custom-storefronts/internationalization/international-pricing).
+		/// Buyer identity should match the customer's shipping address.
 		open var buyerIdentity: Input<CartBuyerIdentityInput>
 
-		/// The delivery-related fields for the cart. 
+		/// The delivery-related fields for the cart.
 		open var delivery: Input<CartDeliveryInput>
 
-		/// The metafields to associate with this cart. The input must not contain more 
-		/// than `250` values. 
+		/// The metafields to associate with this cart. The input must not contain more
+		/// than `250` values.
 		open var metafields: Input<[CartInputMetafieldInput]>
 
 		/// Creates the input object.
@@ -69,8 +75,8 @@ extension Storefront {
 		///     - lines: A list of merchandise lines to add to the cart.  The input must not contain more than `250` values.
 		///     - discountCodes: The case-insensitive discount codes that the customer added at checkout.  The input must not contain more than `250` values.
 		///     - giftCardCodes: The case-insensitive gift card codes.  The input must not contain more than `250` values.
-		///     - note: A note that's associated with the cart. For example, the note can be a personalized message to the buyer. 
-		///     - buyerIdentity: The customer associated with the cart. Used to determine [international pricing] (https://shopify.dev/custom-storefronts/internationalization/international-pricing). Buyer identity should match the customer's shipping address. 
+		///     - note: A note that's associated with the cart. For example, the note can be a personalized message to the buyer.
+		///     - buyerIdentity: The customer associated with the cart. Used to determine [international pricing] (https://shopify.dev/custom-storefronts/internationalization/international-pricing). Buyer identity should match the customer's shipping address.
 		///     - delivery: The delivery-related fields for the cart.
 		///     - metafields: The metafields to associate with this cart.  The input must not contain more than `250` values.
 		///
@@ -96,8 +102,8 @@ extension Storefront {
 		///     - lines: A list of merchandise lines to add to the cart.  The input must not contain more than `250` values.
 		///     - discountCodes: The case-insensitive discount codes that the customer added at checkout.  The input must not contain more than `250` values.
 		///     - giftCardCodes: The case-insensitive gift card codes.  The input must not contain more than `250` values.
-		///     - note: A note that's associated with the cart. For example, the note can be a personalized message to the buyer. 
-		///     - buyerIdentity: The customer associated with the cart. Used to determine [international pricing] (https://shopify.dev/custom-storefronts/internationalization/international-pricing). Buyer identity should match the customer's shipping address. 
+		///     - note: A note that's associated with the cart. For example, the note can be a personalized message to the buyer.
+		///     - buyerIdentity: The customer associated with the cart. Used to determine [international pricing] (https://shopify.dev/custom-storefronts/internationalization/international-pricing). Buyer identity should match the customer's shipping address.
 		///     - delivery: The delivery-related fields for the cart.
 		///     - metafields: The metafields to associate with this cart.  The input must not contain more than `250` values.
 		///

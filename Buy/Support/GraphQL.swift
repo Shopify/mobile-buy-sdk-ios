@@ -371,12 +371,12 @@ public enum Input<T> {
 }
 
 extension GraphQL.Selection: Equatable {}
-public func ==(lhs: GraphQL.Selection, rhs: GraphQL.Selection) -> Bool {
+public func == (lhs: GraphQL.Selection, rhs: GraphQL.Selection) -> Bool {
 	return (lhs === rhs) || (lhs.field == rhs.field && lhs.alias == rhs.alias && lhs.args == rhs.args && lhs.subfields == rhs.subfields)
 }
 
 extension GraphQL.AbstractQuery: Equatable {}
-public func ==(lhs: GraphQL.AbstractQuery, rhs: GraphQL.AbstractQuery) -> Bool {
+public func == (lhs: GraphQL.AbstractQuery, rhs: GraphQL.AbstractQuery) -> Bool {
 	return (lhs === rhs) || (lhs.selections == rhs.selections)
 }
 

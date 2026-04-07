@@ -27,76 +27,76 @@
 import Foundation
 
 extension Storefront {
-	/// The valid units of measurement for a unit price measurement. 
+	/// The valid units of measurement for a unit price measurement.
 	public enum UnitPriceMeasurementMeasuredUnit: String {
-		/// 100 centiliters equals 1 liter. 
+		/// 100 centiliters equals 1 liter.
 		case cl = "CL"
 
-		/// 100 centimeters equals 1 meter. 
+		/// 100 centimeters equals 1 meter.
 		case cm = "CM"
 
-		/// Imperial system unit of volume (U.S. customary unit). 
+		/// Imperial system unit of volume (U.S. customary unit).
 		case floz = "FLOZ"
 
-		/// 1 foot equals 12 inches. 
+		/// 1 foot equals 12 inches.
 		case ft = "FT"
 
-		/// Imperial system unit of area. 
+		/// Imperial system unit of area.
 		case ft2 = "FT2"
 
-		/// Metric system unit of weight. 
+		/// Metric system unit of weight.
 		case g = "G"
 
-		/// 1 gallon equals 128 fluid ounces (U.S. customary unit). 
+		/// 1 gallon equals 128 fluid ounces (U.S. customary unit).
 		case gal = "GAL"
 
-		/// Imperial system unit of length. 
+		/// Imperial system unit of length.
 		case `in` = "IN"
 
-		/// 1 item, a unit of count. 
+		/// 1 item, a unit of count.
 		case item = "ITEM"
 
-		/// 1 kilogram equals 1000 grams. 
+		/// 1 kilogram equals 1000 grams.
 		case kg = "KG"
 
-		/// Metric system unit of volume. 
+		/// Metric system unit of volume.
 		case l = "L"
 
-		/// Imperial system unit of weight. 
+		/// Imperial system unit of weight.
 		case lb = "LB"
 
-		/// Metric system unit of length. 
+		/// Metric system unit of length.
 		case m = "M"
 
-		/// Metric system unit of area. 
+		/// Metric system unit of area.
 		case m2 = "M2"
 
-		/// 1 cubic meter equals 1000 liters. 
+		/// 1 cubic meter equals 1000 liters.
 		case m3 = "M3"
 
-		/// 1000 milligrams equals 1 gram. 
+		/// 1000 milligrams equals 1 gram.
 		case mg = "MG"
 
-		/// 1000 milliliters equals 1 liter. 
+		/// 1000 milliliters equals 1 liter.
 		case ml = "ML"
 
-		/// 1000 millimeters equals 1 meter. 
+		/// 1000 millimeters equals 1 meter.
 		case mm = "MM"
 
-		/// 16 ounces equals 1 pound. 
+		/// 16 ounces equals 1 pound.
 		case oz = "OZ"
 
-		/// 1 pint equals 16 fluid ounces (U.S. customary unit). 
+		/// 1 pint equals 16 fluid ounces (U.S. customary unit).
 		case pt = "PT"
 
-		/// 1 quart equals 32 fluid ounces (U.S. customary unit). 
+		/// 1 quart equals 32 fluid ounces (U.S. customary unit).
 		case qt = "QT"
 
-		/// The unit of measurement is unknown. Upgrade to the latest version of the 
-		/// API to resolve this unit. 
+		/// The unit of measurement is unknown. Upgrade to the latest version of the
+		/// API to resolve this unit.
 		case unknown = "UNKNOWN"
 
-		/// 1 yard equals 36 inches. 
+		/// 1 yard equals 36 inches.
 		case yd = "YD"
 
 		case unknownValue = ""

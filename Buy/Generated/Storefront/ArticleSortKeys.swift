@@ -27,29 +27,29 @@
 import Foundation
 
 extension Storefront {
-	/// The set of valid sort keys for the Article query. 
+	/// The set of valid sort keys for the Article query.
 	public enum ArticleSortKeys: String {
-		/// Sort by the `author` value. 
+		/// Sort by the `author` value.
 		case author = "AUTHOR"
 
-		/// Sort by the `blog_title` value. 
+		/// Sort by the `blog_title` value.
 		case blogTitle = "BLOG_TITLE"
 
-		/// Sort by the `id` value. 
+		/// Sort by the `id` value.
 		case id = "ID"
 
-		/// Sort by the `published_at` value. 
+		/// Sort by the `published_at` value.
 		case publishedAt = "PUBLISHED_AT"
 
-		/// Sort by relevance to the search terms when the `query` parameter is 
-		/// specified on the connection. Don't use this sort key when no search query 
-		/// is specified. 
+		/// Sort by relevance to the search terms when the `query` parameter is
+		/// specified on the connection. Don't use this sort key when no search query
+		/// is specified.
 		case relevance = "RELEVANCE"
 
-		/// Sort by the `title` value. 
+		/// Sort by the `title` value.
 		case title = "TITLE"
 
-		/// Sort by the `updated_at` value. 
+		/// Sort by the `updated_at` value.
 		case updatedAt = "UPDATED_AT"
 
 		case unknownValue = ""

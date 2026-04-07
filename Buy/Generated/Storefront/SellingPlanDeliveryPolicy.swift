@@ -26,12 +26,12 @@
 
 import Foundation
 
-/// The selling plan delivery policy. 
+/// The selling plan delivery policy.
 public protocol SellingPlanDeliveryPolicy {
 }
 
 extension Storefront {
-	/// The selling plan delivery policy. 
+	/// The selling plan delivery policy.
 	open class SellingPlanDeliveryPolicyQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlanDeliveryPolicy
 
@@ -40,7 +40,7 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// The selling plan delivery policy. 
+		/// The selling plan delivery policy.
 		@discardableResult
 		open func onSellingPlanRecurringDeliveryPolicy(subfields: (SellingPlanRecurringDeliveryPolicyQuery) -> Void) -> SellingPlanDeliveryPolicyQuery {
 			let subquery = SellingPlanRecurringDeliveryPolicyQuery()
@@ -50,7 +50,7 @@ extension Storefront {
 		}
 	}
 
-	/// The selling plan delivery policy. 
+	/// The selling plan delivery policy.
 	open class UnknownSellingPlanDeliveryPolicy: GraphQL.AbstractResponse, GraphQLObject, SellingPlanDeliveryPolicy {
 		public typealias Query = SellingPlanDeliveryPolicyQuery
 

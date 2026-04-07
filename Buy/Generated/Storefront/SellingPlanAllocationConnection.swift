@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type for paginating through multiple 
-	/// SellingPlanAllocations. 
+	/// An auto-generated type for paginating through multiple
+	/// SellingPlanAllocations.
 	open class SellingPlanAllocationConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlanAllocationConnection
 
-		/// A list of edges. 
+		/// A list of edges.
 		@discardableResult
 		open func edges(alias: String? = nil, _ subfields: (SellingPlanAllocationEdgeQuery) -> Void) -> SellingPlanAllocationConnectionQuery {
 			let subquery = SellingPlanAllocationEdgeQuery()
@@ -42,7 +42,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of the nodes contained in SellingPlanAllocationEdge. 
+		/// A list of the nodes contained in SellingPlanAllocationEdge.
 		@discardableResult
 		open func nodes(alias: String? = nil, _ subfields: (SellingPlanAllocationQuery) -> Void) -> SellingPlanAllocationConnectionQuery {
 			let subquery = SellingPlanAllocationQuery()
@@ -52,7 +52,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> SellingPlanAllocationConnectionQuery {
 			let subquery = PageInfoQuery()
@@ -63,8 +63,8 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type for paginating through multiple 
-	/// SellingPlanAllocations. 
+	/// An auto-generated type for paginating through multiple
+	/// SellingPlanAllocations.
 	open class SellingPlanAllocationConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = SellingPlanAllocationConnectionQuery
 
@@ -94,7 +94,7 @@ extension Storefront {
 			}
 		}
 
-		/// A list of edges. 
+		/// A list of edges.
 		open var edges: [Storefront.SellingPlanAllocationEdge] {
 			return internalGetEdges()
 		}
@@ -103,7 +103,7 @@ extension Storefront {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.SellingPlanAllocationEdge]
 		}
 
-		/// A list of the nodes contained in SellingPlanAllocationEdge. 
+		/// A list of the nodes contained in SellingPlanAllocationEdge.
 		open var nodes: [Storefront.SellingPlanAllocation] {
 			return internalGetNodes()
 		}
@@ -112,7 +112,7 @@ extension Storefront {
 			return field(field: "nodes", aliasSuffix: alias) as! [Storefront.SellingPlanAllocation]
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
 		}

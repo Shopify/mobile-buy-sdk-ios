@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type for paginating through multiple MailingAddresses. 
+	/// An auto-generated type for paginating through multiple MailingAddresses.
 	open class MailingAddressConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MailingAddressConnection
 
-		/// A list of edges. 
+		/// A list of edges.
 		@discardableResult
 		open func edges(alias: String? = nil, _ subfields: (MailingAddressEdgeQuery) -> Void) -> MailingAddressConnectionQuery {
 			let subquery = MailingAddressEdgeQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of the nodes contained in MailingAddressEdge. 
+		/// A list of the nodes contained in MailingAddressEdge.
 		@discardableResult
 		open func nodes(alias: String? = nil, _ subfields: (MailingAddressQuery) -> Void) -> MailingAddressConnectionQuery {
 			let subquery = MailingAddressQuery()
@@ -51,7 +51,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> MailingAddressConnectionQuery {
 			let subquery = PageInfoQuery()
@@ -62,7 +62,7 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type for paginating through multiple MailingAddresses. 
+	/// An auto-generated type for paginating through multiple MailingAddresses.
 	open class MailingAddressConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = MailingAddressConnectionQuery
 
@@ -92,7 +92,7 @@ extension Storefront {
 			}
 		}
 
-		/// A list of edges. 
+		/// A list of edges.
 		open var edges: [Storefront.MailingAddressEdge] {
 			return internalGetEdges()
 		}
@@ -101,7 +101,7 @@ extension Storefront {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.MailingAddressEdge]
 		}
 
-		/// A list of the nodes contained in MailingAddressEdge. 
+		/// A list of the nodes contained in MailingAddressEdge.
 		open var nodes: [Storefront.MailingAddress] {
 			return internalGetNodes()
 		}
@@ -110,7 +110,7 @@ extension Storefront {
 			return field(field: "nodes", aliasSuffix: alias) as! [Storefront.MailingAddress]
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
 		}

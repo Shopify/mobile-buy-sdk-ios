@@ -27,18 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type which holds one Blog and a cursor during pagination. 
+	/// An auto-generated type which holds one Blog and a cursor during pagination.
 	open class BlogEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = BlogEdge
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		@discardableResult
 		open func cursor(alias: String? = nil) -> BlogEdgeQuery {
 			addField(field: "cursor", aliasSuffix: alias)
 			return self
 		}
 
-		/// The item at the end of BlogEdge. 
+		/// The item at the end of BlogEdge.
 		@discardableResult
 		open func node(alias: String? = nil, _ subfields: (BlogQuery) -> Void) -> BlogEdgeQuery {
 			let subquery = BlogQuery()
@@ -49,7 +49,7 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type which holds one Blog and a cursor during pagination. 
+	/// An auto-generated type which holds one Blog and a cursor during pagination.
 	open class BlogEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = BlogEdgeQuery
 
@@ -73,7 +73,7 @@ extension Storefront {
 			}
 		}
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		open var cursor: String {
 			return internalGetCursor()
 		}
@@ -82,7 +82,7 @@ extension Storefront {
 			return field(field: "cursor", aliasSuffix: alias) as! String
 		}
 
-		/// The item at the end of BlogEdge. 
+		/// The item at the end of BlogEdge.
 		open var node: Storefront.Blog {
 			return internalGetNode()
 		}

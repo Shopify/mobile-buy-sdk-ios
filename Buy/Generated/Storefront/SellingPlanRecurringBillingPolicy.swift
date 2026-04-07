@@ -27,18 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// The recurring billing policy for the selling plan. 
+	/// The recurring billing policy for the selling plan.
 	open class SellingPlanRecurringBillingPolicyQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlanRecurringBillingPolicy
 
-		/// The billing frequency, it can be either: day, week, month or year. 
+		/// The billing frequency, it can be either: day, week, month or year.
 		@discardableResult
 		open func interval(alias: String? = nil) -> SellingPlanRecurringBillingPolicyQuery {
 			addField(field: "interval", aliasSuffix: alias)
 			return self
 		}
 
-		/// The number of intervals between billings. 
+		/// The number of intervals between billings.
 		@discardableResult
 		open func intervalCount(alias: String? = nil) -> SellingPlanRecurringBillingPolicyQuery {
 			addField(field: "intervalCount", aliasSuffix: alias)
@@ -46,7 +46,7 @@ extension Storefront {
 		}
 	}
 
-	/// The recurring billing policy for the selling plan. 
+	/// The recurring billing policy for the selling plan.
 	open class SellingPlanRecurringBillingPolicy: GraphQL.AbstractResponse, GraphQLObject, SellingPlanBillingPolicy {
 		public typealias Query = SellingPlanRecurringBillingPolicyQuery
 
@@ -70,7 +70,7 @@ extension Storefront {
 			}
 		}
 
-		/// The billing frequency, it can be either: day, week, month or year. 
+		/// The billing frequency, it can be either: day, week, month or year.
 		open var interval: Storefront.SellingPlanInterval {
 			return internalGetInterval()
 		}
@@ -79,7 +79,7 @@ extension Storefront {
 			return field(field: "interval", aliasSuffix: alias) as! Storefront.SellingPlanInterval
 		}
 
-		/// The number of intervals between billings. 
+		/// The number of intervals between billings.
 		open var intervalCount: Int32 {
 			return internalGetIntervalCount()
 		}

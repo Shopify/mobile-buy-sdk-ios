@@ -27,23 +27,23 @@
 import Foundation
 
 extension Storefront {
-	/// The set of valid sort keys for the ProductVariant query. 
+	/// The set of valid sort keys for the ProductVariant query.
 	public enum ProductVariantSortKeys: String {
-		/// Sort by the `id` value. 
+		/// Sort by the `id` value.
 		case id = "ID"
 
-		/// Sort by the `position` value. 
+		/// Sort by the `position` value.
 		case position = "POSITION"
 
-		/// Sort by relevance to the search terms when the `query` parameter is 
-		/// specified on the connection. Don't use this sort key when no search query 
-		/// is specified. 
+		/// Sort by relevance to the search terms when the `query` parameter is
+		/// specified on the connection. Don't use this sort key when no search query
+		/// is specified.
 		case relevance = "RELEVANCE"
 
-		/// Sort by the `sku` value. 
+		/// Sort by the `sku` value.
 		case sku = "SKU"
 
-		/// Sort by the `title` value. 
+		/// Sort by the `title` value.
 		case title = "TITLE"
 
 		case unknownValue = ""

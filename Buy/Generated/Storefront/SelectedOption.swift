@@ -27,19 +27,23 @@
 import Foundation
 
 extension Storefront {
-	/// Properties used by customers to select a product variant. Products can have 
-	/// multiple options, like different sizes or colors. 
+	/// A name/value pair representing a product option selection on a variant. The
+	/// [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant)
+	/// object's
+	/// [`selectedOptions`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant#field-ProductVariant.fields.selectedOptions)
+	/// field returns this to indicate which options define that variant, such as
+	/// "Size: Large" or "Color: Red".
 	open class SelectedOptionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SelectedOption
 
-		/// The product option’s name. 
+		/// The product option’s name.
 		@discardableResult
 		open func name(alias: String? = nil) -> SelectedOptionQuery {
 			addField(field: "name", aliasSuffix: alias)
 			return self
 		}
 
-		/// The product option’s value. 
+		/// The product option’s value.
 		@discardableResult
 		open func value(alias: String? = nil) -> SelectedOptionQuery {
 			addField(field: "value", aliasSuffix: alias)
@@ -47,8 +51,12 @@ extension Storefront {
 		}
 	}
 
-	/// Properties used by customers to select a product variant. Products can have 
-	/// multiple options, like different sizes or colors. 
+	/// A name/value pair representing a product option selection on a variant. The
+	/// [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant)
+	/// object's
+	/// [`selectedOptions`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant#field-ProductVariant.fields.selectedOptions)
+	/// field returns this to indicate which options define that variant, such as
+	/// "Size: Large" or "Color: Red".
 	open class SelectedOption: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = SelectedOptionQuery
 
@@ -72,7 +80,7 @@ extension Storefront {
 			}
 		}
 
-		/// The product option’s name. 
+		/// The product option’s name.
 		open var name: String {
 			return internalGetName()
 		}
@@ -81,7 +89,7 @@ extension Storefront {
 			return field(field: "name", aliasSuffix: alias) as! String
 		}
 
-		/// The product option’s value. 
+		/// The product option’s value.
 		open var value: String {
 			return internalGetValue()
 		}

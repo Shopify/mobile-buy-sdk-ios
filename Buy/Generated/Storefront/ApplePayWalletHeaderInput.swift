@@ -27,19 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields for submitting wallet payment method information for 
-	/// checkout. 
+	/// The input fields for submitting wallet payment method information for
+	/// checkout.
 	open class ApplePayWalletHeaderInput {
-		/// The application data for the Apple Pay wallet. 
+		/// The application data for the Apple Pay wallet.
 		open var applicationData: Input<String>
 
-		/// The ephemeral public key for the Apple Pay wallet. 
+		/// The ephemeral public key for the Apple Pay wallet.
 		open var ephemeralPublicKey: String
 
-		/// The public key hash for the Apple Pay wallet. 
+		/// The public key hash for the Apple Pay wallet.
 		open var publicKeyHash: String
 
-		/// The transaction ID for the Apple Pay wallet. 
+		/// The transaction ID for the Apple Pay wallet.
 		open var transactionId: String
 
 		/// Creates the input object.

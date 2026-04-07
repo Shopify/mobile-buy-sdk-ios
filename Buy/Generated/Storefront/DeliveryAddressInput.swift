@@ -27,30 +27,30 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields for delivery address preferences. 
+	/// The input fields for delivery address preferences.
 	open class DeliveryAddressInput {
-		/// A delivery address preference of a buyer that is interacting with the cart. 
+		/// A delivery address preference of a buyer that is interacting with the cart.
 		open var deliveryAddress: Input<MailingAddressInput>
 
-		/// Whether the given delivery address is considered to be a one-time use 
-		/// address. One-time use addresses do not get persisted to the buyer's 
-		/// personal addresses when checking out. 
+		/// Whether the given delivery address is considered to be a one-time use
+		/// address. One-time use addresses do not get persisted to the buyer's
+		/// personal addresses when checking out.
 		open var oneTimeUse: Input<Bool>
 
-		/// Defines what kind of address validation is requested. 
+		/// Defines what kind of address validation is requested.
 		open var deliveryAddressValidationStrategy: Input<DeliveryAddressValidationStrategy>
 
-		/// The ID of a customer address that is associated with the buyer that is 
-		/// interacting with the cart. 
+		/// The ID of a customer address that is associated with the buyer that is
+		/// interacting with the cart.
 		open var customerAddressId: Input<GraphQL.ID>
 
 		/// Creates the input object.
 		///
 		/// - parameters:
 		///     - deliveryAddress: A delivery address preference of a buyer that is interacting with the cart.
-		///     - oneTimeUse: Whether the given delivery address is considered to be a one-time use address. One-time use addresses do not get persisted to the buyer's personal addresses when checking out. 
+		///     - oneTimeUse: Whether the given delivery address is considered to be a one-time use address. One-time use addresses do not get persisted to the buyer's personal addresses when checking out.
 		///     - deliveryAddressValidationStrategy: Defines what kind of address validation is requested.
-		///     - customerAddressId: The ID of a customer address that is associated with the buyer that is interacting with the cart. 
+		///     - customerAddressId: The ID of a customer address that is associated with the buyer that is interacting with the cart.
 		///
 		public static func create(deliveryAddress: Input<MailingAddressInput> = .undefined, oneTimeUse: Input<Bool> = .undefined, deliveryAddressValidationStrategy: Input<DeliveryAddressValidationStrategy> = .undefined, customerAddressId: Input<GraphQL.ID> = .undefined) -> DeliveryAddressInput {
 			return DeliveryAddressInput(deliveryAddress: deliveryAddress, oneTimeUse: oneTimeUse, deliveryAddressValidationStrategy: deliveryAddressValidationStrategy, customerAddressId: customerAddressId)
@@ -67,9 +67,9 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - deliveryAddress: A delivery address preference of a buyer that is interacting with the cart.
-		///     - oneTimeUse: Whether the given delivery address is considered to be a one-time use address. One-time use addresses do not get persisted to the buyer's personal addresses when checking out. 
+		///     - oneTimeUse: Whether the given delivery address is considered to be a one-time use address. One-time use addresses do not get persisted to the buyer's personal addresses when checking out.
 		///     - deliveryAddressValidationStrategy: Defines what kind of address validation is requested.
-		///     - customerAddressId: The ID of a customer address that is associated with the buyer that is interacting with the cart. 
+		///     - customerAddressId: The ID of a customer address that is associated with the buyer that is interacting with the cart.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
 		public convenience init(deliveryAddress: MailingAddressInput? = nil, oneTimeUse: Bool? = nil, deliveryAddressValidationStrategy: DeliveryAddressValidationStrategy? = nil, customerAddressId: GraphQL.ID? = nil) {

@@ -27,11 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// The price range of the product. 
+	/// The minimum and maximum prices across all variants of a
+	/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product).
 	open class ProductPriceRangeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ProductPriceRange
 
-		/// The highest variant's price. 
+		/// The highest variant's price.
 		@discardableResult
 		open func maxVariantPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ProductPriceRangeQuery {
 			let subquery = MoneyV2Query()
@@ -41,7 +42,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The lowest variant's price. 
+		/// The lowest variant's price.
 		@discardableResult
 		open func minVariantPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ProductPriceRangeQuery {
 			let subquery = MoneyV2Query()
@@ -52,7 +53,8 @@ extension Storefront {
 		}
 	}
 
-	/// The price range of the product. 
+	/// The minimum and maximum prices across all variants of a
+	/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product).
 	open class ProductPriceRange: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ProductPriceRangeQuery
 
@@ -76,7 +78,7 @@ extension Storefront {
 			}
 		}
 
-		/// The highest variant's price. 
+		/// The highest variant's price.
 		open var maxVariantPrice: Storefront.MoneyV2 {
 			return internalGetMaxVariantPrice()
 		}
@@ -85,7 +87,7 @@ extension Storefront {
 			return field(field: "maxVariantPrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The lowest variant's price. 
+		/// The lowest variant's price.
 		open var minVariantPrice: Storefront.MoneyV2 {
 			return internalGetMinVariantPrice()
 		}

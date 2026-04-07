@@ -27,13 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields for obtaining the buyer's identity. 
+	/// Identifies a B2B buyer for the
+	/// [`@inContext`](https://shopify.dev/docs/storefronts/headless/bring-your-own-stack/b2b)
+	/// directive. Pass this input to contextualize Storefront API queries with
+	/// data like B2B-specific pricing, quantity rules, and quantity price breaks.
+	/// For B2B customers with access to multiple company locations, include the
+	/// [`companyLocationId`](https://shopify.dev/docs/api/storefront/latest/input-objects/BuyerInput#fields-companyLocationId)
+	/// to specify which location they're purchasing for.
 	open class BuyerInput {
-		/// The customer access token retrieved from the [Customer Accounts 
-		/// API](https://shopify.dev/docs/api/customer#step-obtain-access-token). 
+		/// The customer access token retrieved from the [Customer Accounts
+		/// API](https://shopify.dev/docs/api/customer#step-obtain-access-token).
 		open var customerAccessToken: String
 
-		/// The identifier of the company location. 
+		/// The identifier of the company location.
 		open var companyLocationId: Input<GraphQL.ID>
 
 		/// Creates the input object.

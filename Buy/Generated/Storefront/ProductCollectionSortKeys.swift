@@ -27,32 +27,39 @@
 import Foundation
 
 extension Storefront {
-	/// The set of valid sort keys for the ProductCollection query. 
+	/// Sort options for products within a
+	/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection).
+	/// Used by the
+	/// [`products`](https://shopify.dev/docs/api/storefront/current/objects/Collection#field-Collection.fields.products)
+	/// connection to order results by best-selling, price, title, creation date,
+	/// or the collection's default and manual ordering. > Note: The
+	/// [`RELEVANCE`](https://shopify.dev/docs/api/storefront/current/enums/ProductCollectionSortKeys#enums-RELEVANCE)
+	/// key applies only when you specify a search query.
 	public enum ProductCollectionSortKeys: String {
-		/// Sort by the `best-selling` value. 
+		/// Sort by the `best-selling` value.
 		case bestSelling = "BEST_SELLING"
 
-		/// Sort by the `collection-default` value. 
+		/// Sort by the `collection-default` value.
 		case collectionDefault = "COLLECTION_DEFAULT"
 
-		/// Sort by the `created` value. 
+		/// Sort by the `created` value.
 		case created = "CREATED"
 
-		/// Sort by the `id` value. 
+		/// Sort by the `id` value.
 		case id = "ID"
 
-		/// Sort by the `manual` value. 
+		/// Sort by the `manual` value.
 		case manual = "MANUAL"
 
-		/// Sort by the `price` value. 
+		/// Sort by the `price` value.
 		case price = "PRICE"
 
-		/// Sort by relevance to the search terms when the `query` parameter is 
-		/// specified on the connection. Don't use this sort key when no search query 
-		/// is specified. 
+		/// Sort by relevance to the search terms when the `query` parameter is
+		/// specified on the connection. Don't use this sort key when no search query
+		/// is specified.
 		case relevance = "RELEVANCE"
 
-		/// Sort by the `title` value. 
+		/// Sort by the `title` value.
 		case title = "TITLE"
 
 		case unknownValue = ""

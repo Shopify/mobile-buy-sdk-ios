@@ -27,18 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// An option provided by a Selling Plan. 
+	/// An option provided by a Selling Plan.
 	open class SellingPlanOptionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlanOption
 
-		/// The name of the option (ie "Delivery every"). 
+		/// The name of the option (ie "Delivery every").
 		@discardableResult
 		open func name(alias: String? = nil) -> SellingPlanOptionQuery {
 			addField(field: "name", aliasSuffix: alias)
 			return self
 		}
 
-		/// The value of the option (ie "Month"). 
+		/// The value of the option (ie "Month").
 		@discardableResult
 		open func value(alias: String? = nil) -> SellingPlanOptionQuery {
 			addField(field: "value", aliasSuffix: alias)
@@ -46,7 +46,7 @@ extension Storefront {
 		}
 	}
 
-	/// An option provided by a Selling Plan. 
+	/// An option provided by a Selling Plan.
 	open class SellingPlanOption: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = SellingPlanOptionQuery
 
@@ -72,7 +72,7 @@ extension Storefront {
 			}
 		}
 
-		/// The name of the option (ie "Delivery every"). 
+		/// The name of the option (ie "Delivery every").
 		open var name: String? {
 			return internalGetName()
 		}
@@ -81,7 +81,7 @@ extension Storefront {
 			return field(field: "name", aliasSuffix: alias) as! String?
 		}
 
-		/// The value of the option (ie "Month"). 
+		/// The value of the option (ie "Month").
 		open var value: String? {
 			return internalGetValue()
 		}

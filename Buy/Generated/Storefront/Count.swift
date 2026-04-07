@@ -27,18 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// Details for count of elements. 
+	/// Details for count of elements.
 	open class CountQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Count
 
-		/// Count of elements. 
+		/// Count of elements.
 		@discardableResult
 		open func count(alias: String? = nil) -> CountQuery {
 			addField(field: "count", aliasSuffix: alias)
 			return self
 		}
 
-		/// Precision of count, how exact is the value. 
+		/// Precision of count, how exact is the value.
 		@discardableResult
 		open func precision(alias: String? = nil) -> CountQuery {
 			addField(field: "precision", aliasSuffix: alias)
@@ -46,7 +46,7 @@ extension Storefront {
 		}
 	}
 
-	/// Details for count of elements. 
+	/// Details for count of elements.
 	open class Count: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CountQuery
 
@@ -70,7 +70,7 @@ extension Storefront {
 			}
 		}
 
-		/// Count of elements. 
+		/// Count of elements.
 		open var count: Int32 {
 			return internalGetCount()
 		}
@@ -79,7 +79,7 @@ extension Storefront {
 			return field(field: "count", aliasSuffix: alias) as! Int32
 		}
 
-		/// Precision of count, how exact is the value. 
+		/// Precision of count, how exact is the value.
 		open var precision: Storefront.CountPrecision {
 			return internalGetPrecision()
 		}

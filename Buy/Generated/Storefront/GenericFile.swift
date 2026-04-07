@@ -27,41 +27,47 @@
 import Foundation
 
 extension Storefront {
-	/// The generic file resource lets you manage files in a merchant’s store. 
-	/// Generic files include any file that doesn’t fit into a designated type such 
-	/// as image or video. Example: PDF, JSON. 
+	/// Any file that doesn't fit into a designated type like image or video. For
+	/// example, a PDF or JSON document. Use this object to manage files in a
+	/// merchant's store. Generic files are commonly referenced through [file
+	/// reference
+	/// metafields](https://shopify.dev/docs/apps/build/metafields/list-of-data-types)
+	/// and returned as part of the
+	/// [`MetafieldReference`](https://shopify.dev/docs/api/storefront/current/unions/MetafieldReference)
+	/// union. Includes the file's URL, MIME type, size in bytes, and an optional
+	/// preview image.
 	open class GenericFileQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = GenericFile
 
-		/// A word or phrase to indicate the contents of a file. 
+		/// A word or phrase to indicate the contents of a file.
 		@discardableResult
 		open func alt(alias: String? = nil) -> GenericFileQuery {
 			addField(field: "alt", aliasSuffix: alias)
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> GenericFileQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The MIME type of the file. 
+		/// The MIME type of the file.
 		@discardableResult
 		open func mimeType(alias: String? = nil) -> GenericFileQuery {
 			addField(field: "mimeType", aliasSuffix: alias)
 			return self
 		}
 
-		/// The size of the original file in bytes. 
+		/// The size of the original file in bytes.
 		@discardableResult
 		open func originalFileSize(alias: String? = nil) -> GenericFileQuery {
 			addField(field: "originalFileSize", aliasSuffix: alias)
 			return self
 		}
 
-		/// The preview image for the file. 
+		/// The preview image for the file.
 		@discardableResult
 		open func previewImage(alias: String? = nil, _ subfields: (ImageQuery) -> Void) -> GenericFileQuery {
 			let subquery = ImageQuery()
@@ -71,7 +77,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The URL of the file. 
+		/// The URL of the file.
 		@discardableResult
 		open func url(alias: String? = nil) -> GenericFileQuery {
 			addField(field: "url", aliasSuffix: alias)
@@ -79,9 +85,15 @@ extension Storefront {
 		}
 	}
 
-	/// The generic file resource lets you manage files in a merchant’s store. 
-	/// Generic files include any file that doesn’t fit into a designated type such 
-	/// as image or video. Example: PDF, JSON. 
+	/// Any file that doesn't fit into a designated type like image or video. For
+	/// example, a PDF or JSON document. Use this object to manage files in a
+	/// merchant's store. Generic files are commonly referenced through [file
+	/// reference
+	/// metafields](https://shopify.dev/docs/apps/build/metafields/list-of-data-types)
+	/// and returned as part of the
+	/// [`MetafieldReference`](https://shopify.dev/docs/api/storefront/current/unions/MetafieldReference)
+	/// union. Includes the file's URL, MIME type, size in bytes, and an optional
+	/// preview image.
 	open class GenericFile: GraphQL.AbstractResponse, GraphQLObject, MetafieldReference, Node {
 		public typealias Query = GenericFileQuery
 
@@ -134,7 +146,7 @@ extension Storefront {
 			}
 		}
 
-		/// A word or phrase to indicate the contents of a file. 
+		/// A word or phrase to indicate the contents of a file.
 		open var alt: String? {
 			return internalGetAlt()
 		}
@@ -143,7 +155,7 @@ extension Storefront {
 			return field(field: "alt", aliasSuffix: alias) as! String?
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -152,7 +164,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The MIME type of the file. 
+		/// The MIME type of the file.
 		open var mimeType: String? {
 			return internalGetMimeType()
 		}
@@ -161,7 +173,7 @@ extension Storefront {
 			return field(field: "mimeType", aliasSuffix: alias) as! String?
 		}
 
-		/// The size of the original file in bytes. 
+		/// The size of the original file in bytes.
 		open var originalFileSize: Int32? {
 			return internalGetOriginalFileSize()
 		}
@@ -170,7 +182,7 @@ extension Storefront {
 			return field(field: "originalFileSize", aliasSuffix: alias) as! Int32?
 		}
 
-		/// The preview image for the file. 
+		/// The preview image for the file.
 		open var previewImage: Storefront.Image? {
 			return internalGetPreviewImage()
 		}
@@ -179,7 +191,7 @@ extension Storefront {
 			return field(field: "previewImage", aliasSuffix: alias) as! Storefront.Image?
 		}
 
-		/// The URL of the file. 
+		/// The URL of the file.
 		open var url: URL? {
 			return internalGetUrl()
 		}

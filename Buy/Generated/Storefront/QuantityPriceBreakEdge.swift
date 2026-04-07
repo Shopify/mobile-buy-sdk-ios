@@ -27,19 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type which holds one QuantityPriceBreak and a cursor 
-	/// during pagination. 
+	/// An auto-generated type which holds one QuantityPriceBreak and a cursor
+	/// during pagination.
 	open class QuantityPriceBreakEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = QuantityPriceBreakEdge
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		@discardableResult
 		open func cursor(alias: String? = nil) -> QuantityPriceBreakEdgeQuery {
 			addField(field: "cursor", aliasSuffix: alias)
 			return self
 		}
 
-		/// The item at the end of QuantityPriceBreakEdge. 
+		/// The item at the end of QuantityPriceBreakEdge.
 		@discardableResult
 		open func node(alias: String? = nil, _ subfields: (QuantityPriceBreakQuery) -> Void) -> QuantityPriceBreakEdgeQuery {
 			let subquery = QuantityPriceBreakQuery()
@@ -50,8 +50,8 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type which holds one QuantityPriceBreak and a cursor 
-	/// during pagination. 
+	/// An auto-generated type which holds one QuantityPriceBreak and a cursor
+	/// during pagination.
 	open class QuantityPriceBreakEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = QuantityPriceBreakEdgeQuery
 
@@ -75,7 +75,7 @@ extension Storefront {
 			}
 		}
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		open var cursor: String {
 			return internalGetCursor()
 		}
@@ -84,7 +84,7 @@ extension Storefront {
 			return field(field: "cursor", aliasSuffix: alias) as! String
 		}
 
-		/// The item at the end of QuantityPriceBreakEdge. 
+		/// The item at the end of QuantityPriceBreakEdge.
 		open var node: Storefront.QuantityPriceBreak {
 			return internalGetNode()
 		}

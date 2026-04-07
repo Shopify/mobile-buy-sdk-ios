@@ -26,12 +26,12 @@
 
 import Foundation
 
-/// A delivery address of the buyer that is interacting with the cart. 
+/// A delivery address of the buyer that is interacting with the cart.
 public protocol CartAddress {
 }
 
 extension Storefront {
-	/// A delivery address of the buyer that is interacting with the cart. 
+	/// A delivery address of the buyer that is interacting with the cart.
 	open class CartAddressQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartAddress
 
@@ -40,7 +40,7 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// A delivery address of the buyer that is interacting with the cart. 
+		/// A delivery address of the buyer that is interacting with the cart.
 		@discardableResult
 		open func onCartDeliveryAddress(subfields: (CartDeliveryAddressQuery) -> Void) -> CartAddressQuery {
 			let subquery = CartDeliveryAddressQuery()
@@ -50,7 +50,7 @@ extension Storefront {
 		}
 	}
 
-	/// A delivery address of the buyer that is interacting with the cart. 
+	/// A delivery address of the buyer that is interacting with the cart.
 	open class UnknownCartAddress: GraphQL.AbstractResponse, GraphQLObject, CartAddress {
 		public typealias Query = CartAddressQuery
 

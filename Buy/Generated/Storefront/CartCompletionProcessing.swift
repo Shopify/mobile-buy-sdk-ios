@@ -27,18 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// A cart checkout completion that's still processing. 
+	/// A cart checkout completion that's still processing.
 	open class CartCompletionProcessingQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartCompletionProcessing
 
-		/// The ID of the cart completion attempt. 
+		/// The ID of the cart completion attempt.
 		@discardableResult
 		open func id(alias: String? = nil) -> CartCompletionProcessingQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The number of milliseconds to wait before polling again. 
+		/// The number of milliseconds to wait before polling again.
 		@discardableResult
 		open func pollDelay(alias: String? = nil) -> CartCompletionProcessingQuery {
 			addField(field: "pollDelay", aliasSuffix: alias)
@@ -46,7 +46,7 @@ extension Storefront {
 		}
 	}
 
-	/// A cart checkout completion that's still processing. 
+	/// A cart checkout completion that's still processing.
 	open class CartCompletionProcessing: GraphQL.AbstractResponse, GraphQLObject, CartCompletionAttemptResult {
 		public typealias Query = CartCompletionProcessingQuery
 
@@ -70,7 +70,7 @@ extension Storefront {
 			}
 		}
 
-		/// The ID of the cart completion attempt. 
+		/// The ID of the cart completion attempt.
 		open var id: String {
 			return internalGetId()
 		}
@@ -79,7 +79,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! String
 		}
 
-		/// The number of milliseconds to wait before polling again. 
+		/// The number of milliseconds to wait before polling again.
 		open var pollDelay: Int32 {
 			return internalGetPollDelay()
 		}

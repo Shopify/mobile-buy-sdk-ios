@@ -26,12 +26,26 @@
 
 import Foundation
 
-/// Returns the resource which is being referred to by a metafield. 
+/// The resource that a metafield points to when its type is a resource
+/// reference. Metafields can store references to other Shopify resources, and
+/// this union provides access to the actual referenced object. Returned by the
+/// `Metafield` object's
+/// [`reference`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.reference)
+/// field for single references or the
+/// [`references`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.references)
+/// field for lists.
 public protocol MetafieldReference {
 }
 
 extension Storefront {
-	/// Returns the resource which is being referred to by a metafield. 
+	/// The resource that a metafield points to when its type is a resource
+	/// reference. Metafields can store references to other Shopify resources, and
+	/// this union provides access to the actual referenced object. Returned by the
+	/// `Metafield` object's
+	/// [`reference`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.reference)
+	/// field for single references or the
+	/// [`references`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.references)
+	/// field for lists.
 	open class MetafieldReferenceQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MetafieldReference
 
@@ -40,7 +54,30 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// Returns the resource which is being referred to by a metafield. 
+		/// The resource that a metafield points to when its type is a resource
+		/// reference. Metafields can store references to other Shopify resources, and
+		/// this union provides access to the actual referenced object. Returned by the
+		/// `Metafield` object's
+		/// [`reference`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.reference)
+		/// field for single references or the
+		/// [`references`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.references)
+		/// field for lists.
+		@discardableResult
+		open func onArticle(subfields: (ArticleQuery) -> Void) -> MetafieldReferenceQuery {
+			let subquery = ArticleQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Article", subfields: subquery)
+			return self
+		}
+
+		/// The resource that a metafield points to when its type is a resource
+		/// reference. Metafields can store references to other Shopify resources, and
+		/// this union provides access to the actual referenced object. Returned by the
+		/// `Metafield` object's
+		/// [`reference`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.reference)
+		/// field for single references or the
+		/// [`references`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.references)
+		/// field for lists.
 		@discardableResult
 		open func onCollection(subfields: (CollectionQuery) -> Void) -> MetafieldReferenceQuery {
 			let subquery = CollectionQuery()
@@ -49,7 +86,14 @@ extension Storefront {
 			return self
 		}
 
-		/// Returns the resource which is being referred to by a metafield. 
+		/// The resource that a metafield points to when its type is a resource
+		/// reference. Metafields can store references to other Shopify resources, and
+		/// this union provides access to the actual referenced object. Returned by the
+		/// `Metafield` object's
+		/// [`reference`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.reference)
+		/// field for single references or the
+		/// [`references`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.references)
+		/// field for lists.
 		@discardableResult
 		open func onGenericFile(subfields: (GenericFileQuery) -> Void) -> MetafieldReferenceQuery {
 			let subquery = GenericFileQuery()
@@ -58,7 +102,14 @@ extension Storefront {
 			return self
 		}
 
-		/// Returns the resource which is being referred to by a metafield. 
+		/// The resource that a metafield points to when its type is a resource
+		/// reference. Metafields can store references to other Shopify resources, and
+		/// this union provides access to the actual referenced object. Returned by the
+		/// `Metafield` object's
+		/// [`reference`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.reference)
+		/// field for single references or the
+		/// [`references`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.references)
+		/// field for lists.
 		@discardableResult
 		open func onMediaImage(subfields: (MediaImageQuery) -> Void) -> MetafieldReferenceQuery {
 			let subquery = MediaImageQuery()
@@ -67,7 +118,14 @@ extension Storefront {
 			return self
 		}
 
-		/// Returns the resource which is being referred to by a metafield. 
+		/// The resource that a metafield points to when its type is a resource
+		/// reference. Metafields can store references to other Shopify resources, and
+		/// this union provides access to the actual referenced object. Returned by the
+		/// `Metafield` object's
+		/// [`reference`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.reference)
+		/// field for single references or the
+		/// [`references`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.references)
+		/// field for lists.
 		@discardableResult
 		open func onMetaobject(subfields: (MetaobjectQuery) -> Void) -> MetafieldReferenceQuery {
 			let subquery = MetaobjectQuery()
@@ -76,7 +134,14 @@ extension Storefront {
 			return self
 		}
 
-		/// Returns the resource which is being referred to by a metafield. 
+		/// The resource that a metafield points to when its type is a resource
+		/// reference. Metafields can store references to other Shopify resources, and
+		/// this union provides access to the actual referenced object. Returned by the
+		/// `Metafield` object's
+		/// [`reference`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.reference)
+		/// field for single references or the
+		/// [`references`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.references)
+		/// field for lists.
 		@discardableResult
 		open func onModel3d(subfields: (Model3dQuery) -> Void) -> MetafieldReferenceQuery {
 			let subquery = Model3dQuery()
@@ -85,7 +150,14 @@ extension Storefront {
 			return self
 		}
 
-		/// Returns the resource which is being referred to by a metafield. 
+		/// The resource that a metafield points to when its type is a resource
+		/// reference. Metafields can store references to other Shopify resources, and
+		/// this union provides access to the actual referenced object. Returned by the
+		/// `Metafield` object's
+		/// [`reference`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.reference)
+		/// field for single references or the
+		/// [`references`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.references)
+		/// field for lists.
 		@discardableResult
 		open func onPage(subfields: (PageQuery) -> Void) -> MetafieldReferenceQuery {
 			let subquery = PageQuery()
@@ -94,7 +166,14 @@ extension Storefront {
 			return self
 		}
 
-		/// Returns the resource which is being referred to by a metafield. 
+		/// The resource that a metafield points to when its type is a resource
+		/// reference. Metafields can store references to other Shopify resources, and
+		/// this union provides access to the actual referenced object. Returned by the
+		/// `Metafield` object's
+		/// [`reference`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.reference)
+		/// field for single references or the
+		/// [`references`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.references)
+		/// field for lists.
 		@discardableResult
 		open func onProduct(subfields: (ProductQuery) -> Void) -> MetafieldReferenceQuery {
 			let subquery = ProductQuery()
@@ -103,7 +182,14 @@ extension Storefront {
 			return self
 		}
 
-		/// Returns the resource which is being referred to by a metafield. 
+		/// The resource that a metafield points to when its type is a resource
+		/// reference. Metafields can store references to other Shopify resources, and
+		/// this union provides access to the actual referenced object. Returned by the
+		/// `Metafield` object's
+		/// [`reference`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.reference)
+		/// field for single references or the
+		/// [`references`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.references)
+		/// field for lists.
 		@discardableResult
 		open func onProductVariant(subfields: (ProductVariantQuery) -> Void) -> MetafieldReferenceQuery {
 			let subquery = ProductVariantQuery()
@@ -112,7 +198,14 @@ extension Storefront {
 			return self
 		}
 
-		/// Returns the resource which is being referred to by a metafield. 
+		/// The resource that a metafield points to when its type is a resource
+		/// reference. Metafields can store references to other Shopify resources, and
+		/// this union provides access to the actual referenced object. Returned by the
+		/// `Metafield` object's
+		/// [`reference`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.reference)
+		/// field for single references or the
+		/// [`references`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.references)
+		/// field for lists.
 		@discardableResult
 		open func onVideo(subfields: (VideoQuery) -> Void) -> MetafieldReferenceQuery {
 			let subquery = VideoQuery()
@@ -122,7 +215,14 @@ extension Storefront {
 		}
 	}
 
-	/// Returns the resource which is being referred to by a metafield. 
+	/// The resource that a metafield points to when its type is a resource
+	/// reference. Metafields can store references to other Shopify resources, and
+	/// this union provides access to the actual referenced object. Returned by the
+	/// `Metafield` object's
+	/// [`reference`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.reference)
+	/// field for single references or the
+	/// [`references`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.references)
+	/// field for lists.
 	open class UnknownMetafieldReference: GraphQL.AbstractResponse, GraphQLObject, MetafieldReference {
 		public typealias Query = MetafieldReferenceQuery
 
@@ -139,6 +239,8 @@ extension Storefront {
 				throw SchemaViolationError(type: UnknownMetafieldReference.self, field: "__typename", value: fields["__typename"] ?? NSNull())
 			}
 			switch typeName {
+				case "Article": return try Article.init(fields: fields)
+
 				case "Collection": return try Collection.init(fields: fields)
 
 				case "GenericFile": return try GenericFile.init(fields: fields)

@@ -27,32 +27,36 @@
 import Foundation
 
 extension Storefront {
-	/// A version of the API, as defined by [Shopify API 
-	/// versioning](https://shopify.dev/api/usage/versioning). Versions are 
-	/// commonly referred to by their handle (for example, `2021-10`). 
+	/// A version of the Shopify API. Each version has a unique handle in
+	/// date-based format (YYYY-MM) or `unstable` for the development version.
+	/// Shopify guarantees supported versions are stable. Unsupported versions
+	/// include unstable and release candidate versions. Use the
+	/// [`publicApiVersions`](https://shopify.dev/docs/api/storefront/current/queries/publicApiVersions)
+	/// query to retrieve all available versions. Learn more about [Shopify API
+	/// versioning](https://shopify.dev/docs/api/usage/versioning).
 	open class ApiVersionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ApiVersion
 
-		/// The human-readable name of the version. 
+		/// The human-readable name of the version.
 		@discardableResult
 		open func displayName(alias: String? = nil) -> ApiVersionQuery {
 			addField(field: "displayName", aliasSuffix: alias)
 			return self
 		}
 
-		/// The unique identifier of an ApiVersion. All supported API versions have a 
-		/// date-based (YYYY-MM) or `unstable` handle. 
+		/// The unique identifier of an ApiVersion. All supported API versions have a
+		/// date-based (YYYY-MM) or `unstable` handle.
 		@discardableResult
 		open func handle(alias: String? = nil) -> ApiVersionQuery {
 			addField(field: "handle", aliasSuffix: alias)
 			return self
 		}
 
-		/// Whether the version is actively supported by Shopify. Supported API 
-		/// versions are guaranteed to be stable. Unsupported API versions include 
-		/// unstable, release candidate, and end-of-life versions that are marked as 
-		/// unsupported. For more information, refer to 
-		/// [Versioning](https://shopify.dev/api/usage/versioning). 
+		/// Whether the version is actively supported by Shopify. Supported API
+		/// versions are guaranteed to be stable. Unsupported API versions include
+		/// unstable, release candidate, and end-of-life versions that are marked as
+		/// unsupported. For more information, refer to
+		/// [Versioning](https://shopify.dev/api/usage/versioning).
 		@discardableResult
 		open func supported(alias: String? = nil) -> ApiVersionQuery {
 			addField(field: "supported", aliasSuffix: alias)
@@ -60,9 +64,13 @@ extension Storefront {
 		}
 	}
 
-	/// A version of the API, as defined by [Shopify API 
-	/// versioning](https://shopify.dev/api/usage/versioning). Versions are 
-	/// commonly referred to by their handle (for example, `2021-10`). 
+	/// A version of the Shopify API. Each version has a unique handle in
+	/// date-based format (YYYY-MM) or `unstable` for the development version.
+	/// Shopify guarantees supported versions are stable. Unsupported versions
+	/// include unstable and release candidate versions. Use the
+	/// [`publicApiVersions`](https://shopify.dev/docs/api/storefront/current/queries/publicApiVersions)
+	/// query to retrieve all available versions. Learn more about [Shopify API
+	/// versioning](https://shopify.dev/docs/api/usage/versioning).
 	open class ApiVersion: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ApiVersionQuery
 
@@ -92,7 +100,7 @@ extension Storefront {
 			}
 		}
 
-		/// The human-readable name of the version. 
+		/// The human-readable name of the version.
 		open var displayName: String {
 			return internalGetDisplayName()
 		}
@@ -101,8 +109,8 @@ extension Storefront {
 			return field(field: "displayName", aliasSuffix: alias) as! String
 		}
 
-		/// The unique identifier of an ApiVersion. All supported API versions have a 
-		/// date-based (YYYY-MM) or `unstable` handle. 
+		/// The unique identifier of an ApiVersion. All supported API versions have a
+		/// date-based (YYYY-MM) or `unstable` handle.
 		open var handle: String {
 			return internalGetHandle()
 		}
@@ -111,11 +119,11 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// Whether the version is actively supported by Shopify. Supported API 
-		/// versions are guaranteed to be stable. Unsupported API versions include 
-		/// unstable, release candidate, and end-of-life versions that are marked as 
-		/// unsupported. For more information, refer to 
-		/// [Versioning](https://shopify.dev/api/usage/versioning). 
+		/// Whether the version is actively supported by Shopify. Supported API
+		/// versions are guaranteed to be stable. Unsupported API versions include
+		/// unstable, release candidate, and end-of-life versions that are marked as
+		/// unsupported. For more information, refer to
+		/// [Versioning](https://shopify.dev/api/usage/versioning).
 		open var supported: Bool {
 			return internalGetSupported()
 		}

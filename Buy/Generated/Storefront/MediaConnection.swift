@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type for paginating through multiple Media. 
+	/// An auto-generated type for paginating through multiple Media.
 	open class MediaConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MediaConnection
 
-		/// A list of edges. 
+		/// A list of edges.
 		@discardableResult
 		open func edges(alias: String? = nil, _ subfields: (MediaEdgeQuery) -> Void) -> MediaConnectionQuery {
 			let subquery = MediaEdgeQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of the nodes contained in MediaEdge. 
+		/// A list of the nodes contained in MediaEdge.
 		@discardableResult
 		open func nodes(alias: String? = nil, _ subfields: (MediaQuery) -> Void) -> MediaConnectionQuery {
 			let subquery = MediaQuery()
@@ -51,7 +51,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> MediaConnectionQuery {
 			let subquery = PageInfoQuery()
@@ -62,7 +62,7 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type for paginating through multiple Media. 
+	/// An auto-generated type for paginating through multiple Media.
 	open class MediaConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = MediaConnectionQuery
 
@@ -92,7 +92,7 @@ extension Storefront {
 			}
 		}
 
-		/// A list of edges. 
+		/// A list of edges.
 		open var edges: [Storefront.MediaEdge] {
 			return internalGetEdges()
 		}
@@ -101,7 +101,7 @@ extension Storefront {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.MediaEdge]
 		}
 
-		/// A list of the nodes contained in MediaEdge. 
+		/// A list of the nodes contained in MediaEdge.
 		open var nodes: [Media] {
 			return internalGetNodes()
 		}
@@ -110,7 +110,7 @@ extension Storefront {
 			return field(field: "nodes", aliasSuffix: alias) as! [Media]
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
 		}

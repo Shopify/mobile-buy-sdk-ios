@@ -27,19 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type which holds one ProductVariantComponent and a cursor 
-	/// during pagination. 
+	/// An auto-generated type which holds one ProductVariantComponent and a cursor
+	/// during pagination.
 	open class ProductVariantComponentEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ProductVariantComponentEdge
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		@discardableResult
 		open func cursor(alias: String? = nil) -> ProductVariantComponentEdgeQuery {
 			addField(field: "cursor", aliasSuffix: alias)
 			return self
 		}
 
-		/// The item at the end of ProductVariantComponentEdge. 
+		/// The item at the end of ProductVariantComponentEdge.
 		@discardableResult
 		open func node(alias: String? = nil, _ subfields: (ProductVariantComponentQuery) -> Void) -> ProductVariantComponentEdgeQuery {
 			let subquery = ProductVariantComponentQuery()
@@ -50,8 +50,8 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type which holds one ProductVariantComponent and a cursor 
-	/// during pagination. 
+	/// An auto-generated type which holds one ProductVariantComponent and a cursor
+	/// during pagination.
 	open class ProductVariantComponentEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ProductVariantComponentEdgeQuery
 
@@ -75,7 +75,7 @@ extension Storefront {
 			}
 		}
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		open var cursor: String {
 			return internalGetCursor()
 		}
@@ -84,7 +84,7 @@ extension Storefront {
 			return field(field: "cursor", aliasSuffix: alias) as! String
 		}
 
-		/// The item at the end of ProductVariantComponentEdge. 
+		/// The item at the end of ProductVariantComponentEdge.
 		open var node: Storefront.ProductVariantComponent {
 			return internalGetNode()
 		}

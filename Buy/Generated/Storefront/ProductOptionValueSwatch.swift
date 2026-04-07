@@ -27,18 +27,21 @@
 import Foundation
 
 extension Storefront {
-	/// The product option value swatch. 
+	/// A visual representation for a
+	/// [`ProductOptionValue`](https://shopify.dev/docs/api/storefront/current/objects/ProductOptionValue),
+	/// such as a color or image. Swatches help customers visualize options like
+	/// "Red" or "Blue" without relying solely on text labels.
 	open class ProductOptionValueSwatchQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ProductOptionValueSwatch
 
-		/// The swatch color. 
+		/// The swatch color.
 		@discardableResult
 		open func color(alias: String? = nil) -> ProductOptionValueSwatchQuery {
 			addField(field: "color", aliasSuffix: alias)
 			return self
 		}
 
-		/// The swatch image. 
+		/// The swatch image.
 		@discardableResult
 		open func image(alias: String? = nil, _ subfields: (MediaQuery) -> Void) -> ProductOptionValueSwatchQuery {
 			let subquery = MediaQuery()
@@ -49,7 +52,10 @@ extension Storefront {
 		}
 	}
 
-	/// The product option value swatch. 
+	/// A visual representation for a
+	/// [`ProductOptionValue`](https://shopify.dev/docs/api/storefront/current/objects/ProductOptionValue),
+	/// such as a color or image. Swatches help customers visualize options like
+	/// "Red" or "Blue" without relying solely on text labels.
 	open class ProductOptionValueSwatch: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ProductOptionValueSwatchQuery
 
@@ -75,7 +81,7 @@ extension Storefront {
 			}
 		}
 
-		/// The swatch color. 
+		/// The swatch color.
 		open var color: String? {
 			return internalGetColor()
 		}
@@ -84,7 +90,7 @@ extension Storefront {
 			return field(field: "color", aliasSuffix: alias) as! String?
 		}
 
-		/// The swatch image. 
+		/// The swatch image.
 		open var image: Media? {
 			return internalGetImage()
 		}

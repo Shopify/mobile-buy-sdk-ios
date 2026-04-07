@@ -27,26 +27,37 @@
 import Foundation
 
 extension Storefront {
-	/// A language. 
+	/// A language available for a localized storefront experience. Provides the
+	/// language name in both its native form (endonym) and translated into the
+	/// current language, along with its
+	/// [`LanguageCode`](https://shopify.dev/docs/api/storefront/current/enums/LanguageCode).
+	/// Returned by the
+	/// [`Localization`](https://shopify.dev/docs/api/storefront/current/objects/Localization)
+	/// and
+	/// [`Country`](https://shopify.dev/docs/api/storefront/current/objects/Country)
+	/// objects to indicate available and active languages. Pass the `isoCode` to
+	/// the
+	/// [`@inContext`](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/in-context)
+	/// directive to retrieve translated content in that language.
 	open class LanguageQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Language
 
-		/// The name of the language in the language itself. If the language uses 
-		/// capitalization, it is capitalized for a mid-sentence position. 
+		/// The name of the language in the language itself. If the language uses
+		/// capitalization, it is capitalized for a mid-sentence position.
 		@discardableResult
 		open func endonymName(alias: String? = nil) -> LanguageQuery {
 			addField(field: "endonymName", aliasSuffix: alias)
 			return self
 		}
 
-		/// The ISO code. 
+		/// The ISO code.
 		@discardableResult
 		open func isoCode(alias: String? = nil) -> LanguageQuery {
 			addField(field: "isoCode", aliasSuffix: alias)
 			return self
 		}
 
-		/// The name of the language in the current language. 
+		/// The name of the language in the current language.
 		@discardableResult
 		open func name(alias: String? = nil) -> LanguageQuery {
 			addField(field: "name", aliasSuffix: alias)
@@ -54,7 +65,18 @@ extension Storefront {
 		}
 	}
 
-	/// A language. 
+	/// A language available for a localized storefront experience. Provides the
+	/// language name in both its native form (endonym) and translated into the
+	/// current language, along with its
+	/// [`LanguageCode`](https://shopify.dev/docs/api/storefront/current/enums/LanguageCode).
+	/// Returned by the
+	/// [`Localization`](https://shopify.dev/docs/api/storefront/current/objects/Localization)
+	/// and
+	/// [`Country`](https://shopify.dev/docs/api/storefront/current/objects/Country)
+	/// objects to indicate available and active languages. Pass the `isoCode` to
+	/// the
+	/// [`@inContext`](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/in-context)
+	/// directive to retrieve translated content in that language.
 	open class Language: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = LanguageQuery
 
@@ -84,8 +106,8 @@ extension Storefront {
 			}
 		}
 
-		/// The name of the language in the language itself. If the language uses 
-		/// capitalization, it is capitalized for a mid-sentence position. 
+		/// The name of the language in the language itself. If the language uses
+		/// capitalization, it is capitalized for a mid-sentence position.
 		open var endonymName: String {
 			return internalGetEndonymName()
 		}
@@ -94,7 +116,7 @@ extension Storefront {
 			return field(field: "endonymName", aliasSuffix: alias) as! String
 		}
 
-		/// The ISO code. 
+		/// The ISO code.
 		open var isoCode: Storefront.LanguageCode {
 			return internalGetIsoCode()
 		}
@@ -103,7 +125,7 @@ extension Storefront {
 			return field(field: "isoCode", aliasSuffix: alias) as! Storefront.LanguageCode
 		}
 
-		/// The name of the language in the current language. 
+		/// The name of the language in the current language.
 		open var name: String {
 			return internalGetName()
 		}

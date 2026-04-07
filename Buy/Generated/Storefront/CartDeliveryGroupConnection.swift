@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type for paginating through multiple CartDeliveryGroups. 
+	/// An auto-generated type for paginating through multiple CartDeliveryGroups.
 	open class CartDeliveryGroupConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartDeliveryGroupConnection
 
-		/// A list of edges. 
+		/// A list of edges.
 		@discardableResult
 		open func edges(alias: String? = nil, _ subfields: (CartDeliveryGroupEdgeQuery) -> Void) -> CartDeliveryGroupConnectionQuery {
 			let subquery = CartDeliveryGroupEdgeQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of the nodes contained in CartDeliveryGroupEdge. 
+		/// A list of the nodes contained in CartDeliveryGroupEdge.
 		@discardableResult
 		open func nodes(alias: String? = nil, _ subfields: (CartDeliveryGroupQuery) -> Void) -> CartDeliveryGroupConnectionQuery {
 			let subquery = CartDeliveryGroupQuery()
@@ -51,7 +51,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> CartDeliveryGroupConnectionQuery {
 			let subquery = PageInfoQuery()
@@ -62,7 +62,7 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type for paginating through multiple CartDeliveryGroups. 
+	/// An auto-generated type for paginating through multiple CartDeliveryGroups.
 	open class CartDeliveryGroupConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CartDeliveryGroupConnectionQuery
 
@@ -92,7 +92,7 @@ extension Storefront {
 			}
 		}
 
-		/// A list of edges. 
+		/// A list of edges.
 		open var edges: [Storefront.CartDeliveryGroupEdge] {
 			return internalGetEdges()
 		}
@@ -101,7 +101,7 @@ extension Storefront {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.CartDeliveryGroupEdge]
 		}
 
-		/// A list of the nodes contained in CartDeliveryGroupEdge. 
+		/// A list of the nodes contained in CartDeliveryGroupEdge.
 		open var nodes: [Storefront.CartDeliveryGroup] {
 			return internalGetNodes()
 		}
@@ -110,7 +110,7 @@ extension Storefront {
 			return field(field: "nodes", aliasSuffix: alias) as! [Storefront.CartDeliveryGroup]
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
 		}

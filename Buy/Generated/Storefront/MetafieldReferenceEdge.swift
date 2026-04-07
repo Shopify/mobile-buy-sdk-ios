@@ -27,19 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type which holds one MetafieldReference and a cursor 
-	/// during pagination. 
+	/// An auto-generated type which holds one MetafieldReference and a cursor
+	/// during pagination.
 	open class MetafieldReferenceEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MetafieldReferenceEdge
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		@discardableResult
 		open func cursor(alias: String? = nil) -> MetafieldReferenceEdgeQuery {
 			addField(field: "cursor", aliasSuffix: alias)
 			return self
 		}
 
-		/// The item at the end of MetafieldReferenceEdge. 
+		/// The item at the end of MetafieldReferenceEdge.
 		@discardableResult
 		open func node(alias: String? = nil, _ subfields: (MetafieldReferenceQuery) -> Void) -> MetafieldReferenceEdgeQuery {
 			let subquery = MetafieldReferenceQuery()
@@ -50,8 +50,8 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type which holds one MetafieldReference and a cursor 
-	/// during pagination. 
+	/// An auto-generated type which holds one MetafieldReference and a cursor
+	/// during pagination.
 	open class MetafieldReferenceEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = MetafieldReferenceEdgeQuery
 
@@ -75,7 +75,7 @@ extension Storefront {
 			}
 		}
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		open var cursor: String {
 			return internalGetCursor()
 		}
@@ -84,7 +84,7 @@ extension Storefront {
 			return field(field: "cursor", aliasSuffix: alias) as! String
 		}
 
-		/// The item at the end of MetafieldReferenceEdge. 
+		/// The item at the end of MetafieldReferenceEdge.
 		open var node: MetafieldReference {
 			return internalGetNode()
 		}

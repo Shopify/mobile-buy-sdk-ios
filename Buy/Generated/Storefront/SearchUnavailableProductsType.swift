@@ -27,16 +27,16 @@
 import Foundation
 
 extension Storefront {
-	/// Specifies whether to display results for unavailable products. 
+	/// Specifies whether to display results for unavailable products.
 	public enum SearchUnavailableProductsType: String {
-		/// Exclude unavailable products. 
+		/// Exclude unavailable products.
 		case hide = "HIDE"
 
-		/// Show unavailable products after all other matching results. This is the 
-		/// default. 
+		/// Show unavailable products after all other matching results. This is the
+		/// default.
 		case last = "LAST"
 
-		/// Show unavailable products in the order that they're found. 
+		/// Show unavailable products in the order that they're found.
 		case show = "SHOW"
 
 		case unknownValue = ""

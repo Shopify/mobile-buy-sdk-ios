@@ -27,10 +27,10 @@
 import Foundation
 
 extension Storefront {
-	/// Represents how credit card details are provided for a direct payment. 
+	/// Represents how credit card details are provided for a direct payment.
 	public enum CartCardSource: String {
-		/// The credit card was provided by a third party and vaulted on their system. 
-		/// Using this value requires a separate permission from Shopify. 
+		/// The credit card was provided by a third party and vaulted on their system.
+		/// Using this value requires a separate permission from Shopify.
 		case savedCreditCard = "SAVED_CREDIT_CARD"
 
 		case unknownValue = ""

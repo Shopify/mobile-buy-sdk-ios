@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Return type for `shopPayPaymentRequestSessionCreate` mutation. 
+	/// Return type for `shopPayPaymentRequestSessionCreate` mutation.
 	open class ShopPayPaymentRequestSessionCreatePayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ShopPayPaymentRequestSessionCreatePayload
 
-		/// The new Shop Pay payment request session object. 
+		/// The new Shop Pay payment request session object.
 		@discardableResult
 		open func shopPayPaymentRequestSession(alias: String? = nil, _ subfields: (ShopPayPaymentRequestSessionQuery) -> Void) -> ShopPayPaymentRequestSessionCreatePayloadQuery {
 			let subquery = ShopPayPaymentRequestSessionQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Error codes for failed Shop Pay payment request session mutations. 
+		/// Error codes for failed Shop Pay payment request session mutations.
 		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (UserErrorsShopPayPaymentRequestSessionUserErrorsQuery) -> Void) -> ShopPayPaymentRequestSessionCreatePayloadQuery {
 			let subquery = UserErrorsShopPayPaymentRequestSessionUserErrorsQuery()
@@ -52,7 +52,7 @@ extension Storefront {
 		}
 	}
 
-	/// Return type for `shopPayPaymentRequestSessionCreate` mutation. 
+	/// Return type for `shopPayPaymentRequestSessionCreate` mutation.
 	open class ShopPayPaymentRequestSessionCreatePayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ShopPayPaymentRequestSessionCreatePayloadQuery
 
@@ -77,7 +77,7 @@ extension Storefront {
 			}
 		}
 
-		/// The new Shop Pay payment request session object. 
+		/// The new Shop Pay payment request session object.
 		open var shopPayPaymentRequestSession: Storefront.ShopPayPaymentRequestSession? {
 			return internalGetShopPayPaymentRequestSession()
 		}
@@ -86,7 +86,7 @@ extension Storefront {
 			return field(field: "shopPayPaymentRequestSession", aliasSuffix: alias) as! Storefront.ShopPayPaymentRequestSession?
 		}
 
-		/// Error codes for failed Shop Pay payment request session mutations. 
+		/// Error codes for failed Shop Pay payment request session mutations.
 		open var userErrors: [Storefront.UserErrorsShopPayPaymentRequestSessionUserErrors] {
 			return internalGetUserErrors()
 		}

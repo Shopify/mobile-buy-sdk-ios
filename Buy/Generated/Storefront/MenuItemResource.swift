@@ -26,12 +26,12 @@
 
 import Foundation
 
-/// The list of possible resources a `MenuItem` can reference. 
+/// The list of possible resources a `MenuItem` can reference.
 public protocol MenuItemResource {
 }
 
 extension Storefront {
-	/// The list of possible resources a `MenuItem` can reference. 
+	/// The list of possible resources a `MenuItem` can reference.
 	open class MenuItemResourceQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MenuItemResource
 
@@ -40,7 +40,7 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// The list of possible resources a `MenuItem` can reference. 
+		/// The list of possible resources a `MenuItem` can reference.
 		@discardableResult
 		open func onArticle(subfields: (ArticleQuery) -> Void) -> MenuItemResourceQuery {
 			let subquery = ArticleQuery()
@@ -49,7 +49,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The list of possible resources a `MenuItem` can reference. 
+		/// The list of possible resources a `MenuItem` can reference.
 		@discardableResult
 		open func onBlog(subfields: (BlogQuery) -> Void) -> MenuItemResourceQuery {
 			let subquery = BlogQuery()
@@ -58,7 +58,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The list of possible resources a `MenuItem` can reference. 
+		/// The list of possible resources a `MenuItem` can reference.
 		@discardableResult
 		open func onCollection(subfields: (CollectionQuery) -> Void) -> MenuItemResourceQuery {
 			let subquery = CollectionQuery()
@@ -67,7 +67,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The list of possible resources a `MenuItem` can reference. 
+		/// The list of possible resources a `MenuItem` can reference.
 		@discardableResult
 		open func onMetaobject(subfields: (MetaobjectQuery) -> Void) -> MenuItemResourceQuery {
 			let subquery = MetaobjectQuery()
@@ -76,7 +76,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The list of possible resources a `MenuItem` can reference. 
+		/// The list of possible resources a `MenuItem` can reference.
 		@discardableResult
 		open func onPage(subfields: (PageQuery) -> Void) -> MenuItemResourceQuery {
 			let subquery = PageQuery()
@@ -85,7 +85,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The list of possible resources a `MenuItem` can reference. 
+		/// The list of possible resources a `MenuItem` can reference.
 		@discardableResult
 		open func onProduct(subfields: (ProductQuery) -> Void) -> MenuItemResourceQuery {
 			let subquery = ProductQuery()
@@ -94,7 +94,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The list of possible resources a `MenuItem` can reference. 
+		/// The list of possible resources a `MenuItem` can reference.
 		@discardableResult
 		open func onShopPolicy(subfields: (ShopPolicyQuery) -> Void) -> MenuItemResourceQuery {
 			let subquery = ShopPolicyQuery()
@@ -104,7 +104,7 @@ extension Storefront {
 		}
 	}
 
-	/// The list of possible resources a `MenuItem` can reference. 
+	/// The list of possible resources a `MenuItem` can reference.
 	open class UnknownMenuItemResource: GraphQL.AbstractResponse, GraphQLObject, MenuItemResource {
 		public typealias Query = MenuItemResourceQuery
 

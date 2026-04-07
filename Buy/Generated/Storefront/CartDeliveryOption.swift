@@ -27,32 +27,40 @@
 import Foundation
 
 extension Storefront {
-	/// Information about a delivery option. 
+	/// A shipping or delivery choice available to customers during checkout. Each
+	/// option includes a title, estimated cost, and delivery method type such as
+	/// shipping or local pickup. Returned by the
+	/// [`CartDeliveryGroup`](https://shopify.dev/docs/api/storefront/current/objects/CartDeliveryGroup)
+	/// object's
+	/// [`deliveryOptions`](https://shopify.dev/docs/api/storefront/current/objects/CartDeliveryGroup#field-CartDeliveryGroup.fields.deliveryOptions)
+	/// field and
+	/// [`selectedDeliveryOption`](https://shopify.dev/docs/api/storefront/current/objects/CartDeliveryGroup#field-CartDeliveryGroup.fields.selectedDeliveryOption)
+	/// field.
 	open class CartDeliveryOptionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartDeliveryOption
 
-		/// The code of the delivery option. 
+		/// The code of the delivery option.
 		@discardableResult
 		open func code(alias: String? = nil) -> CartDeliveryOptionQuery {
 			addField(field: "code", aliasSuffix: alias)
 			return self
 		}
 
-		/// The method for the delivery option. 
+		/// The method for the delivery option.
 		@discardableResult
 		open func deliveryMethodType(alias: String? = nil) -> CartDeliveryOptionQuery {
 			addField(field: "deliveryMethodType", aliasSuffix: alias)
 			return self
 		}
 
-		/// The description of the delivery option. 
+		/// The description of the delivery option.
 		@discardableResult
 		open func description(alias: String? = nil) -> CartDeliveryOptionQuery {
 			addField(field: "description", aliasSuffix: alias)
 			return self
 		}
 
-		/// The estimated cost for the delivery option. 
+		/// The estimated cost for the delivery option.
 		@discardableResult
 		open func estimatedCost(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartDeliveryOptionQuery {
 			let subquery = MoneyV2Query()
@@ -62,14 +70,14 @@ extension Storefront {
 			return self
 		}
 
-		/// The unique identifier of the delivery option. 
+		/// The unique identifier of the delivery option.
 		@discardableResult
 		open func handle(alias: String? = nil) -> CartDeliveryOptionQuery {
 			addField(field: "handle", aliasSuffix: alias)
 			return self
 		}
 
-		/// The title of the delivery option. 
+		/// The title of the delivery option.
 		@discardableResult
 		open func title(alias: String? = nil) -> CartDeliveryOptionQuery {
 			addField(field: "title", aliasSuffix: alias)
@@ -77,7 +85,15 @@ extension Storefront {
 		}
 	}
 
-	/// Information about a delivery option. 
+	/// A shipping or delivery choice available to customers during checkout. Each
+	/// option includes a title, estimated cost, and delivery method type such as
+	/// shipping or local pickup. Returned by the
+	/// [`CartDeliveryGroup`](https://shopify.dev/docs/api/storefront/current/objects/CartDeliveryGroup)
+	/// object's
+	/// [`deliveryOptions`](https://shopify.dev/docs/api/storefront/current/objects/CartDeliveryGroup#field-CartDeliveryGroup.fields.deliveryOptions)
+	/// field and
+	/// [`selectedDeliveryOption`](https://shopify.dev/docs/api/storefront/current/objects/CartDeliveryGroup#field-CartDeliveryGroup.fields.selectedDeliveryOption)
+	/// field.
 	open class CartDeliveryOption: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CartDeliveryOptionQuery
 
@@ -128,7 +144,7 @@ extension Storefront {
 			}
 		}
 
-		/// The code of the delivery option. 
+		/// The code of the delivery option.
 		open var code: String? {
 			return internalGetCode()
 		}
@@ -137,7 +153,7 @@ extension Storefront {
 			return field(field: "code", aliasSuffix: alias) as! String?
 		}
 
-		/// The method for the delivery option. 
+		/// The method for the delivery option.
 		open var deliveryMethodType: Storefront.DeliveryMethodType {
 			return internalGetDeliveryMethodType()
 		}
@@ -146,7 +162,7 @@ extension Storefront {
 			return field(field: "deliveryMethodType", aliasSuffix: alias) as! Storefront.DeliveryMethodType
 		}
 
-		/// The description of the delivery option. 
+		/// The description of the delivery option.
 		open var description: String? {
 			return internalGetDescription()
 		}
@@ -155,7 +171,7 @@ extension Storefront {
 			return field(field: "description", aliasSuffix: alias) as! String?
 		}
 
-		/// The estimated cost for the delivery option. 
+		/// The estimated cost for the delivery option.
 		open var estimatedCost: Storefront.MoneyV2 {
 			return internalGetEstimatedCost()
 		}
@@ -164,7 +180,7 @@ extension Storefront {
 			return field(field: "estimatedCost", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The unique identifier of the delivery option. 
+		/// The unique identifier of the delivery option.
 		open var handle: String {
 			return internalGetHandle()
 		}
@@ -173,7 +189,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// The title of the delivery option. 
+		/// The title of the delivery option.
 		open var title: String? {
 			return internalGetTitle()
 		}

@@ -27,19 +27,22 @@
 import Foundation
 
 extension Storefront {
-	/// The estimated costs that the buyer will pay at checkout. The estimated cost 
-	/// uses 
-	/// [`CartBuyerIdentity`](https://shopify.dev/api/storefront/reference/cart/cartbuyeridentity) 
-	/// to determine [international 
-	/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing). 
+	/// The estimated costs that the buyer pays at checkout. Uses
+	/// [`CartBuyerIdentity`](https://shopify.dev/docs/api/storefront/current/objects/CartBuyerIdentity)
+	/// to determine [international
+	/// pricing](https://shopify.dev/docs/custom-storefronts/internationalization/international-pricing).
+	/// Includes the subtotal, total amount, duties, and taxes. The
+	/// [`checkoutChargeAmount`](https://shopify.dev/docs/api/storefront/current/objects/CartEstimatedCost#field-CartEstimatedCost.fields.checkoutChargeAmount)
+	/// field excludes deferred payments that are charged later, making it useful
+	/// for displaying what the customer pays immediately.
 	open class CartEstimatedCostQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartEstimatedCost
 
-		/// The estimated amount, before taxes and discounts, for the customer to pay 
-		/// at checkout. The checkout charge amount doesn't include any deferred 
-		/// payments that'll be paid at a later date. If the cart has no deferred 
-		/// payments, then the checkout charge amount is equivalent 
-		/// to`subtotal_amount`. 
+		/// The estimated amount, before taxes and discounts, for the customer to pay
+		/// at checkout. The checkout charge amount doesn't include any deferred
+		/// payments that'll be paid at a later date. If the cart has no deferred
+		/// payments, then the checkout charge amount is equivalent
+		/// to`subtotal_amount`.
 		@discardableResult
 		open func checkoutChargeAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartEstimatedCostQuery {
 			let subquery = MoneyV2Query()
@@ -49,7 +52,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The estimated amount, before taxes and discounts, for the customer to pay. 
+		/// The estimated amount, before taxes and discounts, for the customer to pay.
 		@discardableResult
 		open func subtotalAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartEstimatedCostQuery {
 			let subquery = MoneyV2Query()
@@ -59,7 +62,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The estimated total amount for the customer to pay. 
+		/// The estimated total amount for the customer to pay.
 		@discardableResult
 		open func totalAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartEstimatedCostQuery {
 			let subquery = MoneyV2Query()
@@ -69,7 +72,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The estimated duty amount for the customer to pay at checkout. 
+		/// The estimated duty amount for the customer to pay at checkout.
 		@discardableResult
 		open func totalDutyAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartEstimatedCostQuery {
 			let subquery = MoneyV2Query()
@@ -79,7 +82,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The estimated tax amount for the customer to pay at checkout. 
+		/// The estimated tax amount for the customer to pay at checkout.
 		@discardableResult
 		open func totalTaxAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartEstimatedCostQuery {
 			let subquery = MoneyV2Query()
@@ -90,11 +93,14 @@ extension Storefront {
 		}
 	}
 
-	/// The estimated costs that the buyer will pay at checkout. The estimated cost 
-	/// uses 
-	/// [`CartBuyerIdentity`](https://shopify.dev/api/storefront/reference/cart/cartbuyeridentity) 
-	/// to determine [international 
-	/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing). 
+	/// The estimated costs that the buyer pays at checkout. Uses
+	/// [`CartBuyerIdentity`](https://shopify.dev/docs/api/storefront/current/objects/CartBuyerIdentity)
+	/// to determine [international
+	/// pricing](https://shopify.dev/docs/custom-storefronts/internationalization/international-pricing).
+	/// Includes the subtotal, total amount, duties, and taxes. The
+	/// [`checkoutChargeAmount`](https://shopify.dev/docs/api/storefront/current/objects/CartEstimatedCost#field-CartEstimatedCost.fields.checkoutChargeAmount)
+	/// field excludes deferred payments that are charged later, making it useful
+	/// for displaying what the customer pays immediately.
 	open class CartEstimatedCost: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CartEstimatedCostQuery
 
@@ -138,11 +144,11 @@ extension Storefront {
 			}
 		}
 
-		/// The estimated amount, before taxes and discounts, for the customer to pay 
-		/// at checkout. The checkout charge amount doesn't include any deferred 
-		/// payments that'll be paid at a later date. If the cart has no deferred 
-		/// payments, then the checkout charge amount is equivalent 
-		/// to`subtotal_amount`. 
+		/// The estimated amount, before taxes and discounts, for the customer to pay
+		/// at checkout. The checkout charge amount doesn't include any deferred
+		/// payments that'll be paid at a later date. If the cart has no deferred
+		/// payments, then the checkout charge amount is equivalent
+		/// to`subtotal_amount`.
 		open var checkoutChargeAmount: Storefront.MoneyV2 {
 			return internalGetCheckoutChargeAmount()
 		}
@@ -151,7 +157,7 @@ extension Storefront {
 			return field(field: "checkoutChargeAmount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The estimated amount, before taxes and discounts, for the customer to pay. 
+		/// The estimated amount, before taxes and discounts, for the customer to pay.
 		open var subtotalAmount: Storefront.MoneyV2 {
 			return internalGetSubtotalAmount()
 		}
@@ -160,7 +166,7 @@ extension Storefront {
 			return field(field: "subtotalAmount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The estimated total amount for the customer to pay. 
+		/// The estimated total amount for the customer to pay.
 		open var totalAmount: Storefront.MoneyV2 {
 			return internalGetTotalAmount()
 		}
@@ -169,7 +175,7 @@ extension Storefront {
 			return field(field: "totalAmount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The estimated duty amount for the customer to pay at checkout. 
+		/// The estimated duty amount for the customer to pay at checkout.
 		open var totalDutyAmount: Storefront.MoneyV2? {
 			return internalGetTotalDutyAmount()
 		}
@@ -178,7 +184,7 @@ extension Storefront {
 			return field(field: "totalDutyAmount", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
-		/// The estimated tax amount for the customer to pay at checkout. 
+		/// The estimated tax amount for the customer to pay at checkout.
 		open var totalTaxAmount: Storefront.MoneyV2? {
 			return internalGetTotalTaxAmount()
 		}

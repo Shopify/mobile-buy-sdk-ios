@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields to create an image for a Shop Pay payment request. 
+	/// The input fields to create an image for a Shop Pay payment request.
 	open class ShopPayPaymentRequestImageInput {
-		/// The source URL of the image. 
+		/// The source URL of the image.
 		open var url: String
 
-		/// The alt text of the image. 
+		/// The alt text of the image.
 		open var alt: Input<String>
 
 		/// Creates the input object.

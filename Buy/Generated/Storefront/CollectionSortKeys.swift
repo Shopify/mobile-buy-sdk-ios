@@ -27,20 +27,20 @@
 import Foundation
 
 extension Storefront {
-	/// The set of valid sort keys for the Collection query. 
+	/// The set of valid sort keys for the Collection query.
 	public enum CollectionSortKeys: String {
-		/// Sort by the `id` value. 
+		/// Sort by the `id` value.
 		case id = "ID"
 
-		/// Sort by relevance to the search terms when the `query` parameter is 
-		/// specified on the connection. Don't use this sort key when no search query 
-		/// is specified. 
+		/// Sort by relevance to the search terms when the `query` parameter is
+		/// specified on the connection. Don't use this sort key when no search query
+		/// is specified.
 		case relevance = "RELEVANCE"
 
-		/// Sort by the `title` value. 
+		/// Sort by the `title` value.
 		case title = "TITLE"
 
-		/// Sort by the `updated_at` value. 
+		/// Sort by the `updated_at` value.
 		case updatedAt = "UPDATED_AT"
 
 		case unknownValue = ""

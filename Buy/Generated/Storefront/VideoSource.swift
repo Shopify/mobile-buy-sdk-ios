@@ -27,39 +27,39 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a source for a Shopify hosted video. 
+	/// Represents a source for a Shopify hosted video.
 	open class VideoSourceQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = VideoSource
 
-		/// The format of the video source. 
+		/// The format of the video source.
 		@discardableResult
 		open func format(alias: String? = nil) -> VideoSourceQuery {
 			addField(field: "format", aliasSuffix: alias)
 			return self
 		}
 
-		/// The height of the video. 
+		/// The height of the video.
 		@discardableResult
 		open func height(alias: String? = nil) -> VideoSourceQuery {
 			addField(field: "height", aliasSuffix: alias)
 			return self
 		}
 
-		/// The video MIME type. 
+		/// The video MIME type.
 		@discardableResult
 		open func mimeType(alias: String? = nil) -> VideoSourceQuery {
 			addField(field: "mimeType", aliasSuffix: alias)
 			return self
 		}
 
-		/// The URL of the video. 
+		/// The URL of the video.
 		@discardableResult
 		open func url(alias: String? = nil) -> VideoSourceQuery {
 			addField(field: "url", aliasSuffix: alias)
 			return self
 		}
 
-		/// The width of the video. 
+		/// The width of the video.
 		@discardableResult
 		open func width(alias: String? = nil) -> VideoSourceQuery {
 			addField(field: "width", aliasSuffix: alias)
@@ -67,7 +67,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a source for a Shopify hosted video. 
+	/// Represents a source for a Shopify hosted video.
 	open class VideoSource: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = VideoSourceQuery
 
@@ -109,7 +109,7 @@ extension Storefront {
 			}
 		}
 
-		/// The format of the video source. 
+		/// The format of the video source.
 		open var format: String {
 			return internalGetFormat()
 		}
@@ -118,7 +118,7 @@ extension Storefront {
 			return field(field: "format", aliasSuffix: alias) as! String
 		}
 
-		/// The height of the video. 
+		/// The height of the video.
 		open var height: Int32 {
 			return internalGetHeight()
 		}
@@ -127,7 +127,7 @@ extension Storefront {
 			return field(field: "height", aliasSuffix: alias) as! Int32
 		}
 
-		/// The video MIME type. 
+		/// The video MIME type.
 		open var mimeType: String {
 			return internalGetMimeType()
 		}
@@ -136,7 +136,7 @@ extension Storefront {
 			return field(field: "mimeType", aliasSuffix: alias) as! String
 		}
 
-		/// The URL of the video. 
+		/// The URL of the video.
 		open var url: String {
 			return internalGetUrl()
 		}
@@ -145,7 +145,7 @@ extension Storefront {
 			return field(field: "url", aliasSuffix: alias) as! String
 		}
 
-		/// The width of the video. 
+		/// The width of the video.
 		open var width: Int32 {
 			return internalGetWidth()
 		}

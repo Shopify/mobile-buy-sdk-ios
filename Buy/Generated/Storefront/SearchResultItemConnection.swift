@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type for paginating through multiple SearchResultItems. 
+	/// An auto-generated type for paginating through multiple SearchResultItems.
 	open class SearchResultItemConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SearchResultItemConnection
 
-		/// A list of edges. 
+		/// A list of edges.
 		@discardableResult
 		open func edges(alias: String? = nil, _ subfields: (SearchResultItemEdgeQuery) -> Void) -> SearchResultItemConnectionQuery {
 			let subquery = SearchResultItemEdgeQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of the nodes contained in SearchResultItemEdge. 
+		/// A list of the nodes contained in SearchResultItemEdge.
 		@discardableResult
 		open func nodes(alias: String? = nil, _ subfields: (SearchResultItemQuery) -> Void) -> SearchResultItemConnectionQuery {
 			let subquery = SearchResultItemQuery()
@@ -51,7 +51,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> SearchResultItemConnectionQuery {
 			let subquery = PageInfoQuery()
@@ -61,7 +61,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of available filters. 
+		/// A list of available filters.
 		@discardableResult
 		open func productFilters(alias: String? = nil, _ subfields: (FilterQuery) -> Void) -> SearchResultItemConnectionQuery {
 			let subquery = FilterQuery()
@@ -71,7 +71,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The total number of results. 
+		/// The total number of results.
 		@discardableResult
 		open func totalCount(alias: String? = nil) -> SearchResultItemConnectionQuery {
 			addField(field: "totalCount", aliasSuffix: alias)
@@ -79,7 +79,7 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type for paginating through multiple SearchResultItems. 
+	/// An auto-generated type for paginating through multiple SearchResultItems.
 	open class SearchResultItemConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = SearchResultItemConnectionQuery
 
@@ -121,7 +121,7 @@ extension Storefront {
 			}
 		}
 
-		/// A list of edges. 
+		/// A list of edges.
 		open var edges: [Storefront.SearchResultItemEdge] {
 			return internalGetEdges()
 		}
@@ -130,7 +130,7 @@ extension Storefront {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.SearchResultItemEdge]
 		}
 
-		/// A list of the nodes contained in SearchResultItemEdge. 
+		/// A list of the nodes contained in SearchResultItemEdge.
 		open var nodes: [SearchResultItem] {
 			return internalGetNodes()
 		}
@@ -139,7 +139,7 @@ extension Storefront {
 			return field(field: "nodes", aliasSuffix: alias) as! [SearchResultItem]
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
 		}
@@ -148,7 +148,7 @@ extension Storefront {
 			return field(field: "pageInfo", aliasSuffix: alias) as! Storefront.PageInfo
 		}
 
-		/// A list of available filters. 
+		/// A list of available filters.
 		open var productFilters: [Storefront.Filter] {
 			return internalGetProductFilters()
 		}
@@ -157,7 +157,7 @@ extension Storefront {
 			return field(field: "productFilters", aliasSuffix: alias) as! [Storefront.Filter]
 		}
 
-		/// The total number of results. 
+		/// The total number of results.
 		open var totalCount: Int32 {
 			return internalGetTotalCount()
 		}

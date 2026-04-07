@@ -27,19 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type which holds one String and a cursor during 
-	/// pagination. 
+	/// An auto-generated type which holds one String and a cursor during
+	/// pagination.
 	open class StringEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = StringEdge
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		@discardableResult
 		open func cursor(alias: String? = nil) -> StringEdgeQuery {
 			addField(field: "cursor", aliasSuffix: alias)
 			return self
 		}
 
-		/// The item at the end of StringEdge. 
+		/// The item at the end of StringEdge.
 		@discardableResult
 		open func node(alias: String? = nil) -> StringEdgeQuery {
 			addField(field: "node", aliasSuffix: alias)
@@ -47,8 +47,8 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type which holds one String and a cursor during 
-	/// pagination. 
+	/// An auto-generated type which holds one String and a cursor during
+	/// pagination.
 	open class StringEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = StringEdgeQuery
 
@@ -72,7 +72,7 @@ extension Storefront {
 			}
 		}
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		open var cursor: String {
 			return internalGetCursor()
 		}
@@ -81,7 +81,7 @@ extension Storefront {
 			return field(field: "cursor", aliasSuffix: alias) as! String
 		}
 
-		/// The item at the end of StringEdge. 
+		/// The item at the end of StringEdge.
 		open var node: String {
 			return internalGetNode()
 		}

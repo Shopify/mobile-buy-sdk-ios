@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Return type for `customerDefaultAddressUpdate` mutation. 
+	/// Return type for `customerDefaultAddressUpdate` mutation.
 	open class CustomerDefaultAddressUpdatePayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CustomerDefaultAddressUpdatePayload
 
-		/// The updated customer object. 
+		/// The updated customer object.
 		@discardableResult
 		open func customer(alias: String? = nil, _ subfields: (CustomerQuery) -> Void) -> CustomerDefaultAddressUpdatePayloadQuery {
 			let subquery = CustomerQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		@discardableResult
 		open func customerUserErrors(alias: String? = nil, _ subfields: (CustomerUserErrorQuery) -> Void) -> CustomerDefaultAddressUpdatePayloadQuery {
 			let subquery = CustomerUserErrorQuery()
@@ -51,7 +51,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		@available(*, deprecated, message: "Use `customerUserErrors` instead.")
 		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerDefaultAddressUpdatePayloadQuery {
@@ -63,7 +63,7 @@ extension Storefront {
 		}
 	}
 
-	/// Return type for `customerDefaultAddressUpdate` mutation. 
+	/// Return type for `customerDefaultAddressUpdate` mutation.
 	open class CustomerDefaultAddressUpdatePayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CustomerDefaultAddressUpdatePayloadQuery
 
@@ -94,7 +94,7 @@ extension Storefront {
 			}
 		}
 
-		/// The updated customer object. 
+		/// The updated customer object.
 		open var customer: Storefront.Customer? {
 			return internalGetCustomer()
 		}
@@ -103,7 +103,7 @@ extension Storefront {
 			return field(field: "customer", aliasSuffix: alias) as! Storefront.Customer?
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		open var customerUserErrors: [Storefront.CustomerUserError] {
 			return internalGetCustomerUserErrors()
 		}
@@ -112,7 +112,7 @@ extension Storefront {
 			return field(field: "customerUserErrors", aliasSuffix: alias) as! [Storefront.CustomerUserError]
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		@available(*, deprecated, message: "Use `customerUserErrors` instead.")
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()

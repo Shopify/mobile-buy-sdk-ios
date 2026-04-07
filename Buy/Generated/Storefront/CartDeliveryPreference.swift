@@ -27,15 +27,15 @@
 import Foundation
 
 extension Storefront {
-	/// A set of preferences tied to the buyer interacting with the cart. 
-	/// Preferences are used to prefill fields in at checkout to streamline 
-	/// information collection. Preferences are not synced back to the cart if they 
-	/// are overwritten. 
+	/// A set of preferences tied to the buyer interacting with the cart.
+	/// Preferences are used to prefill fields in at checkout to streamline
+	/// information collection. Preferences are not synced back to the cart if they
+	/// are overwritten.
 	open class CartDeliveryPreferenceQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartDeliveryPreference
 
-		/// Preferred location used to find the closest pick up point based on 
-		/// coordinates. 
+		/// Preferred location used to find the closest pick up point based on
+		/// coordinates.
 		@discardableResult
 		open func coordinates(alias: String? = nil, _ subfields: (CartDeliveryCoordinatesPreferenceQuery) -> Void) -> CartDeliveryPreferenceQuery {
 			let subquery = CartDeliveryCoordinatesPreferenceQuery()
@@ -45,17 +45,17 @@ extension Storefront {
 			return self
 		}
 
-		/// The preferred delivery methods such as shipping, local pickup or through 
-		/// pickup points. 
+		/// The preferred delivery methods such as shipping, local pickup or through
+		/// pickup points.
 		@discardableResult
 		open func deliveryMethod(alias: String? = nil) -> CartDeliveryPreferenceQuery {
 			addField(field: "deliveryMethod", aliasSuffix: alias)
 			return self
 		}
 
-		/// The pickup handle prefills checkout fields with the location for either 
-		/// local pickup or pickup points delivery methods. It accepts both location ID 
-		/// for local pickup and external IDs for pickup points. 
+		/// The pickup handle prefills checkout fields with the location for either
+		/// local pickup or pickup points delivery methods. It accepts both location ID
+		/// for local pickup and external IDs for pickup points.
 		@discardableResult
 		open func pickupHandle(alias: String? = nil) -> CartDeliveryPreferenceQuery {
 			addField(field: "pickupHandle", aliasSuffix: alias)
@@ -63,10 +63,10 @@ extension Storefront {
 		}
 	}
 
-	/// A set of preferences tied to the buyer interacting with the cart. 
-	/// Preferences are used to prefill fields in at checkout to streamline 
-	/// information collection. Preferences are not synced back to the cart if they 
-	/// are overwritten. 
+	/// A set of preferences tied to the buyer interacting with the cart.
+	/// Preferences are used to prefill fields in at checkout to streamline
+	/// information collection. Preferences are not synced back to the cart if they
+	/// are overwritten.
 	open class CartDeliveryPreference: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CartDeliveryPreferenceQuery
 
@@ -97,8 +97,8 @@ extension Storefront {
 			}
 		}
 
-		/// Preferred location used to find the closest pick up point based on 
-		/// coordinates. 
+		/// Preferred location used to find the closest pick up point based on
+		/// coordinates.
 		open var coordinates: Storefront.CartDeliveryCoordinatesPreference? {
 			return internalGetCoordinates()
 		}
@@ -107,8 +107,8 @@ extension Storefront {
 			return field(field: "coordinates", aliasSuffix: alias) as! Storefront.CartDeliveryCoordinatesPreference?
 		}
 
-		/// The preferred delivery methods such as shipping, local pickup or through 
-		/// pickup points. 
+		/// The preferred delivery methods such as shipping, local pickup or through
+		/// pickup points.
 		open var deliveryMethod: [Storefront.PreferenceDeliveryMethodType] {
 			return internalGetDeliveryMethod()
 		}
@@ -117,9 +117,9 @@ extension Storefront {
 			return field(field: "deliveryMethod", aliasSuffix: alias) as! [Storefront.PreferenceDeliveryMethodType]
 		}
 
-		/// The pickup handle prefills checkout fields with the location for either 
-		/// local pickup or pickup points delivery methods. It accepts both location ID 
-		/// for local pickup and external IDs for pickup points. 
+		/// The pickup handle prefills checkout fields with the location for either
+		/// local pickup or pickup points delivery methods. It accepts both location ID
+		/// for local pickup and external IDs for pickup points.
 		open var pickupHandle: [String] {
 			return internalGetPickupHandle()
 		}

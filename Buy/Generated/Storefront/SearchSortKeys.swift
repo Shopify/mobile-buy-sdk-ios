@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// The set of valid sort keys for the search query. 
+	/// The set of valid sort keys for the search query.
 	public enum SearchSortKeys: String {
-		/// Sort by the `price` value. 
+		/// Sort by the `price` value.
 		case price = "PRICE"
 
-		/// Sort by relevance to the search terms. 
+		/// Sort by relevance to the search terms.
 		case relevance = "RELEVANCE"
 
 		case unknownValue = ""

@@ -27,36 +27,36 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields for updating the payment method that will be used to 
-	/// checkout. 
+	/// The input fields for updating the payment method that will be used to
+	/// checkout.
 	open class CartPaymentInput {
-		/// The amount that the customer will be charged at checkout. 
+		/// The amount that the customer will be charged at checkout.
 		open var amount: MoneyInput
 
-		/// An ID of the order placed on the originating platform. Note that this value 
-		/// doesn't correspond to the Shopify Order ID. 
+		/// An ID of the order placed on the originating platform. Note that this value
+		/// doesn't correspond to the Shopify Order ID.
 		open var sourceIdentifier: Input<String>
 
-		/// The input fields to use to checkout a cart without providing a payment 
-		/// method. Use this payment method input if the total cost of the cart is 0. 
+		/// The input fields to use to checkout a cart without providing a payment
+		/// method. Use this payment method input if the total cost of the cart is 0.
 		open var freePaymentMethod: Input<CartFreePaymentMethodInput>
 
-		/// The input fields to use when checking out a cart with a direct payment 
-		/// method (like a credit card). 
+		/// The input fields to use when checking out a cart with a direct payment
+		/// method (like a credit card).
 		open var directPaymentMethod: Input<CartDirectPaymentMethodInput>
 
-		/// The input fields to use when checking out a cart with a wallet payment 
-		/// method (like Shop Pay or Apple Pay). 
+		/// The input fields to use when checking out a cart with a wallet payment
+		/// method (like Shop Pay or Apple Pay).
 		open var walletPaymentMethod: Input<CartWalletPaymentMethodInput>
 
 		/// Creates the input object.
 		///
 		/// - parameters:
 		///     - amount: The amount that the customer will be charged at checkout.
-		///     - sourceIdentifier: An ID of the order placed on the originating platform. Note that this value doesn't correspond to the Shopify Order ID. 
-		///     - freePaymentMethod: The input fields to use to checkout a cart without providing a payment method. Use this payment method input if the total cost of the cart is 0. 
-		///     - directPaymentMethod: The input fields to use when checking out a cart with a direct payment method (like a credit card). 
-		///     - walletPaymentMethod: The input fields to use when checking out a cart with a wallet payment method (like Shop Pay or Apple Pay). 
+		///     - sourceIdentifier: An ID of the order placed on the originating platform. Note that this value doesn't correspond to the Shopify Order ID.
+		///     - freePaymentMethod: The input fields to use to checkout a cart without providing a payment method. Use this payment method input if the total cost of the cart is 0.
+		///     - directPaymentMethod: The input fields to use when checking out a cart with a direct payment method (like a credit card).
+		///     - walletPaymentMethod: The input fields to use when checking out a cart with a wallet payment method (like Shop Pay or Apple Pay).
 		///
 		public static func create(amount: MoneyInput, sourceIdentifier: Input<String> = .undefined, freePaymentMethod: Input<CartFreePaymentMethodInput> = .undefined, directPaymentMethod: Input<CartDirectPaymentMethodInput> = .undefined, walletPaymentMethod: Input<CartWalletPaymentMethodInput> = .undefined) -> CartPaymentInput {
 			return CartPaymentInput(amount: amount, sourceIdentifier: sourceIdentifier, freePaymentMethod: freePaymentMethod, directPaymentMethod: directPaymentMethod, walletPaymentMethod: walletPaymentMethod)
@@ -74,10 +74,10 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - amount: The amount that the customer will be charged at checkout.
-		///     - sourceIdentifier: An ID of the order placed on the originating platform. Note that this value doesn't correspond to the Shopify Order ID. 
-		///     - freePaymentMethod: The input fields to use to checkout a cart without providing a payment method. Use this payment method input if the total cost of the cart is 0. 
-		///     - directPaymentMethod: The input fields to use when checking out a cart with a direct payment method (like a credit card). 
-		///     - walletPaymentMethod: The input fields to use when checking out a cart with a wallet payment method (like Shop Pay or Apple Pay). 
+		///     - sourceIdentifier: An ID of the order placed on the originating platform. Note that this value doesn't correspond to the Shopify Order ID.
+		///     - freePaymentMethod: The input fields to use to checkout a cart without providing a payment method. Use this payment method input if the total cost of the cart is 0.
+		///     - directPaymentMethod: The input fields to use when checking out a cart with a direct payment method (like a credit card).
+		///     - walletPaymentMethod: The input fields to use when checking out a cart with a wallet payment method (like Shop Pay or Apple Pay).
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
 		public convenience init(amount: MoneyInput, sourceIdentifier: String? = nil, freePaymentMethod: CartFreePaymentMethodInput? = nil, directPaymentMethod: CartDirectPaymentMethodInput? = nil, walletPaymentMethod: CartWalletPaymentMethodInput? = nil) {

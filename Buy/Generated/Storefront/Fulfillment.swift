@@ -27,11 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a single fulfillment in an order. 
+	/// A shipment of one or more items in an order. Accessed through the
+	/// [`Order`](https://shopify.dev/docs/api/storefront/current/objects/Order)
+	/// object's
+	/// [`successfulFulfillments`](https://shopify.dev/docs/api/storefront/current/objects/Order#field-Order.fields.successfulFulfillments)
+	/// field. Each fulfillment includes the line items that shipped, the tracking
+	/// company name, and tracking details like numbers and URLs. An order can have
+	/// multiple fulfillments when items ship separately or from different
+	/// locations.
 	open class FulfillmentQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Fulfillment
 
-		/// List of the fulfillment's line items. 
+		/// List of the fulfillment's line items.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -73,15 +80,15 @@ extension Storefront {
 			return self
 		}
 
-		/// The name of the tracking company. 
+		/// The name of the tracking company.
 		@discardableResult
 		open func trackingCompany(alias: String? = nil) -> FulfillmentQuery {
 			addField(field: "trackingCompany", aliasSuffix: alias)
 			return self
 		}
 
-		/// Tracking information associated with the fulfillment, such as the tracking 
-		/// number and tracking URL. 
+		/// Tracking information associated with the fulfillment, such as the tracking
+		/// number and tracking URL.
 		///
 		/// - parameters:
 		///     - first: Truncate the array result to this size.
@@ -104,7 +111,14 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a single fulfillment in an order. 
+	/// A shipment of one or more items in an order. Accessed through the
+	/// [`Order`](https://shopify.dev/docs/api/storefront/current/objects/Order)
+	/// object's
+	/// [`successfulFulfillments`](https://shopify.dev/docs/api/storefront/current/objects/Order#field-Order.fields.successfulFulfillments)
+	/// field. Each fulfillment includes the line items that shipped, the tracking
+	/// company name, and tracking details like numbers and URLs. An order can have
+	/// multiple fulfillments when items ship separately or from different
+	/// locations.
 	open class Fulfillment: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = FulfillmentQuery
 
@@ -135,7 +149,7 @@ extension Storefront {
 			}
 		}
 
-		/// List of the fulfillment's line items. 
+		/// List of the fulfillment's line items.
 		open var fulfillmentLineItems: Storefront.FulfillmentLineItemConnection {
 			return internalGetFulfillmentLineItems()
 		}
@@ -148,7 +162,7 @@ extension Storefront {
 			return field(field: "fulfillmentLineItems", aliasSuffix: alias) as! Storefront.FulfillmentLineItemConnection
 		}
 
-		/// The name of the tracking company. 
+		/// The name of the tracking company.
 		open var trackingCompany: String? {
 			return internalGetTrackingCompany()
 		}
@@ -157,8 +171,8 @@ extension Storefront {
 			return field(field: "trackingCompany", aliasSuffix: alias) as! String?
 		}
 
-		/// Tracking information associated with the fulfillment, such as the tracking 
-		/// number and tracking URL. 
+		/// Tracking information associated with the fulfillment, such as the tracking
+		/// number and tracking URL.
 		open var trackingInfo: [Storefront.FulfillmentTrackingInfo] {
 			return internalGetTrackingInfo()
 		}

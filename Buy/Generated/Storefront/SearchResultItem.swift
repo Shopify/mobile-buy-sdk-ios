@@ -26,12 +26,12 @@
 
 import Foundation
 
-/// A search result that matches the search query. 
+/// A search result that matches the search query.
 public protocol SearchResultItem {
 }
 
 extension Storefront {
-	/// A search result that matches the search query. 
+	/// A search result that matches the search query.
 	open class SearchResultItemQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SearchResultItem
 
@@ -40,7 +40,7 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// A search result that matches the search query. 
+		/// A search result that matches the search query.
 		@discardableResult
 		open func onArticle(subfields: (ArticleQuery) -> Void) -> SearchResultItemQuery {
 			let subquery = ArticleQuery()
@@ -49,7 +49,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A search result that matches the search query. 
+		/// A search result that matches the search query.
 		@discardableResult
 		open func onPage(subfields: (PageQuery) -> Void) -> SearchResultItemQuery {
 			let subquery = PageQuery()
@@ -58,7 +58,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A search result that matches the search query. 
+		/// A search result that matches the search query.
 		@discardableResult
 		open func onProduct(subfields: (ProductQuery) -> Void) -> SearchResultItemQuery {
 			let subquery = ProductQuery()
@@ -68,7 +68,7 @@ extension Storefront {
 		}
 	}
 
-	/// A search result that matches the search query. 
+	/// A search result that matches the search query.
 	open class UnknownSearchResultItem: GraphQL.AbstractResponse, GraphQLObject, SearchResultItem {
 		public typealias Query = SearchResultItemQuery
 

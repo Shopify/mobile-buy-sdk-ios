@@ -27,11 +27,23 @@
 import Foundation
 
 extension Storefront {
-	/// Information about the localized experiences configured for the shop. 
+	/// Information about the shop's configured localized experiences, including
+	/// available countries and languages. The
+	/// [`country`](https://shopify.dev/docs/api/storefront/current/objects/Localization#field-Localization.fields.country)
+	/// and
+	/// [`language`](https://shopify.dev/docs/api/storefront/current/objects/Localization#field-Localization.fields.language)
+	/// fields reflect the active localization context, which you can change using
+	/// the `@inContext` directive on queries. Use
+	/// [`availableCountries`](https://shopify.dev/docs/api/storefront/current/objects/Localization#field-Localization.fields.availableCountries)
+	/// to list all countries with enabled localized experiences, and
+	/// [`availableLanguages`](https://shopify.dev/docs/api/storefront/current/objects/Localization#field-Localization.fields.availableLanguages)
+	/// to get languages available for the currently active country. Each
+	/// [`Country`](https://shopify.dev/docs/api/storefront/current/objects/Country)
+	/// includes its own currency, unit system, and available languages.
 	open class LocalizationQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Localization
 
-		/// The list of countries with enabled localized experiences. 
+		/// The list of countries with enabled localized experiences.
 		@discardableResult
 		open func availableCountries(alias: String? = nil, _ subfields: (CountryQuery) -> Void) -> LocalizationQuery {
 			let subquery = CountryQuery()
@@ -41,7 +53,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The list of languages available for the active country. 
+		/// The list of languages available for the active country.
 		@discardableResult
 		open func availableLanguages(alias: String? = nil, _ subfields: (LanguageQuery) -> Void) -> LocalizationQuery {
 			let subquery = LanguageQuery()
@@ -51,8 +63,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The country of the active localized experience. Use the `@inContext` 
-		/// directive to change this value. 
+		/// The country of the active localized experience. Use the `@inContext`
+		/// directive to change this value.
 		@discardableResult
 		open func country(alias: String? = nil, _ subfields: (CountryQuery) -> Void) -> LocalizationQuery {
 			let subquery = CountryQuery()
@@ -62,8 +74,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The language of the active localized experience. Use the `@inContext` 
-		/// directive to change this value. 
+		/// The language of the active localized experience. Use the `@inContext`
+		/// directive to change this value.
 		@discardableResult
 		open func language(alias: String? = nil, _ subfields: (LanguageQuery) -> Void) -> LocalizationQuery {
 			let subquery = LanguageQuery()
@@ -73,8 +85,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The market including the country of the active localized experience. Use 
-		/// the `@inContext` directive to change this value. 
+		/// The market including the country of the active localized experience. Use
+		/// the `@inContext` directive to change this value.
 		@available(*, deprecated, message: "This `market` field will be removed in a future version of the API.")
 		@discardableResult
 		open func market(alias: String? = nil, _ subfields: (MarketQuery) -> Void) -> LocalizationQuery {
@@ -86,7 +98,19 @@ extension Storefront {
 		}
 	}
 
-	/// Information about the localized experiences configured for the shop. 
+	/// Information about the shop's configured localized experiences, including
+	/// available countries and languages. The
+	/// [`country`](https://shopify.dev/docs/api/storefront/current/objects/Localization#field-Localization.fields.country)
+	/// and
+	/// [`language`](https://shopify.dev/docs/api/storefront/current/objects/Localization#field-Localization.fields.language)
+	/// fields reflect the active localization context, which you can change using
+	/// the `@inContext` directive on queries. Use
+	/// [`availableCountries`](https://shopify.dev/docs/api/storefront/current/objects/Localization#field-Localization.fields.availableCountries)
+	/// to list all countries with enabled localized experiences, and
+	/// [`availableLanguages`](https://shopify.dev/docs/api/storefront/current/objects/Localization#field-Localization.fields.availableLanguages)
+	/// to get languages available for the currently active country. Each
+	/// [`Country`](https://shopify.dev/docs/api/storefront/current/objects/Country)
+	/// includes its own currency, unit system, and available languages.
 	open class Localization: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = LocalizationQuery
 
@@ -128,7 +152,7 @@ extension Storefront {
 			}
 		}
 
-		/// The list of countries with enabled localized experiences. 
+		/// The list of countries with enabled localized experiences.
 		open var availableCountries: [Storefront.Country] {
 			return internalGetAvailableCountries()
 		}
@@ -137,7 +161,7 @@ extension Storefront {
 			return field(field: "availableCountries", aliasSuffix: alias) as! [Storefront.Country]
 		}
 
-		/// The list of languages available for the active country. 
+		/// The list of languages available for the active country.
 		open var availableLanguages: [Storefront.Language] {
 			return internalGetAvailableLanguages()
 		}
@@ -146,8 +170,8 @@ extension Storefront {
 			return field(field: "availableLanguages", aliasSuffix: alias) as! [Storefront.Language]
 		}
 
-		/// The country of the active localized experience. Use the `@inContext` 
-		/// directive to change this value. 
+		/// The country of the active localized experience. Use the `@inContext`
+		/// directive to change this value.
 		open var country: Storefront.Country {
 			return internalGetCountry()
 		}
@@ -156,8 +180,8 @@ extension Storefront {
 			return field(field: "country", aliasSuffix: alias) as! Storefront.Country
 		}
 
-		/// The language of the active localized experience. Use the `@inContext` 
-		/// directive to change this value. 
+		/// The language of the active localized experience. Use the `@inContext`
+		/// directive to change this value.
 		open var language: Storefront.Language {
 			return internalGetLanguage()
 		}
@@ -166,8 +190,8 @@ extension Storefront {
 			return field(field: "language", aliasSuffix: alias) as! Storefront.Language
 		}
 
-		/// The market including the country of the active localized experience. Use 
-		/// the `@inContext` directive to change this value. 
+		/// The market including the country of the active localized experience. Use
+		/// the `@inContext` directive to change this value.
 		@available(*, deprecated, message: "This `market` field will be removed in a future version of the API.")
 		open var market: Storefront.Market {
 			return internalGetMarket()

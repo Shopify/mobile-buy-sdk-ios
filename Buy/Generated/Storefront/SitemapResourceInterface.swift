@@ -26,7 +26,7 @@
 
 import Foundation
 
-/// Represents the common fields for all sitemap resource types. 
+/// Represents the common fields for all sitemap resource types.
 public protocol SitemapResourceInterface {
 	var handle: String { get }
 
@@ -34,18 +34,18 @@ public protocol SitemapResourceInterface {
 }
 
 extension Storefront {
-	/// Represents the common fields for all sitemap resource types. 
+	/// Represents the common fields for all sitemap resource types.
 	open class SitemapResourceInterfaceQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SitemapResourceInterface
 
-		/// Resource's handle. 
+		/// Resource's handle.
 		@discardableResult
 		open func handle(alias: String? = nil) -> SitemapResourceInterfaceQuery {
 			addField(field: "handle", aliasSuffix: alias)
 			return self
 		}
 
-		/// The date and time when the resource was updated. 
+		/// The date and time when the resource was updated.
 		@discardableResult
 		open func updatedAt(alias: String? = nil) -> SitemapResourceInterfaceQuery {
 			addField(field: "updatedAt", aliasSuffix: alias)
@@ -57,7 +57,7 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// Represents the common fields for all sitemap resource types. 
+		/// Represents the common fields for all sitemap resource types.
 		@discardableResult
 		open func onSitemapResource(subfields: (SitemapResourceQuery) -> Void) -> SitemapResourceInterfaceQuery {
 			let subquery = SitemapResourceQuery()
@@ -66,7 +66,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents the common fields for all sitemap resource types. 
+		/// Represents the common fields for all sitemap resource types.
 		@discardableResult
 		open func onSitemapResourceMetaobject(subfields: (SitemapResourceMetaobjectQuery) -> Void) -> SitemapResourceInterfaceQuery {
 			let subquery = SitemapResourceMetaobjectQuery()
@@ -76,7 +76,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents the common fields for all sitemap resource types. 
+	/// Represents the common fields for all sitemap resource types.
 	open class UnknownSitemapResourceInterface: GraphQL.AbstractResponse, GraphQLObject, SitemapResourceInterface {
 		public typealias Query = SitemapResourceInterfaceQuery
 
@@ -114,7 +114,7 @@ extension Storefront {
 			}
 		}
 
-		/// Resource's handle. 
+		/// Resource's handle.
 		open var handle: String {
 			return internalGetHandle()
 		}
@@ -123,7 +123,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// The date and time when the resource was updated. 
+		/// The date and time when the resource was updated.
 		open var updatedAt: Date {
 			return internalGetUpdatedAt()
 		}

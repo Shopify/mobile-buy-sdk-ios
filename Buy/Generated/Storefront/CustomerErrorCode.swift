@@ -27,51 +27,55 @@
 import Foundation
 
 extension Storefront {
-	/// Possible error codes that can be returned by `CustomerUserError`. 
+	/// Error codes returned by the
+	/// [`CustomerUserError`](https://shopify.dev/docs/api/storefront/current/objects/CustomerUserError)
+	/// object. These codes identify specific validation and processing failures
+	/// for customer-related mutations, including account creation, updates,
+	/// password resets, and address management.
 	public enum CustomerErrorCode: String {
-		/// Customer already enabled. 
+		/// Customer already enabled.
 		case alreadyEnabled = "ALREADY_ENABLED"
 
-		/// Input email contains an invalid domain name. 
+		/// Input email contains an invalid domain name.
 		case badDomain = "BAD_DOMAIN"
 
-		/// The input value is blank. 
+		/// The input value is blank.
 		case blank = "BLANK"
 
-		/// Input contains HTML tags. 
+		/// Input contains HTML tags.
 		case containsHtmlTags = "CONTAINS_HTML_TAGS"
 
-		/// Input contains URL. 
+		/// Input contains URL.
 		case containsUrl = "CONTAINS_URL"
 
-		/// Customer is disabled. 
+		/// Customer is disabled.
 		case customerDisabled = "CUSTOMER_DISABLED"
 
-		/// The input value is invalid. 
+		/// The input value is invalid.
 		case invalid = "INVALID"
 
-		/// Multipass token is not valid. 
+		/// Multipass token is not valid.
 		case invalidMultipassRequest = "INVALID_MULTIPASS_REQUEST"
 
-		/// Address does not exist. 
+		/// Address does not exist.
 		case notFound = "NOT_FOUND"
 
-		/// Input password starts or ends with whitespace. 
+		/// Input password starts or ends with whitespace.
 		case passwordStartsOrEndsWithWhitespace = "PASSWORD_STARTS_OR_ENDS_WITH_WHITESPACE"
 
-		/// The input value is already taken. 
+		/// The input value is already taken.
 		case taken = "TAKEN"
 
-		/// Invalid activation token. 
+		/// Invalid activation token.
 		case tokenInvalid = "TOKEN_INVALID"
 
-		/// The input value is too long. 
+		/// The input value is too long.
 		case tooLong = "TOO_LONG"
 
-		/// The input value is too short. 
+		/// The input value is too short.
 		case tooShort = "TOO_SHORT"
 
-		/// Unidentified customer. 
+		/// Unidentified customer.
 		case unidentifiedCustomer = "UNIDENTIFIED_CUSTOMER"
 
 		case unknownValue = ""

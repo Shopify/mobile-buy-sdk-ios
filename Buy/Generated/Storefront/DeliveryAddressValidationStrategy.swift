@@ -27,15 +27,23 @@
 import Foundation
 
 extension Storefront {
-	/// Defines the types of available validation strategies for delivery 
-	/// addresses. 
+	/// Controls how delivery addresses are validated during cart operations. The
+	/// default validation checks only the country code, while strict validation
+	/// verifies all address fields against Shopify's checkout rules and rejects
+	/// invalid addresses. Used by
+	/// [`DeliveryAddressInput`](https://shopify.dev/docs/api/storefront/current/input-objects/DeliveryAddressInput)
+	/// when setting buyer identity preferences, and by
+	/// [`CartSelectableAddressInput`](https://shopify.dev/docs/api/storefront/current/input-objects/CartSelectableAddressInput)
+	/// and
+	/// [`CartSelectableAddressUpdateInput`](https://shopify.dev/docs/api/storefront/current/input-objects/CartSelectableAddressUpdateInput)
+	/// when managing cart delivery addresses.
 	public enum DeliveryAddressValidationStrategy: String {
-		/// Only the country code is validated. 
+		/// Only the country code is validated.
 		case countryCodeOnly = "COUNTRY_CODE_ONLY"
 
-		/// Strict validation is performed, i.e. all fields in the address are 
-		/// validated according to Shopify's checkout rules. If the address fails 
-		/// validation, the cart will not be updated. 
+		/// Strict validation is performed, i.e. all fields in the address are
+		/// validated according to Shopify's checkout rules. If the address fails
+		/// validation, the cart will not be updated.
 		case strict = "STRICT"
 
 		case unknownValue = ""

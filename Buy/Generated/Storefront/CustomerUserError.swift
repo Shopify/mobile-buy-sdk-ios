@@ -27,25 +27,25 @@
 import Foundation
 
 extension Storefront {
-	/// Represents an error that happens during execution of a customer mutation. 
+	/// Represents an error that happens during execution of a customer mutation.
 	open class CustomerUserErrorQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CustomerUserError
 
-		/// The error code. 
+		/// The error code.
 		@discardableResult
 		open func code(alias: String? = nil) -> CustomerUserErrorQuery {
 			addField(field: "code", aliasSuffix: alias)
 			return self
 		}
 
-		/// The path to the input field that caused the error. 
+		/// The path to the input field that caused the error.
 		@discardableResult
 		open func field(alias: String? = nil) -> CustomerUserErrorQuery {
 			addField(field: "field", aliasSuffix: alias)
 			return self
 		}
 
-		/// The error message. 
+		/// The error message.
 		@discardableResult
 		open func message(alias: String? = nil) -> CustomerUserErrorQuery {
 			addField(field: "message", aliasSuffix: alias)
@@ -53,7 +53,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents an error that happens during execution of a customer mutation. 
+	/// Represents an error that happens during execution of a customer mutation.
 	open class CustomerUserError: GraphQL.AbstractResponse, GraphQLObject, DisplayableError {
 		public typealias Query = CustomerUserErrorQuery
 
@@ -85,7 +85,7 @@ extension Storefront {
 			}
 		}
 
-		/// The error code. 
+		/// The error code.
 		open var code: Storefront.CustomerErrorCode? {
 			return internalGetCode()
 		}
@@ -94,7 +94,7 @@ extension Storefront {
 			return field(field: "code", aliasSuffix: alias) as! Storefront.CustomerErrorCode?
 		}
 
-		/// The path to the input field that caused the error. 
+		/// The path to the input field that caused the error.
 		open var field: [String]? {
 			return internalGetField()
 		}
@@ -103,7 +103,7 @@ extension Storefront {
 			return field(field: "field", aliasSuffix: alias) as! [String]?
 		}
 
-		/// The error message. 
+		/// The error message.
 		open var message: String {
 			return internalGetMessage()
 		}

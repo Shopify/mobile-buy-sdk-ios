@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type for paginating through multiple 
-	/// FulfillmentLineItems. 
+	/// An auto-generated type for paginating through multiple
+	/// FulfillmentLineItems.
 	open class FulfillmentLineItemConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = FulfillmentLineItemConnection
 
-		/// A list of edges. 
+		/// A list of edges.
 		@discardableResult
 		open func edges(alias: String? = nil, _ subfields: (FulfillmentLineItemEdgeQuery) -> Void) -> FulfillmentLineItemConnectionQuery {
 			let subquery = FulfillmentLineItemEdgeQuery()
@@ -42,7 +42,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of the nodes contained in FulfillmentLineItemEdge. 
+		/// A list of the nodes contained in FulfillmentLineItemEdge.
 		@discardableResult
 		open func nodes(alias: String? = nil, _ subfields: (FulfillmentLineItemQuery) -> Void) -> FulfillmentLineItemConnectionQuery {
 			let subquery = FulfillmentLineItemQuery()
@@ -52,7 +52,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> FulfillmentLineItemConnectionQuery {
 			let subquery = PageInfoQuery()
@@ -63,8 +63,8 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type for paginating through multiple 
-	/// FulfillmentLineItems. 
+	/// An auto-generated type for paginating through multiple
+	/// FulfillmentLineItems.
 	open class FulfillmentLineItemConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = FulfillmentLineItemConnectionQuery
 
@@ -94,7 +94,7 @@ extension Storefront {
 			}
 		}
 
-		/// A list of edges. 
+		/// A list of edges.
 		open var edges: [Storefront.FulfillmentLineItemEdge] {
 			return internalGetEdges()
 		}
@@ -103,7 +103,7 @@ extension Storefront {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.FulfillmentLineItemEdge]
 		}
 
-		/// A list of the nodes contained in FulfillmentLineItemEdge. 
+		/// A list of the nodes contained in FulfillmentLineItemEdge.
 		open var nodes: [Storefront.FulfillmentLineItem] {
 			return internalGetNodes()
 		}
@@ -112,7 +112,7 @@ extension Storefront {
 			return field(field: "nodes", aliasSuffix: alias) as! [Storefront.FulfillmentLineItem]
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
 		}

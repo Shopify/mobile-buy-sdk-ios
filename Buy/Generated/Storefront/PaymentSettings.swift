@@ -27,57 +27,57 @@
 import Foundation
 
 extension Storefront {
-	/// Settings related to payments. 
+	/// Settings related to payments.
 	open class PaymentSettingsQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = PaymentSettings
 
-		/// List of the card brands which the business entity accepts. 
+		/// List of the card brands which the business entity accepts.
 		@discardableResult
 		open func acceptedCardBrands(alias: String? = nil) -> PaymentSettingsQuery {
 			addField(field: "acceptedCardBrands", aliasSuffix: alias)
 			return self
 		}
 
-		/// The url pointing to the endpoint to vault credit cards. 
+		/// The url pointing to the endpoint to vault credit cards.
 		@discardableResult
 		open func cardVaultUrl(alias: String? = nil) -> PaymentSettingsQuery {
 			addField(field: "cardVaultUrl", aliasSuffix: alias)
 			return self
 		}
 
-		/// The country where the shop is located. When multiple business entities 
-		/// operate within the shop, then this will represent the country of the 
-		/// business entity that's serving the specified buyer context. 
+		/// The country where the shop is located. When multiple business entities
+		/// operate within the shop, then this will represent the country of the
+		/// business entity that's serving the specified buyer context.
 		@discardableResult
 		open func countryCode(alias: String? = nil) -> PaymentSettingsQuery {
 			addField(field: "countryCode", aliasSuffix: alias)
 			return self
 		}
 
-		/// The three-letter code for the shop's primary currency. 
+		/// The three-letter code for the shop's primary currency.
 		@discardableResult
 		open func currencyCode(alias: String? = nil) -> PaymentSettingsQuery {
 			addField(field: "currencyCode", aliasSuffix: alias)
 			return self
 		}
 
-		/// A list of enabled currencies (ISO 4217 format) that the shop accepts. 
-		/// Merchants can enable currencies from their Shopify Payments settings in the 
-		/// Shopify admin. 
+		/// A list of enabled currencies (ISO 4217 format) that the shop accepts.
+		/// Merchants can enable currencies from their Shopify Payments settings in the
+		/// Shopify admin.
 		@discardableResult
 		open func enabledPresentmentCurrencies(alias: String? = nil) -> PaymentSettingsQuery {
 			addField(field: "enabledPresentmentCurrencies", aliasSuffix: alias)
 			return self
 		}
 
-		/// The shop’s Shopify Payments account ID. 
+		/// The shop’s Shopify Payments account ID.
 		@discardableResult
 		open func shopifyPaymentsAccountId(alias: String? = nil) -> PaymentSettingsQuery {
 			addField(field: "shopifyPaymentsAccountId", aliasSuffix: alias)
 			return self
 		}
 
-		/// List of the digital wallets which the business entity supports. 
+		/// List of the digital wallets which the business entity supports.
 		@discardableResult
 		open func supportedDigitalWallets(alias: String? = nil) -> PaymentSettingsQuery {
 			addField(field: "supportedDigitalWallets", aliasSuffix: alias)
@@ -85,7 +85,7 @@ extension Storefront {
 		}
 	}
 
-	/// Settings related to payments. 
+	/// Settings related to payments.
 	open class PaymentSettings: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = PaymentSettingsQuery
 
@@ -140,7 +140,7 @@ extension Storefront {
 			}
 		}
 
-		/// List of the card brands which the business entity accepts. 
+		/// List of the card brands which the business entity accepts.
 		open var acceptedCardBrands: [Storefront.CardBrand] {
 			return internalGetAcceptedCardBrands()
 		}
@@ -149,7 +149,7 @@ extension Storefront {
 			return field(field: "acceptedCardBrands", aliasSuffix: alias) as! [Storefront.CardBrand]
 		}
 
-		/// The url pointing to the endpoint to vault credit cards. 
+		/// The url pointing to the endpoint to vault credit cards.
 		open var cardVaultUrl: URL {
 			return internalGetCardVaultUrl()
 		}
@@ -158,9 +158,9 @@ extension Storefront {
 			return field(field: "cardVaultUrl", aliasSuffix: alias) as! URL
 		}
 
-		/// The country where the shop is located. When multiple business entities 
-		/// operate within the shop, then this will represent the country of the 
-		/// business entity that's serving the specified buyer context. 
+		/// The country where the shop is located. When multiple business entities
+		/// operate within the shop, then this will represent the country of the
+		/// business entity that's serving the specified buyer context.
 		open var countryCode: Storefront.CountryCode {
 			return internalGetCountryCode()
 		}
@@ -169,7 +169,7 @@ extension Storefront {
 			return field(field: "countryCode", aliasSuffix: alias) as! Storefront.CountryCode
 		}
 
-		/// The three-letter code for the shop's primary currency. 
+		/// The three-letter code for the shop's primary currency.
 		open var currencyCode: Storefront.CurrencyCode {
 			return internalGetCurrencyCode()
 		}
@@ -178,9 +178,9 @@ extension Storefront {
 			return field(field: "currencyCode", aliasSuffix: alias) as! Storefront.CurrencyCode
 		}
 
-		/// A list of enabled currencies (ISO 4217 format) that the shop accepts. 
-		/// Merchants can enable currencies from their Shopify Payments settings in the 
-		/// Shopify admin. 
+		/// A list of enabled currencies (ISO 4217 format) that the shop accepts.
+		/// Merchants can enable currencies from their Shopify Payments settings in the
+		/// Shopify admin.
 		open var enabledPresentmentCurrencies: [Storefront.CurrencyCode] {
 			return internalGetEnabledPresentmentCurrencies()
 		}
@@ -189,7 +189,7 @@ extension Storefront {
 			return field(field: "enabledPresentmentCurrencies", aliasSuffix: alias) as! [Storefront.CurrencyCode]
 		}
 
-		/// The shop’s Shopify Payments account ID. 
+		/// The shop’s Shopify Payments account ID.
 		open var shopifyPaymentsAccountId: String? {
 			return internalGetShopifyPaymentsAccountId()
 		}
@@ -198,7 +198,7 @@ extension Storefront {
 			return field(field: "shopifyPaymentsAccountId", aliasSuffix: alias) as! String?
 		}
 
-		/// List of the digital wallets which the business entity supports. 
+		/// List of the digital wallets which the business entity supports.
 		open var supportedDigitalWallets: [Storefront.DigitalWallet] {
 			return internalGetSupportedDigitalWallets()
 		}

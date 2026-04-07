@@ -27,18 +27,29 @@
 import Foundation
 
 extension Storefront {
-	/// A menu item within a parent menu. 
+	/// A navigation link within a
+	/// [`Menu`](https://shopify.dev/docs/api/storefront/current/objects/Menu).
+	/// Each item has a title, URL, and can link to store resources like
+	/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product),
+	/// [collections](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+	/// [pages](https://shopify.dev/docs/api/storefront/current/objects/Page),
+	/// [blogs](https://shopify.dev/docs/api/storefront/current/objects/Blog), or
+	/// external URLs. Menu items support nested hierarchies through the
+	/// [`items`](https://shopify.dev/docs/api/storefront/current/objects/MenuItem#field-MenuItem.fields.items)
+	/// field, enabling dropdown or multi-level navigation structures. The
+	/// [`tags`](https://shopify.dev/docs/api/storefront/current/objects/MenuItem#field-MenuItem.fields.tags)
+	/// field filters results when the item links to a collection specifically.
 	open class MenuItemQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MenuItem
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> MenuItemQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The menu item's child items. 
+		/// The menu item's child items.
 		@discardableResult
 		open func items(alias: String? = nil, _ subfields: (MenuItemQuery) -> Void) -> MenuItemQuery {
 			let subquery = MenuItemQuery()
@@ -48,7 +59,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The linked resource. 
+		/// The linked resource.
 		@discardableResult
 		open func resource(alias: String? = nil, _ subfields: (MenuItemResourceQuery) -> Void) -> MenuItemQuery {
 			let subquery = MenuItemResourceQuery()
@@ -58,35 +69,35 @@ extension Storefront {
 			return self
 		}
 
-		/// The ID of the linked resource. 
+		/// The ID of the linked resource.
 		@discardableResult
 		open func resourceId(alias: String? = nil) -> MenuItemQuery {
 			addField(field: "resourceId", aliasSuffix: alias)
 			return self
 		}
 
-		/// The menu item's tags to filter a collection. 
+		/// The menu item's tags to filter a collection.
 		@discardableResult
 		open func tags(alias: String? = nil) -> MenuItemQuery {
 			addField(field: "tags", aliasSuffix: alias)
 			return self
 		}
 
-		/// The menu item's title. 
+		/// The menu item's title.
 		@discardableResult
 		open func title(alias: String? = nil) -> MenuItemQuery {
 			addField(field: "title", aliasSuffix: alias)
 			return self
 		}
 
-		/// The menu item's type. 
+		/// The menu item's type.
 		@discardableResult
 		open func type(alias: String? = nil) -> MenuItemQuery {
 			addField(field: "type", aliasSuffix: alias)
 			return self
 		}
 
-		/// The menu item's URL. 
+		/// The menu item's URL.
 		@discardableResult
 		open func url(alias: String? = nil) -> MenuItemQuery {
 			addField(field: "url", aliasSuffix: alias)
@@ -94,7 +105,18 @@ extension Storefront {
 		}
 	}
 
-	/// A menu item within a parent menu. 
+	/// A navigation link within a
+	/// [`Menu`](https://shopify.dev/docs/api/storefront/current/objects/Menu).
+	/// Each item has a title, URL, and can link to store resources like
+	/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product),
+	/// [collections](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+	/// [pages](https://shopify.dev/docs/api/storefront/current/objects/Page),
+	/// [blogs](https://shopify.dev/docs/api/storefront/current/objects/Blog), or
+	/// external URLs. Menu items support nested hierarchies through the
+	/// [`items`](https://shopify.dev/docs/api/storefront/current/objects/MenuItem#field-MenuItem.fields.items)
+	/// field, enabling dropdown or multi-level navigation structures. The
+	/// [`tags`](https://shopify.dev/docs/api/storefront/current/objects/MenuItem#field-MenuItem.fields.tags)
+	/// field filters results when the item links to a collection specifically.
 	open class MenuItem: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = MenuItemQuery
 
@@ -157,7 +179,7 @@ extension Storefront {
 			}
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -166,7 +188,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The menu item's child items. 
+		/// The menu item's child items.
 		open var items: [Storefront.MenuItem] {
 			return internalGetItems()
 		}
@@ -175,7 +197,7 @@ extension Storefront {
 			return field(field: "items", aliasSuffix: alias) as! [Storefront.MenuItem]
 		}
 
-		/// The linked resource. 
+		/// The linked resource.
 		open var resource: MenuItemResource? {
 			return internalGetResource()
 		}
@@ -184,7 +206,7 @@ extension Storefront {
 			return field(field: "resource", aliasSuffix: alias) as! MenuItemResource?
 		}
 
-		/// The ID of the linked resource. 
+		/// The ID of the linked resource.
 		open var resourceId: GraphQL.ID? {
 			return internalGetResourceId()
 		}
@@ -193,7 +215,7 @@ extension Storefront {
 			return field(field: "resourceId", aliasSuffix: alias) as! GraphQL.ID?
 		}
 
-		/// The menu item's tags to filter a collection. 
+		/// The menu item's tags to filter a collection.
 		open var tags: [String] {
 			return internalGetTags()
 		}
@@ -202,7 +224,7 @@ extension Storefront {
 			return field(field: "tags", aliasSuffix: alias) as! [String]
 		}
 
-		/// The menu item's title. 
+		/// The menu item's title.
 		open var title: String {
 			return internalGetTitle()
 		}
@@ -211,7 +233,7 @@ extension Storefront {
 			return field(field: "title", aliasSuffix: alias) as! String
 		}
 
-		/// The menu item's type. 
+		/// The menu item's type.
 		open var type: Storefront.MenuItemType {
 			return internalGetType()
 		}
@@ -220,7 +242,7 @@ extension Storefront {
 			return field(field: "type", aliasSuffix: alias) as! Storefront.MenuItemType
 		}
 
-		/// The menu item's URL. 
+		/// The menu item's URL.
 		open var url: URL? {
 			return internalGetUrl()
 		}

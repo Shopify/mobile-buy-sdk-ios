@@ -26,12 +26,12 @@
 
 import Foundation
 
-/// The result of cart submit completion. 
+/// The result of cart submit completion.
 public protocol CartSubmitForCompletionResult {
 }
 
 extension Storefront {
-	/// The result of cart submit completion. 
+	/// The result of cart submit completion.
 	open class CartSubmitForCompletionResultQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartSubmitForCompletionResult
 
@@ -40,7 +40,7 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// The result of cart submit completion. 
+		/// The result of cart submit completion.
 		@discardableResult
 		open func onSubmitAlreadyAccepted(subfields: (SubmitAlreadyAcceptedQuery) -> Void) -> CartSubmitForCompletionResultQuery {
 			let subquery = SubmitAlreadyAcceptedQuery()
@@ -49,7 +49,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The result of cart submit completion. 
+		/// The result of cart submit completion.
 		@discardableResult
 		open func onSubmitFailed(subfields: (SubmitFailedQuery) -> Void) -> CartSubmitForCompletionResultQuery {
 			let subquery = SubmitFailedQuery()
@@ -58,7 +58,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The result of cart submit completion. 
+		/// The result of cart submit completion.
 		@discardableResult
 		open func onSubmitSuccess(subfields: (SubmitSuccessQuery) -> Void) -> CartSubmitForCompletionResultQuery {
 			let subquery = SubmitSuccessQuery()
@@ -67,7 +67,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The result of cart submit completion. 
+		/// The result of cart submit completion.
 		@discardableResult
 		open func onSubmitThrottled(subfields: (SubmitThrottledQuery) -> Void) -> CartSubmitForCompletionResultQuery {
 			let subquery = SubmitThrottledQuery()
@@ -77,7 +77,7 @@ extension Storefront {
 		}
 	}
 
-	/// The result of cart submit completion. 
+	/// The result of cart submit completion.
 	open class UnknownCartSubmitForCompletionResult: GraphQL.AbstractResponse, GraphQLObject, CartSubmitForCompletionResult {
 		public typealias Query = CartSubmitForCompletionResultQuery
 

@@ -27,40 +27,50 @@
 import Foundation
 
 extension Storefront {
-	/// A filter that is supported on the parent field. 
+	/// A filter option available on collection and search results pages. Each
+	/// filter includes a type, display label, and selectable values that customers
+	/// can use to narrow down products. The
+	/// [`FilterValue`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue)
+	/// objects contain an
+	/// [`input`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue#field-FilterValue.fields.input)
+	/// field that you can combine to [build dynamic filtering
+	/// queries](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/products-collections/filter-products).
+	/// Merchants [configure available
+	/// filters](https://help.shopify.com/manual/online-store/search-and-discovery/filters)
+	/// using the Shopify Search & Discovery app.
 	open class FilterQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Filter
 
-		/// A unique identifier. 
+		/// A unique identifier.
 		@discardableResult
 		open func id(alias: String? = nil) -> FilterQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// A human-friendly string for this filter. 
+		/// A human-friendly string for this filter.
 		@discardableResult
 		open func label(alias: String? = nil) -> FilterQuery {
 			addField(field: "label", aliasSuffix: alias)
 			return self
 		}
 
-		/// Describes how to present the filter values. Returns a value only for 
-		/// filters of type `LIST`. Returns null for other types. 
+		/// Describes how to present the filter values. Returns a value only for
+		/// filters of type `LIST`. Returns null for other types.
 		@discardableResult
 		open func presentation(alias: String? = nil) -> FilterQuery {
 			addField(field: "presentation", aliasSuffix: alias)
 			return self
 		}
 
-		/// An enumeration that denotes the type of data this filter represents. 
+		/// An enumeration that denotes the type of data this filter represents.
 		@discardableResult
 		open func type(alias: String? = nil) -> FilterQuery {
 			addField(field: "type", aliasSuffix: alias)
 			return self
 		}
 
-		/// The list of values for this filter. 
+		/// The list of values for this filter.
 		@discardableResult
 		open func values(alias: String? = nil, _ subfields: (FilterValueQuery) -> Void) -> FilterQuery {
 			let subquery = FilterValueQuery()
@@ -71,7 +81,17 @@ extension Storefront {
 		}
 	}
 
-	/// A filter that is supported on the parent field. 
+	/// A filter option available on collection and search results pages. Each
+	/// filter includes a type, display label, and selectable values that customers
+	/// can use to narrow down products. The
+	/// [`FilterValue`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue)
+	/// objects contain an
+	/// [`input`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue#field-FilterValue.fields.input)
+	/// field that you can combine to [build dynamic filtering
+	/// queries](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/products-collections/filter-products).
+	/// Merchants [configure available
+	/// filters](https://help.shopify.com/manual/online-store/search-and-discovery/filters)
+	/// using the Shopify Search & Discovery app.
 	open class Filter: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = FilterQuery
 
@@ -114,7 +134,7 @@ extension Storefront {
 			}
 		}
 
-		/// A unique identifier. 
+		/// A unique identifier.
 		open var id: String {
 			return internalGetId()
 		}
@@ -123,7 +143,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! String
 		}
 
-		/// A human-friendly string for this filter. 
+		/// A human-friendly string for this filter.
 		open var label: String {
 			return internalGetLabel()
 		}
@@ -132,8 +152,8 @@ extension Storefront {
 			return field(field: "label", aliasSuffix: alias) as! String
 		}
 
-		/// Describes how to present the filter values. Returns a value only for 
-		/// filters of type `LIST`. Returns null for other types. 
+		/// Describes how to present the filter values. Returns a value only for
+		/// filters of type `LIST`. Returns null for other types.
 		open var presentation: Storefront.FilterPresentation? {
 			return internalGetPresentation()
 		}
@@ -142,7 +162,7 @@ extension Storefront {
 			return field(field: "presentation", aliasSuffix: alias) as! Storefront.FilterPresentation?
 		}
 
-		/// An enumeration that denotes the type of data this filter represents. 
+		/// An enumeration that denotes the type of data this filter represents.
 		open var type: Storefront.FilterType {
 			return internalGetType()
 		}
@@ -151,7 +171,7 @@ extension Storefront {
 			return field(field: "type", aliasSuffix: alias) as! Storefront.FilterType
 		}
 
-		/// The list of values for this filter. 
+		/// The list of values for this filter.
 		open var values: [Storefront.FilterValue] {
 			return internalGetValues()
 		}

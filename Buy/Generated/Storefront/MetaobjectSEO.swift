@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// SEO information for a metaobject. 
+	/// SEO information for a metaobject.
 	open class MetaobjectSEOQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MetaobjectSEO
 
-		/// The meta description. 
+		/// The meta description.
 		@discardableResult
 		open func description(alias: String? = nil, _ subfields: (MetaobjectFieldQuery) -> Void) -> MetaobjectSEOQuery {
 			let subquery = MetaobjectFieldQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The SEO title. 
+		/// The SEO title.
 		@discardableResult
 		open func title(alias: String? = nil, _ subfields: (MetaobjectFieldQuery) -> Void) -> MetaobjectSEOQuery {
 			let subquery = MetaobjectFieldQuery()
@@ -52,7 +52,7 @@ extension Storefront {
 		}
 	}
 
-	/// SEO information for a metaobject. 
+	/// SEO information for a metaobject.
 	open class MetaobjectSEO: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = MetaobjectSEOQuery
 
@@ -78,7 +78,7 @@ extension Storefront {
 			}
 		}
 
-		/// The meta description. 
+		/// The meta description.
 		open var description: Storefront.MetaobjectField? {
 			return internalGetDescription()
 		}
@@ -87,7 +87,7 @@ extension Storefront {
 			return field(field: "description", aliasSuffix: alias) as! Storefront.MetaobjectField?
 		}
 
-		/// The SEO title. 
+		/// The SEO title.
 		open var title: Storefront.MetaobjectField? {
 			return internalGetTitle()
 		}

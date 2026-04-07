@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Cart is ready for payment update and completion. 
+	/// Cart is ready for payment update and completion.
 	open class CartStatusReadyQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartStatusReady
 
-		/// The result of cart preparation for completion. 
+		/// The result of cart preparation for completion.
 		@discardableResult
 		open func cart(alias: String? = nil, _ subfields: (CartQuery) -> Void) -> CartStatusReadyQuery {
 			let subquery = CartQuery()
@@ -42,7 +42,7 @@ extension Storefront {
 		}
 	}
 
-	/// Cart is ready for payment update and completion. 
+	/// Cart is ready for payment update and completion.
 	open class CartStatusReady: GraphQL.AbstractResponse, GraphQLObject, CartPrepareForCompletionResult {
 		public typealias Query = CartStatusReadyQuery
 
@@ -61,7 +61,7 @@ extension Storefront {
 			}
 		}
 
-		/// The result of cart preparation for completion. 
+		/// The result of cart preparation for completion.
 		open var cart: Storefront.Cart? {
 			return internalGetCart()
 		}

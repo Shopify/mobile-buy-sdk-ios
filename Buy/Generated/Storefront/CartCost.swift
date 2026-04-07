@@ -27,18 +27,23 @@
 import Foundation
 
 extension Storefront {
-	/// The costs that the buyer will pay at checkout. The cart cost uses 
-	/// [`CartBuyerIdentity`](https://shopify.dev/api/storefront/reference/cart/cartbuyeridentity) 
-	/// to determine [international 
-	/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing). 
+	/// The estimated costs that a buyer will pay at checkout. The `Cart` object's
+	/// [`cost`](https://shopify.dev/docs/api/storefront/current/objects/Cart#field-Cart.fields.cost)
+	/// field returns this. The costs are subject to change and changes will be
+	/// reflected at checkout. Costs reflect [international
+	/// pricing](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/markets/international-pricing)
+	/// based on the buyer's context. Amounts include the subtotal before taxes and
+	/// cart-level discounts, the checkout charge amount excluding deferred
+	/// payments, and the total. The subtotal and total amounts each include a
+	/// corresponding boolean field indicating whether the value is an estimate.
 	open class CartCostQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartCost
 
-		/// The estimated amount, before taxes and discounts, for the customer to pay 
-		/// at checkout. The checkout charge amount doesn't include any deferred 
-		/// payments that'll be paid at a later date. If the cart has no deferred 
-		/// payments, then the checkout charge amount is equivalent to 
-		/// `subtotalAmount`. 
+		/// The estimated amount, before taxes and discounts, for the customer to pay
+		/// at checkout. The checkout charge amount doesn't include any deferred
+		/// payments that'll be paid at a later date. If the cart has no deferred
+		/// payments, then the checkout charge amount is equivalent to
+		/// `subtotalAmount`.
 		@discardableResult
 		open func checkoutChargeAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartCostQuery {
 			let subquery = MoneyV2Query()
@@ -48,7 +53,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The amount, before taxes and cart-level discounts, for the customer to pay. 
+		/// The amount, before taxes and cart-level discounts, for the customer to pay.
 		@discardableResult
 		open func subtotalAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartCostQuery {
 			let subquery = MoneyV2Query()
@@ -58,14 +63,14 @@ extension Storefront {
 			return self
 		}
 
-		/// Whether the subtotal amount is estimated. 
+		/// Whether the subtotal amount is estimated.
 		@discardableResult
 		open func subtotalAmountEstimated(alias: String? = nil) -> CartCostQuery {
 			addField(field: "subtotalAmountEstimated", aliasSuffix: alias)
 			return self
 		}
 
-		/// The total amount for the customer to pay. 
+		/// The total amount for the customer to pay.
 		@discardableResult
 		open func totalAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartCostQuery {
 			let subquery = MoneyV2Query()
@@ -75,14 +80,14 @@ extension Storefront {
 			return self
 		}
 
-		/// Whether the total amount is estimated. 
+		/// Whether the total amount is estimated.
 		@discardableResult
 		open func totalAmountEstimated(alias: String? = nil) -> CartCostQuery {
 			addField(field: "totalAmountEstimated", aliasSuffix: alias)
 			return self
 		}
 
-		/// The duty amount for the customer to pay at checkout. 
+		/// The duty amount for the customer to pay at checkout.
 		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		@discardableResult
 		open func totalDutyAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartCostQuery {
@@ -93,7 +98,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Whether the total duty amount is estimated. 
+		/// Whether the total duty amount is estimated.
 		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		@discardableResult
 		open func totalDutyAmountEstimated(alias: String? = nil) -> CartCostQuery {
@@ -101,7 +106,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The tax amount for the customer to pay at checkout. 
+		/// The tax amount for the customer to pay at checkout.
 		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		@discardableResult
 		open func totalTaxAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartCostQuery {
@@ -112,7 +117,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Whether the total tax amount is estimated. 
+		/// Whether the total tax amount is estimated.
 		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		@discardableResult
 		open func totalTaxAmountEstimated(alias: String? = nil) -> CartCostQuery {
@@ -121,10 +126,15 @@ extension Storefront {
 		}
 	}
 
-	/// The costs that the buyer will pay at checkout. The cart cost uses 
-	/// [`CartBuyerIdentity`](https://shopify.dev/api/storefront/reference/cart/cartbuyeridentity) 
-	/// to determine [international 
-	/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing). 
+	/// The estimated costs that a buyer will pay at checkout. The `Cart` object's
+	/// [`cost`](https://shopify.dev/docs/api/storefront/current/objects/Cart#field-Cart.fields.cost)
+	/// field returns this. The costs are subject to change and changes will be
+	/// reflected at checkout. Costs reflect [international
+	/// pricing](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/markets/international-pricing)
+	/// based on the buyer's context. Amounts include the subtotal before taxes and
+	/// cart-level discounts, the checkout charge amount excluding deferred
+	/// payments, and the total. The subtotal and total amounts each include a
+	/// corresponding boolean field indicating whether the value is an estimate.
 	open class CartCost: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CartCostQuery
 
@@ -192,11 +202,11 @@ extension Storefront {
 			}
 		}
 
-		/// The estimated amount, before taxes and discounts, for the customer to pay 
-		/// at checkout. The checkout charge amount doesn't include any deferred 
-		/// payments that'll be paid at a later date. If the cart has no deferred 
-		/// payments, then the checkout charge amount is equivalent to 
-		/// `subtotalAmount`. 
+		/// The estimated amount, before taxes and discounts, for the customer to pay
+		/// at checkout. The checkout charge amount doesn't include any deferred
+		/// payments that'll be paid at a later date. If the cart has no deferred
+		/// payments, then the checkout charge amount is equivalent to
+		/// `subtotalAmount`.
 		open var checkoutChargeAmount: Storefront.MoneyV2 {
 			return internalGetCheckoutChargeAmount()
 		}
@@ -205,7 +215,7 @@ extension Storefront {
 			return field(field: "checkoutChargeAmount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The amount, before taxes and cart-level discounts, for the customer to pay. 
+		/// The amount, before taxes and cart-level discounts, for the customer to pay.
 		open var subtotalAmount: Storefront.MoneyV2 {
 			return internalGetSubtotalAmount()
 		}
@@ -214,7 +224,7 @@ extension Storefront {
 			return field(field: "subtotalAmount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// Whether the subtotal amount is estimated. 
+		/// Whether the subtotal amount is estimated.
 		open var subtotalAmountEstimated: Bool {
 			return internalGetSubtotalAmountEstimated()
 		}
@@ -223,7 +233,7 @@ extension Storefront {
 			return field(field: "subtotalAmountEstimated", aliasSuffix: alias) as! Bool
 		}
 
-		/// The total amount for the customer to pay. 
+		/// The total amount for the customer to pay.
 		open var totalAmount: Storefront.MoneyV2 {
 			return internalGetTotalAmount()
 		}
@@ -232,7 +242,7 @@ extension Storefront {
 			return field(field: "totalAmount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// Whether the total amount is estimated. 
+		/// Whether the total amount is estimated.
 		open var totalAmountEstimated: Bool {
 			return internalGetTotalAmountEstimated()
 		}
@@ -241,7 +251,7 @@ extension Storefront {
 			return field(field: "totalAmountEstimated", aliasSuffix: alias) as! Bool
 		}
 
-		/// The duty amount for the customer to pay at checkout. 
+		/// The duty amount for the customer to pay at checkout.
 		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		open var totalDutyAmount: Storefront.MoneyV2? {
 			return internalGetTotalDutyAmount()
@@ -251,7 +261,7 @@ extension Storefront {
 			return field(field: "totalDutyAmount", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
-		/// Whether the total duty amount is estimated. 
+		/// Whether the total duty amount is estimated.
 		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		open var totalDutyAmountEstimated: Bool {
 			return internalGetTotalDutyAmountEstimated()
@@ -261,7 +271,7 @@ extension Storefront {
 			return field(field: "totalDutyAmountEstimated", aliasSuffix: alias) as! Bool
 		}
 
-		/// The tax amount for the customer to pay at checkout. 
+		/// The tax amount for the customer to pay at checkout.
 		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		open var totalTaxAmount: Storefront.MoneyV2? {
 			return internalGetTotalTaxAmount()
@@ -271,7 +281,7 @@ extension Storefront {
 			return field(field: "totalTaxAmount", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
-		/// Whether the total tax amount is estimated. 
+		/// Whether the total tax amount is estimated.
 		@available(*, deprecated, message: "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n")
 		open var totalTaxAmountEstimated: Bool {
 			return internalGetTotalTaxAmountEstimated()

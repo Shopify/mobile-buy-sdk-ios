@@ -26,7 +26,19 @@
 
 import Foundation
 
-/// Represents a media interface. 
+/// A common set of fields for media content associated with
+/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product).
+/// Implementations include
+/// [`MediaImage`](https://shopify.dev/docs/api/storefront/current/objects/MediaImage)
+/// for Shopify-hosted images,
+/// [`Video`](https://shopify.dev/docs/api/storefront/current/objects/Video)
+/// for Shopify-hosted videos,
+/// [`ExternalVideo`](https://shopify.dev/docs/api/storefront/current/objects/ExternalVideo)
+/// for videos hosted on platforms like YouTube or Vimeo, and
+/// [`Model3d`](https://shopify.dev/docs/api/storefront/current/objects/Model3d)
+/// for 3D models. Each implementation shares fields for alt text, content
+/// type, and preview images, while adding type-specific fields like embed URLs
+/// for external videos or source files for 3D models.
 public protocol Media {
 	var alt: String? { get }
 
@@ -40,32 +52,44 @@ public protocol Media {
 }
 
 extension Storefront {
-	/// Represents a media interface. 
+	/// A common set of fields for media content associated with
+	/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product).
+	/// Implementations include
+	/// [`MediaImage`](https://shopify.dev/docs/api/storefront/current/objects/MediaImage)
+	/// for Shopify-hosted images,
+	/// [`Video`](https://shopify.dev/docs/api/storefront/current/objects/Video)
+	/// for Shopify-hosted videos,
+	/// [`ExternalVideo`](https://shopify.dev/docs/api/storefront/current/objects/ExternalVideo)
+	/// for videos hosted on platforms like YouTube or Vimeo, and
+	/// [`Model3d`](https://shopify.dev/docs/api/storefront/current/objects/Model3d)
+	/// for 3D models. Each implementation shares fields for alt text, content
+	/// type, and preview images, while adding type-specific fields like embed URLs
+	/// for external videos or source files for 3D models.
 	open class MediaQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Media
 
-		/// A word or phrase to share the nature or contents of a media. 
+		/// A word or phrase to share the nature or contents of a media.
 		@discardableResult
 		open func alt(alias: String? = nil) -> MediaQuery {
 			addField(field: "alt", aliasSuffix: alias)
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> MediaQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The media content type. 
+		/// The media content type.
 		@discardableResult
 		open func mediaContentType(alias: String? = nil) -> MediaQuery {
 			addField(field: "mediaContentType", aliasSuffix: alias)
 			return self
 		}
 
-		/// The presentation for a media. 
+		/// The presentation for a media.
 		@discardableResult
 		open func presentation(alias: String? = nil, _ subfields: (MediaPresentationQuery) -> Void) -> MediaQuery {
 			let subquery = MediaPresentationQuery()
@@ -75,7 +99,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The preview image for the media. 
+		/// The preview image for the media.
 		@discardableResult
 		open func previewImage(alias: String? = nil, _ subfields: (ImageQuery) -> Void) -> MediaQuery {
 			let subquery = ImageQuery()
@@ -90,7 +114,19 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// Represents a media interface. 
+		/// A common set of fields for media content associated with
+		/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product).
+		/// Implementations include
+		/// [`MediaImage`](https://shopify.dev/docs/api/storefront/current/objects/MediaImage)
+		/// for Shopify-hosted images,
+		/// [`Video`](https://shopify.dev/docs/api/storefront/current/objects/Video)
+		/// for Shopify-hosted videos,
+		/// [`ExternalVideo`](https://shopify.dev/docs/api/storefront/current/objects/ExternalVideo)
+		/// for videos hosted on platforms like YouTube or Vimeo, and
+		/// [`Model3d`](https://shopify.dev/docs/api/storefront/current/objects/Model3d)
+		/// for 3D models. Each implementation shares fields for alt text, content
+		/// type, and preview images, while adding type-specific fields like embed URLs
+		/// for external videos or source files for 3D models.
 		@discardableResult
 		open func onExternalVideo(subfields: (ExternalVideoQuery) -> Void) -> MediaQuery {
 			let subquery = ExternalVideoQuery()
@@ -99,7 +135,19 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents a media interface. 
+		/// A common set of fields for media content associated with
+		/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product).
+		/// Implementations include
+		/// [`MediaImage`](https://shopify.dev/docs/api/storefront/current/objects/MediaImage)
+		/// for Shopify-hosted images,
+		/// [`Video`](https://shopify.dev/docs/api/storefront/current/objects/Video)
+		/// for Shopify-hosted videos,
+		/// [`ExternalVideo`](https://shopify.dev/docs/api/storefront/current/objects/ExternalVideo)
+		/// for videos hosted on platforms like YouTube or Vimeo, and
+		/// [`Model3d`](https://shopify.dev/docs/api/storefront/current/objects/Model3d)
+		/// for 3D models. Each implementation shares fields for alt text, content
+		/// type, and preview images, while adding type-specific fields like embed URLs
+		/// for external videos or source files for 3D models.
 		@discardableResult
 		open func onMediaImage(subfields: (MediaImageQuery) -> Void) -> MediaQuery {
 			let subquery = MediaImageQuery()
@@ -108,7 +156,19 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents a media interface. 
+		/// A common set of fields for media content associated with
+		/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product).
+		/// Implementations include
+		/// [`MediaImage`](https://shopify.dev/docs/api/storefront/current/objects/MediaImage)
+		/// for Shopify-hosted images,
+		/// [`Video`](https://shopify.dev/docs/api/storefront/current/objects/Video)
+		/// for Shopify-hosted videos,
+		/// [`ExternalVideo`](https://shopify.dev/docs/api/storefront/current/objects/ExternalVideo)
+		/// for videos hosted on platforms like YouTube or Vimeo, and
+		/// [`Model3d`](https://shopify.dev/docs/api/storefront/current/objects/Model3d)
+		/// for 3D models. Each implementation shares fields for alt text, content
+		/// type, and preview images, while adding type-specific fields like embed URLs
+		/// for external videos or source files for 3D models.
 		@discardableResult
 		open func onModel3d(subfields: (Model3dQuery) -> Void) -> MediaQuery {
 			let subquery = Model3dQuery()
@@ -117,7 +177,19 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents a media interface. 
+		/// A common set of fields for media content associated with
+		/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product).
+		/// Implementations include
+		/// [`MediaImage`](https://shopify.dev/docs/api/storefront/current/objects/MediaImage)
+		/// for Shopify-hosted images,
+		/// [`Video`](https://shopify.dev/docs/api/storefront/current/objects/Video)
+		/// for Shopify-hosted videos,
+		/// [`ExternalVideo`](https://shopify.dev/docs/api/storefront/current/objects/ExternalVideo)
+		/// for videos hosted on platforms like YouTube or Vimeo, and
+		/// [`Model3d`](https://shopify.dev/docs/api/storefront/current/objects/Model3d)
+		/// for 3D models. Each implementation shares fields for alt text, content
+		/// type, and preview images, while adding type-specific fields like embed URLs
+		/// for external videos or source files for 3D models.
 		@discardableResult
 		open func onVideo(subfields: (VideoQuery) -> Void) -> MediaQuery {
 			let subquery = VideoQuery()
@@ -127,7 +199,19 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a media interface. 
+	/// A common set of fields for media content associated with
+	/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product).
+	/// Implementations include
+	/// [`MediaImage`](https://shopify.dev/docs/api/storefront/current/objects/MediaImage)
+	/// for Shopify-hosted images,
+	/// [`Video`](https://shopify.dev/docs/api/storefront/current/objects/Video)
+	/// for Shopify-hosted videos,
+	/// [`ExternalVideo`](https://shopify.dev/docs/api/storefront/current/objects/ExternalVideo)
+	/// for videos hosted on platforms like YouTube or Vimeo, and
+	/// [`Model3d`](https://shopify.dev/docs/api/storefront/current/objects/Model3d)
+	/// for 3D models. Each implementation shares fields for alt text, content
+	/// type, and preview images, while adding type-specific fields like embed URLs
+	/// for external videos or source files for 3D models.
 	open class UnknownMedia: GraphQL.AbstractResponse, GraphQLObject, Media {
 		public typealias Query = MediaQuery
 
@@ -190,7 +274,7 @@ extension Storefront {
 			}
 		}
 
-		/// A word or phrase to share the nature or contents of a media. 
+		/// A word or phrase to share the nature or contents of a media.
 		open var alt: String? {
 			return internalGetAlt()
 		}
@@ -199,7 +283,7 @@ extension Storefront {
 			return field(field: "alt", aliasSuffix: alias) as! String?
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -208,7 +292,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The media content type. 
+		/// The media content type.
 		open var mediaContentType: Storefront.MediaContentType {
 			return internalGetMediaContentType()
 		}
@@ -217,7 +301,7 @@ extension Storefront {
 			return field(field: "mediaContentType", aliasSuffix: alias) as! Storefront.MediaContentType
 		}
 
-		/// The presentation for a media. 
+		/// The presentation for a media.
 		open var presentation: Storefront.MediaPresentation? {
 			return internalGetPresentation()
 		}
@@ -226,7 +310,7 @@ extension Storefront {
 			return field(field: "presentation", aliasSuffix: alias) as! Storefront.MediaPresentation?
 		}
 
-		/// The preview image for the media. 
+		/// The preview image for the media.
 		open var previewImage: Storefront.Image? {
 			return internalGetPreviewImage()
 		}

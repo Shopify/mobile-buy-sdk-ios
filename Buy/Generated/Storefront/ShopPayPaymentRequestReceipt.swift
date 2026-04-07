@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a receipt for a Shop Pay payment request. 
+	/// Represents a receipt for a Shop Pay payment request.
 	open class ShopPayPaymentRequestReceiptQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ShopPayPaymentRequestReceipt
 
-		/// The payment request object. 
+		/// The payment request object.
 		@discardableResult
 		open func paymentRequest(alias: String? = nil, _ subfields: (ShopPayPaymentRequestQuery) -> Void) -> ShopPayPaymentRequestReceiptQuery {
 			let subquery = ShopPayPaymentRequestQuery()
@@ -41,14 +41,14 @@ extension Storefront {
 			return self
 		}
 
-		/// The processing status. 
+		/// The processing status.
 		@discardableResult
 		open func processingStatusType(alias: String? = nil) -> ShopPayPaymentRequestReceiptQuery {
 			addField(field: "processingStatusType", aliasSuffix: alias)
 			return self
 		}
 
-		/// The token of the receipt. 
+		/// The token of the receipt.
 		@discardableResult
 		open func token(alias: String? = nil) -> ShopPayPaymentRequestReceiptQuery {
 			addField(field: "token", aliasSuffix: alias)
@@ -56,7 +56,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a receipt for a Shop Pay payment request. 
+	/// Represents a receipt for a Shop Pay payment request.
 	open class ShopPayPaymentRequestReceipt: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ShopPayPaymentRequestReceiptQuery
 
@@ -86,7 +86,7 @@ extension Storefront {
 			}
 		}
 
-		/// The payment request object. 
+		/// The payment request object.
 		open var paymentRequest: Storefront.ShopPayPaymentRequest {
 			return internalGetPaymentRequest()
 		}
@@ -95,7 +95,7 @@ extension Storefront {
 			return field(field: "paymentRequest", aliasSuffix: alias) as! Storefront.ShopPayPaymentRequest
 		}
 
-		/// The processing status. 
+		/// The processing status.
 		open var processingStatusType: String {
 			return internalGetProcessingStatusType()
 		}
@@ -104,7 +104,7 @@ extension Storefront {
 			return field(field: "processingStatusType", aliasSuffix: alias) as! String
 		}
 
-		/// The token of the receipt. 
+		/// The token of the receipt.
 		open var token: String {
 			return internalGetToken()
 		}

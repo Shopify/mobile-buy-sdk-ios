@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type for paginating through multiple Collections. 
+	/// An auto-generated type for paginating through multiple Collections.
 	open class CollectionConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CollectionConnection
 
-		/// A list of edges. 
+		/// A list of edges.
 		@discardableResult
 		open func edges(alias: String? = nil, _ subfields: (CollectionEdgeQuery) -> Void) -> CollectionConnectionQuery {
 			let subquery = CollectionEdgeQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of the nodes contained in CollectionEdge. 
+		/// A list of the nodes contained in CollectionEdge.
 		@discardableResult
 		open func nodes(alias: String? = nil, _ subfields: (CollectionQuery) -> Void) -> CollectionConnectionQuery {
 			let subquery = CollectionQuery()
@@ -51,7 +51,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> CollectionConnectionQuery {
 			let subquery = PageInfoQuery()
@@ -61,7 +61,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The total count of Collections. 
+		/// The total count of Collections.
 		@discardableResult
 		open func totalCount(alias: String? = nil) -> CollectionConnectionQuery {
 			addField(field: "totalCount", aliasSuffix: alias)
@@ -69,7 +69,7 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type for paginating through multiple Collections. 
+	/// An auto-generated type for paginating through multiple Collections.
 	open class CollectionConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CollectionConnectionQuery
 
@@ -105,7 +105,7 @@ extension Storefront {
 			}
 		}
 
-		/// A list of edges. 
+		/// A list of edges.
 		open var edges: [Storefront.CollectionEdge] {
 			return internalGetEdges()
 		}
@@ -114,7 +114,7 @@ extension Storefront {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.CollectionEdge]
 		}
 
-		/// A list of the nodes contained in CollectionEdge. 
+		/// A list of the nodes contained in CollectionEdge.
 		open var nodes: [Storefront.Collection] {
 			return internalGetNodes()
 		}
@@ -123,7 +123,7 @@ extension Storefront {
 			return field(field: "nodes", aliasSuffix: alias) as! [Storefront.Collection]
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
 		}
@@ -132,7 +132,7 @@ extension Storefront {
 			return field(field: "pageInfo", aliasSuffix: alias) as! Storefront.PageInfo
 		}
 
-		/// The total count of Collections. 
+		/// The total count of Collections.
 		open var totalCount: String {
 			return internalGetTotalCount()
 		}

@@ -27,28 +27,28 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields to create a delivery method for a Shop Pay payment 
-	/// request. 
+	/// The input fields to create a delivery method for a Shop Pay payment
+	/// request.
 	open class ShopPayPaymentRequestDeliveryMethodInput {
-		/// The code of the delivery method. 
+		/// The code of the delivery method.
 		open var code: Input<String>
 
-		/// The label of the delivery method. 
+		/// The label of the delivery method.
 		open var label: Input<String>
 
-		/// The detail of the delivery method. 
+		/// The detail of the delivery method.
 		open var detail: Input<String>
 
-		/// The amount for the delivery method. 
+		/// The amount for the delivery method.
 		open var amount: Input<MoneyInput>
 
-		/// The minimum delivery date for the delivery method. 
+		/// The minimum delivery date for the delivery method.
 		open var minDeliveryDate: Input<String>
 
-		/// The maximum delivery date for the delivery method. 
+		/// The maximum delivery date for the delivery method.
 		open var maxDeliveryDate: Input<String>
 
-		/// The detail about when the delivery may be expected. 
+		/// The detail about when the delivery may be expected.
 		open var deliveryExpectationLabel: Input<String>
 
 		/// Creates the input object.

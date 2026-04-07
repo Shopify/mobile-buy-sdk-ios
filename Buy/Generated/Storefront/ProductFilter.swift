@@ -27,40 +27,40 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields for a filter used to view a subset of products in a 
-	/// collection. By default, the `available` and `price` filters are enabled. 
-	/// Filters are customized with the Shopify Search & Discovery app. Learn more 
-	/// about [customizing storefront 
-	/// filtering](https://help.shopify.com/manual/online-store/themes/customizing-themes/storefront-filters). 
+	/// The input fields for a filter used to view a subset of products in a
+	/// collection. By default, the `available` and `price` filters are enabled.
+	/// Filters are customized with the Shopify Search & Discovery app. Learn more
+	/// about [customizing storefront
+	/// filtering](https://help.shopify.com/manual/online-store/themes/customizing-themes/storefront-filters).
 	open class ProductFilter {
-		/// Filter on if the product is available for sale. 
+		/// Filter on if the product is available for sale.
 		open var available: Input<Bool>
 
-		/// A variant option to filter on. 
+		/// A variant option to filter on.
 		open var variantOption: Input<VariantOptionFilter>
 
-		/// A product category to filter on. 
+		/// A product category to filter on.
 		open var category: Input<CategoryFilter>
 
-		/// A standard product attribute metafield to filter on. 
+		/// A standard product attribute metafield to filter on.
 		open var taxonomyMetafield: Input<TaxonomyMetafieldFilter>
 
-		/// The product type to filter on. 
+		/// The product type to filter on.
 		open var productType: Input<String>
 
-		/// The product vendor to filter on. 
+		/// The product vendor to filter on.
 		open var productVendor: Input<String>
 
-		/// A range of prices to filter with-in. 
+		/// A range of prices to filter with-in.
 		open var price: Input<PriceRangeFilter>
 
-		/// A product metafield to filter on. 
+		/// A product metafield to filter on.
 		open var productMetafield: Input<MetafieldFilter>
 
-		/// A variant metafield to filter on. 
+		/// A variant metafield to filter on.
 		open var variantMetafield: Input<MetafieldFilter>
 
-		/// A product tag to filter on. 
+		/// A product tag to filter on.
 		open var tag: Input<String>
 
 		/// Creates the input object.

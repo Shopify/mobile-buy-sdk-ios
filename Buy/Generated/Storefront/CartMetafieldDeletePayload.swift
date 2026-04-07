@@ -27,18 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// Return type for `cartMetafieldDelete` mutation. 
+	/// Return type for `cartMetafieldDelete` mutation.
 	open class CartMetafieldDeletePayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartMetafieldDeletePayload
 
-		/// The ID of the deleted cart metafield. 
+		/// The ID of the deleted cart metafield.
 		@discardableResult
 		open func deletedId(alias: String? = nil) -> CartMetafieldDeletePayloadQuery {
 			addField(field: "deletedId", aliasSuffix: alias)
 			return self
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (MetafieldDeleteUserErrorQuery) -> Void) -> CartMetafieldDeletePayloadQuery {
 			let subquery = MetafieldDeleteUserErrorQuery()
@@ -49,7 +49,7 @@ extension Storefront {
 		}
 	}
 
-	/// Return type for `cartMetafieldDelete` mutation. 
+	/// Return type for `cartMetafieldDelete` mutation.
 	open class CartMetafieldDeletePayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CartMetafieldDeletePayloadQuery
 
@@ -74,7 +74,7 @@ extension Storefront {
 			}
 		}
 
-		/// The ID of the deleted cart metafield. 
+		/// The ID of the deleted cart metafield.
 		open var deletedId: GraphQL.ID? {
 			return internalGetDeletedId()
 		}
@@ -83,7 +83,7 @@ extension Storefront {
 			return field(field: "deletedId", aliasSuffix: alias) as! GraphQL.ID?
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		open var userErrors: [Storefront.MetafieldDeleteUserError] {
 			return internalGetUserErrors()
 		}

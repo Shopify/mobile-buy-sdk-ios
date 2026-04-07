@@ -27,19 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type which holds one Metaobject and a cursor during 
-	/// pagination. 
+	/// An auto-generated type which holds one Metaobject and a cursor during
+	/// pagination.
 	open class MetaobjectEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MetaobjectEdge
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		@discardableResult
 		open func cursor(alias: String? = nil) -> MetaobjectEdgeQuery {
 			addField(field: "cursor", aliasSuffix: alias)
 			return self
 		}
 
-		/// The item at the end of MetaobjectEdge. 
+		/// The item at the end of MetaobjectEdge.
 		@discardableResult
 		open func node(alias: String? = nil, _ subfields: (MetaobjectQuery) -> Void) -> MetaobjectEdgeQuery {
 			let subquery = MetaobjectQuery()
@@ -50,8 +50,8 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type which holds one Metaobject and a cursor during 
-	/// pagination. 
+	/// An auto-generated type which holds one Metaobject and a cursor during
+	/// pagination.
 	open class MetaobjectEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = MetaobjectEdgeQuery
 
@@ -75,7 +75,7 @@ extension Storefront {
 			}
 		}
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		open var cursor: String {
 			return internalGetCursor()
 		}
@@ -84,7 +84,7 @@ extension Storefront {
 			return field(field: "cursor", aliasSuffix: alias) as! String
 		}
 
-		/// The item at the end of MetaobjectEdge. 
+		/// The item at the end of MetaobjectEdge.
 		open var node: Storefront.Metaobject {
 			return internalGetNode()
 		}

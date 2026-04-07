@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// Represents the delivery method type for a Shop Pay payment request. 
+	/// Represents the delivery method type for a Shop Pay payment request.
 	public enum ShopPayPaymentRequestDeliveryMethodType: String {
-		/// The delivery method type is pickup. 
+		/// The delivery method type is pickup.
 		case pickup = "PICKUP"
 
-		/// The delivery method type is shipping. 
+		/// The delivery method type is shipping.
 		case shipping = "SHIPPING"
 
 		case unknownValue = ""

@@ -27,11 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// A country. 
+	/// A country with localization settings for a storefront. Includes the
+	/// country's currency, available languages, default language, and unit system
+	/// (metric or imperial). Access countries through the
+	/// [localization](https://shopify.dev/docs/api/storefront/current/queries/localization)
+	/// query, which returns both the list of available countries and the currently
+	/// active country. Use the
+	/// [`@inContext`](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/in-context)
+	/// directive to change the active country context.
 	open class CountryQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Country
 
-		/// The languages available for the country. 
+		/// The languages available for the country.
 		@discardableResult
 		open func availableLanguages(alias: String? = nil, _ subfields: (LanguageQuery) -> Void) -> CountryQuery {
 			let subquery = LanguageQuery()
@@ -41,7 +48,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The currency of the country. 
+		/// The currency of the country.
 		@discardableResult
 		open func currency(alias: String? = nil, _ subfields: (CurrencyQuery) -> Void) -> CountryQuery {
 			let subquery = CurrencyQuery()
@@ -51,7 +58,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The default language for the country. 
+		/// The default language for the country.
 		@discardableResult
 		open func defaultLanguage(alias: String? = nil, _ subfields: (LanguageQuery) -> Void) -> CountryQuery {
 			let subquery = LanguageQuery()
@@ -61,14 +68,14 @@ extension Storefront {
 			return self
 		}
 
-		/// The ISO code of the country. 
+		/// The ISO code of the country.
 		@discardableResult
 		open func isoCode(alias: String? = nil) -> CountryQuery {
 			addField(field: "isoCode", aliasSuffix: alias)
 			return self
 		}
 
-		/// The market that includes this country. 
+		/// The market that includes this country.
 		@available(*, deprecated, message: "This `market` field will be removed in a future version of the API.")
 		@discardableResult
 		open func market(alias: String? = nil, _ subfields: (MarketQuery) -> Void) -> CountryQuery {
@@ -79,14 +86,14 @@ extension Storefront {
 			return self
 		}
 
-		/// The name of the country. 
+		/// The name of the country.
 		@discardableResult
 		open func name(alias: String? = nil) -> CountryQuery {
 			addField(field: "name", aliasSuffix: alias)
 			return self
 		}
 
-		/// The unit system used in the country. 
+		/// The unit system used in the country.
 		@discardableResult
 		open func unitSystem(alias: String? = nil) -> CountryQuery {
 			addField(field: "unitSystem", aliasSuffix: alias)
@@ -94,7 +101,14 @@ extension Storefront {
 		}
 	}
 
-	/// A country. 
+	/// A country with localization settings for a storefront. Includes the
+	/// country's currency, available languages, default language, and unit system
+	/// (metric or imperial). Access countries through the
+	/// [localization](https://shopify.dev/docs/api/storefront/current/queries/localization)
+	/// query, which returns both the list of available countries and the currently
+	/// active country. Use the
+	/// [`@inContext`](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/in-context)
+	/// directive to change the active country context.
 	open class Country: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CountryQuery
 
@@ -149,7 +163,7 @@ extension Storefront {
 			}
 		}
 
-		/// The languages available for the country. 
+		/// The languages available for the country.
 		open var availableLanguages: [Storefront.Language] {
 			return internalGetAvailableLanguages()
 		}
@@ -158,7 +172,7 @@ extension Storefront {
 			return field(field: "availableLanguages", aliasSuffix: alias) as! [Storefront.Language]
 		}
 
-		/// The currency of the country. 
+		/// The currency of the country.
 		open var currency: Storefront.Currency {
 			return internalGetCurrency()
 		}
@@ -167,7 +181,7 @@ extension Storefront {
 			return field(field: "currency", aliasSuffix: alias) as! Storefront.Currency
 		}
 
-		/// The default language for the country. 
+		/// The default language for the country.
 		open var defaultLanguage: Storefront.Language {
 			return internalGetDefaultLanguage()
 		}
@@ -176,7 +190,7 @@ extension Storefront {
 			return field(field: "defaultLanguage", aliasSuffix: alias) as! Storefront.Language
 		}
 
-		/// The ISO code of the country. 
+		/// The ISO code of the country.
 		open var isoCode: Storefront.CountryCode {
 			return internalGetIsoCode()
 		}
@@ -185,7 +199,7 @@ extension Storefront {
 			return field(field: "isoCode", aliasSuffix: alias) as! Storefront.CountryCode
 		}
 
-		/// The market that includes this country. 
+		/// The market that includes this country.
 		@available(*, deprecated, message: "This `market` field will be removed in a future version of the API.")
 		open var market: Storefront.Market? {
 			return internalGetMarket()
@@ -195,7 +209,7 @@ extension Storefront {
 			return field(field: "market", aliasSuffix: alias) as! Storefront.Market?
 		}
 
-		/// The name of the country. 
+		/// The name of the country.
 		open var name: String {
 			return internalGetName()
 		}
@@ -204,7 +218,7 @@ extension Storefront {
 			return field(field: "name", aliasSuffix: alias) as! String
 		}
 
-		/// The unit system used in the country. 
+		/// The unit system used in the country.
 		open var unitSystem: Storefront.UnitSystem {
 			return internalGetUnitSystem()
 		}

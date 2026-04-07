@@ -27,36 +27,36 @@
 import Foundation
 
 extension Storefront {
-	/// Returns information about pagination in a connection, in accordance with 
-	/// the [Relay 
-	/// specification](https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo). 
-	/// For more information, please read our [GraphQL Pagination Usage 
-	/// Guide](https://shopify.dev/api/usage/pagination-graphql). 
+	/// Returns information about pagination in a connection, in accordance with
+	/// the [Relay
+	/// specification](https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo).
+	/// For more information, please read our [GraphQL Pagination Usage
+	/// Guide](https://shopify.dev/api/usage/pagination-graphql).
 	open class PageInfoQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = PageInfo
 
-		/// The cursor corresponding to the last node in edges. 
+		/// The cursor corresponding to the last node in edges.
 		@discardableResult
 		open func endCursor(alias: String? = nil) -> PageInfoQuery {
 			addField(field: "endCursor", aliasSuffix: alias)
 			return self
 		}
 
-		/// Whether there are more pages to fetch following the current page. 
+		/// Whether there are more pages to fetch following the current page.
 		@discardableResult
 		open func hasNextPage(alias: String? = nil) -> PageInfoQuery {
 			addField(field: "hasNextPage", aliasSuffix: alias)
 			return self
 		}
 
-		/// Whether there are any pages prior to the current page. 
+		/// Whether there are any pages prior to the current page.
 		@discardableResult
 		open func hasPreviousPage(alias: String? = nil) -> PageInfoQuery {
 			addField(field: "hasPreviousPage", aliasSuffix: alias)
 			return self
 		}
 
-		/// The cursor corresponding to the first node in edges. 
+		/// The cursor corresponding to the first node in edges.
 		@discardableResult
 		open func startCursor(alias: String? = nil) -> PageInfoQuery {
 			addField(field: "startCursor", aliasSuffix: alias)
@@ -64,11 +64,11 @@ extension Storefront {
 		}
 	}
 
-	/// Returns information about pagination in a connection, in accordance with 
-	/// the [Relay 
-	/// specification](https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo). 
-	/// For more information, please read our [GraphQL Pagination Usage 
-	/// Guide](https://shopify.dev/api/usage/pagination-graphql). 
+	/// Returns information about pagination in a connection, in accordance with
+	/// the [Relay
+	/// specification](https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo).
+	/// For more information, please read our [GraphQL Pagination Usage
+	/// Guide](https://shopify.dev/api/usage/pagination-graphql).
 	open class PageInfo: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = PageInfoQuery
 
@@ -106,7 +106,7 @@ extension Storefront {
 			}
 		}
 
-		/// The cursor corresponding to the last node in edges. 
+		/// The cursor corresponding to the last node in edges.
 		open var endCursor: String? {
 			return internalGetEndCursor()
 		}
@@ -115,7 +115,7 @@ extension Storefront {
 			return field(field: "endCursor", aliasSuffix: alias) as! String?
 		}
 
-		/// Whether there are more pages to fetch following the current page. 
+		/// Whether there are more pages to fetch following the current page.
 		open var hasNextPage: Bool {
 			return internalGetHasNextPage()
 		}
@@ -124,7 +124,7 @@ extension Storefront {
 			return field(field: "hasNextPage", aliasSuffix: alias) as! Bool
 		}
 
-		/// Whether there are any pages prior to the current page. 
+		/// Whether there are any pages prior to the current page.
 		open var hasPreviousPage: Bool {
 			return internalGetHasPreviousPage()
 		}
@@ -133,7 +133,7 @@ extension Storefront {
 			return field(field: "hasPreviousPage", aliasSuffix: alias) as! Bool
 		}
 
-		/// The cursor corresponding to the first node in edges. 
+		/// The cursor corresponding to the first node in edges.
 		open var startCursor: String? {
 			return internalGetStartCursor()
 		}

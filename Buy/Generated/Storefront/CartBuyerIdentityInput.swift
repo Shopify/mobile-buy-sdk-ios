@@ -27,41 +27,47 @@
 import Foundation
 
 extension Storefront {
-	/// Specifies the input fields to update the buyer information associated with 
-	/// a cart. Buyer identity is used to determine [international 
-	/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing) 
-	/// and should match the customer's shipping address. 
+	/// The input fields for identifying the buyer associated with a cart. Buyer
+	/// identity determines [international
+	/// pricing](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/markets/international-pricing)
+	/// and should match the customer's shipping address. Used by
+	/// [`cartCreate`](https://shopify.dev/docs/api/storefront/current/mutations/cartCreate)
+	/// and
+	/// [`cartBuyerIdentityUpdate`](https://shopify.dev/docs/api/storefront/current/mutations/cartBuyerIdentityUpdate)
+	/// to set contact information, location, and checkout preferences. > Note: >
+	/// Preferences prefill fields at checkout but don't sync back to the cart if
+	/// overwritten.
 	open class CartBuyerIdentityInput {
-		/// The email address of the buyer that is interacting with the cart. 
+		/// The email address of the buyer that is interacting with the cart.
 		open var email: Input<String>
 
-		/// The phone number of the buyer that is interacting with the cart. 
+		/// The phone number of the buyer that is interacting with the cart.
 		open var phone: Input<String>
 
-		/// The company location of the buyer that is interacting with the cart. 
+		/// The company location of the buyer that is interacting with the cart.
 		open var companyLocationId: Input<GraphQL.ID>
 
-		/// The country where the buyer is located. 
+		/// The country where the buyer is located.
 		open var countryCode: Input<CountryCode>
 
-		/// The access token used to identify the customer associated with the cart. 
+		/// The access token used to identify the customer associated with the cart.
 		open var customerAccessToken: Input<String>
 
-		/// An ordered set of delivery addresses tied to the buyer that is interacting 
-		/// with the cart. The rank of the preferences is determined by the order of 
-		/// the addresses in the array. Preferences can be used to populate relevant 
-		/// fields in the checkout flow. As of the `2025-01` release, 
-		/// `buyerIdentity.deliveryAddressPreferences` is deprecated. Delivery 
-		/// addresses are now part of the `CartDelivery` object and managed with three 
-		/// new mutations: - `cartDeliveryAddressAdd` - `cartDeliveryAddressUpdate` - 
-		/// `cartDeliveryAddressDelete` The input must not contain more than `250` 
-		/// values. 
+		/// An ordered set of delivery addresses tied to the buyer that is interacting
+		/// with the cart. The rank of the preferences is determined by the order of
+		/// the addresses in the array. Preferences can be used to populate relevant
+		/// fields in the checkout flow. As of the `2025-01` release,
+		/// `buyerIdentity.deliveryAddressPreferences` is deprecated. Delivery
+		/// addresses are now part of the `CartDelivery` object and managed with three
+		/// new mutations: - `cartDeliveryAddressAdd` - `cartDeliveryAddressUpdate` -
+		/// `cartDeliveryAddressDelete` The input must not contain more than `250`
+		/// values.
 		open var deliveryAddressPreferences: Input<[DeliveryAddressInput]>
 
-		/// A set of preferences tied to the buyer interacting with the cart. 
-		/// Preferences are used to prefill fields in at checkout to streamline 
-		/// information collection. Preferences are not synced back to the cart if they 
-		/// are overwritten. 
+		/// A set of preferences tied to the buyer interacting with the cart.
+		/// Preferences are used to prefill fields in at checkout to streamline
+		/// information collection. Preferences are not synced back to the cart if they
+		/// are overwritten.
 		open var preferences: Input<CartPreferencesInput>
 
 		/// Creates the input object.
@@ -73,7 +79,7 @@ extension Storefront {
 		///     - countryCode: The country where the buyer is located.
 		///     - customerAccessToken: The access token used to identify the customer associated with the cart.
 		///     - deliveryAddressPreferences: An ordered set of delivery addresses tied to the buyer that is interacting with the cart. The rank of the preferences is determined by the order of the addresses in the array. Preferences can be used to populate relevant fields in the checkout flow.  As of the `2025-01` release, `buyerIdentity.deliveryAddressPreferences` is deprecated. Delivery addresses are now part of the `CartDelivery` object and managed with three new mutations: - `cartDeliveryAddressAdd` - `cartDeliveryAddressUpdate` - `cartDeliveryAddressDelete`  The input must not contain more than `250` values.
-		///     - preferences: A set of preferences tied to the buyer interacting with the cart. Preferences are used to prefill fields in at checkout to streamline information collection. Preferences are not synced back to the cart if they are overwritten. 
+		///     - preferences: A set of preferences tied to the buyer interacting with the cart. Preferences are used to prefill fields in at checkout to streamline information collection. Preferences are not synced back to the cart if they are overwritten.
 		///
 		public static func create(email: Input<String> = .undefined, phone: Input<String> = .undefined, companyLocationId: Input<GraphQL.ID> = .undefined, countryCode: Input<CountryCode> = .undefined, customerAccessToken: Input<String> = .undefined, deliveryAddressPreferences: Input<[DeliveryAddressInput]> = .undefined, preferences: Input<CartPreferencesInput> = .undefined) -> CartBuyerIdentityInput {
 			return CartBuyerIdentityInput(email: email, phone: phone, companyLocationId: companyLocationId, countryCode: countryCode, customerAccessToken: customerAccessToken, deliveryAddressPreferences: deliveryAddressPreferences, preferences: preferences)
@@ -98,7 +104,7 @@ extension Storefront {
 		///     - countryCode: The country where the buyer is located.
 		///     - customerAccessToken: The access token used to identify the customer associated with the cart.
 		///     - deliveryAddressPreferences: An ordered set of delivery addresses tied to the buyer that is interacting with the cart. The rank of the preferences is determined by the order of the addresses in the array. Preferences can be used to populate relevant fields in the checkout flow.  As of the `2025-01` release, `buyerIdentity.deliveryAddressPreferences` is deprecated. Delivery addresses are now part of the `CartDelivery` object and managed with three new mutations: - `cartDeliveryAddressAdd` - `cartDeliveryAddressUpdate` - `cartDeliveryAddressDelete`  The input must not contain more than `250` values.
-		///     - preferences: A set of preferences tied to the buyer interacting with the cart. Preferences are used to prefill fields in at checkout to streamline information collection. Preferences are not synced back to the cart if they are overwritten. 
+		///     - preferences: A set of preferences tied to the buyer interacting with the cart. Preferences are used to prefill fields in at checkout to streamline information collection. Preferences are not synced back to the cart if they are overwritten.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
 		public convenience init(email: String? = nil, phone: String? = nil, companyLocationId: GraphQL.ID? = nil, countryCode: CountryCode? = nil, customerAccessToken: String? = nil, deliveryAddressPreferences: [DeliveryAddressInput]? = nil, preferences: CartPreferencesInput? = nil) {

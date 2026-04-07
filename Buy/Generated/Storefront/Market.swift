@@ -27,30 +27,36 @@
 import Foundation
 
 extension Storefront {
-	/// A group of one or more regions of the world that a merchant is targeting 
-	/// for sales. To learn more about markets, refer to [the Shopify Markets 
-	/// conceptual overview](/docs/apps/markets). 
+	/// An audience of buyers that a merchant targets for sales. Audiences can
+	/// include geographic regions, company locations, and retail locations.
+	/// Markets enable localized shopping experiences with region-specific
+	/// languages, currencies, and pricing. Each market has a unique
+	/// [`handle`](https://shopify.dev/docs/api/storefront/current/objects/Market#field-Market.fields.handle)
+	/// for identification and supports custom data through
+	/// [`metafields`](https://shopify.dev/docs/api/storefront/current/objects/Metafield).
+	/// Learn more about [building localized experiences with Shopify
+	/// Markets](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/markets).
 	open class MarketQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Market
 
-		/// A human-readable unique string for the market automatically generated from 
-		/// its title. 
+		/// A human-readable unique string for the market automatically generated from
+		/// its title.
 		@discardableResult
 		open func handle(alias: String? = nil) -> MarketQuery {
 			addField(field: "handle", aliasSuffix: alias)
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> MarketQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		///
 		/// - parameters:
 		///     - namespace: The container the metafield belongs to. If omitted, the app-reserved namespace will be used.
@@ -75,12 +81,12 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		///
 		/// - parameters:
 		///     - identifiers: The list of metafields to retrieve by namespace and key.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -99,9 +105,15 @@ extension Storefront {
 		}
 	}
 
-	/// A group of one or more regions of the world that a merchant is targeting 
-	/// for sales. To learn more about markets, refer to [the Shopify Markets 
-	/// conceptual overview](/docs/apps/markets). 
+	/// An audience of buyers that a merchant targets for sales. Audiences can
+	/// include geographic regions, company locations, and retail locations.
+	/// Markets enable localized shopping experiences with region-specific
+	/// languages, currencies, and pricing. Each market has a unique
+	/// [`handle`](https://shopify.dev/docs/api/storefront/current/objects/Market#field-Market.fields.handle)
+	/// for identification and supports custom data through
+	/// [`metafields`](https://shopify.dev/docs/api/storefront/current/objects/Metafield).
+	/// Learn more about [building localized experiences with Shopify
+	/// Markets](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/markets).
 	open class Market: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node {
 		public typealias Query = MarketQuery
 
@@ -142,8 +154,8 @@ extension Storefront {
 			}
 		}
 
-		/// A human-readable unique string for the market automatically generated from 
-		/// its title. 
+		/// A human-readable unique string for the market automatically generated from
+		/// its title.
 		open var handle: String {
 			return internalGetHandle()
 		}
@@ -152,7 +164,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -161,9 +173,9 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		open var metafield: Storefront.Metafield? {
 			return internalGetMetafield()
 		}
@@ -176,8 +188,8 @@ extension Storefront {
 			return field(field: "metafield", aliasSuffix: alias) as! Storefront.Metafield?
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		open var metafields: [Storefront.Metafield?] {
 			return internalGetMetafields()
 		}

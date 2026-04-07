@@ -27,25 +27,25 @@
 import Foundation
 
 extension Storefront {
-	/// Represents an option on a selling plan group that's available in the 
-	/// drop-down list in the storefront. Individual selling plans contribute their 
-	/// options to the associated selling plan group. For example, a selling plan 
-	/// group might have an option called `option1: Delivery every`. One selling 
-	/// plan in that group could contribute `option1: 2 weeks` with the pricing for 
-	/// that option, and another selling plan could contribute `option1: 4 weeks`, 
-	/// with different pricing. 
+	/// Represents an option on a selling plan group that's available in the
+	/// drop-down list in the storefront. Individual selling plans contribute their
+	/// options to the associated selling plan group. For example, a selling plan
+	/// group might have an option called `option1: Delivery every`. One selling
+	/// plan in that group could contribute `option1: 2 weeks` with the pricing for
+	/// that option, and another selling plan could contribute `option1: 4 weeks`,
+	/// with different pricing.
 	open class SellingPlanGroupOptionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlanGroupOption
 
-		/// The name of the option. For example, 'Delivery every'. 
+		/// The name of the option. For example, 'Delivery every'.
 		@discardableResult
 		open func name(alias: String? = nil) -> SellingPlanGroupOptionQuery {
 			addField(field: "name", aliasSuffix: alias)
 			return self
 		}
 
-		/// The values for the options specified by the selling plans in the selling 
-		/// plan group. For example, '1 week', '2 weeks', '3 weeks'. 
+		/// The values for the options specified by the selling plans in the selling
+		/// plan group. For example, '1 week', '2 weeks', '3 weeks'.
 		@discardableResult
 		open func values(alias: String? = nil) -> SellingPlanGroupOptionQuery {
 			addField(field: "values", aliasSuffix: alias)
@@ -53,13 +53,13 @@ extension Storefront {
 		}
 	}
 
-	/// Represents an option on a selling plan group that's available in the 
-	/// drop-down list in the storefront. Individual selling plans contribute their 
-	/// options to the associated selling plan group. For example, a selling plan 
-	/// group might have an option called `option1: Delivery every`. One selling 
-	/// plan in that group could contribute `option1: 2 weeks` with the pricing for 
-	/// that option, and another selling plan could contribute `option1: 4 weeks`, 
-	/// with different pricing. 
+	/// Represents an option on a selling plan group that's available in the
+	/// drop-down list in the storefront. Individual selling plans contribute their
+	/// options to the associated selling plan group. For example, a selling plan
+	/// group might have an option called `option1: Delivery every`. One selling
+	/// plan in that group could contribute `option1: 2 weeks` with the pricing for
+	/// that option, and another selling plan could contribute `option1: 4 weeks`,
+	/// with different pricing.
 	open class SellingPlanGroupOption: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = SellingPlanGroupOptionQuery
 
@@ -83,7 +83,7 @@ extension Storefront {
 			}
 		}
 
-		/// The name of the option. For example, 'Delivery every'. 
+		/// The name of the option. For example, 'Delivery every'.
 		open var name: String {
 			return internalGetName()
 		}
@@ -92,8 +92,8 @@ extension Storefront {
 			return field(field: "name", aliasSuffix: alias) as! String
 		}
 
-		/// The values for the options specified by the selling plans in the selling 
-		/// plan group. For example, '1 week', '2 weeks', '3 weeks'. 
+		/// The values for the options specified by the selling plans in the selling
+		/// plan group. For example, '1 week', '2 weeks', '3 weeks'.
 		open var values: [String] {
 			return internalGetValues()
 		}

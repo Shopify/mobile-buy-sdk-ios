@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields to create a discount for a Shop Pay payment request. 
+	/// The input fields to create a discount for a Shop Pay payment request.
 	open class ShopPayPaymentRequestDiscountInput {
-		/// The label of the discount. 
+		/// The label of the discount.
 		open var label: Input<String>
 
-		/// The amount of the discount. 
+		/// The amount of the discount.
 		open var amount: Input<MoneyInput>
 
 		/// Creates the input object.

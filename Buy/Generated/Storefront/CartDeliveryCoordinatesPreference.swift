@@ -27,29 +27,29 @@
 import Foundation
 
 extension Storefront {
-	/// Preferred location used to find the closest pick up point based on 
-	/// coordinates. 
+	/// Preferred location used to find the closest pick up point based on
+	/// coordinates.
 	open class CartDeliveryCoordinatesPreferenceQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartDeliveryCoordinatesPreference
 
-		/// The two-letter code for the country of the preferred location. For example, 
-		/// US. 
+		/// The two-letter code for the country of the preferred location. For example,
+		/// US.
 		@discardableResult
 		open func countryCode(alias: String? = nil) -> CartDeliveryCoordinatesPreferenceQuery {
 			addField(field: "countryCode", aliasSuffix: alias)
 			return self
 		}
 
-		/// The geographic latitude for a given location. Coordinates are required in 
-		/// order to set pickUpHandle for pickup points. 
+		/// The geographic latitude for a given location. Coordinates are required in
+		/// order to set pickUpHandle for pickup points.
 		@discardableResult
 		open func latitude(alias: String? = nil) -> CartDeliveryCoordinatesPreferenceQuery {
 			addField(field: "latitude", aliasSuffix: alias)
 			return self
 		}
 
-		/// The geographic longitude for a given location. Coordinates are required in 
-		/// order to set pickUpHandle for pickup points. 
+		/// The geographic longitude for a given location. Coordinates are required in
+		/// order to set pickUpHandle for pickup points.
 		@discardableResult
 		open func longitude(alias: String? = nil) -> CartDeliveryCoordinatesPreferenceQuery {
 			addField(field: "longitude", aliasSuffix: alias)
@@ -57,8 +57,8 @@ extension Storefront {
 		}
 	}
 
-	/// Preferred location used to find the closest pick up point based on 
-	/// coordinates. 
+	/// Preferred location used to find the closest pick up point based on
+	/// coordinates.
 	open class CartDeliveryCoordinatesPreference: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CartDeliveryCoordinatesPreferenceQuery
 
@@ -88,8 +88,8 @@ extension Storefront {
 			}
 		}
 
-		/// The two-letter code for the country of the preferred location. For example, 
-		/// US. 
+		/// The two-letter code for the country of the preferred location. For example,
+		/// US.
 		open var countryCode: Storefront.CountryCode {
 			return internalGetCountryCode()
 		}
@@ -98,8 +98,8 @@ extension Storefront {
 			return field(field: "countryCode", aliasSuffix: alias) as! Storefront.CountryCode
 		}
 
-		/// The geographic latitude for a given location. Coordinates are required in 
-		/// order to set pickUpHandle for pickup points. 
+		/// The geographic latitude for a given location. Coordinates are required in
+		/// order to set pickUpHandle for pickup points.
 		open var latitude: Double {
 			return internalGetLatitude()
 		}
@@ -108,8 +108,8 @@ extension Storefront {
 			return field(field: "latitude", aliasSuffix: alias) as! Double
 		}
 
-		/// The geographic longitude for a given location. Coordinates are required in 
-		/// order to set pickUpHandle for pickup points. 
+		/// The geographic longitude for a given location. Coordinates are required in
+		/// order to set pickUpHandle for pickup points.
 		open var longitude: Double {
 			return internalGetLongitude()
 		}

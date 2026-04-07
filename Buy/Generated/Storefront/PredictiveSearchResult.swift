@@ -27,13 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// A predictive search result represents a list of products, collections, 
-	/// pages, articles, and query suggestions that matches the predictive search 
-	/// query. 
+	/// Returned by the
+	/// [`predictiveSearch`](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch)
+	/// query to power type-ahead search experiences. Includes matching
+	/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+	/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+	/// [`Page`](https://shopify.dev/docs/api/storefront/current/objects/Page), and
+	/// [`Article`](https://shopify.dev/docs/api/storefront/current/objects/Article)
+	/// objects, along with query suggestions that help customers refine their
+	/// search.
 	open class PredictiveSearchResultQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = PredictiveSearchResult
 
-		/// The articles that match the search query. 
+		/// The articles that match the search query.
 		@discardableResult
 		open func articles(alias: String? = nil, _ subfields: (ArticleQuery) -> Void) -> PredictiveSearchResultQuery {
 			let subquery = ArticleQuery()
@@ -43,7 +49,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The articles that match the search query. 
+		/// The articles that match the search query.
 		@discardableResult
 		open func collections(alias: String? = nil, _ subfields: (CollectionQuery) -> Void) -> PredictiveSearchResultQuery {
 			let subquery = CollectionQuery()
@@ -53,7 +59,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The pages that match the search query. 
+		/// The pages that match the search query.
 		@discardableResult
 		open func pages(alias: String? = nil, _ subfields: (PageQuery) -> Void) -> PredictiveSearchResultQuery {
 			let subquery = PageQuery()
@@ -63,7 +69,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The products that match the search query. 
+		/// The products that match the search query.
 		@discardableResult
 		open func products(alias: String? = nil, _ subfields: (ProductQuery) -> Void) -> PredictiveSearchResultQuery {
 			let subquery = ProductQuery()
@@ -73,7 +79,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The query suggestions that are relevant to the search query. 
+		/// The query suggestions that are relevant to the search query.
 		@discardableResult
 		open func queries(alias: String? = nil, _ subfields: (SearchQuerySuggestionQuery) -> Void) -> PredictiveSearchResultQuery {
 			let subquery = SearchQuerySuggestionQuery()
@@ -84,9 +90,15 @@ extension Storefront {
 		}
 	}
 
-	/// A predictive search result represents a list of products, collections, 
-	/// pages, articles, and query suggestions that matches the predictive search 
-	/// query. 
+	/// Returned by the
+	/// [`predictiveSearch`](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch)
+	/// query to power type-ahead search experiences. Includes matching
+	/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+	/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+	/// [`Page`](https://shopify.dev/docs/api/storefront/current/objects/Page), and
+	/// [`Article`](https://shopify.dev/docs/api/storefront/current/objects/Article)
+	/// objects, along with query suggestions that help customers refine their
+	/// search.
 	open class PredictiveSearchResult: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = PredictiveSearchResultQuery
 
@@ -128,7 +140,7 @@ extension Storefront {
 			}
 		}
 
-		/// The articles that match the search query. 
+		/// The articles that match the search query.
 		open var articles: [Storefront.Article] {
 			return internalGetArticles()
 		}
@@ -137,7 +149,7 @@ extension Storefront {
 			return field(field: "articles", aliasSuffix: alias) as! [Storefront.Article]
 		}
 
-		/// The articles that match the search query. 
+		/// The articles that match the search query.
 		open var collections: [Storefront.Collection] {
 			return internalGetCollections()
 		}
@@ -146,7 +158,7 @@ extension Storefront {
 			return field(field: "collections", aliasSuffix: alias) as! [Storefront.Collection]
 		}
 
-		/// The pages that match the search query. 
+		/// The pages that match the search query.
 		open var pages: [Storefront.Page] {
 			return internalGetPages()
 		}
@@ -155,7 +167,7 @@ extension Storefront {
 			return field(field: "pages", aliasSuffix: alias) as! [Storefront.Page]
 		}
 
-		/// The products that match the search query. 
+		/// The products that match the search query.
 		open var products: [Storefront.Product] {
 			return internalGetProducts()
 		}
@@ -164,7 +176,7 @@ extension Storefront {
 			return field(field: "products", aliasSuffix: alias) as! [Storefront.Product]
 		}
 
-		/// The query suggestions that are relevant to the search query. 
+		/// The query suggestions that are relevant to the search query.
 		open var queries: [Storefront.SearchQuerySuggestion] {
 			return internalGetQueries()
 		}

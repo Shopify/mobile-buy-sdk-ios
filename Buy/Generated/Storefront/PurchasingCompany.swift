@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Represents information about the buyer that is interacting with the cart. 
+	/// Represents information about the buyer that is interacting with the cart.
 	open class PurchasingCompanyQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = PurchasingCompany
 
-		/// The company associated to the order or draft order. 
+		/// The company associated to the order or draft order.
 		@discardableResult
 		open func company(alias: String? = nil, _ subfields: (CompanyQuery) -> Void) -> PurchasingCompanyQuery {
 			let subquery = CompanyQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The company contact associated to the order or draft order. 
+		/// The company contact associated to the order or draft order.
 		@discardableResult
 		open func contact(alias: String? = nil, _ subfields: (CompanyContactQuery) -> Void) -> PurchasingCompanyQuery {
 			let subquery = CompanyContactQuery()
@@ -51,7 +51,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The company location associated to the order or draft order. 
+		/// The company location associated to the order or draft order.
 		@discardableResult
 		open func location(alias: String? = nil, _ subfields: (CompanyLocationQuery) -> Void) -> PurchasingCompanyQuery {
 			let subquery = CompanyLocationQuery()
@@ -62,7 +62,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents information about the buyer that is interacting with the cart. 
+	/// Represents information about the buyer that is interacting with the cart.
 	open class PurchasingCompany: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = PurchasingCompanyQuery
 
@@ -93,7 +93,7 @@ extension Storefront {
 			}
 		}
 
-		/// The company associated to the order or draft order. 
+		/// The company associated to the order or draft order.
 		open var company: Storefront.Company {
 			return internalGetCompany()
 		}
@@ -102,7 +102,7 @@ extension Storefront {
 			return field(field: "company", aliasSuffix: alias) as! Storefront.Company
 		}
 
-		/// The company contact associated to the order or draft order. 
+		/// The company contact associated to the order or draft order.
 		open var contact: Storefront.CompanyContact? {
 			return internalGetContact()
 		}
@@ -111,7 +111,7 @@ extension Storefront {
 			return field(field: "contact", aliasSuffix: alias) as! Storefront.CompanyContact?
 		}
 
-		/// The company location associated to the order or draft order. 
+		/// The company location associated to the order or draft order.
 		open var location: Storefront.CompanyLocation {
 			return internalGetLocation()
 		}

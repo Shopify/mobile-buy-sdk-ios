@@ -27,15 +27,15 @@
 import Foundation
 
 extension Storefront {
-	/// The resulting prices for variants when they're purchased with a specific 
-	/// selling plan. 
+	/// The resulting prices for variants when they're purchased with a specific
+	/// selling plan.
 	open class SellingPlanAllocationPriceAdjustmentQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlanAllocationPriceAdjustment
 
-		/// The price of the variant when it's purchased without a selling plan for the 
-		/// same number of deliveries. For example, if a customer purchases 6 
-		/// deliveries of $10.00 granola separately, then the price is 6 x $10.00 = 
-		/// $60.00. 
+		/// The price of the variant when it's purchased without a selling plan for the
+		/// same number of deliveries. For example, if a customer purchases 6
+		/// deliveries of $10.00 granola separately, then the price is 6 x $10.00 =
+		/// $60.00.
 		@discardableResult
 		open func compareAtPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> SellingPlanAllocationPriceAdjustmentQuery {
 			let subquery = MoneyV2Query()
@@ -45,9 +45,9 @@ extension Storefront {
 			return self
 		}
 
-		/// The effective price for a single delivery. For example, for a prepaid 
-		/// subscription plan that includes 6 deliveries at the price of $48.00, the 
-		/// per delivery price is $8.00. 
+		/// The effective price for a single delivery. For example, for a prepaid
+		/// subscription plan that includes 6 deliveries at the price of $48.00, the
+		/// per delivery price is $8.00.
 		@discardableResult
 		open func perDeliveryPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> SellingPlanAllocationPriceAdjustmentQuery {
 			let subquery = MoneyV2Query()
@@ -57,10 +57,10 @@ extension Storefront {
 			return self
 		}
 
-		/// The price of the variant when it's purchased with a selling plan For 
-		/// example, for a prepaid subscription plan that includes 6 deliveries of 
-		/// $10.00 granola, where the customer gets 20% off, the price is 6 x $10.00 x 
-		/// 0.80 = $48.00. 
+		/// The price of the variant when it's purchased with a selling plan For
+		/// example, for a prepaid subscription plan that includes 6 deliveries of
+		/// $10.00 granola, where the customer gets 20% off, the price is 6 x $10.00 x
+		/// 0.80 = $48.00.
 		@discardableResult
 		open func price(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> SellingPlanAllocationPriceAdjustmentQuery {
 			let subquery = MoneyV2Query()
@@ -70,9 +70,9 @@ extension Storefront {
 			return self
 		}
 
-		/// The resulting price per unit for the variant associated with the selling 
-		/// plan. If the variant isn't sold by quantity or measurement, then this field 
-		/// returns `null`. 
+		/// The resulting price per unit for the variant associated with the selling
+		/// plan. If the variant isn't sold by quantity or measurement, then this field
+		/// returns `null`.
 		@discardableResult
 		open func unitPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> SellingPlanAllocationPriceAdjustmentQuery {
 			let subquery = MoneyV2Query()
@@ -83,8 +83,8 @@ extension Storefront {
 		}
 	}
 
-	/// The resulting prices for variants when they're purchased with a specific 
-	/// selling plan. 
+	/// The resulting prices for variants when they're purchased with a specific
+	/// selling plan.
 	open class SellingPlanAllocationPriceAdjustment: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = SellingPlanAllocationPriceAdjustmentQuery
 
@@ -121,10 +121,10 @@ extension Storefront {
 			}
 		}
 
-		/// The price of the variant when it's purchased without a selling plan for the 
-		/// same number of deliveries. For example, if a customer purchases 6 
-		/// deliveries of $10.00 granola separately, then the price is 6 x $10.00 = 
-		/// $60.00. 
+		/// The price of the variant when it's purchased without a selling plan for the
+		/// same number of deliveries. For example, if a customer purchases 6
+		/// deliveries of $10.00 granola separately, then the price is 6 x $10.00 =
+		/// $60.00.
 		open var compareAtPrice: Storefront.MoneyV2 {
 			return internalGetCompareAtPrice()
 		}
@@ -133,9 +133,9 @@ extension Storefront {
 			return field(field: "compareAtPrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The effective price for a single delivery. For example, for a prepaid 
-		/// subscription plan that includes 6 deliveries at the price of $48.00, the 
-		/// per delivery price is $8.00. 
+		/// The effective price for a single delivery. For example, for a prepaid
+		/// subscription plan that includes 6 deliveries at the price of $48.00, the
+		/// per delivery price is $8.00.
 		open var perDeliveryPrice: Storefront.MoneyV2 {
 			return internalGetPerDeliveryPrice()
 		}
@@ -144,10 +144,10 @@ extension Storefront {
 			return field(field: "perDeliveryPrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The price of the variant when it's purchased with a selling plan For 
-		/// example, for a prepaid subscription plan that includes 6 deliveries of 
-		/// $10.00 granola, where the customer gets 20% off, the price is 6 x $10.00 x 
-		/// 0.80 = $48.00. 
+		/// The price of the variant when it's purchased with a selling plan For
+		/// example, for a prepaid subscription plan that includes 6 deliveries of
+		/// $10.00 granola, where the customer gets 20% off, the price is 6 x $10.00 x
+		/// 0.80 = $48.00.
 		open var price: Storefront.MoneyV2 {
 			return internalGetPrice()
 		}
@@ -156,9 +156,9 @@ extension Storefront {
 			return field(field: "price", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The resulting price per unit for the variant associated with the selling 
-		/// plan. If the variant isn't sold by quantity or measurement, then this field 
-		/// returns `null`. 
+		/// The resulting price per unit for the variant associated with the selling
+		/// plan. If the variant isn't sold by quantity or measurement, then this field
+		/// returns `null`.
 		open var unitPrice: Storefront.MoneyV2? {
 			return internalGetUnitPrice()
 		}

@@ -27,35 +27,34 @@
 import Foundation
 
 extension Storefront {
-	/// A SitemapResourceMetaobject represents a metaobject with [the `renderable` 
-	/// capability](https://shopify.dev/docs/apps/build/custom-data/metaobjects/use-metaobject-capabilities#render-metaobjects-as-web-pages). 
+	/// A SitemapResourceMetaobject represents a metaobject with [the `renderable`
+	/// capability](https://shopify.dev/docs/apps/build/custom-data/metaobjects/use-metaobject-capabilities#render-metaobjects-as-web-pages).
 	open class SitemapResourceMetaobjectQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SitemapResourceMetaobject
 
-		/// Resource's handle. 
+		/// Resource's handle.
 		@discardableResult
 		open func handle(alias: String? = nil) -> SitemapResourceMetaobjectQuery {
 			addField(field: "handle", aliasSuffix: alias)
 			return self
 		}
 
-		/// The URL handle for accessing pages of this metaobject type in the Online 
-		/// Store. 
+		/// The URL handle for accessing pages of this metaobject type in the Online
+		/// Store.
 		@discardableResult
 		open func onlineStoreUrlHandle(alias: String? = nil) -> SitemapResourceMetaobjectQuery {
 			addField(field: "onlineStoreUrlHandle", aliasSuffix: alias)
 			return self
 		}
 
-		/// The type of the metaobject. Defines the namespace of its associated 
-		/// metafields. 
+		/// The type of the metaobject.
 		@discardableResult
 		open func type(alias: String? = nil) -> SitemapResourceMetaobjectQuery {
 			addField(field: "type", aliasSuffix: alias)
 			return self
 		}
 
-		/// The date and time when the resource was updated. 
+		/// The date and time when the resource was updated.
 		@discardableResult
 		open func updatedAt(alias: String? = nil) -> SitemapResourceMetaobjectQuery {
 			addField(field: "updatedAt", aliasSuffix: alias)
@@ -63,8 +62,8 @@ extension Storefront {
 		}
 	}
 
-	/// A SitemapResourceMetaobject represents a metaobject with [the `renderable` 
-	/// capability](https://shopify.dev/docs/apps/build/custom-data/metaobjects/use-metaobject-capabilities#render-metaobjects-as-web-pages). 
+	/// A SitemapResourceMetaobject represents a metaobject with [the `renderable`
+	/// capability](https://shopify.dev/docs/apps/build/custom-data/metaobjects/use-metaobject-capabilities#render-metaobjects-as-web-pages).
 	open class SitemapResourceMetaobject: GraphQL.AbstractResponse, GraphQLObject, SitemapResourceInterface {
 		public typealias Query = SitemapResourceMetaobjectQuery
 
@@ -101,7 +100,7 @@ extension Storefront {
 			}
 		}
 
-		/// Resource's handle. 
+		/// Resource's handle.
 		open var handle: String {
 			return internalGetHandle()
 		}
@@ -110,8 +109,8 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// The URL handle for accessing pages of this metaobject type in the Online 
-		/// Store. 
+		/// The URL handle for accessing pages of this metaobject type in the Online
+		/// Store.
 		open var onlineStoreUrlHandle: String? {
 			return internalGetOnlineStoreUrlHandle()
 		}
@@ -120,8 +119,7 @@ extension Storefront {
 			return field(field: "onlineStoreUrlHandle", aliasSuffix: alias) as! String?
 		}
 
-		/// The type of the metaobject. Defines the namespace of its associated 
-		/// metafields. 
+		/// The type of the metaobject.
 		open var type: String {
 			return internalGetType()
 		}
@@ -130,7 +128,7 @@ extension Storefront {
 			return field(field: "type", aliasSuffix: alias) as! String
 		}
 
-		/// The date and time when the resource was updated. 
+		/// The date and time when the resource was updated.
 		open var updatedAt: Date {
 			return internalGetUpdatedAt()
 		}

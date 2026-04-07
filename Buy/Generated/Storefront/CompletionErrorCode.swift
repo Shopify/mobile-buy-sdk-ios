@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// The code of the error that occurred during a cart completion attempt. 
+	/// The code of the error that occurred during a cart completion attempt.
 	public enum CompletionErrorCode: String {
 		case error = "ERROR"
 

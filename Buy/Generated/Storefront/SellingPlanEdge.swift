@@ -27,19 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type which holds one SellingPlan and a cursor during 
-	/// pagination. 
+	/// An auto-generated type which holds one SellingPlan and a cursor during
+	/// pagination.
 	open class SellingPlanEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlanEdge
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		@discardableResult
 		open func cursor(alias: String? = nil) -> SellingPlanEdgeQuery {
 			addField(field: "cursor", aliasSuffix: alias)
 			return self
 		}
 
-		/// The item at the end of SellingPlanEdge. 
+		/// The item at the end of SellingPlanEdge.
 		@discardableResult
 		open func node(alias: String? = nil, _ subfields: (SellingPlanQuery) -> Void) -> SellingPlanEdgeQuery {
 			let subquery = SellingPlanQuery()
@@ -50,8 +50,8 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type which holds one SellingPlan and a cursor during 
-	/// pagination. 
+	/// An auto-generated type which holds one SellingPlan and a cursor during
+	/// pagination.
 	open class SellingPlanEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = SellingPlanEdgeQuery
 
@@ -75,7 +75,7 @@ extension Storefront {
 			}
 		}
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		open var cursor: String {
 			return internalGetCursor()
 		}
@@ -84,7 +84,7 @@ extension Storefront {
 			return field(field: "cursor", aliasSuffix: alias) as! String
 		}
 
-		/// The item at the end of SellingPlanEdge. 
+		/// The item at the end of SellingPlanEdge.
 		open var node: Storefront.SellingPlan {
 			return internalGetNode()
 		}

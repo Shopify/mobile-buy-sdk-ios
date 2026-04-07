@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// The percentage value of the price used for checkout charge. 
+	/// The percentage value of the price used for checkout charge.
 	open class SellingPlanCheckoutChargePercentageValueQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlanCheckoutChargePercentageValue
 
-		/// The percentage value of the price used for checkout charge. 
+		/// The percentage value of the price used for checkout charge.
 		@discardableResult
 		open func percentage(alias: String? = nil) -> SellingPlanCheckoutChargePercentageValueQuery {
 			addField(field: "percentage", aliasSuffix: alias)
@@ -39,7 +39,7 @@ extension Storefront {
 		}
 	}
 
-	/// The percentage value of the price used for checkout charge. 
+	/// The percentage value of the price used for checkout charge.
 	open class SellingPlanCheckoutChargePercentageValue: GraphQL.AbstractResponse, GraphQLObject, SellingPlanCheckoutChargeValue {
 		public typealias Query = SellingPlanCheckoutChargePercentageValueQuery
 
@@ -57,7 +57,7 @@ extension Storefront {
 			}
 		}
 
-		/// The percentage value of the price used for checkout charge. 
+		/// The percentage value of the price used for checkout charge.
 		open var percentage: Double {
 			return internalGetPercentage()
 		}

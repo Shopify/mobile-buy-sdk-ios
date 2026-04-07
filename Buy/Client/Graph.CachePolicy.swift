@@ -51,7 +51,7 @@ extension Graph {
 
 extension Graph.CachePolicy {
 
-    public static func ==(lhs: Graph.CachePolicy, rhs: Graph.CachePolicy) -> Bool {
+    public static func == (lhs: Graph.CachePolicy, rhs: Graph.CachePolicy) -> Bool {
         switch (lhs, rhs) {
         case (.cacheOnly, .cacheOnly):                           return true
         case (.networkOnly, .networkOnly):                         return true

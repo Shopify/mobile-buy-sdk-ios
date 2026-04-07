@@ -27,25 +27,25 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a sitemap's image. 
+	/// Represents a sitemap's image.
 	open class SitemapImageQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SitemapImage
 
-		/// Image's alt text. 
+		/// Image's alt text.
 		@discardableResult
 		open func alt(alias: String? = nil) -> SitemapImageQuery {
 			addField(field: "alt", aliasSuffix: alias)
 			return self
 		}
 
-		/// Path to the image. 
+		/// Path to the image.
 		@discardableResult
 		open func filepath(alias: String? = nil) -> SitemapImageQuery {
 			addField(field: "filepath", aliasSuffix: alias)
 			return self
 		}
 
-		/// The date and time when the image was updated. 
+		/// The date and time when the image was updated.
 		@discardableResult
 		open func updatedAt(alias: String? = nil) -> SitemapImageQuery {
 			addField(field: "updatedAt", aliasSuffix: alias)
@@ -53,7 +53,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a sitemap's image. 
+	/// Represents a sitemap's image.
 	open class SitemapImage: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = SitemapImageQuery
 
@@ -85,7 +85,7 @@ extension Storefront {
 			}
 		}
 
-		/// Image's alt text. 
+		/// Image's alt text.
 		open var alt: String? {
 			return internalGetAlt()
 		}
@@ -94,7 +94,7 @@ extension Storefront {
 			return field(field: "alt", aliasSuffix: alias) as! String?
 		}
 
-		/// Path to the image. 
+		/// Path to the image.
 		open var filepath: String? {
 			return internalGetFilepath()
 		}
@@ -103,7 +103,7 @@ extension Storefront {
 			return field(field: "filepath", aliasSuffix: alias) as! String?
 		}
 
-		/// The date and time when the image was updated. 
+		/// The date and time when the image was updated.
 		open var updatedAt: Date {
 			return internalGetUpdatedAt()
 		}

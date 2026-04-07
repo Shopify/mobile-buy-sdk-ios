@@ -26,14 +26,14 @@
 
 import Foundation
 
-/// Represents by how much the price of a variant associated with a selling 
-/// plan is adjusted. Each variant can have up to two price adjustments. 
+/// Represents by how much the price of a variant associated with a selling
+/// plan is adjusted. Each variant can have up to two price adjustments.
 public protocol SellingPlanPriceAdjustmentValue {
 }
 
 extension Storefront {
-	/// Represents by how much the price of a variant associated with a selling 
-	/// plan is adjusted. Each variant can have up to two price adjustments. 
+	/// Represents by how much the price of a variant associated with a selling
+	/// plan is adjusted. Each variant can have up to two price adjustments.
 	open class SellingPlanPriceAdjustmentValueQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlanPriceAdjustmentValue
 
@@ -42,8 +42,8 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// Represents by how much the price of a variant associated with a selling 
-		/// plan is adjusted. Each variant can have up to two price adjustments. 
+		/// Represents by how much the price of a variant associated with a selling
+		/// plan is adjusted. Each variant can have up to two price adjustments.
 		@discardableResult
 		open func onSellingPlanFixedAmountPriceAdjustment(subfields: (SellingPlanFixedAmountPriceAdjustmentQuery) -> Void) -> SellingPlanPriceAdjustmentValueQuery {
 			let subquery = SellingPlanFixedAmountPriceAdjustmentQuery()
@@ -52,8 +52,8 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents by how much the price of a variant associated with a selling 
-		/// plan is adjusted. Each variant can have up to two price adjustments. 
+		/// Represents by how much the price of a variant associated with a selling
+		/// plan is adjusted. Each variant can have up to two price adjustments.
 		@discardableResult
 		open func onSellingPlanFixedPriceAdjustment(subfields: (SellingPlanFixedPriceAdjustmentQuery) -> Void) -> SellingPlanPriceAdjustmentValueQuery {
 			let subquery = SellingPlanFixedPriceAdjustmentQuery()
@@ -62,8 +62,8 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents by how much the price of a variant associated with a selling 
-		/// plan is adjusted. Each variant can have up to two price adjustments. 
+		/// Represents by how much the price of a variant associated with a selling
+		/// plan is adjusted. Each variant can have up to two price adjustments.
 		@discardableResult
 		open func onSellingPlanPercentagePriceAdjustment(subfields: (SellingPlanPercentagePriceAdjustmentQuery) -> Void) -> SellingPlanPriceAdjustmentValueQuery {
 			let subquery = SellingPlanPercentagePriceAdjustmentQuery()
@@ -73,8 +73,8 @@ extension Storefront {
 		}
 	}
 
-	/// Represents by how much the price of a variant associated with a selling 
-	/// plan is adjusted. Each variant can have up to two price adjustments. 
+	/// Represents by how much the price of a variant associated with a selling
+	/// plan is adjusted. Each variant can have up to two price adjustments.
 	open class UnknownSellingPlanPriceAdjustmentValue: GraphQL.AbstractResponse, GraphQLObject, SellingPlanPriceAdjustmentValue {
 		public typealias Query = SellingPlanPriceAdjustmentValueQuery
 

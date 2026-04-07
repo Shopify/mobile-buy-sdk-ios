@@ -27,438 +27,449 @@
 import Foundation
 
 extension Storefront {
-	/// Language codes supported by Shopify. 
+	/// Supported languages for retrieving translated storefront content. Pass a
+	/// language code to the
+	/// [`@inContext`](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/in-context)
+	/// directive to return product titles, descriptions, and other translatable
+	/// fields in that language. The
+	/// [`Localization`](https://shopify.dev/docs/api/storefront/current/objects/Localization)
+	/// object provides the list of available languages for the active country, and
+	/// each
+	/// [`Country`](https://shopify.dev/docs/api/storefront/current/objects/Country)
+	/// in
+	/// [`availableCountries`](https://shopify.dev/docs/api/storefront/current/objects/Localization#field-Localization.fields.availableCountries)
+	/// includes its own available languages.
 	public enum LanguageCode: String {
-		/// Afrikaans. 
+		/// Afrikaans.
 		case af = "AF"
 
-		/// Akan. 
+		/// Akan.
 		case ak = "AK"
 
-		/// Amharic. 
+		/// Amharic.
 		case am = "AM"
 
-		/// Arabic. 
+		/// Arabic.
 		case ar = "AR"
 
-		/// Assamese. 
+		/// Assamese.
 		case `as` = "AS"
 
-		/// Azerbaijani. 
+		/// Azerbaijani.
 		case az = "AZ"
 
-		/// Belarusian. 
+		/// Belarusian.
 		case be = "BE"
 
-		/// Bulgarian. 
+		/// Bulgarian.
 		case bg = "BG"
 
-		/// Bambara. 
+		/// Bambara.
 		case bm = "BM"
 
-		/// Bangla. 
+		/// Bangla.
 		case bn = "BN"
 
-		/// Tibetan. 
+		/// Tibetan.
 		case bo = "BO"
 
-		/// Breton. 
+		/// Breton.
 		case br = "BR"
 
-		/// Bosnian. 
+		/// Bosnian.
 		case bs = "BS"
 
-		/// Catalan. 
+		/// Catalan.
 		case ca = "CA"
 
-		/// Chechen. 
+		/// Chechen.
 		case ce = "CE"
 
-		/// Central Kurdish. 
+		/// Central Kurdish.
 		case ckb = "CKB"
 
-		/// Czech. 
+		/// Czech.
 		case cs = "CS"
 
-		/// Church Slavic. 
+		/// Church Slavic.
 		case cu = "CU"
 
-		/// Welsh. 
+		/// Welsh.
 		case cy = "CY"
 
-		/// Danish. 
+		/// Danish.
 		case da = "DA"
 
-		/// German. 
+		/// German.
 		case de = "DE"
 
-		/// Dzongkha. 
+		/// Dzongkha.
 		case dz = "DZ"
 
-		/// Ewe. 
+		/// Ewe.
 		case ee = "EE"
 
-		/// Greek. 
+		/// Greek.
 		case el = "EL"
 
-		/// English. 
+		/// English.
 		case en = "EN"
 
-		/// Esperanto. 
+		/// Esperanto.
 		case eo = "EO"
 
-		/// Spanish. 
+		/// Spanish.
 		case es = "ES"
 
-		/// Estonian. 
+		/// Estonian.
 		case et = "ET"
 
-		/// Basque. 
+		/// Basque.
 		case eu = "EU"
 
-		/// Persian. 
+		/// Persian.
 		case fa = "FA"
 
-		/// Fulah. 
+		/// Fulah.
 		case ff = "FF"
 
-		/// Finnish. 
+		/// Finnish.
 		case fi = "FI"
 
-		/// Filipino. 
+		/// Filipino.
 		case fil = "FIL"
 
-		/// Faroese. 
+		/// Faroese.
 		case fo = "FO"
 
-		/// French. 
+		/// French.
 		case fr = "FR"
 
-		/// Western Frisian. 
+		/// Western Frisian.
 		case fy = "FY"
 
-		/// Irish. 
+		/// Irish.
 		case ga = "GA"
 
-		/// Scottish Gaelic. 
+		/// Scottish Gaelic.
 		case gd = "GD"
 
-		/// Galician. 
+		/// Galician.
 		case gl = "GL"
 
-		/// Gujarati. 
+		/// Gujarati.
 		case gu = "GU"
 
-		/// Manx. 
+		/// Manx.
 		case gv = "GV"
 
-		/// Hausa. 
+		/// Hausa.
 		case ha = "HA"
 
-		/// Hebrew. 
+		/// Hebrew.
 		case he = "HE"
 
-		/// Hindi. 
+		/// Hindi.
 		case hi = "HI"
 
-		/// Croatian. 
+		/// Croatian.
 		case hr = "HR"
 
-		/// Hungarian. 
+		/// Hungarian.
 		case hu = "HU"
 
-		/// Armenian. 
+		/// Armenian.
 		case hy = "HY"
 
-		/// Interlingua. 
+		/// Interlingua.
 		case ia = "IA"
 
-		/// Indonesian. 
+		/// Indonesian.
 		case id = "ID"
 
-		/// Igbo. 
+		/// Igbo.
 		case ig = "IG"
 
-		/// Sichuan Yi. 
+		/// Sichuan Yi.
 		case ii = "II"
 
-		/// Icelandic. 
+		/// Icelandic.
 		case `is` = "IS"
 
-		/// Italian. 
+		/// Italian.
 		case it = "IT"
 
-		/// Japanese. 
+		/// Japanese.
 		case ja = "JA"
 
-		/// Javanese. 
+		/// Javanese.
 		case jv = "JV"
 
-		/// Georgian. 
+		/// Georgian.
 		case ka = "KA"
 
-		/// Kikuyu. 
+		/// Kikuyu.
 		case ki = "KI"
 
-		/// Kazakh. 
+		/// Kazakh.
 		case kk = "KK"
 
-		/// Kalaallisut. 
+		/// Kalaallisut.
 		case kl = "KL"
 
-		/// Khmer. 
+		/// Khmer.
 		case km = "KM"
 
-		/// Kannada. 
+		/// Kannada.
 		case kn = "KN"
 
-		/// Korean. 
+		/// Korean.
 		case ko = "KO"
 
-		/// Kashmiri. 
+		/// Kashmiri.
 		case ks = "KS"
 
-		/// Kurdish. 
+		/// Kurdish.
 		case ku = "KU"
 
-		/// Cornish. 
+		/// Cornish.
 		case kw = "KW"
 
-		/// Kyrgyz. 
+		/// Kyrgyz.
 		case ky = "KY"
 
-		/// Latin. 
+		/// Latin.
 		case la = "LA"
 
-		/// Luxembourgish. 
+		/// Luxembourgish.
 		case lb = "LB"
 
-		/// Ganda. 
+		/// Ganda.
 		case lg = "LG"
 
-		/// Lingala. 
+		/// Lingala.
 		case ln = "LN"
 
-		/// Lao. 
+		/// Lao.
 		case lo = "LO"
 
-		/// Lithuanian. 
+		/// Lithuanian.
 		case lt = "LT"
 
-		/// Luba-Katanga. 
+		/// Luba-Katanga.
 		case lu = "LU"
 
-		/// Latvian. 
+		/// Latvian.
 		case lv = "LV"
 
-		/// Malagasy. 
+		/// Malagasy.
 		case mg = "MG"
 
-		/// Māori. 
+		/// Māori.
 		case mi = "MI"
 
-		/// Macedonian. 
+		/// Macedonian.
 		case mk = "MK"
 
-		/// Malayalam. 
+		/// Malayalam.
 		case ml = "ML"
 
-		/// Mongolian. 
+		/// Mongolian.
 		case mn = "MN"
 
-		/// Moldavian. 
+		/// Moldavian.
 		case mo = "MO"
 
-		/// Marathi. 
+		/// Marathi.
 		case mr = "MR"
 
-		/// Malay. 
+		/// Malay.
 		case ms = "MS"
 
-		/// Maltese. 
+		/// Maltese.
 		case mt = "MT"
 
-		/// Burmese. 
+		/// Burmese.
 		case my = "MY"
 
-		/// Norwegian (Bokmål). 
+		/// Norwegian (Bokmål).
 		case nb = "NB"
 
-		/// North Ndebele. 
+		/// North Ndebele.
 		case nd = "ND"
 
-		/// Nepali. 
+		/// Nepali.
 		case ne = "NE"
 
-		/// Dutch. 
+		/// Dutch.
 		case nl = "NL"
 
-		/// Norwegian Nynorsk. 
+		/// Norwegian Nynorsk.
 		case nn = "NN"
 
-		/// Norwegian. 
+		/// Norwegian.
 		case no = "NO"
 
-		/// Oromo. 
+		/// Oromo.
 		case om = "OM"
 
-		/// Odia. 
+		/// Odia.
 		case or = "OR"
 
-		/// Ossetic. 
+		/// Ossetic.
 		case os = "OS"
 
-		/// Punjabi. 
+		/// Punjabi.
 		case pa = "PA"
 
-		/// Polish. 
+		/// Polish.
 		case pl = "PL"
 
-		/// Pashto. 
+		/// Pashto.
 		case ps = "PS"
 
-		/// Portuguese. 
+		/// Portuguese.
 		case pt = "PT"
 
-		/// Portuguese (Brazil). 
+		/// Portuguese (Brazil).
 		case ptBr = "PT_BR"
 
-		/// Portuguese (Portugal). 
+		/// Portuguese (Portugal).
 		case ptPt = "PT_PT"
 
-		/// Quechua. 
+		/// Quechua.
 		case qu = "QU"
 
-		/// Romansh. 
+		/// Romansh.
 		case rm = "RM"
 
-		/// Rundi. 
+		/// Rundi.
 		case rn = "RN"
 
-		/// Romanian. 
+		/// Romanian.
 		case ro = "RO"
 
-		/// Russian. 
+		/// Russian.
 		case ru = "RU"
 
-		/// Kinyarwanda. 
+		/// Kinyarwanda.
 		case rw = "RW"
 
-		/// Sanskrit. 
+		/// Sanskrit.
 		case sa = "SA"
 
-		/// Sardinian. 
+		/// Sardinian.
 		case sc = "SC"
 
-		/// Sindhi. 
+		/// Sindhi.
 		case sd = "SD"
 
-		/// Northern Sami. 
+		/// Northern Sami.
 		case se = "SE"
 
-		/// Sango. 
+		/// Sango.
 		case sg = "SG"
 
-		/// Serbo-Croatian. 
+		/// Serbo-Croatian.
 		case sh = "SH"
 
-		/// Sinhala. 
+		/// Sinhala.
 		case si = "SI"
 
-		/// Slovak. 
+		/// Slovak.
 		case sk = "SK"
 
-		/// Slovenian. 
+		/// Slovenian.
 		case sl = "SL"
 
-		/// Shona. 
+		/// Shona.
 		case sn = "SN"
 
-		/// Somali. 
+		/// Somali.
 		case so = "SO"
 
-		/// Albanian. 
+		/// Albanian.
 		case sq = "SQ"
 
-		/// Serbian. 
+		/// Serbian.
 		case sr = "SR"
 
-		/// Sundanese. 
+		/// Sundanese.
 		case su = "SU"
 
-		/// Swedish. 
+		/// Swedish.
 		case sv = "SV"
 
-		/// Swahili. 
+		/// Swahili.
 		case sw = "SW"
 
-		/// Tamil. 
+		/// Tamil.
 		case ta = "TA"
 
-		/// Telugu. 
+		/// Telugu.
 		case te = "TE"
 
-		/// Tajik. 
+		/// Tajik.
 		case tg = "TG"
 
-		/// Thai. 
+		/// Thai.
 		case th = "TH"
 
-		/// Tigrinya. 
+		/// Tigrinya.
 		case ti = "TI"
 
-		/// Turkmen. 
+		/// Turkmen.
 		case tk = "TK"
 
-		/// Tongan. 
+		/// Tongan.
 		case to = "TO"
 
-		/// Turkish. 
+		/// Turkish.
 		case tr = "TR"
 
-		/// Tatar. 
+		/// Tatar.
 		case tt = "TT"
 
-		/// Uyghur. 
+		/// Uyghur.
 		case ug = "UG"
 
-		/// Ukrainian. 
+		/// Ukrainian.
 		case uk = "UK"
 
-		/// Urdu. 
+		/// Urdu.
 		case ur = "UR"
 
-		/// Uzbek. 
+		/// Uzbek.
 		case uz = "UZ"
 
-		/// Vietnamese. 
+		/// Vietnamese.
 		case vi = "VI"
 
-		/// Volapük. 
+		/// Volapük.
 		case vo = "VO"
 
-		/// Wolof. 
+		/// Wolof.
 		case wo = "WO"
 
-		/// Xhosa. 
+		/// Xhosa.
 		case xh = "XH"
 
-		/// Yiddish. 
+		/// Yiddish.
 		case yi = "YI"
 
-		/// Yoruba. 
+		/// Yoruba.
 		case yo = "YO"
 
-		/// Chinese. 
+		/// Chinese.
 		case zh = "ZH"
 
-		/// Chinese (Simplified). 
+		/// Chinese (Simplified).
 		case zhCn = "ZH_CN"
 
-		/// Chinese (Traditional). 
+		/// Chinese (Traditional).
 		case zhTw = "ZH_TW"
 
-		/// Zulu. 
+		/// Zulu.
 		case zu = "ZU"
 
 		case unknownValue = ""

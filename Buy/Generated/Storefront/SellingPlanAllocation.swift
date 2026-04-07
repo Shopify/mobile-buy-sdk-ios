@@ -27,13 +27,22 @@
 import Foundation
 
 extension Storefront {
-	/// Represents an association between a variant and a selling plan. Selling 
-	/// plan allocations describe the options offered for each variant, and the 
-	/// price of the variant when purchased with a selling plan. 
+	/// Links a
+	/// [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant)
+	/// to a
+	/// [`SellingPlan`](https://shopify.dev/docs/api/storefront/current/objects/SellingPlan),
+	/// providing the pricing details for that specific combination. Each
+	/// allocation includes the checkout charge amount, any remaining balance due
+	/// for the purchase, and up to two price adjustments that show how the selling
+	/// plan affects the variant's price. Selling plan allocations are available on
+	/// product variants and [cart
+	/// lines](https://shopify.dev/docs/api/storefront/current/objects/CartLine),
+	/// enabling storefronts to display information such as subscription or
+	/// purchase option pricing before and during checkout.
 	open class SellingPlanAllocationQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlanAllocation
 
-		/// The checkout charge amount due for the purchase. 
+		/// The checkout charge amount due for the purchase.
 		@discardableResult
 		open func checkoutChargeAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> SellingPlanAllocationQuery {
 			let subquery = MoneyV2Query()
@@ -43,12 +52,12 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of price adjustments, with a maximum of two. When there are two, the 
-		/// first price adjustment goes into effect at the time of purchase, while the 
-		/// second one starts after a certain number of orders. A price adjustment 
-		/// represents how a selling plan affects pricing when a variant is purchased 
-		/// with a selling plan. Prices display in the customer's currency if the shop 
-		/// is configured for it. 
+		/// A list of price adjustments, with a maximum of two. When there are two, the
+		/// first price adjustment goes into effect at the time of purchase, while the
+		/// second one starts after a certain number of orders. A price adjustment
+		/// represents how a selling plan affects pricing when a variant is purchased
+		/// with a selling plan. Prices display in the customer's currency if the shop
+		/// is configured for it.
 		@discardableResult
 		open func priceAdjustments(alias: String? = nil, _ subfields: (SellingPlanAllocationPriceAdjustmentQuery) -> Void) -> SellingPlanAllocationQuery {
 			let subquery = SellingPlanAllocationPriceAdjustmentQuery()
@@ -58,7 +67,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The remaining balance charge amount due for the purchase. 
+		/// The remaining balance charge amount due for the purchase.
 		@discardableResult
 		open func remainingBalanceChargeAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> SellingPlanAllocationQuery {
 			let subquery = MoneyV2Query()
@@ -68,9 +77,9 @@ extension Storefront {
 			return self
 		}
 
-		/// A representation of how products and variants can be sold and purchased. 
-		/// For example, an individual selling plan could be '6 weeks of prepaid 
-		/// granola, delivered weekly'. 
+		/// A representation of how products and variants can be sold and purchased.
+		/// For example, an individual selling plan could be '6 weeks of prepaid
+		/// granola, delivered weekly'.
 		@discardableResult
 		open func sellingPlan(alias: String? = nil, _ subfields: (SellingPlanQuery) -> Void) -> SellingPlanAllocationQuery {
 			let subquery = SellingPlanQuery()
@@ -81,9 +90,18 @@ extension Storefront {
 		}
 	}
 
-	/// Represents an association between a variant and a selling plan. Selling 
-	/// plan allocations describe the options offered for each variant, and the 
-	/// price of the variant when purchased with a selling plan. 
+	/// Links a
+	/// [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant)
+	/// to a
+	/// [`SellingPlan`](https://shopify.dev/docs/api/storefront/current/objects/SellingPlan),
+	/// providing the pricing details for that specific combination. Each
+	/// allocation includes the checkout charge amount, any remaining balance due
+	/// for the purchase, and up to two price adjustments that show how the selling
+	/// plan affects the variant's price. Selling plan allocations are available on
+	/// product variants and [cart
+	/// lines](https://shopify.dev/docs/api/storefront/current/objects/CartLine),
+	/// enabling storefronts to display information such as subscription or
+	/// purchase option pricing before and during checkout.
 	open class SellingPlanAllocation: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = SellingPlanAllocationQuery
 
@@ -119,7 +137,7 @@ extension Storefront {
 			}
 		}
 
-		/// The checkout charge amount due for the purchase. 
+		/// The checkout charge amount due for the purchase.
 		open var checkoutChargeAmount: Storefront.MoneyV2 {
 			return internalGetCheckoutChargeAmount()
 		}
@@ -128,12 +146,12 @@ extension Storefront {
 			return field(field: "checkoutChargeAmount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// A list of price adjustments, with a maximum of two. When there are two, the 
-		/// first price adjustment goes into effect at the time of purchase, while the 
-		/// second one starts after a certain number of orders. A price adjustment 
-		/// represents how a selling plan affects pricing when a variant is purchased 
-		/// with a selling plan. Prices display in the customer's currency if the shop 
-		/// is configured for it. 
+		/// A list of price adjustments, with a maximum of two. When there are two, the
+		/// first price adjustment goes into effect at the time of purchase, while the
+		/// second one starts after a certain number of orders. A price adjustment
+		/// represents how a selling plan affects pricing when a variant is purchased
+		/// with a selling plan. Prices display in the customer's currency if the shop
+		/// is configured for it.
 		open var priceAdjustments: [Storefront.SellingPlanAllocationPriceAdjustment] {
 			return internalGetPriceAdjustments()
 		}
@@ -142,7 +160,7 @@ extension Storefront {
 			return field(field: "priceAdjustments", aliasSuffix: alias) as! [Storefront.SellingPlanAllocationPriceAdjustment]
 		}
 
-		/// The remaining balance charge amount due for the purchase. 
+		/// The remaining balance charge amount due for the purchase.
 		open var remainingBalanceChargeAmount: Storefront.MoneyV2 {
 			return internalGetRemainingBalanceChargeAmount()
 		}
@@ -151,9 +169,9 @@ extension Storefront {
 			return field(field: "remainingBalanceChargeAmount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// A representation of how products and variants can be sold and purchased. 
-		/// For example, an individual selling plan could be '6 weeks of prepaid 
-		/// granola, delivered weekly'. 
+		/// A representation of how products and variants can be sold and purchased.
+		/// For example, an individual selling plan could be '6 weeks of prepaid
+		/// granola, delivered weekly'.
 		open var sellingPlan: Storefront.SellingPlan {
 			return internalGetSellingPlan()
 		}

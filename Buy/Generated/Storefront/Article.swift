@@ -27,11 +27,22 @@
 import Foundation
 
 extension Storefront {
-	/// An article in an online store blog. 
+	/// A post that belongs to a
+	/// [`Blog`](https://shopify.dev/docs/api/storefront/current/objects/Blog).
+	/// Each article includes content with optional HTML formatting, an excerpt for
+	/// previews,
+	/// [`ArticleAuthor`](https://shopify.dev/docs/api/storefront/current/objects/ArticleAuthor)
+	/// information, and an associated
+	/// [`Image`](https://shopify.dev/docs/api/storefront/current/objects/Image).
+	/// Articles can be organized with tags and include
+	/// [`SEO`](https://shopify.dev/docs/api/storefront/current/objects/SEO)
+	/// metadata. You can manage
+	/// [comments](https://shopify.dev/docs/api/storefront/current/objects/Comment)
+	/// when the blog's comment policy enables them.
 	open class ArticleQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Article
 
-		/// The article's author. 
+		/// The article's author.
 		@available(*, deprecated, message: "Use `authorV2` instead.")
 		@discardableResult
 		open func author(alias: String? = nil, _ subfields: (ArticleAuthorQuery) -> Void) -> ArticleQuery {
@@ -42,7 +53,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The article's author. 
+		/// The article's author.
 		@discardableResult
 		open func authorV2(alias: String? = nil, _ subfields: (ArticleAuthorQuery) -> Void) -> ArticleQuery {
 			let subquery = ArticleAuthorQuery()
@@ -52,7 +63,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The blog that the article belongs to. 
+		/// The blog that the article belongs to.
 		@discardableResult
 		open func blog(alias: String? = nil, _ subfields: (BlogQuery) -> Void) -> ArticleQuery {
 			let subquery = BlogQuery()
@@ -62,7 +73,7 @@ extension Storefront {
 			return self
 		}
 
-		/// List of comments posted on the article. 
+		/// List of comments posted on the article.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -104,7 +115,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Stripped content of the article, single line with HTML tags removed. 
+		/// Stripped content of the article, single line with HTML tags removed.
 		///
 		/// - parameters:
 		///     - truncateAt: Truncates a string after the given length.
@@ -123,14 +134,14 @@ extension Storefront {
 			return self
 		}
 
-		/// The content of the article, complete with HTML formatting. 
+		/// The content of the article, complete with HTML formatting.
 		@discardableResult
 		open func contentHtml(alias: String? = nil) -> ArticleQuery {
 			addField(field: "contentHtml", aliasSuffix: alias)
 			return self
 		}
 
-		/// Stripped excerpt of the article, single line with HTML tags removed. 
+		/// Stripped excerpt of the article, single line with HTML tags removed.
 		///
 		/// - parameters:
 		///     - truncateAt: Truncates a string after the given length.
@@ -149,29 +160,29 @@ extension Storefront {
 			return self
 		}
 
-		/// The excerpt of the article, complete with HTML formatting. 
+		/// The excerpt of the article, complete with HTML formatting.
 		@discardableResult
 		open func excerptHtml(alias: String? = nil) -> ArticleQuery {
 			addField(field: "excerptHtml", aliasSuffix: alias)
 			return self
 		}
 
-		/// A human-friendly unique string for the Article automatically generated from 
-		/// its title. 
+		/// A human-friendly unique string for the Article automatically generated from
+		/// its title.
 		@discardableResult
 		open func handle(alias: String? = nil) -> ArticleQuery {
 			addField(field: "handle", aliasSuffix: alias)
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> ArticleQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The image associated with the article. 
+		/// The image associated with the article.
 		@discardableResult
 		open func image(alias: String? = nil, _ subfields: (ImageQuery) -> Void) -> ArticleQuery {
 			let subquery = ImageQuery()
@@ -181,9 +192,9 @@ extension Storefront {
 			return self
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		///
 		/// - parameters:
 		///     - namespace: The container the metafield belongs to. If omitted, the app-reserved namespace will be used.
@@ -208,12 +219,12 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		///
 		/// - parameters:
 		///     - identifiers: The list of metafields to retrieve by namespace and key.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -231,23 +242,23 @@ extension Storefront {
 			return self
 		}
 
-		/// The URL used for viewing the resource on the shop's Online Store. Returns 
-		/// `null` if the resource is currently not published to the Online Store sales 
-		/// channel. 
+		/// The URL used for viewing the resource on the shop's Online Store. Returns
+		/// `null` if the resource is currently not published to the Online Store sales
+		/// channel.
 		@discardableResult
 		open func onlineStoreUrl(alias: String? = nil) -> ArticleQuery {
 			addField(field: "onlineStoreUrl", aliasSuffix: alias)
 			return self
 		}
 
-		/// The date and time when the article was published. 
+		/// The date and time when the article was published.
 		@discardableResult
 		open func publishedAt(alias: String? = nil) -> ArticleQuery {
 			addField(field: "publishedAt", aliasSuffix: alias)
 			return self
 		}
 
-		/// The article’s SEO information. 
+		/// The article’s SEO information.
 		@discardableResult
 		open func seo(alias: String? = nil, _ subfields: (SEOQuery) -> Void) -> ArticleQuery {
 			let subquery = SEOQuery()
@@ -257,27 +268,27 @@ extension Storefront {
 			return self
 		}
 
-		/// A categorization that a article can be tagged with. 
+		/// A categorization that a article can be tagged with.
 		@discardableResult
 		open func tags(alias: String? = nil) -> ArticleQuery {
 			addField(field: "tags", aliasSuffix: alias)
 			return self
 		}
 
-		/// The article’s name. 
+		/// The article’s name.
 		@discardableResult
 		open func title(alias: String? = nil) -> ArticleQuery {
 			addField(field: "title", aliasSuffix: alias)
 			return self
 		}
 
-		/// URL parameters to be added to a page URL to track the origin of on-site 
-		/// search traffic for [analytics 
-		/// reporting](https://help.shopify.com/manual/reports-and-analytics/shopify-reports/report-types/default-reports/behaviour-reports). 
-		/// Returns a result when accessed through the 
-		/// [search](https://shopify.dev/docs/api/storefront/current/queries/search) or 
-		/// [predictiveSearch](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch) 
-		/// queries, otherwise returns null. 
+		/// URL parameters to be added to a page URL to track the origin of on-site
+		/// search traffic for [analytics
+		/// reporting](https://help.shopify.com/manual/reports-and-analytics/shopify-reports/report-types/default-reports/behaviour-reports).
+		/// Returns a result when accessed through the
+		/// [search](https://shopify.dev/docs/api/storefront/current/queries/search) or
+		/// [predictiveSearch](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch)
+		/// queries, otherwise returns null.
 		@discardableResult
 		open func trackingParameters(alias: String? = nil) -> ArticleQuery {
 			addField(field: "trackingParameters", aliasSuffix: alias)
@@ -285,8 +296,19 @@ extension Storefront {
 		}
 	}
 
-	/// An article in an online store blog. 
-	open class Article: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MenuItemResource, MetafieldParentResource, Node, OnlineStorePublishable, SearchResultItem, Trackable {
+	/// A post that belongs to a
+	/// [`Blog`](https://shopify.dev/docs/api/storefront/current/objects/Blog).
+	/// Each article includes content with optional HTML formatting, an excerpt for
+	/// previews,
+	/// [`ArticleAuthor`](https://shopify.dev/docs/api/storefront/current/objects/ArticleAuthor)
+	/// information, and an associated
+	/// [`Image`](https://shopify.dev/docs/api/storefront/current/objects/Image).
+	/// Articles can be organized with tags and include
+	/// [`SEO`](https://shopify.dev/docs/api/storefront/current/objects/SEO)
+	/// metadata. You can manage
+	/// [comments](https://shopify.dev/docs/api/storefront/current/objects/Comment)
+	/// when the blog's comment policy enables them.
+	open class Article: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MenuItemResource, MetafieldParentResource, MetafieldReference, Node, OnlineStorePublishable, SearchResultItem, Trackable {
 		public typealias Query = ArticleQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
@@ -423,7 +445,7 @@ extension Storefront {
 			}
 		}
 
-		/// The article's author. 
+		/// The article's author.
 		@available(*, deprecated, message: "Use `authorV2` instead.")
 		open var author: Storefront.ArticleAuthor {
 			return internalGetAuthor()
@@ -433,7 +455,7 @@ extension Storefront {
 			return field(field: "author", aliasSuffix: alias) as! Storefront.ArticleAuthor
 		}
 
-		/// The article's author. 
+		/// The article's author.
 		open var authorV2: Storefront.ArticleAuthor? {
 			return internalGetAuthorV2()
 		}
@@ -442,7 +464,7 @@ extension Storefront {
 			return field(field: "authorV2", aliasSuffix: alias) as! Storefront.ArticleAuthor?
 		}
 
-		/// The blog that the article belongs to. 
+		/// The blog that the article belongs to.
 		open var blog: Storefront.Blog {
 			return internalGetBlog()
 		}
@@ -451,7 +473,7 @@ extension Storefront {
 			return field(field: "blog", aliasSuffix: alias) as! Storefront.Blog
 		}
 
-		/// List of comments posted on the article. 
+		/// List of comments posted on the article.
 		open var comments: Storefront.CommentConnection {
 			return internalGetComments()
 		}
@@ -464,7 +486,7 @@ extension Storefront {
 			return field(field: "comments", aliasSuffix: alias) as! Storefront.CommentConnection
 		}
 
-		/// Stripped content of the article, single line with HTML tags removed. 
+		/// Stripped content of the article, single line with HTML tags removed.
 		open var content: String {
 			return internalGetContent()
 		}
@@ -477,7 +499,7 @@ extension Storefront {
 			return field(field: "content", aliasSuffix: alias) as! String
 		}
 
-		/// The content of the article, complete with HTML formatting. 
+		/// The content of the article, complete with HTML formatting.
 		open var contentHtml: String {
 			return internalGetContentHtml()
 		}
@@ -486,7 +508,7 @@ extension Storefront {
 			return field(field: "contentHtml", aliasSuffix: alias) as! String
 		}
 
-		/// Stripped excerpt of the article, single line with HTML tags removed. 
+		/// Stripped excerpt of the article, single line with HTML tags removed.
 		open var excerpt: String? {
 			return internalGetExcerpt()
 		}
@@ -499,7 +521,7 @@ extension Storefront {
 			return field(field: "excerpt", aliasSuffix: alias) as! String?
 		}
 
-		/// The excerpt of the article, complete with HTML formatting. 
+		/// The excerpt of the article, complete with HTML formatting.
 		open var excerptHtml: String? {
 			return internalGetExcerptHtml()
 		}
@@ -508,8 +530,8 @@ extension Storefront {
 			return field(field: "excerptHtml", aliasSuffix: alias) as! String?
 		}
 
-		/// A human-friendly unique string for the Article automatically generated from 
-		/// its title. 
+		/// A human-friendly unique string for the Article automatically generated from
+		/// its title.
 		open var handle: String {
 			return internalGetHandle()
 		}
@@ -518,7 +540,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -527,7 +549,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The image associated with the article. 
+		/// The image associated with the article.
 		open var image: Storefront.Image? {
 			return internalGetImage()
 		}
@@ -536,9 +558,9 @@ extension Storefront {
 			return field(field: "image", aliasSuffix: alias) as! Storefront.Image?
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		open var metafield: Storefront.Metafield? {
 			return internalGetMetafield()
 		}
@@ -551,8 +573,8 @@ extension Storefront {
 			return field(field: "metafield", aliasSuffix: alias) as! Storefront.Metafield?
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		open var metafields: [Storefront.Metafield?] {
 			return internalGetMetafields()
 		}
@@ -565,9 +587,9 @@ extension Storefront {
 			return field(field: "metafields", aliasSuffix: alias) as! [Storefront.Metafield?]
 		}
 
-		/// The URL used for viewing the resource on the shop's Online Store. Returns 
-		/// `null` if the resource is currently not published to the Online Store sales 
-		/// channel. 
+		/// The URL used for viewing the resource on the shop's Online Store. Returns
+		/// `null` if the resource is currently not published to the Online Store sales
+		/// channel.
 		open var onlineStoreUrl: URL? {
 			return internalGetOnlineStoreUrl()
 		}
@@ -576,7 +598,7 @@ extension Storefront {
 			return field(field: "onlineStoreUrl", aliasSuffix: alias) as! URL?
 		}
 
-		/// The date and time when the article was published. 
+		/// The date and time when the article was published.
 		open var publishedAt: Date {
 			return internalGetPublishedAt()
 		}
@@ -585,7 +607,7 @@ extension Storefront {
 			return field(field: "publishedAt", aliasSuffix: alias) as! Date
 		}
 
-		/// The article’s SEO information. 
+		/// The article’s SEO information.
 		open var seo: Storefront.SEO? {
 			return internalGetSeo()
 		}
@@ -594,7 +616,7 @@ extension Storefront {
 			return field(field: "seo", aliasSuffix: alias) as! Storefront.SEO?
 		}
 
-		/// A categorization that a article can be tagged with. 
+		/// A categorization that a article can be tagged with.
 		open var tags: [String] {
 			return internalGetTags()
 		}
@@ -603,7 +625,7 @@ extension Storefront {
 			return field(field: "tags", aliasSuffix: alias) as! [String]
 		}
 
-		/// The article’s name. 
+		/// The article’s name.
 		open var title: String {
 			return internalGetTitle()
 		}
@@ -612,13 +634,13 @@ extension Storefront {
 			return field(field: "title", aliasSuffix: alias) as! String
 		}
 
-		/// URL parameters to be added to a page URL to track the origin of on-site 
-		/// search traffic for [analytics 
-		/// reporting](https://help.shopify.com/manual/reports-and-analytics/shopify-reports/report-types/default-reports/behaviour-reports). 
-		/// Returns a result when accessed through the 
-		/// [search](https://shopify.dev/docs/api/storefront/current/queries/search) or 
-		/// [predictiveSearch](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch) 
-		/// queries, otherwise returns null. 
+		/// URL parameters to be added to a page URL to track the origin of on-site
+		/// search traffic for [analytics
+		/// reporting](https://help.shopify.com/manual/reports-and-analytics/shopify-reports/report-types/default-reports/behaviour-reports).
+		/// Returns a result when accessed through the
+		/// [search](https://shopify.dev/docs/api/storefront/current/queries/search) or
+		/// [predictiveSearch](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch)
+		/// queries, otherwise returns null.
 		open var trackingParameters: String? {
 			return internalGetTrackingParameters()
 		}

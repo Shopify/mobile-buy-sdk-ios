@@ -27,40 +27,46 @@
 import Foundation
 
 extension Storefront {
-	/// The measurement used to calculate a unit price for a product variant (e.g. 
-	/// $9.99 / 100ml). 
+	/// The measurement data used to calculate unit prices for a
+	/// [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant).
+	/// Unit pricing helps customers compare costs across different package sizes
+	/// by showing a standardized price, such as "$9.99 / 100ml". The object
+	/// includes the quantity being sold (value and unit) and the reference
+	/// measurement used for price comparison. Use this alongside the variant's
+	/// [`unitPrice`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant#field-ProductVariant.fields.unitPrice)
+	/// field to display complete unit pricing information.
 	open class UnitPriceMeasurementQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = UnitPriceMeasurement
 
-		/// The type of unit of measurement for the unit price measurement. 
+		/// The type of unit of measurement for the unit price measurement.
 		@discardableResult
 		open func measuredType(alias: String? = nil) -> UnitPriceMeasurementQuery {
 			addField(field: "measuredType", aliasSuffix: alias)
 			return self
 		}
 
-		/// The quantity unit for the unit price measurement. 
+		/// The quantity unit for the unit price measurement.
 		@discardableResult
 		open func quantityUnit(alias: String? = nil) -> UnitPriceMeasurementQuery {
 			addField(field: "quantityUnit", aliasSuffix: alias)
 			return self
 		}
 
-		/// The quantity value for the unit price measurement. 
+		/// The quantity value for the unit price measurement.
 		@discardableResult
 		open func quantityValue(alias: String? = nil) -> UnitPriceMeasurementQuery {
 			addField(field: "quantityValue", aliasSuffix: alias)
 			return self
 		}
 
-		/// The reference unit for the unit price measurement. 
+		/// The reference unit for the unit price measurement.
 		@discardableResult
 		open func referenceUnit(alias: String? = nil) -> UnitPriceMeasurementQuery {
 			addField(field: "referenceUnit", aliasSuffix: alias)
 			return self
 		}
 
-		/// The reference value for the unit price measurement. 
+		/// The reference value for the unit price measurement.
 		@discardableResult
 		open func referenceValue(alias: String? = nil) -> UnitPriceMeasurementQuery {
 			addField(field: "referenceValue", aliasSuffix: alias)
@@ -68,8 +74,14 @@ extension Storefront {
 		}
 	}
 
-	/// The measurement used to calculate a unit price for a product variant (e.g. 
-	/// $9.99 / 100ml). 
+	/// The measurement data used to calculate unit prices for a
+	/// [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant).
+	/// Unit pricing helps customers compare costs across different package sizes
+	/// by showing a standardized price, such as "$9.99 / 100ml". The object
+	/// includes the quantity being sold (value and unit) and the reference
+	/// measurement used for price comparison. Use this alongside the variant's
+	/// [`unitPrice`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant#field-ProductVariant.fields.unitPrice)
+	/// field to display complete unit pricing information.
 	open class UnitPriceMeasurement: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = UnitPriceMeasurementQuery
 
@@ -114,7 +126,7 @@ extension Storefront {
 			}
 		}
 
-		/// The type of unit of measurement for the unit price measurement. 
+		/// The type of unit of measurement for the unit price measurement.
 		open var measuredType: Storefront.UnitPriceMeasurementMeasuredType? {
 			return internalGetMeasuredType()
 		}
@@ -123,7 +135,7 @@ extension Storefront {
 			return field(field: "measuredType", aliasSuffix: alias) as! Storefront.UnitPriceMeasurementMeasuredType?
 		}
 
-		/// The quantity unit for the unit price measurement. 
+		/// The quantity unit for the unit price measurement.
 		open var quantityUnit: Storefront.UnitPriceMeasurementMeasuredUnit? {
 			return internalGetQuantityUnit()
 		}
@@ -132,7 +144,7 @@ extension Storefront {
 			return field(field: "quantityUnit", aliasSuffix: alias) as! Storefront.UnitPriceMeasurementMeasuredUnit?
 		}
 
-		/// The quantity value for the unit price measurement. 
+		/// The quantity value for the unit price measurement.
 		open var quantityValue: Double {
 			return internalGetQuantityValue()
 		}
@@ -141,7 +153,7 @@ extension Storefront {
 			return field(field: "quantityValue", aliasSuffix: alias) as! Double
 		}
 
-		/// The reference unit for the unit price measurement. 
+		/// The reference unit for the unit price measurement.
 		open var referenceUnit: Storefront.UnitPriceMeasurementMeasuredUnit? {
 			return internalGetReferenceUnit()
 		}
@@ -150,7 +162,7 @@ extension Storefront {
 			return field(field: "referenceUnit", aliasSuffix: alias) as! Storefront.UnitPriceMeasurementMeasuredUnit?
 		}
 
-		/// The reference value for the unit price measurement. 
+		/// The reference value for the unit price measurement.
 		open var referenceValue: Int32 {
 			return internalGetReferenceValue()
 		}

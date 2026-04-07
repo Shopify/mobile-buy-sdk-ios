@@ -27,13 +27,13 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields for a filter used to view a subset of products in a 
-	/// collection matching a specific variant option. 
+	/// The input fields for a filter used to view a subset of products in a
+	/// collection matching a specific variant option.
 	open class VariantOptionFilter {
-		/// The name of the variant option to filter on. 
+		/// The name of the variant option to filter on.
 		open var name: String
 
-		/// The value of the variant option to filter on. 
+		/// The value of the variant option to filter on.
 		open var value: String
 
 		/// Creates the input object.

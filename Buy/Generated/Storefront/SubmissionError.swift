@@ -27,18 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// An error that occurred during cart submit for completion. 
+	/// An error that occurred during cart submit for completion.
 	open class SubmissionErrorQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SubmissionError
 
-		/// The error code. 
+		/// The error code.
 		@discardableResult
 		open func code(alias: String? = nil) -> SubmissionErrorQuery {
 			addField(field: "code", aliasSuffix: alias)
 			return self
 		}
 
-		/// The error message. 
+		/// The error message.
 		@discardableResult
 		open func message(alias: String? = nil) -> SubmissionErrorQuery {
 			addField(field: "message", aliasSuffix: alias)
@@ -46,7 +46,7 @@ extension Storefront {
 		}
 	}
 
-	/// An error that occurred during cart submit for completion. 
+	/// An error that occurred during cart submit for completion.
 	open class SubmissionError: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = SubmissionErrorQuery
 
@@ -71,7 +71,7 @@ extension Storefront {
 			}
 		}
 
-		/// The error code. 
+		/// The error code.
 		open var code: Storefront.SubmissionErrorCode {
 			return internalGetCode()
 		}
@@ -80,7 +80,7 @@ extension Storefront {
 			return field(field: "code", aliasSuffix: alias) as! Storefront.SubmissionErrorCode
 		}
 
-		/// The error message. 
+		/// The error message.
 		open var message: String? {
 			return internalGetMessage()
 		}

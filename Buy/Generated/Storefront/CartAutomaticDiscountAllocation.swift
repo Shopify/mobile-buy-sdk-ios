@@ -27,12 +27,16 @@
 import Foundation
 
 extension Storefront {
-	/// The discounts automatically applied to the cart line based on prerequisites 
-	/// that have been met. 
+	/// A discount allocation [that applies
+	/// automatically](https://help.shopify.com/manual/discounts/discount-methods/automatic-discounts)
+	/// to a cart line when configured conditions are met. Unlike
+	/// [`CartCodeDiscountAllocation`](https://shopify.dev/docs/api/storefront/current/objects/CartCodeDiscountAllocation),
+	/// automatic discounts don't require customers to enter a code.
 	open class CartAutomaticDiscountAllocationQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartAutomaticDiscountAllocation
 
-		/// The discount that have been applied on the cart line. 
+		/// The discount that have been applied on the cart line.
+		@available(*, deprecated, message: "Use `sourceDiscountApplication` instead.")
 		@discardableResult
 		open func discountApplication(alias: String? = nil, _ subfields: (CartDiscountApplicationQuery) -> Void) -> CartAutomaticDiscountAllocationQuery {
 			let subquery = CartDiscountApplicationQuery()
@@ -42,7 +46,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The discounted amount that has been applied to the cart line. 
+		/// The discounted amount that has been applied to the cart line.
 		@discardableResult
 		open func discountedAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartAutomaticDiscountAllocationQuery {
 			let subquery = MoneyV2Query()
@@ -52,14 +56,14 @@ extension Storefront {
 			return self
 		}
 
-		/// The type of line that the discount is applicable towards. 
+		/// The type of line that the discount is applicable towards.
 		@discardableResult
 		open func targetType(alias: String? = nil) -> CartAutomaticDiscountAllocationQuery {
 			addField(field: "targetType", aliasSuffix: alias)
 			return self
 		}
 
-		/// The title of the allocated discount. 
+		/// The title of the allocated discount.
 		@discardableResult
 		open func title(alias: String? = nil) -> CartAutomaticDiscountAllocationQuery {
 			addField(field: "title", aliasSuffix: alias)
@@ -67,8 +71,11 @@ extension Storefront {
 		}
 	}
 
-	/// The discounts automatically applied to the cart line based on prerequisites 
-	/// that have been met. 
+	/// A discount allocation [that applies
+	/// automatically](https://help.shopify.com/manual/discounts/discount-methods/automatic-discounts)
+	/// to a cart line when configured conditions are met. Unlike
+	/// [`CartCodeDiscountAllocation`](https://shopify.dev/docs/api/storefront/current/objects/CartCodeDiscountAllocation),
+	/// automatic discounts don't require customers to enter a code.
 	open class CartAutomaticDiscountAllocation: GraphQL.AbstractResponse, GraphQLObject, CartDiscountAllocation {
 		public typealias Query = CartAutomaticDiscountAllocationQuery
 
@@ -104,7 +111,8 @@ extension Storefront {
 			}
 		}
 
-		/// The discount that have been applied on the cart line. 
+		/// The discount that have been applied on the cart line.
+		@available(*, deprecated, message: "Use `sourceDiscountApplication` instead.")
 		open var discountApplication: Storefront.CartDiscountApplication {
 			return internalGetDiscountApplication()
 		}
@@ -113,7 +121,7 @@ extension Storefront {
 			return field(field: "discountApplication", aliasSuffix: alias) as! Storefront.CartDiscountApplication
 		}
 
-		/// The discounted amount that has been applied to the cart line. 
+		/// The discounted amount that has been applied to the cart line.
 		open var discountedAmount: Storefront.MoneyV2 {
 			return internalGetDiscountedAmount()
 		}
@@ -122,7 +130,7 @@ extension Storefront {
 			return field(field: "discountedAmount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The type of line that the discount is applicable towards. 
+		/// The type of line that the discount is applicable towards.
 		open var targetType: Storefront.DiscountApplicationTargetType {
 			return internalGetTargetType()
 		}
@@ -131,7 +139,7 @@ extension Storefront {
 			return field(field: "targetType", aliasSuffix: alias) as! Storefront.DiscountApplicationTargetType
 		}
 
-		/// The title of the allocated discount. 
+		/// The title of the allocated discount.
 		open var title: String {
 			return internalGetTitle()
 		}

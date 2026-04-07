@@ -27,25 +27,25 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a video hosted outside of Shopify. 
+	/// Represents a video hosted outside of Shopify.
 	open class ExternalVideoQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ExternalVideo
 
-		/// A word or phrase to share the nature or contents of a media. 
+		/// A word or phrase to share the nature or contents of a media.
 		@discardableResult
 		open func alt(alias: String? = nil) -> ExternalVideoQuery {
 			addField(field: "alt", aliasSuffix: alias)
 			return self
 		}
 
-		/// The embed URL of the video for the respective host. 
+		/// The embed URL of the video for the respective host.
 		@discardableResult
 		open func embedUrl(alias: String? = nil) -> ExternalVideoQuery {
 			addField(field: "embedUrl", aliasSuffix: alias)
 			return self
 		}
 
-		/// The URL. 
+		/// The URL.
 		@available(*, deprecated, message: "Use `originUrl` instead.")
 		@discardableResult
 		open func embeddedUrl(alias: String? = nil) -> ExternalVideoQuery {
@@ -53,35 +53,35 @@ extension Storefront {
 			return self
 		}
 
-		/// The host of the external video. 
+		/// The host of the external video.
 		@discardableResult
 		open func host(alias: String? = nil) -> ExternalVideoQuery {
 			addField(field: "host", aliasSuffix: alias)
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> ExternalVideoQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The media content type. 
+		/// The media content type.
 		@discardableResult
 		open func mediaContentType(alias: String? = nil) -> ExternalVideoQuery {
 			addField(field: "mediaContentType", aliasSuffix: alias)
 			return self
 		}
 
-		/// The origin URL of the video on the respective host. 
+		/// The origin URL of the video on the respective host.
 		@discardableResult
 		open func originUrl(alias: String? = nil) -> ExternalVideoQuery {
 			addField(field: "originUrl", aliasSuffix: alias)
 			return self
 		}
 
-		/// The presentation for a media. 
+		/// The presentation for a media.
 		@discardableResult
 		open func presentation(alias: String? = nil, _ subfields: (MediaPresentationQuery) -> Void) -> ExternalVideoQuery {
 			let subquery = MediaPresentationQuery()
@@ -91,7 +91,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The preview image for the media. 
+		/// The preview image for the media.
 		@discardableResult
 		open func previewImage(alias: String? = nil, _ subfields: (ImageQuery) -> Void) -> ExternalVideoQuery {
 			let subquery = ImageQuery()
@@ -102,7 +102,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a video hosted outside of Shopify. 
+	/// Represents a video hosted outside of Shopify.
 	open class ExternalVideo: GraphQL.AbstractResponse, GraphQLObject, Media, Node {
 		public typealias Query = ExternalVideoQuery
 
@@ -171,7 +171,7 @@ extension Storefront {
 			}
 		}
 
-		/// A word or phrase to share the nature or contents of a media. 
+		/// A word or phrase to share the nature or contents of a media.
 		open var alt: String? {
 			return internalGetAlt()
 		}
@@ -180,7 +180,7 @@ extension Storefront {
 			return field(field: "alt", aliasSuffix: alias) as! String?
 		}
 
-		/// The embed URL of the video for the respective host. 
+		/// The embed URL of the video for the respective host.
 		open var embedUrl: URL {
 			return internalGetEmbedUrl()
 		}
@@ -189,7 +189,7 @@ extension Storefront {
 			return field(field: "embedUrl", aliasSuffix: alias) as! URL
 		}
 
-		/// The URL. 
+		/// The URL.
 		@available(*, deprecated, message: "Use `originUrl` instead.")
 		open var embeddedUrl: URL {
 			return internalGetEmbeddedUrl()
@@ -199,7 +199,7 @@ extension Storefront {
 			return field(field: "embeddedUrl", aliasSuffix: alias) as! URL
 		}
 
-		/// The host of the external video. 
+		/// The host of the external video.
 		open var host: Storefront.MediaHost {
 			return internalGetHost()
 		}
@@ -208,7 +208,7 @@ extension Storefront {
 			return field(field: "host", aliasSuffix: alias) as! Storefront.MediaHost
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -217,7 +217,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The media content type. 
+		/// The media content type.
 		open var mediaContentType: Storefront.MediaContentType {
 			return internalGetMediaContentType()
 		}
@@ -226,7 +226,7 @@ extension Storefront {
 			return field(field: "mediaContentType", aliasSuffix: alias) as! Storefront.MediaContentType
 		}
 
-		/// The origin URL of the video on the respective host. 
+		/// The origin URL of the video on the respective host.
 		open var originUrl: URL {
 			return internalGetOriginUrl()
 		}
@@ -235,7 +235,7 @@ extension Storefront {
 			return field(field: "originUrl", aliasSuffix: alias) as! URL
 		}
 
-		/// The presentation for a media. 
+		/// The presentation for a media.
 		open var presentation: Storefront.MediaPresentation? {
 			return internalGetPresentation()
 		}
@@ -244,7 +244,7 @@ extension Storefront {
 			return field(field: "presentation", aliasSuffix: alias) as! Storefront.MediaPresentation?
 		}
 
-		/// The preview image for the media. 
+		/// The preview image for the media.
 		open var previewImage: Storefront.Image? {
 			return internalGetPreviewImage()
 		}

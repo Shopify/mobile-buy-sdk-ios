@@ -27,10 +27,10 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields for submitting a billing address without a selected 
-	/// payment method. 
+	/// The input fields for submitting a billing address without a selected
+	/// payment method.
 	open class CartFreePaymentMethodInput {
-		/// The customer's billing address. 
+		/// The customer's billing address.
 		open var billingAddress: MailingAddressInput
 
 		/// Creates the input object.

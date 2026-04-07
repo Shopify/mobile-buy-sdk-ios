@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// The required completion action to checkout a cart. 
+	/// The required completion action to checkout a cart.
 	open class CartCompletionActionRequiredQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartCompletionActionRequired
 
-		/// The action required to complete the cart completion attempt. 
+		/// The action required to complete the cart completion attempt.
 		@discardableResult
 		open func action(alias: String? = nil, _ subfields: (CartCompletionActionQuery) -> Void) -> CartCompletionActionRequiredQuery {
 			let subquery = CartCompletionActionQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The ID of the cart completion attempt. 
+		/// The ID of the cart completion attempt.
 		@discardableResult
 		open func id(alias: String? = nil) -> CartCompletionActionRequiredQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -49,7 +49,7 @@ extension Storefront {
 		}
 	}
 
-	/// The required completion action to checkout a cart. 
+	/// The required completion action to checkout a cart.
 	open class CartCompletionActionRequired: GraphQL.AbstractResponse, GraphQLObject, CartCompletionAttemptResult {
 		public typealias Query = CartCompletionActionRequiredQuery
 
@@ -74,7 +74,7 @@ extension Storefront {
 			}
 		}
 
-		/// The action required to complete the cart completion attempt. 
+		/// The action required to complete the cart completion attempt.
 		open var action: CartCompletionAction? {
 			return internalGetAction()
 		}
@@ -83,7 +83,7 @@ extension Storefront {
 			return field(field: "action", aliasSuffix: alias) as! CartCompletionAction?
 		}
 
-		/// The ID of the cart completion attempt. 
+		/// The ID of the cart completion attempt.
 		open var id: String {
 			return internalGetId()
 		}

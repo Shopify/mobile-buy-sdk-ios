@@ -27,32 +27,32 @@
 import Foundation
 
 extension Storefront {
-	/// An error that occurs during the execution of `MetafieldsSet`. 
+	/// An error that occurs during the execution of `MetafieldsSet`.
 	open class MetafieldsSetUserErrorQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MetafieldsSetUserError
 
-		/// The error code. 
+		/// The error code.
 		@discardableResult
 		open func code(alias: String? = nil) -> MetafieldsSetUserErrorQuery {
 			addField(field: "code", aliasSuffix: alias)
 			return self
 		}
 
-		/// The index of the array element that's causing the error. 
+		/// The index of the array element that's causing the error.
 		@discardableResult
 		open func elementIndex(alias: String? = nil) -> MetafieldsSetUserErrorQuery {
 			addField(field: "elementIndex", aliasSuffix: alias)
 			return self
 		}
 
-		/// The path to the input field that caused the error. 
+		/// The path to the input field that caused the error.
 		@discardableResult
 		open func field(alias: String? = nil) -> MetafieldsSetUserErrorQuery {
 			addField(field: "field", aliasSuffix: alias)
 			return self
 		}
 
-		/// The error message. 
+		/// The error message.
 		@discardableResult
 		open func message(alias: String? = nil) -> MetafieldsSetUserErrorQuery {
 			addField(field: "message", aliasSuffix: alias)
@@ -60,7 +60,7 @@ extension Storefront {
 		}
 	}
 
-	/// An error that occurs during the execution of `MetafieldsSet`. 
+	/// An error that occurs during the execution of `MetafieldsSet`.
 	open class MetafieldsSetUserError: GraphQL.AbstractResponse, GraphQLObject, DisplayableError {
 		public typealias Query = MetafieldsSetUserErrorQuery
 
@@ -99,7 +99,7 @@ extension Storefront {
 			}
 		}
 
-		/// The error code. 
+		/// The error code.
 		open var code: Storefront.MetafieldsSetUserErrorCode? {
 			return internalGetCode()
 		}
@@ -108,7 +108,7 @@ extension Storefront {
 			return field(field: "code", aliasSuffix: alias) as! Storefront.MetafieldsSetUserErrorCode?
 		}
 
-		/// The index of the array element that's causing the error. 
+		/// The index of the array element that's causing the error.
 		open var elementIndex: Int32? {
 			return internalGetElementIndex()
 		}
@@ -117,7 +117,7 @@ extension Storefront {
 			return field(field: "elementIndex", aliasSuffix: alias) as! Int32?
 		}
 
-		/// The path to the input field that caused the error. 
+		/// The path to the input field that caused the error.
 		open var field: [String]? {
 			return internalGetField()
 		}
@@ -126,7 +126,7 @@ extension Storefront {
 			return field(field: "field", aliasSuffix: alias) as! [String]?
 		}
 
-		/// The error message. 
+		/// The error message.
 		open var message: String {
 			return internalGetMessage()
 		}

@@ -27,22 +27,28 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields to update a line item on a cart. 
+	/// The input fields for updating a merchandise line in a cart. Used by the
+	/// [`cartLinesUpdate`](https://shopify.dev/docs/api/storefront/current/mutations/cartLinesUpdate)
+	/// mutation. Specify the line item's
+	/// [`id`](https://shopify.dev/docs/api/storefront/current/input-objects/CartLineUpdateInput#fields-id)
+	/// along with any fields to modify. You can change the quantity, swap the
+	/// merchandise, update custom attributes, or associate a different selling
+	/// plan.
 	open class CartLineUpdateInput {
-		/// The ID of the merchandise line. 
+		/// The ID of the merchandise line.
 		open var id: GraphQL.ID
 
-		/// The quantity of the line item. 
+		/// The quantity of the line item.
 		open var quantity: Input<Int32>
 
-		/// The ID of the merchandise for the line item. 
+		/// The ID of the merchandise for the line item.
 		open var merchandiseId: Input<GraphQL.ID>
 
-		/// An array of key-value pairs that contains additional information about the 
-		/// merchandise line. The input must not contain more than `250` values. 
+		/// An array of key-value pairs that contains additional information about the
+		/// merchandise line. The input must not contain more than `250` values.
 		open var attributes: Input<[AttributeInput]>
 
-		/// The ID of the selling plan that the merchandise is being purchased with. 
+		/// The ID of the selling plan that the merchandise is being purchased with.
 		open var sellingPlanId: Input<GraphQL.ID>
 
 		/// Creates the input object.

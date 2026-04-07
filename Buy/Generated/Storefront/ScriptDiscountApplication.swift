@@ -27,41 +27,43 @@
 import Foundation
 
 extension Storefront {
-	/// Script discount applications capture the intentions of a discount that was 
-	/// created by a Shopify Script. 
+	/// A discount application created by a Shopify Script. Implements the
+	/// [`DiscountApplication`](https://shopify.dev/docs/api/storefront/current/interfaces/DiscountApplication)
+	/// interface and captures the discount's value, allocation method, and
+	/// targeting rules at the time the script applied it.
 	open class ScriptDiscountApplicationQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ScriptDiscountApplication
 
-		/// The method by which the discount's value is allocated to its entitled 
-		/// items. 
+		/// The method by which the discount's value is allocated to its entitled
+		/// items.
 		@discardableResult
 		open func allocationMethod(alias: String? = nil) -> ScriptDiscountApplicationQuery {
 			addField(field: "allocationMethod", aliasSuffix: alias)
 			return self
 		}
 
-		/// Which lines of targetType that the discount is allocated over. 
+		/// Which lines of targetType that the discount is allocated over.
 		@discardableResult
 		open func targetSelection(alias: String? = nil) -> ScriptDiscountApplicationQuery {
 			addField(field: "targetSelection", aliasSuffix: alias)
 			return self
 		}
 
-		/// The type of line that the discount is applicable towards. 
+		/// The type of line that the discount is applicable towards.
 		@discardableResult
 		open func targetType(alias: String? = nil) -> ScriptDiscountApplicationQuery {
 			addField(field: "targetType", aliasSuffix: alias)
 			return self
 		}
 
-		/// The title of the application as defined by the Script. 
+		/// The title of the application as defined by the Script.
 		@discardableResult
 		open func title(alias: String? = nil) -> ScriptDiscountApplicationQuery {
 			addField(field: "title", aliasSuffix: alias)
 			return self
 		}
 
-		/// The value of the discount application. 
+		/// The value of the discount application.
 		@discardableResult
 		open func value(alias: String? = nil, _ subfields: (PricingValueQuery) -> Void) -> ScriptDiscountApplicationQuery {
 			let subquery = PricingValueQuery()
@@ -72,8 +74,10 @@ extension Storefront {
 		}
 	}
 
-	/// Script discount applications capture the intentions of a discount that was 
-	/// created by a Shopify Script. 
+	/// A discount application created by a Shopify Script. Implements the
+	/// [`DiscountApplication`](https://shopify.dev/docs/api/storefront/current/interfaces/DiscountApplication)
+	/// interface and captures the discount's value, allocation method, and
+	/// targeting rules at the time the script applied it.
 	open class ScriptDiscountApplication: GraphQL.AbstractResponse, GraphQLObject, DiscountApplication {
 		public typealias Query = ScriptDiscountApplicationQuery
 
@@ -115,8 +119,8 @@ extension Storefront {
 			}
 		}
 
-		/// The method by which the discount's value is allocated to its entitled 
-		/// items. 
+		/// The method by which the discount's value is allocated to its entitled
+		/// items.
 		open var allocationMethod: Storefront.DiscountApplicationAllocationMethod {
 			return internalGetAllocationMethod()
 		}
@@ -125,7 +129,7 @@ extension Storefront {
 			return field(field: "allocationMethod", aliasSuffix: alias) as! Storefront.DiscountApplicationAllocationMethod
 		}
 
-		/// Which lines of targetType that the discount is allocated over. 
+		/// Which lines of targetType that the discount is allocated over.
 		open var targetSelection: Storefront.DiscountApplicationTargetSelection {
 			return internalGetTargetSelection()
 		}
@@ -134,7 +138,7 @@ extension Storefront {
 			return field(field: "targetSelection", aliasSuffix: alias) as! Storefront.DiscountApplicationTargetSelection
 		}
 
-		/// The type of line that the discount is applicable towards. 
+		/// The type of line that the discount is applicable towards.
 		open var targetType: Storefront.DiscountApplicationTargetType {
 			return internalGetTargetType()
 		}
@@ -143,7 +147,7 @@ extension Storefront {
 			return field(field: "targetType", aliasSuffix: alias) as! Storefront.DiscountApplicationTargetType
 		}
 
-		/// The title of the application as defined by the Script. 
+		/// The title of the application as defined by the Script.
 		open var title: String {
 			return internalGetTitle()
 		}
@@ -152,7 +156,7 @@ extension Storefront {
 			return field(field: "title", aliasSuffix: alias) as! String
 		}
 
-		/// The value of the discount application. 
+		/// The value of the discount application.
 		open var value: PricingValue {
 			return internalGetValue()
 		}

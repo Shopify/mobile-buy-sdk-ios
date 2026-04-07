@@ -27,11 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// The value of the percentage pricing object. 
+	/// A percentage discount value applied to cart items or orders. Returned as
+	/// part of the
+	/// [`PricingValue`](https://shopify.dev/docs/api/storefront/current/unions/PricingValue)
+	/// union on [discount
+	/// applications](https://shopify.dev/docs/api/storefront/current/interfaces/DiscountApplication),
+	/// where it represents discounts calculated as a percentage off rather than a
+	/// [fixed
+	/// amount](https://shopify.dev/docs/api/storefront/current/objects/MoneyV2).
 	open class PricingPercentageValueQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = PricingPercentageValue
 
-		/// The percentage value of the object. 
+		/// The percentage value of the object.
 		@discardableResult
 		open func percentage(alias: String? = nil) -> PricingPercentageValueQuery {
 			addField(field: "percentage", aliasSuffix: alias)
@@ -39,7 +46,14 @@ extension Storefront {
 		}
 	}
 
-	/// The value of the percentage pricing object. 
+	/// A percentage discount value applied to cart items or orders. Returned as
+	/// part of the
+	/// [`PricingValue`](https://shopify.dev/docs/api/storefront/current/unions/PricingValue)
+	/// union on [discount
+	/// applications](https://shopify.dev/docs/api/storefront/current/interfaces/DiscountApplication),
+	/// where it represents discounts calculated as a percentage off rather than a
+	/// [fixed
+	/// amount](https://shopify.dev/docs/api/storefront/current/objects/MoneyV2).
 	open class PricingPercentageValue: GraphQL.AbstractResponse, GraphQLObject, PricingValue {
 		public typealias Query = PricingPercentageValueQuery
 
@@ -57,7 +71,7 @@ extension Storefront {
 			}
 		}
 
-		/// The percentage value of the object. 
+		/// The percentage value of the object.
 		open var percentage: Double {
 			return internalGetPercentage()
 		}

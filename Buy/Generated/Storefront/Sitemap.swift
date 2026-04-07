@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Contains all fields required to generate sitemaps. 
+	/// Contains all fields required to generate sitemaps.
 	open class SitemapQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Sitemap
 
-		/// The number of sitemap's pages for a given type. 
+		/// The number of sitemap's pages for a given type.
 		@discardableResult
 		open func pagesCount(alias: String? = nil, _ subfields: (CountQuery) -> Void) -> SitemapQuery {
 			let subquery = CountQuery()
@@ -41,10 +41,10 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of sitemap's resources for a given type. Important Notes: - The 
-		/// number of items per page varies from 0 to 250. - Empty pages (0 items) may 
-		/// occur and do not necessarily indicate the end of results. - Always check 
-		/// `hasNextPage` to determine if more pages are available. 
+		/// A list of sitemap's resources for a given type. Important Notes: - The
+		/// number of items per page varies from 0 to 250. - Empty pages (0 items) may
+		/// occur and do not necessarily indicate the end of results. - Always check
+		/// `hasNextPage` to determine if more pages are available.
 		///
 		/// - parameters:
 		///     - page: The page number to fetch.
@@ -65,7 +65,7 @@ extension Storefront {
 		}
 	}
 
-	/// Contains all fields required to generate sitemaps. 
+	/// Contains all fields required to generate sitemaps.
 	open class Sitemap: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = SitemapQuery
 
@@ -91,7 +91,7 @@ extension Storefront {
 			}
 		}
 
-		/// The number of sitemap's pages for a given type. 
+		/// The number of sitemap's pages for a given type.
 		open var pagesCount: Storefront.Count? {
 			return internalGetPagesCount()
 		}
@@ -100,10 +100,10 @@ extension Storefront {
 			return field(field: "pagesCount", aliasSuffix: alias) as! Storefront.Count?
 		}
 
-		/// A list of sitemap's resources for a given type. Important Notes: - The 
-		/// number of items per page varies from 0 to 250. - Empty pages (0 items) may 
-		/// occur and do not necessarily indicate the end of results. - Always check 
-		/// `hasNextPage` to determine if more pages are available. 
+		/// A list of sitemap's resources for a given type. Important Notes: - The
+		/// number of items per page varies from 0 to 250. - Empty pages (0 items) may
+		/// occur and do not necessarily indicate the end of results. - Always check
+		/// `hasNextPage` to determine if more pages are available.
 		open var resources: Storefront.PaginatedSitemapResources? {
 			return internalGetResources()
 		}

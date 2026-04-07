@@ -27,32 +27,32 @@
 import Foundation
 
 extension Storefront {
-	/// The terms of the financing plan in Shop Pay Installments. 
+	/// The terms of the financing plan in Shop Pay Installments.
 	open class ShopPayInstallmentsFinancingPlanTermQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ShopPayInstallmentsFinancingPlanTerm
 
-		/// The annual percentage rate (APR) of the financing plan. 
+		/// The annual percentage rate (APR) of the financing plan.
 		@discardableResult
 		open func apr(alias: String? = nil) -> ShopPayInstallmentsFinancingPlanTermQuery {
 			addField(field: "apr", aliasSuffix: alias)
 			return self
 		}
 
-		/// The payment frequency for the financing plan. 
+		/// The payment frequency for the financing plan.
 		@discardableResult
 		open func frequency(alias: String? = nil) -> ShopPayInstallmentsFinancingPlanTermQuery {
 			addField(field: "frequency", aliasSuffix: alias)
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> ShopPayInstallmentsFinancingPlanTermQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The number of installments for the financing plan. 
+		/// The number of installments for the financing plan.
 		@discardableResult
 		open func installmentsCount(alias: String? = nil, _ subfields: (CountQuery) -> Void) -> ShopPayInstallmentsFinancingPlanTermQuery {
 			let subquery = CountQuery()
@@ -62,7 +62,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The type of loan for the financing plan. 
+		/// The type of loan for the financing plan.
 		@discardableResult
 		open func loanType(alias: String? = nil) -> ShopPayInstallmentsFinancingPlanTermQuery {
 			addField(field: "loanType", aliasSuffix: alias)
@@ -70,7 +70,7 @@ extension Storefront {
 		}
 	}
 
-	/// The terms of the financing plan in Shop Pay Installments. 
+	/// The terms of the financing plan in Shop Pay Installments.
 	open class ShopPayInstallmentsFinancingPlanTerm: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = ShopPayInstallmentsFinancingPlanTermQuery
 
@@ -113,7 +113,7 @@ extension Storefront {
 			}
 		}
 
-		/// The annual percentage rate (APR) of the financing plan. 
+		/// The annual percentage rate (APR) of the financing plan.
 		open var apr: Int32 {
 			return internalGetApr()
 		}
@@ -122,7 +122,7 @@ extension Storefront {
 			return field(field: "apr", aliasSuffix: alias) as! Int32
 		}
 
-		/// The payment frequency for the financing plan. 
+		/// The payment frequency for the financing plan.
 		open var frequency: Storefront.ShopPayInstallmentsFinancingPlanFrequency {
 			return internalGetFrequency()
 		}
@@ -131,7 +131,7 @@ extension Storefront {
 			return field(field: "frequency", aliasSuffix: alias) as! Storefront.ShopPayInstallmentsFinancingPlanFrequency
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -140,7 +140,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The number of installments for the financing plan. 
+		/// The number of installments for the financing plan.
 		open var installmentsCount: Storefront.Count? {
 			return internalGetInstallmentsCount()
 		}
@@ -149,7 +149,7 @@ extension Storefront {
 			return field(field: "installmentsCount", aliasSuffix: alias) as! Storefront.Count?
 		}
 
-		/// The type of loan for the financing plan. 
+		/// The type of loan for the financing plan.
 		open var loanType: Storefront.ShopPayInstallmentsLoan {
 			return internalGetLoanType()
 		}

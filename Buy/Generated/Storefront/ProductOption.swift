@@ -27,27 +27,34 @@
 import Foundation
 
 extension Storefront {
-	/// Product property names like "Size", "Color", and "Material" that the 
-	/// customers can select. Variants are selected based on permutations of these 
-	/// options. 255 characters limit each. 
+	/// A customizable product attribute that customers select when purchasing,
+	/// such as "Size", "Color", or "Material". Each option has a name and a set of
+	/// [`ProductOptionValue`](https://shopify.dev/docs/api/storefront/current/objects/ProductOptionValue)
+	/// objects representing the available choices. Different combinations of
+	/// option values create distinct
+	/// [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant)
+	/// objects. Option values can include visual swatches that display colors or
+	/// images to help customers make selections. Option names have a 255-character
+	/// limit. Learn more about [Shopify's product
+	/// model](https://shopify.dev/docs/apps/build/product-merchandising/products-and-collections).
 	open class ProductOptionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ProductOption
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> ProductOptionQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The product option’s name. 
+		/// The product option’s name.
 		@discardableResult
 		open func name(alias: String? = nil) -> ProductOptionQuery {
 			addField(field: "name", aliasSuffix: alias)
 			return self
 		}
 
-		/// The corresponding option value to the product option. 
+		/// The corresponding option value to the product option.
 		@discardableResult
 		open func optionValues(alias: String? = nil, _ subfields: (ProductOptionValueQuery) -> Void) -> ProductOptionQuery {
 			let subquery = ProductOptionValueQuery()
@@ -57,7 +64,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The corresponding value to the product option name. 
+		/// The corresponding value to the product option name.
 		@available(*, deprecated, message: "Use `optionValues` instead.")
 		@discardableResult
 		open func values(alias: String? = nil) -> ProductOptionQuery {
@@ -66,9 +73,16 @@ extension Storefront {
 		}
 	}
 
-	/// Product property names like "Size", "Color", and "Material" that the 
-	/// customers can select. Variants are selected based on permutations of these 
-	/// options. 255 characters limit each. 
+	/// A customizable product attribute that customers select when purchasing,
+	/// such as "Size", "Color", or "Material". Each option has a name and a set of
+	/// [`ProductOptionValue`](https://shopify.dev/docs/api/storefront/current/objects/ProductOptionValue)
+	/// objects representing the available choices. Different combinations of
+	/// option values create distinct
+	/// [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant)
+	/// objects. Option values can include visual swatches that display colors or
+	/// images to help customers make selections. Option names have a 255-character
+	/// limit. Learn more about [Shopify's product
+	/// model](https://shopify.dev/docs/apps/build/product-merchandising/products-and-collections).
 	open class ProductOption: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = ProductOptionQuery
 
@@ -104,7 +118,7 @@ extension Storefront {
 			}
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -113,7 +127,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The product option’s name. 
+		/// The product option’s name.
 		open var name: String {
 			return internalGetName()
 		}
@@ -122,7 +136,7 @@ extension Storefront {
 			return field(field: "name", aliasSuffix: alias) as! String
 		}
 
-		/// The corresponding option value to the product option. 
+		/// The corresponding option value to the product option.
 		open var optionValues: [Storefront.ProductOptionValue] {
 			return internalGetOptionValues()
 		}
@@ -131,7 +145,7 @@ extension Storefront {
 			return field(field: "optionValues", aliasSuffix: alias) as! [Storefront.ProductOptionValue]
 		}
 
-		/// The corresponding value to the product option name. 
+		/// The corresponding value to the product option name.
 		@available(*, deprecated, message: "Use `optionValues` instead.")
 		open var values: [String] {
 			return internalGetValues()

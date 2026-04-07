@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// Host for a Media Resource. 
+	/// Host for a Media Resource.
 	public enum MediaHost: String {
-		/// Host for Vimeo embedded videos. 
+		/// Host for Vimeo embedded videos.
 		case vimeo = "VIMEO"
 
-		/// Host for YouTube embedded videos. 
+		/// Host for YouTube embedded videos.
 		case youtube = "YOUTUBE"
 
 		case unknownValue = ""

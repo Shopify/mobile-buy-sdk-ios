@@ -27,31 +27,40 @@
 import Foundation
 
 extension Storefront {
-	/// A search query suggestion. 
+	/// A suggested search term returned by the
+	/// [`predictiveSearch`](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch)
+	/// query. Query suggestions help customers refine their searches by showing
+	/// relevant terms as they type. The
+	/// [`text`](https://shopify.dev/docs/api/storefront/current/objects/SearchQuerySuggestion#field-SearchQuerySuggestion.fields.text)
+	/// field provides the plain suggestion, while
+	/// [`styledText`](https://shopify.dev/docs/api/storefront/current/objects/SearchQuerySuggestion#field-SearchQuerySuggestion.fields.styledText)
+	/// includes HTML tags to highlight matching portions. Implements
+	/// [`Trackable`](https://shopify.dev/docs/api/storefront/current/interfaces/Trackable)
+	/// for analytics reporting on search traffic origins.
 	open class SearchQuerySuggestionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SearchQuerySuggestion
 
-		/// The text of the search query suggestion with highlighted HTML tags. 
+		/// The text of the search query suggestion with highlighted HTML tags.
 		@discardableResult
 		open func styledText(alias: String? = nil) -> SearchQuerySuggestionQuery {
 			addField(field: "styledText", aliasSuffix: alias)
 			return self
 		}
 
-		/// The text of the search query suggestion. 
+		/// The text of the search query suggestion.
 		@discardableResult
 		open func text(alias: String? = nil) -> SearchQuerySuggestionQuery {
 			addField(field: "text", aliasSuffix: alias)
 			return self
 		}
 
-		/// URL parameters to be added to a page URL to track the origin of on-site 
-		/// search traffic for [analytics 
-		/// reporting](https://help.shopify.com/manual/reports-and-analytics/shopify-reports/report-types/default-reports/behaviour-reports). 
-		/// Returns a result when accessed through the 
-		/// [search](https://shopify.dev/docs/api/storefront/current/queries/search) or 
-		/// [predictiveSearch](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch) 
-		/// queries, otherwise returns null. 
+		/// URL parameters to be added to a page URL to track the origin of on-site
+		/// search traffic for [analytics
+		/// reporting](https://help.shopify.com/manual/reports-and-analytics/shopify-reports/report-types/default-reports/behaviour-reports).
+		/// Returns a result when accessed through the
+		/// [search](https://shopify.dev/docs/api/storefront/current/queries/search) or
+		/// [predictiveSearch](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch)
+		/// queries, otherwise returns null.
 		@discardableResult
 		open func trackingParameters(alias: String? = nil) -> SearchQuerySuggestionQuery {
 			addField(field: "trackingParameters", aliasSuffix: alias)
@@ -59,7 +68,16 @@ extension Storefront {
 		}
 	}
 
-	/// A search query suggestion. 
+	/// A suggested search term returned by the
+	/// [`predictiveSearch`](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch)
+	/// query. Query suggestions help customers refine their searches by showing
+	/// relevant terms as they type. The
+	/// [`text`](https://shopify.dev/docs/api/storefront/current/objects/SearchQuerySuggestion#field-SearchQuerySuggestion.fields.text)
+	/// field provides the plain suggestion, while
+	/// [`styledText`](https://shopify.dev/docs/api/storefront/current/objects/SearchQuerySuggestion#field-SearchQuerySuggestion.fields.styledText)
+	/// includes HTML tags to highlight matching portions. Implements
+	/// [`Trackable`](https://shopify.dev/docs/api/storefront/current/interfaces/Trackable)
+	/// for analytics reporting on search traffic origins.
 	open class SearchQuerySuggestion: GraphQL.AbstractResponse, GraphQLObject, Trackable {
 		public typealias Query = SearchQuerySuggestionQuery
 
@@ -90,7 +108,7 @@ extension Storefront {
 			}
 		}
 
-		/// The text of the search query suggestion with highlighted HTML tags. 
+		/// The text of the search query suggestion with highlighted HTML tags.
 		open var styledText: String {
 			return internalGetStyledText()
 		}
@@ -99,7 +117,7 @@ extension Storefront {
 			return field(field: "styledText", aliasSuffix: alias) as! String
 		}
 
-		/// The text of the search query suggestion. 
+		/// The text of the search query suggestion.
 		open var text: String {
 			return internalGetText()
 		}
@@ -108,13 +126,13 @@ extension Storefront {
 			return field(field: "text", aliasSuffix: alias) as! String
 		}
 
-		/// URL parameters to be added to a page URL to track the origin of on-site 
-		/// search traffic for [analytics 
-		/// reporting](https://help.shopify.com/manual/reports-and-analytics/shopify-reports/report-types/default-reports/behaviour-reports). 
-		/// Returns a result when accessed through the 
-		/// [search](https://shopify.dev/docs/api/storefront/current/queries/search) or 
-		/// [predictiveSearch](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch) 
-		/// queries, otherwise returns null. 
+		/// URL parameters to be added to a page URL to track the origin of on-site
+		/// search traffic for [analytics
+		/// reporting](https://help.shopify.com/manual/reports-and-analytics/shopify-reports/report-types/default-reports/behaviour-reports).
+		/// Returns a result when accessed through the
+		/// [search](https://shopify.dev/docs/api/storefront/current/queries/search) or
+		/// [predictiveSearch](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch)
+		/// queries, otherwise returns null.
 		open var trackingParameters: String? {
 			return internalGetTrackingParameters()
 		}

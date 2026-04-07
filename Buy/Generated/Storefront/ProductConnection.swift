@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type for paginating through multiple Products. 
+	/// An auto-generated type for paginating through multiple Products.
 	open class ProductConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ProductConnection
 
-		/// A list of edges. 
+		/// A list of edges.
 		@discardableResult
 		open func edges(alias: String? = nil, _ subfields: (ProductEdgeQuery) -> Void) -> ProductConnectionQuery {
 			let subquery = ProductEdgeQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of available filters. 
+		/// A list of available filters.
 		@discardableResult
 		open func filters(alias: String? = nil, _ subfields: (FilterQuery) -> Void) -> ProductConnectionQuery {
 			let subquery = FilterQuery()
@@ -51,7 +51,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of the nodes contained in ProductEdge. 
+		/// A list of the nodes contained in ProductEdge.
 		@discardableResult
 		open func nodes(alias: String? = nil, _ subfields: (ProductQuery) -> Void) -> ProductConnectionQuery {
 			let subquery = ProductQuery()
@@ -61,7 +61,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> ProductConnectionQuery {
 			let subquery = PageInfoQuery()
@@ -72,7 +72,7 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type for paginating through multiple Products. 
+	/// An auto-generated type for paginating through multiple Products.
 	open class ProductConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ProductConnectionQuery
 
@@ -108,7 +108,7 @@ extension Storefront {
 			}
 		}
 
-		/// A list of edges. 
+		/// A list of edges.
 		open var edges: [Storefront.ProductEdge] {
 			return internalGetEdges()
 		}
@@ -117,7 +117,7 @@ extension Storefront {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.ProductEdge]
 		}
 
-		/// A list of available filters. 
+		/// A list of available filters.
 		open var filters: [Storefront.Filter] {
 			return internalGetFilters()
 		}
@@ -126,7 +126,7 @@ extension Storefront {
 			return field(field: "filters", aliasSuffix: alias) as! [Storefront.Filter]
 		}
 
-		/// A list of the nodes contained in ProductEdge. 
+		/// A list of the nodes contained in ProductEdge.
 		open var nodes: [Storefront.Product] {
 			return internalGetNodes()
 		}
@@ -135,7 +135,7 @@ extension Storefront {
 			return field(field: "nodes", aliasSuffix: alias) as! [Storefront.Product]
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
 		}

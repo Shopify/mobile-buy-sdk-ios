@@ -27,18 +27,28 @@
 import Foundation
 
 extension Storefront {
-	/// Represents information about the buyer that is interacting with the cart. 
+	/// Contact information about the buyer interacting with a
+	/// [cart](https://shopify.dev/docs/api/storefront/current/objects/Cart). The
+	/// buyer's country determines [international
+	/// pricing](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/markets/international-pricing)
+	/// and should match their shipping address. For B2B scenarios, the
+	/// [`purchasingCompany`](https://shopify.dev/docs/api/storefront/current/objects/CartBuyerIdentity#field-CartBuyerIdentity.fields.purchasingCompany)
+	/// field identifies the company and location on whose behalf a business
+	/// customer purchases. The
+	/// [`preferences`](https://shopify.dev/docs/api/storefront/current/objects/CartBuyerIdentity#field-CartBuyerIdentity.fields.preferences)
+	/// field stores delivery and wallet settings that prefill checkout fields to
+	/// streamline the buying process.
 	open class CartBuyerIdentityQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartBuyerIdentity
 
-		/// The country where the buyer is located. 
+		/// The country where the buyer is located.
 		@discardableResult
 		open func countryCode(alias: String? = nil) -> CartBuyerIdentityQuery {
 			addField(field: "countryCode", aliasSuffix: alias)
 			return self
 		}
 
-		/// The customer account associated with the cart. 
+		/// The customer account associated with the cart.
 		@discardableResult
 		open func customer(alias: String? = nil, _ subfields: (CustomerQuery) -> Void) -> CartBuyerIdentityQuery {
 			let subquery = CustomerQuery()
@@ -48,14 +58,14 @@ extension Storefront {
 			return self
 		}
 
-		/// An ordered set of delivery addresses tied to the buyer that is interacting 
-		/// with the cart. The rank of the preferences is determined by the order of 
-		/// the addresses in the array. Preferences can be used to populate relevant 
-		/// fields in the checkout flow. As of the `2025-01` release, 
-		/// `buyerIdentity.deliveryAddressPreferences` is deprecated. Delivery 
-		/// addresses are now part of the `CartDelivery` object and managed with three 
-		/// new mutations: - `cartDeliveryAddressAdd` - `cartDeliveryAddressUpdate` - 
-		/// `cartDeliveryAddressDelete` 
+		/// An ordered set of delivery addresses tied to the buyer that is interacting
+		/// with the cart. The rank of the preferences is determined by the order of
+		/// the addresses in the array. Preferences can be used to populate relevant
+		/// fields in the checkout flow. As of the `2025-01` release,
+		/// `buyerIdentity.deliveryAddressPreferences` is deprecated. Delivery
+		/// addresses are now part of the `CartDelivery` object and managed with three
+		/// new mutations: - `cartDeliveryAddressAdd` - `cartDeliveryAddressUpdate` -
+		/// `cartDeliveryAddressDelete`
 		@available(*, deprecated, message: "Use `cart.delivery` instead.")
 		@discardableResult
 		open func deliveryAddressPreferences(alias: String? = nil, _ subfields: (DeliveryAddressQuery) -> Void) -> CartBuyerIdentityQuery {
@@ -66,24 +76,24 @@ extension Storefront {
 			return self
 		}
 
-		/// The email address of the buyer that's interacting with the cart. 
+		/// The email address of the buyer that's interacting with the cart.
 		@discardableResult
 		open func email(alias: String? = nil) -> CartBuyerIdentityQuery {
 			addField(field: "email", aliasSuffix: alias)
 			return self
 		}
 
-		/// The phone number of the buyer that's interacting with the cart. 
+		/// The phone number of the buyer that's interacting with the cart.
 		@discardableResult
 		open func phone(alias: String? = nil) -> CartBuyerIdentityQuery {
 			addField(field: "phone", aliasSuffix: alias)
 			return self
 		}
 
-		/// A set of preferences tied to the buyer interacting with the cart. 
-		/// Preferences are used to prefill fields in at checkout to streamline 
-		/// information collection. Preferences are not synced back to the cart if they 
-		/// are overwritten. 
+		/// A set of preferences tied to the buyer interacting with the cart.
+		/// Preferences are used to prefill fields in at checkout to streamline
+		/// information collection. Preferences are not synced back to the cart if they
+		/// are overwritten.
 		@discardableResult
 		open func preferences(alias: String? = nil, _ subfields: (CartPreferencesQuery) -> Void) -> CartBuyerIdentityQuery {
 			let subquery = CartPreferencesQuery()
@@ -93,7 +103,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The purchasing company associated with the cart. 
+		/// The purchasing company associated with the cart.
 		@discardableResult
 		open func purchasingCompany(alias: String? = nil, _ subfields: (PurchasingCompanyQuery) -> Void) -> CartBuyerIdentityQuery {
 			let subquery = PurchasingCompanyQuery()
@@ -104,7 +114,17 @@ extension Storefront {
 		}
 	}
 
-	/// Represents information about the buyer that is interacting with the cart. 
+	/// Contact information about the buyer interacting with a
+	/// [cart](https://shopify.dev/docs/api/storefront/current/objects/Cart). The
+	/// buyer's country determines [international
+	/// pricing](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/markets/international-pricing)
+	/// and should match their shipping address. For B2B scenarios, the
+	/// [`purchasingCompany`](https://shopify.dev/docs/api/storefront/current/objects/CartBuyerIdentity#field-CartBuyerIdentity.fields.purchasingCompany)
+	/// field identifies the company and location on whose behalf a business
+	/// customer purchases. The
+	/// [`preferences`](https://shopify.dev/docs/api/storefront/current/objects/CartBuyerIdentity#field-CartBuyerIdentity.fields.preferences)
+	/// field stores delivery and wallet settings that prefill checkout fields to
+	/// streamline the buying process.
 	open class CartBuyerIdentity: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CartBuyerIdentityQuery
 
@@ -164,7 +184,7 @@ extension Storefront {
 			}
 		}
 
-		/// The country where the buyer is located. 
+		/// The country where the buyer is located.
 		open var countryCode: Storefront.CountryCode? {
 			return internalGetCountryCode()
 		}
@@ -173,7 +193,7 @@ extension Storefront {
 			return field(field: "countryCode", aliasSuffix: alias) as! Storefront.CountryCode?
 		}
 
-		/// The customer account associated with the cart. 
+		/// The customer account associated with the cart.
 		open var customer: Storefront.Customer? {
 			return internalGetCustomer()
 		}
@@ -182,14 +202,14 @@ extension Storefront {
 			return field(field: "customer", aliasSuffix: alias) as! Storefront.Customer?
 		}
 
-		/// An ordered set of delivery addresses tied to the buyer that is interacting 
-		/// with the cart. The rank of the preferences is determined by the order of 
-		/// the addresses in the array. Preferences can be used to populate relevant 
-		/// fields in the checkout flow. As of the `2025-01` release, 
-		/// `buyerIdentity.deliveryAddressPreferences` is deprecated. Delivery 
-		/// addresses are now part of the `CartDelivery` object and managed with three 
-		/// new mutations: - `cartDeliveryAddressAdd` - `cartDeliveryAddressUpdate` - 
-		/// `cartDeliveryAddressDelete` 
+		/// An ordered set of delivery addresses tied to the buyer that is interacting
+		/// with the cart. The rank of the preferences is determined by the order of
+		/// the addresses in the array. Preferences can be used to populate relevant
+		/// fields in the checkout flow. As of the `2025-01` release,
+		/// `buyerIdentity.deliveryAddressPreferences` is deprecated. Delivery
+		/// addresses are now part of the `CartDelivery` object and managed with three
+		/// new mutations: - `cartDeliveryAddressAdd` - `cartDeliveryAddressUpdate` -
+		/// `cartDeliveryAddressDelete`
 		@available(*, deprecated, message: "Use `cart.delivery` instead.")
 		open var deliveryAddressPreferences: [DeliveryAddress] {
 			return internalGetDeliveryAddressPreferences()
@@ -199,7 +219,7 @@ extension Storefront {
 			return field(field: "deliveryAddressPreferences", aliasSuffix: alias) as! [DeliveryAddress]
 		}
 
-		/// The email address of the buyer that's interacting with the cart. 
+		/// The email address of the buyer that's interacting with the cart.
 		open var email: String? {
 			return internalGetEmail()
 		}
@@ -208,7 +228,7 @@ extension Storefront {
 			return field(field: "email", aliasSuffix: alias) as! String?
 		}
 
-		/// The phone number of the buyer that's interacting with the cart. 
+		/// The phone number of the buyer that's interacting with the cart.
 		open var phone: String? {
 			return internalGetPhone()
 		}
@@ -217,10 +237,10 @@ extension Storefront {
 			return field(field: "phone", aliasSuffix: alias) as! String?
 		}
 
-		/// A set of preferences tied to the buyer interacting with the cart. 
-		/// Preferences are used to prefill fields in at checkout to streamline 
-		/// information collection. Preferences are not synced back to the cart if they 
-		/// are overwritten. 
+		/// A set of preferences tied to the buyer interacting with the cart.
+		/// Preferences are used to prefill fields in at checkout to streamline
+		/// information collection. Preferences are not synced back to the cart if they
+		/// are overwritten.
 		open var preferences: Storefront.CartPreferences? {
 			return internalGetPreferences()
 		}
@@ -229,7 +249,7 @@ extension Storefront {
 			return field(field: "preferences", aliasSuffix: alias) as! Storefront.CartPreferences?
 		}
 
-		/// The purchasing company associated with the cart. 
+		/// The purchasing company associated with the cart.
 		open var purchasingCompany: Storefront.PurchasingCompany? {
 			return internalGetPurchasingCompany()
 		}

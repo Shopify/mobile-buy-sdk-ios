@@ -27,39 +27,39 @@
 import Foundation
 
 extension Storefront {
-	/// The author of an article. 
+	/// The author of an article.
 	open class ArticleAuthorQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ArticleAuthor
 
-		/// The author's bio. 
+		/// The author's bio.
 		@discardableResult
 		open func bio(alias: String? = nil) -> ArticleAuthorQuery {
 			addField(field: "bio", aliasSuffix: alias)
 			return self
 		}
 
-		/// The author’s email. 
+		/// The author’s email.
 		@discardableResult
 		open func email(alias: String? = nil) -> ArticleAuthorQuery {
 			addField(field: "email", aliasSuffix: alias)
 			return self
 		}
 
-		/// The author's first name. 
+		/// The author's first name.
 		@discardableResult
 		open func firstName(alias: String? = nil) -> ArticleAuthorQuery {
 			addField(field: "firstName", aliasSuffix: alias)
 			return self
 		}
 
-		/// The author's last name. 
+		/// The author's last name.
 		@discardableResult
 		open func lastName(alias: String? = nil) -> ArticleAuthorQuery {
 			addField(field: "lastName", aliasSuffix: alias)
 			return self
 		}
 
-		/// The author's full name. 
+		/// The author's full name.
 		@discardableResult
 		open func name(alias: String? = nil) -> ArticleAuthorQuery {
 			addField(field: "name", aliasSuffix: alias)
@@ -67,7 +67,7 @@ extension Storefront {
 		}
 	}
 
-	/// The author of an article. 
+	/// The author of an article.
 	open class ArticleAuthor: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ArticleAuthorQuery
 
@@ -110,7 +110,7 @@ extension Storefront {
 			}
 		}
 
-		/// The author's bio. 
+		/// The author's bio.
 		open var bio: String? {
 			return internalGetBio()
 		}
@@ -119,7 +119,7 @@ extension Storefront {
 			return field(field: "bio", aliasSuffix: alias) as! String?
 		}
 
-		/// The author’s email. 
+		/// The author’s email.
 		open var email: String {
 			return internalGetEmail()
 		}
@@ -128,7 +128,7 @@ extension Storefront {
 			return field(field: "email", aliasSuffix: alias) as! String
 		}
 
-		/// The author's first name. 
+		/// The author's first name.
 		open var firstName: String {
 			return internalGetFirstName()
 		}
@@ -137,7 +137,7 @@ extension Storefront {
 			return field(field: "firstName", aliasSuffix: alias) as! String
 		}
 
-		/// The author's last name. 
+		/// The author's last name.
 		open var lastName: String {
 			return internalGetLastName()
 		}
@@ -146,7 +146,7 @@ extension Storefront {
 			return field(field: "lastName", aliasSuffix: alias) as! String
 		}
 
-		/// The author's full name. 
+		/// The author's full name.
 		open var name: String {
 			return internalGetName()
 		}

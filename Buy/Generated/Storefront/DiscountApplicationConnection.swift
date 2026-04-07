@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type for paginating through multiple 
-	/// DiscountApplications. 
+	/// An auto-generated type for paginating through multiple
+	/// DiscountApplications.
 	open class DiscountApplicationConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = DiscountApplicationConnection
 
-		/// A list of edges. 
+		/// A list of edges.
 		@discardableResult
 		open func edges(alias: String? = nil, _ subfields: (DiscountApplicationEdgeQuery) -> Void) -> DiscountApplicationConnectionQuery {
 			let subquery = DiscountApplicationEdgeQuery()
@@ -42,7 +42,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of the nodes contained in DiscountApplicationEdge. 
+		/// A list of the nodes contained in DiscountApplicationEdge.
 		@discardableResult
 		open func nodes(alias: String? = nil, _ subfields: (DiscountApplicationQuery) -> Void) -> DiscountApplicationConnectionQuery {
 			let subquery = DiscountApplicationQuery()
@@ -52,7 +52,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> DiscountApplicationConnectionQuery {
 			let subquery = PageInfoQuery()
@@ -63,8 +63,8 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type for paginating through multiple 
-	/// DiscountApplications. 
+	/// An auto-generated type for paginating through multiple
+	/// DiscountApplications.
 	open class DiscountApplicationConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = DiscountApplicationConnectionQuery
 
@@ -94,7 +94,7 @@ extension Storefront {
 			}
 		}
 
-		/// A list of edges. 
+		/// A list of edges.
 		open var edges: [Storefront.DiscountApplicationEdge] {
 			return internalGetEdges()
 		}
@@ -103,7 +103,7 @@ extension Storefront {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.DiscountApplicationEdge]
 		}
 
-		/// A list of the nodes contained in DiscountApplicationEdge. 
+		/// A list of the nodes contained in DiscountApplicationEdge.
 		open var nodes: [DiscountApplication] {
 			return internalGetNodes()
 		}
@@ -112,7 +112,7 @@ extension Storefront {
 			return field(field: "nodes", aliasSuffix: alias) as! [DiscountApplication]
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
 		}

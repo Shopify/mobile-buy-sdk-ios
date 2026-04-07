@@ -27,25 +27,25 @@
 import Foundation
 
 extension Storefront {
-	/// The shop pay installments pricing information for a product variant. 
+	/// The shop pay installments pricing information for a product variant.
 	open class ShopPayInstallmentsProductVariantPricingQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ShopPayInstallmentsProductVariantPricing
 
-		/// Whether the product variant is available. 
+		/// Whether the product variant is available.
 		@discardableResult
 		open func available(alias: String? = nil) -> ShopPayInstallmentsProductVariantPricingQuery {
 			addField(field: "available", aliasSuffix: alias)
 			return self
 		}
 
-		/// Whether the product variant is eligible for Shop Pay Installments. 
+		/// Whether the product variant is eligible for Shop Pay Installments.
 		@discardableResult
 		open func eligible(alias: String? = nil) -> ShopPayInstallmentsProductVariantPricingQuery {
 			addField(field: "eligible", aliasSuffix: alias)
 			return self
 		}
 
-		/// The full price of the product variant. 
+		/// The full price of the product variant.
 		@discardableResult
 		open func fullPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ShopPayInstallmentsProductVariantPricingQuery {
 			let subquery = MoneyV2Query()
@@ -55,14 +55,14 @@ extension Storefront {
 			return self
 		}
 
-		/// The ID of the product variant. 
+		/// The ID of the product variant.
 		@discardableResult
 		open func id(alias: String? = nil) -> ShopPayInstallmentsProductVariantPricingQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The number of payment terms available for the product variant. 
+		/// The number of payment terms available for the product variant.
 		@discardableResult
 		open func installmentsCount(alias: String? = nil, _ subfields: (CountQuery) -> Void) -> ShopPayInstallmentsProductVariantPricingQuery {
 			let subquery = CountQuery()
@@ -72,7 +72,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The price per term for the product variant. 
+		/// The price per term for the product variant.
 		@discardableResult
 		open func pricePerTerm(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ShopPayInstallmentsProductVariantPricingQuery {
 			let subquery = MoneyV2Query()
@@ -83,7 +83,7 @@ extension Storefront {
 		}
 	}
 
-	/// The shop pay installments pricing information for a product variant. 
+	/// The shop pay installments pricing information for a product variant.
 	open class ShopPayInstallmentsProductVariantPricing: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = ShopPayInstallmentsProductVariantPricingQuery
 
@@ -132,7 +132,7 @@ extension Storefront {
 			}
 		}
 
-		/// Whether the product variant is available. 
+		/// Whether the product variant is available.
 		open var available: Bool {
 			return internalGetAvailable()
 		}
@@ -141,7 +141,7 @@ extension Storefront {
 			return field(field: "available", aliasSuffix: alias) as! Bool
 		}
 
-		/// Whether the product variant is eligible for Shop Pay Installments. 
+		/// Whether the product variant is eligible for Shop Pay Installments.
 		open var eligible: Bool {
 			return internalGetEligible()
 		}
@@ -150,7 +150,7 @@ extension Storefront {
 			return field(field: "eligible", aliasSuffix: alias) as! Bool
 		}
 
-		/// The full price of the product variant. 
+		/// The full price of the product variant.
 		open var fullPrice: Storefront.MoneyV2 {
 			return internalGetFullPrice()
 		}
@@ -159,7 +159,7 @@ extension Storefront {
 			return field(field: "fullPrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The ID of the product variant. 
+		/// The ID of the product variant.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -168,7 +168,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The number of payment terms available for the product variant. 
+		/// The number of payment terms available for the product variant.
 		open var installmentsCount: Storefront.Count? {
 			return internalGetInstallmentsCount()
 		}
@@ -177,7 +177,7 @@ extension Storefront {
 			return field(field: "installmentsCount", aliasSuffix: alias) as! Storefront.Count?
 		}
 
-		/// The price per term for the product variant. 
+		/// The price per term for the product variant.
 		open var pricePerTerm: Storefront.MoneyV2 {
 			return internalGetPricePerTerm()
 		}

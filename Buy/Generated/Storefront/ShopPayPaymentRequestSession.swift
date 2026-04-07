@@ -27,18 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a Shop Pay payment request session. 
+	/// Represents a Shop Pay payment request session.
 	open class ShopPayPaymentRequestSessionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ShopPayPaymentRequestSession
 
-		/// The checkout URL of the Shop Pay payment request session. 
+		/// The checkout URL of the Shop Pay payment request session.
 		@discardableResult
 		open func checkoutUrl(alias: String? = nil) -> ShopPayPaymentRequestSessionQuery {
 			addField(field: "checkoutUrl", aliasSuffix: alias)
 			return self
 		}
 
-		/// The payment request associated with the Shop Pay payment request session. 
+		/// The payment request associated with the Shop Pay payment request session.
 		@discardableResult
 		open func paymentRequest(alias: String? = nil, _ subfields: (ShopPayPaymentRequestQuery) -> Void) -> ShopPayPaymentRequestSessionQuery {
 			let subquery = ShopPayPaymentRequestQuery()
@@ -48,14 +48,14 @@ extension Storefront {
 			return self
 		}
 
-		/// The source identifier of the Shop Pay payment request session. 
+		/// The source identifier of the Shop Pay payment request session.
 		@discardableResult
 		open func sourceIdentifier(alias: String? = nil) -> ShopPayPaymentRequestSessionQuery {
 			addField(field: "sourceIdentifier", aliasSuffix: alias)
 			return self
 		}
 
-		/// The token of the Shop Pay payment request session. 
+		/// The token of the Shop Pay payment request session.
 		@discardableResult
 		open func token(alias: String? = nil) -> ShopPayPaymentRequestSessionQuery {
 			addField(field: "token", aliasSuffix: alias)
@@ -63,7 +63,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a Shop Pay payment request session. 
+	/// Represents a Shop Pay payment request session.
 	open class ShopPayPaymentRequestSession: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ShopPayPaymentRequestSessionQuery
 
@@ -99,7 +99,7 @@ extension Storefront {
 			}
 		}
 
-		/// The checkout URL of the Shop Pay payment request session. 
+		/// The checkout URL of the Shop Pay payment request session.
 		open var checkoutUrl: URL {
 			return internalGetCheckoutUrl()
 		}
@@ -108,7 +108,7 @@ extension Storefront {
 			return field(field: "checkoutUrl", aliasSuffix: alias) as! URL
 		}
 
-		/// The payment request associated with the Shop Pay payment request session. 
+		/// The payment request associated with the Shop Pay payment request session.
 		open var paymentRequest: Storefront.ShopPayPaymentRequest {
 			return internalGetPaymentRequest()
 		}
@@ -117,7 +117,7 @@ extension Storefront {
 			return field(field: "paymentRequest", aliasSuffix: alias) as! Storefront.ShopPayPaymentRequest
 		}
 
-		/// The source identifier of the Shop Pay payment request session. 
+		/// The source identifier of the Shop Pay payment request session.
 		open var sourceIdentifier: String {
 			return internalGetSourceIdentifier()
 		}
@@ -126,7 +126,7 @@ extension Storefront {
 			return field(field: "sourceIdentifier", aliasSuffix: alias) as! String
 		}
 
-		/// The token of the Shop Pay payment request session. 
+		/// The token of the Shop Pay payment request session.
 		open var token: String {
 			return internalGetToken()
 		}
