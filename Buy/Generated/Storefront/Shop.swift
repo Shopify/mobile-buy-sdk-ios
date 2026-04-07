@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2025 Shopify Inc. All rights reserved.
+//  Copyright (c) 2026 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -55,6 +55,16 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "brand", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// Translations for customer accounts.
+		@discardableResult
+		open func customerAccountTranslations(alias: String? = nil, _ subfields: (TranslationQuery) -> Void) -> ShopQuery {
+			let subquery = TranslationQuery()
+			subfields(subquery)
+
+			addField(field: "customerAccountTranslations", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -212,6 +222,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The social login providers for customer accounts.
+		@discardableResult
+		open func socialLoginProviders(alias: String? = nil, _ subfields: (SocialLoginProviderQuery) -> Void) -> ShopQuery {
+			let subquery = SocialLoginProviderQuery()
+			subfields(subquery)
+
+			addField(field: "socialLoginProviders", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The shop’s subscription policy.
 		@discardableResult
 		open func subscriptionPolicy(alias: String? = nil, _ subfields: (ShopPolicyWithDefaultQuery) -> Void) -> ShopQuery {
@@ -263,6 +283,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try Brand(fields: value)
+
+				case "customerAccountTranslations":
+				if value is NSNull { return nil }
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try Translation(fields: $0) }
 
 				case "customerAccountUrl":
 				if value is NSNull { return nil }
@@ -359,6 +386,12 @@ extension Storefront {
 				}
 				return try ShopPayInstallmentsPricing(fields: value)
 
+				case "socialLoginProviders":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try SocialLoginProvider(fields: $0) }
+
 				case "subscriptionPolicy":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -385,6 +418,15 @@ extension Storefront {
 
 		func internalGetBrand(alias: String? = nil) -> Storefront.Brand? {
 			return field(field: "brand", aliasSuffix: alias) as! Storefront.Brand?
+		}
+
+		/// Translations for customer accounts.
+		open var customerAccountTranslations: [Storefront.Translation]? {
+			return internalGetCustomerAccountTranslations()
+		}
+
+		func internalGetCustomerAccountTranslations(alias: String? = nil) -> [Storefront.Translation]? {
+			return field(field: "customerAccountTranslations", aliasSuffix: alias) as! [Storefront.Translation]?
 		}
 
 		/// The URL for the customer account (only present if shop has a customer
@@ -526,6 +568,15 @@ extension Storefront {
 			return field(field: "shopPayInstallmentsPricing", aliasSuffix: alias) as! Storefront.ShopPayInstallmentsPricing?
 		}
 
+		/// The social login providers for customer accounts.
+		open var socialLoginProviders: [Storefront.SocialLoginProvider] {
+			return internalGetSocialLoginProviders()
+		}
+
+		func internalGetSocialLoginProviders(alias: String? = nil) -> [Storefront.SocialLoginProvider] {
+			return field(field: "socialLoginProviders", aliasSuffix: alias) as! [Storefront.SocialLoginProvider]
+		}
+
 		/// The shop’s subscription policy.
 		open var subscriptionPolicy: Storefront.ShopPolicyWithDefault? {
 			return internalGetSubscriptionPolicy()
@@ -552,6 +603,14 @@ extension Storefront {
 					if let value = internalGetBrand() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "customerAccountTranslations":
+					if let value = internalGetCustomerAccountTranslations() {
+						value.forEach {
+							response.append($0)
+							response.append(contentsOf: $0.childResponseObjectMap())
+						}
 					}
 
 					case "metafield":
@@ -598,6 +657,12 @@ extension Storefront {
 					if let value = internalGetShopPayInstallmentsPricing() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "socialLoginProviders":
+					internalGetSocialLoginProviders().forEach {
+						response.append($0)
+						response.append(contentsOf: $0.childResponseObjectMap())
 					}
 
 					case "subscriptionPolicy":

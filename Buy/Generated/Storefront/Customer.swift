@@ -3,7 +3,7 @@
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2025 Shopify Inc. All rights reserved.
+//  Copyright (c) 2026 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -90,6 +90,13 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "addresses", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// The URL of the customer's avatar image.
+		@discardableResult
+		open func avatarUrl(alias: String? = nil) -> CustomerQuery {
+			addField(field: "avatarUrl", aliasSuffix: alias)
 			return self
 		}
 
@@ -266,6 +273,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The social login provider associated with the customer.
+		@discardableResult
+		open func socialLoginProvider(alias: String? = nil, _ subfields: (SocialLoginProviderQuery) -> Void) -> CustomerQuery {
+			let subquery = SocialLoginProviderQuery()
+			subfields(subquery)
+
+			addField(field: "socialLoginProvider", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// A comma separated list of tags that have been added to the customer.
 		/// Additional access scope required: unauthenticated_read_customer_tags.
 		@discardableResult
@@ -312,6 +329,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
 				}
 				return try MailingAddressConnection(fields: value)
+
+				case "avatarUrl":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
+				}
+				return value
 
 				case "createdAt":
 				guard let value = value as? String else {
@@ -395,6 +419,13 @@ extension Storefront {
 				}
 				return value
 
+				case "socialLoginProvider":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
+				}
+				return try SocialLoginProvider(fields: value)
+
 				case "tags":
 				guard let value = value as? [String] else {
 					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
@@ -433,6 +464,15 @@ extension Storefront {
 
 		func internalGetAddresses(alias: String? = nil) -> Storefront.MailingAddressConnection {
 			return field(field: "addresses", aliasSuffix: alias) as! Storefront.MailingAddressConnection
+		}
+
+		/// The URL of the customer's avatar image.
+		open var avatarUrl: String? {
+			return internalGetAvatarUrl()
+		}
+
+		func internalGetAvatarUrl(alias: String? = nil) -> String? {
+			return field(field: "avatarUrl", aliasSuffix: alias) as! String?
 		}
 
 		/// The date and time when the customer was created.
@@ -559,6 +599,15 @@ extension Storefront {
 			return field(field: "phone", aliasSuffix: alias) as! String?
 		}
 
+		/// The social login provider associated with the customer.
+		open var socialLoginProvider: Storefront.SocialLoginProvider? {
+			return internalGetSocialLoginProvider()
+		}
+
+		func internalGetSocialLoginProvider(alias: String? = nil) -> Storefront.SocialLoginProvider? {
+			return field(field: "socialLoginProvider", aliasSuffix: alias) as! Storefront.SocialLoginProvider?
+		}
+
 		/// A comma separated list of tags that have been added to the customer.
 		/// Additional access scope required: unauthenticated_read_customer_tags.
 		open var tags: [String] {
@@ -609,6 +658,12 @@ extension Storefront {
 					case "orders":
 					response.append(internalGetOrders())
 					response.append(contentsOf: internalGetOrders().childResponseObjectMap())
+
+					case "socialLoginProvider":
+					if let value = internalGetSocialLoginProvider() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
 
 					default:
 					break

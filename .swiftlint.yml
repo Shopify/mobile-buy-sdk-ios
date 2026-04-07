@@ -1,2 +1,5 @@
 excluded:
   - vendor
+
+trailing_whitespace:
+  ignores_comments: false

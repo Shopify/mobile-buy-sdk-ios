@@ -1,5 +1,5 @@
 //
-//  SubmissionError.swift
+//  Translation.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,66 +27,65 @@
 import Foundation
 
 extension Storefront {
-	/// An error that occurred during cart submit for completion.
-	open class SubmissionErrorQuery: GraphQL.AbstractQuery, GraphQLQuery {
-		public typealias Response = SubmissionError
+	/// Translation represents a translation of a key-value pair.
+	open class TranslationQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = Translation
 
-		/// The error code.
+		/// The key of the translation.
 		@discardableResult
-		open func code(alias: String? = nil) -> SubmissionErrorQuery {
-			addField(field: "code", aliasSuffix: alias)
+		open func key(alias: String? = nil) -> TranslationQuery {
+			addField(field: "key", aliasSuffix: alias)
 			return self
 		}
 
-		/// The error message.
+		/// The value of the translation.
 		@discardableResult
-		open func message(alias: String? = nil) -> SubmissionErrorQuery {
-			addField(field: "message", aliasSuffix: alias)
+		open func value(alias: String? = nil) -> TranslationQuery {
+			addField(field: "value", aliasSuffix: alias)
 			return self
 		}
 	}
 
-	/// An error that occurred during cart submit for completion.
-	open class SubmissionError: GraphQL.AbstractResponse, GraphQLObject {
-		public typealias Query = SubmissionErrorQuery
+	/// Translation represents a translation of a key-value pair.
+	open class Translation: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = TranslationQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
-				case "code":
+				case "key":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: SubmissionError.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Translation.self, field: fieldName, value: fieldValue)
 				}
-				return SubmissionErrorCode(rawValue: value) ?? .unknownValue
+				return value
 
-				case "message":
-				if value is NSNull { return nil }
+				case "value":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: SubmissionError.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Translation.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				default:
-				throw SchemaViolationError(type: SubmissionError.self, field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: Translation.self, field: fieldName, value: fieldValue)
 			}
 		}
 
-		/// The error code.
-		open var code: Storefront.SubmissionErrorCode {
-			return internalGetCode()
+		/// The key of the translation.
+		open var key: String {
+			return internalGetKey()
 		}
 
-		func internalGetCode(alias: String? = nil) -> Storefront.SubmissionErrorCode {
-			return field(field: "code", aliasSuffix: alias) as! Storefront.SubmissionErrorCode
+		func internalGetKey(alias: String? = nil) -> String {
+			return field(field: "key", aliasSuffix: alias) as! String
 		}
 
-		/// The error message.
-		open var message: String? {
-			return internalGetMessage()
+		/// The value of the translation.
+		open var value: String {
+			return internalGetValue()
 		}
 
-		func internalGetMessage(alias: String? = nil) -> String? {
-			return field(field: "message", aliasSuffix: alias) as! String?
+		func internalGetValue(alias: String? = nil) -> String {
+			return field(field: "value", aliasSuffix: alias) as! String
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse] {
