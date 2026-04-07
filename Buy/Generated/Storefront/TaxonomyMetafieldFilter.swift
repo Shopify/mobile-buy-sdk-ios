@@ -27,16 +27,16 @@
 import Foundation
 
 extension Storefront {
-	/// A filter used to view a subset of products in a collection matching a 
-	/// specific taxonomy metafield value. 
+	/// A filter used to view a subset of products in a collection matching a
+	/// specific taxonomy metafield value.
 	open class TaxonomyMetafieldFilter {
-		/// The namespace of the metafield to filter on. 
+		/// The namespace of the metafield to filter on.
 		open var namespace: String
 
-		/// The key of the metafield to filter on. 
+		/// The key of the metafield to filter on.
 		open var key: String
 
-		/// The value of the metafield. 
+		/// The value of the metafield.
 		open var value: String
 
 		/// Creates the input object.

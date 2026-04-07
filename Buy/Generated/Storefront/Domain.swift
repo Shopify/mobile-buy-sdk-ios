@@ -27,25 +27,29 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a web address. 
+	/// A web address associated with a shop. The
+	/// [`Shop`](https://shopify.dev/docs/api/storefront/current/objects/Shop)
+	/// object's
+	/// [`primaryDomain`](https://shopify.dev/docs/api/storefront/current/objects/Shop#field-Shop.fields.primaryDomain)
+	/// field returns this to identify the shop's online store URL.
 	open class DomainQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Domain
 
-		/// The host name of the domain (eg: `example.com`). 
+		/// The host name of the domain (eg: `example.com`).
 		@discardableResult
 		open func host(alias: String? = nil) -> DomainQuery {
 			addField(field: "host", aliasSuffix: alias)
 			return self
 		}
 
-		/// Whether SSL is enabled or not. 
+		/// Whether SSL is enabled or not.
 		@discardableResult
 		open func sslEnabled(alias: String? = nil) -> DomainQuery {
 			addField(field: "sslEnabled", aliasSuffix: alias)
 			return self
 		}
 
-		/// The URL of the domain (eg: `https://example.com`). 
+		/// The URL of the domain (eg: `https://example.com`).
 		@discardableResult
 		open func url(alias: String? = nil) -> DomainQuery {
 			addField(field: "url", aliasSuffix: alias)
@@ -53,7 +57,11 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a web address. 
+	/// A web address associated with a shop. The
+	/// [`Shop`](https://shopify.dev/docs/api/storefront/current/objects/Shop)
+	/// object's
+	/// [`primaryDomain`](https://shopify.dev/docs/api/storefront/current/objects/Shop#field-Shop.fields.primaryDomain)
+	/// field returns this to identify the shop's online store URL.
 	open class Domain: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = DomainQuery
 
@@ -83,7 +91,7 @@ extension Storefront {
 			}
 		}
 
-		/// The host name of the domain (eg: `example.com`). 
+		/// The host name of the domain (eg: `example.com`).
 		open var host: String {
 			return internalGetHost()
 		}
@@ -92,7 +100,7 @@ extension Storefront {
 			return field(field: "host", aliasSuffix: alias) as! String
 		}
 
-		/// Whether SSL is enabled or not. 
+		/// Whether SSL is enabled or not.
 		open var sslEnabled: Bool {
 			return internalGetSslEnabled()
 		}
@@ -101,7 +109,7 @@ extension Storefront {
 			return field(field: "sslEnabled", aliasSuffix: alias) as! Bool
 		}
 
-		/// The URL of the domain (eg: `https://example.com`). 
+		/// The URL of the domain (eg: `https://example.com`).
 		open var url: URL {
 			return internalGetUrl()
 		}

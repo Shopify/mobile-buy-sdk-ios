@@ -27,16 +27,16 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields to create a shipping total for a Shop Pay payment request. 
+	/// The input fields to create a shipping total for a Shop Pay payment request.
 	open class ShopPayPaymentRequestTotalShippingPriceInput {
-		/// The discounts for the shipping total. The input must not contain more than 
-		/// `250` values. 
+		/// The discounts for the shipping total. The input must not contain more than
+		/// `250` values.
 		open var discounts: Input<[ShopPayPaymentRequestDiscountInput]>
 
-		/// The original total for the shipping total. 
+		/// The original total for the shipping total.
 		open var originalTotal: Input<MoneyInput>
 
-		/// The final total for the shipping total. 
+		/// The final total for the shipping total.
 		open var finalTotal: Input<MoneyInput>
 
 		/// Creates the input object.

@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// The estimated cost of the merchandise line that the buyer will pay at 
-	/// checkout. 
+	/// The estimated cost of the merchandise line that the buyer will pay at
+	/// checkout.
 	open class CartLineEstimatedCostQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartLineEstimatedCost
 
-		/// The amount of the merchandise line. 
+		/// The amount of the merchandise line.
 		@discardableResult
 		open func amount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartLineEstimatedCostQuery {
 			let subquery = MoneyV2Query()
@@ -42,7 +42,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The compare at amount of the merchandise line. 
+		/// The compare at amount of the merchandise line.
 		@discardableResult
 		open func compareAtAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartLineEstimatedCostQuery {
 			let subquery = MoneyV2Query()
@@ -52,7 +52,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The estimated cost of the merchandise line before discounts. 
+		/// The estimated cost of the merchandise line before discounts.
 		@discardableResult
 		open func subtotalAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartLineEstimatedCostQuery {
 			let subquery = MoneyV2Query()
@@ -62,7 +62,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The estimated total cost of the merchandise line. 
+		/// The estimated total cost of the merchandise line.
 		@discardableResult
 		open func totalAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartLineEstimatedCostQuery {
 			let subquery = MoneyV2Query()
@@ -73,8 +73,8 @@ extension Storefront {
 		}
 	}
 
-	/// The estimated cost of the merchandise line that the buyer will pay at 
-	/// checkout. 
+	/// The estimated cost of the merchandise line that the buyer will pay at
+	/// checkout.
 	open class CartLineEstimatedCost: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CartLineEstimatedCostQuery
 
@@ -111,7 +111,7 @@ extension Storefront {
 			}
 		}
 
-		/// The amount of the merchandise line. 
+		/// The amount of the merchandise line.
 		open var amount: Storefront.MoneyV2 {
 			return internalGetAmount()
 		}
@@ -120,7 +120,7 @@ extension Storefront {
 			return field(field: "amount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The compare at amount of the merchandise line. 
+		/// The compare at amount of the merchandise line.
 		open var compareAtAmount: Storefront.MoneyV2? {
 			return internalGetCompareAtAmount()
 		}
@@ -129,7 +129,7 @@ extension Storefront {
 			return field(field: "compareAtAmount", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
-		/// The estimated cost of the merchandise line before discounts. 
+		/// The estimated cost of the merchandise line before discounts.
 		open var subtotalAmount: Storefront.MoneyV2 {
 			return internalGetSubtotalAmount()
 		}
@@ -138,7 +138,7 @@ extension Storefront {
 			return field(field: "subtotalAmount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The estimated total cost of the merchandise line. 
+		/// The estimated total cost of the merchandise line.
 		open var totalAmount: Storefront.MoneyV2 {
 			return internalGetTotalAmount()
 		}

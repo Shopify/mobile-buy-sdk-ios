@@ -27,16 +27,16 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields represent preferences for the buyer that is interacting 
-	/// with the cart. 
+	/// The input fields represent preferences for the buyer that is interacting
+	/// with the cart.
 	open class CartPreferencesInput {
-		/// Delivery preferences can be used to prefill the delivery section in at 
-		/// checkout. 
+		/// Delivery preferences can be used to prefill the delivery section in at
+		/// checkout.
 		open var delivery: Input<CartDeliveryPreferenceInput>
 
-		/// Wallet preferences are used to populate relevant payment fields in the 
-		/// checkout flow. Accepted value: `["shop_pay"]`. The input must not contain 
-		/// more than `250` values. 
+		/// Wallet preferences are used to populate relevant payment fields in the
+		/// checkout flow. Accepted value: `["shop_pay"]`. The input must not contain
+		/// more than `250` values.
 		open var wallet: Input<[String]>
 
 		/// Creates the input object.

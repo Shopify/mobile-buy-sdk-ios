@@ -27,18 +27,22 @@
 import Foundation
 
 extension Storefront {
-	/// A monetary value with currency. 
+	/// A precise monetary value with its associated currency. Combines a decimal
+	/// amount with a three-letter
+	/// [`CurrencyCode`](https://shopify.dev/docs/api/storefront/current/enums/CurrencyCode)
+	/// to express prices, costs, and other financial values. For example, 12.99
+	/// USD.
 	open class MoneyV2Query: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MoneyV2
 
-		/// Decimal money amount. 
+		/// Decimal money amount.
 		@discardableResult
 		open func amount(alias: String? = nil) -> MoneyV2Query {
 			addField(field: "amount", aliasSuffix: alias)
 			return self
 		}
 
-		/// Currency of the money. 
+		/// Currency of the money.
 		@discardableResult
 		open func currencyCode(alias: String? = nil) -> MoneyV2Query {
 			addField(field: "currencyCode", aliasSuffix: alias)
@@ -46,7 +50,11 @@ extension Storefront {
 		}
 	}
 
-	/// A monetary value with currency. 
+	/// A precise monetary value with its associated currency. Combines a decimal
+	/// amount with a three-letter
+	/// [`CurrencyCode`](https://shopify.dev/docs/api/storefront/current/enums/CurrencyCode)
+	/// to express prices, costs, and other financial values. For example, 12.99
+	/// USD.
 	open class MoneyV2: GraphQL.AbstractResponse, GraphQLObject, PricingValue, SellingPlanCheckoutChargeValue {
 		public typealias Query = MoneyV2Query
 
@@ -70,7 +78,7 @@ extension Storefront {
 			}
 		}
 
-		/// Decimal money amount. 
+		/// Decimal money amount.
 		open var amount: Decimal {
 			return internalGetAmount()
 		}
@@ -79,7 +87,7 @@ extension Storefront {
 			return field(field: "amount", aliasSuffix: alias) as! Decimal
 		}
 
-		/// Currency of the money. 
+		/// Currency of the money.
 		open var currencyCode: Storefront.CurrencyCode {
 			return internalGetCurrencyCode()
 		}

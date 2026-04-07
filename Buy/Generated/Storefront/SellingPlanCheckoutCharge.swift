@@ -27,18 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// The initial payment due for the purchase. 
+	/// The initial payment due for the purchase.
 	open class SellingPlanCheckoutChargeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlanCheckoutCharge
 
-		/// The charge type for the checkout charge. 
+		/// The charge type for the checkout charge.
 		@discardableResult
 		open func type(alias: String? = nil) -> SellingPlanCheckoutChargeQuery {
 			addField(field: "type", aliasSuffix: alias)
 			return self
 		}
 
-		/// The charge value for the checkout charge. 
+		/// The charge value for the checkout charge.
 		@discardableResult
 		open func value(alias: String? = nil, _ subfields: (SellingPlanCheckoutChargeValueQuery) -> Void) -> SellingPlanCheckoutChargeQuery {
 			let subquery = SellingPlanCheckoutChargeValueQuery()
@@ -49,7 +49,7 @@ extension Storefront {
 		}
 	}
 
-	/// The initial payment due for the purchase. 
+	/// The initial payment due for the purchase.
 	open class SellingPlanCheckoutCharge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = SellingPlanCheckoutChargeQuery
 
@@ -73,7 +73,7 @@ extension Storefront {
 			}
 		}
 
-		/// The charge type for the checkout charge. 
+		/// The charge type for the checkout charge.
 		open var type: Storefront.SellingPlanCheckoutChargeType {
 			return internalGetType()
 		}
@@ -82,7 +82,7 @@ extension Storefront {
 			return field(field: "type", aliasSuffix: alias) as! Storefront.SellingPlanCheckoutChargeType
 		}
 
-		/// The charge value for the checkout charge. 
+		/// The charge value for the checkout charge.
 		open var value: SellingPlanCheckoutChargeValue {
 			return internalGetValue()
 		}

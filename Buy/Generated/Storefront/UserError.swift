@@ -27,18 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// Represents an error in the input of a mutation. 
+	/// Represents an error in the input of a mutation.
 	open class UserErrorQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = UserError
 
-		/// The path to the input field that caused the error. 
+		/// The path to the input field that caused the error.
 		@discardableResult
 		open func field(alias: String? = nil) -> UserErrorQuery {
 			addField(field: "field", aliasSuffix: alias)
 			return self
 		}
 
-		/// The error message. 
+		/// The error message.
 		@discardableResult
 		open func message(alias: String? = nil) -> UserErrorQuery {
 			addField(field: "message", aliasSuffix: alias)
@@ -46,7 +46,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents an error in the input of a mutation. 
+	/// Represents an error in the input of a mutation.
 	open class UserError: GraphQL.AbstractResponse, GraphQLObject, DisplayableError {
 		public typealias Query = UserErrorQuery
 
@@ -71,7 +71,7 @@ extension Storefront {
 			}
 		}
 
-		/// The path to the input field that caused the error. 
+		/// The path to the input field that caused the error.
 		open var field: [String]? {
 			return internalGetField()
 		}
@@ -80,7 +80,7 @@ extension Storefront {
 			return field(field: "field", aliasSuffix: alias) as! [String]?
 		}
 
-		/// The error message. 
+		/// The error message.
 		open var message: String {
 			return internalGetMessage()
 		}

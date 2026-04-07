@@ -27,32 +27,32 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a source for a Shopify hosted 3d model. 
+	/// Represents a source for a Shopify hosted 3d model.
 	open class Model3dSourceQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Model3dSource
 
-		/// The filesize of the 3d model. 
+		/// The filesize of the 3d model.
 		@discardableResult
 		open func filesize(alias: String? = nil) -> Model3dSourceQuery {
 			addField(field: "filesize", aliasSuffix: alias)
 			return self
 		}
 
-		/// The format of the 3d model. 
+		/// The format of the 3d model.
 		@discardableResult
 		open func format(alias: String? = nil) -> Model3dSourceQuery {
 			addField(field: "format", aliasSuffix: alias)
 			return self
 		}
 
-		/// The MIME type of the 3d model. 
+		/// The MIME type of the 3d model.
 		@discardableResult
 		open func mimeType(alias: String? = nil) -> Model3dSourceQuery {
 			addField(field: "mimeType", aliasSuffix: alias)
 			return self
 		}
 
-		/// The URL of the 3d model. 
+		/// The URL of the 3d model.
 		@discardableResult
 		open func url(alias: String? = nil) -> Model3dSourceQuery {
 			addField(field: "url", aliasSuffix: alias)
@@ -60,7 +60,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a source for a Shopify hosted 3d model. 
+	/// Represents a source for a Shopify hosted 3d model.
 	open class Model3dSource: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = Model3dSourceQuery
 
@@ -96,7 +96,7 @@ extension Storefront {
 			}
 		}
 
-		/// The filesize of the 3d model. 
+		/// The filesize of the 3d model.
 		open var filesize: Int32 {
 			return internalGetFilesize()
 		}
@@ -105,7 +105,7 @@ extension Storefront {
 			return field(field: "filesize", aliasSuffix: alias) as! Int32
 		}
 
-		/// The format of the 3d model. 
+		/// The format of the 3d model.
 		open var format: String {
 			return internalGetFormat()
 		}
@@ -114,7 +114,7 @@ extension Storefront {
 			return field(field: "format", aliasSuffix: alias) as! String
 		}
 
-		/// The MIME type of the 3d model. 
+		/// The MIME type of the 3d model.
 		open var mimeType: String {
 			return internalGetMimeType()
 		}
@@ -123,7 +123,7 @@ extension Storefront {
 			return field(field: "mimeType", aliasSuffix: alias) as! String
 		}
 
-		/// The URL of the 3d model. 
+		/// The URL of the 3d model.
 		open var url: String {
 			return internalGetUrl()
 		}

@@ -26,8 +26,21 @@
 
 import Foundation
 
-/// Represents information about the metafields associated to the specified 
-/// resource. 
+/// Implemented by resources that support custom metadata through
+/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+/// objects. Types like
+/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+/// and
+/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+/// implement this interface to provide consistent access to metafields. You
+/// can retrieve a [single
+/// metafield](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafield)
+/// by namespace and key, or fetch [multiple
+/// metafields](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafields)
+/// in a single request. If you omit the namespace, then the [app-reserved
+/// namespace](https://shopify.dev/docs/apps/build/metafields#app-owned-metafields)
+/// is used by default.
 public protocol HasMetafields {
 	var metafield: Storefront.Metafield? { get }
 
@@ -35,14 +48,27 @@ public protocol HasMetafields {
 }
 
 extension Storefront {
-	/// Represents information about the metafields associated to the specified 
-	/// resource. 
+	/// Implemented by resources that support custom metadata through
+	/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+	/// objects. Types like
+	/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+	/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+	/// and
+	/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+	/// implement this interface to provide consistent access to metafields. You
+	/// can retrieve a [single
+	/// metafield](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafield)
+	/// by namespace and key, or fetch [multiple
+	/// metafields](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafields)
+	/// in a single request. If you omit the namespace, then the [app-reserved
+	/// namespace](https://shopify.dev/docs/apps/build/metafields#app-owned-metafields)
+	/// is used by default.
 	open class HasMetafieldsQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = HasMetafields
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		///
 		/// - parameters:
 		///     - namespace: The container the metafield belongs to. If omitted, the app-reserved namespace will be used.
@@ -67,12 +93,12 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		///
 		/// - parameters:
 		///     - identifiers: The list of metafields to retrieve by namespace and key.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -95,8 +121,21 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// Represents information about the metafields associated to the specified 
-		/// resource. 
+		/// Implemented by resources that support custom metadata through
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// objects. Types like
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// and
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// implement this interface to provide consistent access to metafields. You
+		/// can retrieve a [single
+		/// metafield](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafield)
+		/// by namespace and key, or fetch [multiple
+		/// metafields](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafields)
+		/// in a single request. If you omit the namespace, then the [app-reserved
+		/// namespace](https://shopify.dev/docs/apps/build/metafields#app-owned-metafields)
+		/// is used by default.
 		@discardableResult
 		open func onArticle(subfields: (ArticleQuery) -> Void) -> HasMetafieldsQuery {
 			let subquery = ArticleQuery()
@@ -105,8 +144,21 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents information about the metafields associated to the specified 
-		/// resource. 
+		/// Implemented by resources that support custom metadata through
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// objects. Types like
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// and
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// implement this interface to provide consistent access to metafields. You
+		/// can retrieve a [single
+		/// metafield](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafield)
+		/// by namespace and key, or fetch [multiple
+		/// metafields](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafields)
+		/// in a single request. If you omit the namespace, then the [app-reserved
+		/// namespace](https://shopify.dev/docs/apps/build/metafields#app-owned-metafields)
+		/// is used by default.
 		@discardableResult
 		open func onBlog(subfields: (BlogQuery) -> Void) -> HasMetafieldsQuery {
 			let subquery = BlogQuery()
@@ -115,8 +167,21 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents information about the metafields associated to the specified 
-		/// resource. 
+		/// Implemented by resources that support custom metadata through
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// objects. Types like
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// and
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// implement this interface to provide consistent access to metafields. You
+		/// can retrieve a [single
+		/// metafield](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafield)
+		/// by namespace and key, or fetch [multiple
+		/// metafields](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafields)
+		/// in a single request. If you omit the namespace, then the [app-reserved
+		/// namespace](https://shopify.dev/docs/apps/build/metafields#app-owned-metafields)
+		/// is used by default.
 		@discardableResult
 		open func onCart(subfields: (CartQuery) -> Void) -> HasMetafieldsQuery {
 			let subquery = CartQuery()
@@ -125,8 +190,21 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents information about the metafields associated to the specified 
-		/// resource. 
+		/// Implemented by resources that support custom metadata through
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// objects. Types like
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// and
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// implement this interface to provide consistent access to metafields. You
+		/// can retrieve a [single
+		/// metafield](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafield)
+		/// by namespace and key, or fetch [multiple
+		/// metafields](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafields)
+		/// in a single request. If you omit the namespace, then the [app-reserved
+		/// namespace](https://shopify.dev/docs/apps/build/metafields#app-owned-metafields)
+		/// is used by default.
 		@discardableResult
 		open func onCollection(subfields: (CollectionQuery) -> Void) -> HasMetafieldsQuery {
 			let subquery = CollectionQuery()
@@ -135,8 +213,21 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents information about the metafields associated to the specified 
-		/// resource. 
+		/// Implemented by resources that support custom metadata through
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// objects. Types like
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// and
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// implement this interface to provide consistent access to metafields. You
+		/// can retrieve a [single
+		/// metafield](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafield)
+		/// by namespace and key, or fetch [multiple
+		/// metafields](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafields)
+		/// in a single request. If you omit the namespace, then the [app-reserved
+		/// namespace](https://shopify.dev/docs/apps/build/metafields#app-owned-metafields)
+		/// is used by default.
 		@discardableResult
 		open func onCompany(subfields: (CompanyQuery) -> Void) -> HasMetafieldsQuery {
 			let subquery = CompanyQuery()
@@ -145,8 +236,21 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents information about the metafields associated to the specified 
-		/// resource. 
+		/// Implemented by resources that support custom metadata through
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// objects. Types like
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// and
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// implement this interface to provide consistent access to metafields. You
+		/// can retrieve a [single
+		/// metafield](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafield)
+		/// by namespace and key, or fetch [multiple
+		/// metafields](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafields)
+		/// in a single request. If you omit the namespace, then the [app-reserved
+		/// namespace](https://shopify.dev/docs/apps/build/metafields#app-owned-metafields)
+		/// is used by default.
 		@discardableResult
 		open func onCompanyLocation(subfields: (CompanyLocationQuery) -> Void) -> HasMetafieldsQuery {
 			let subquery = CompanyLocationQuery()
@@ -155,8 +259,21 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents information about the metafields associated to the specified 
-		/// resource. 
+		/// Implemented by resources that support custom metadata through
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// objects. Types like
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// and
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// implement this interface to provide consistent access to metafields. You
+		/// can retrieve a [single
+		/// metafield](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafield)
+		/// by namespace and key, or fetch [multiple
+		/// metafields](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafields)
+		/// in a single request. If you omit the namespace, then the [app-reserved
+		/// namespace](https://shopify.dev/docs/apps/build/metafields#app-owned-metafields)
+		/// is used by default.
 		@discardableResult
 		open func onCustomer(subfields: (CustomerQuery) -> Void) -> HasMetafieldsQuery {
 			let subquery = CustomerQuery()
@@ -165,8 +282,21 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents information about the metafields associated to the specified 
-		/// resource. 
+		/// Implemented by resources that support custom metadata through
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// objects. Types like
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// and
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// implement this interface to provide consistent access to metafields. You
+		/// can retrieve a [single
+		/// metafield](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafield)
+		/// by namespace and key, or fetch [multiple
+		/// metafields](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafields)
+		/// in a single request. If you omit the namespace, then the [app-reserved
+		/// namespace](https://shopify.dev/docs/apps/build/metafields#app-owned-metafields)
+		/// is used by default.
 		@discardableResult
 		open func onLocation(subfields: (LocationQuery) -> Void) -> HasMetafieldsQuery {
 			let subquery = LocationQuery()
@@ -175,8 +305,21 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents information about the metafields associated to the specified 
-		/// resource. 
+		/// Implemented by resources that support custom metadata through
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// objects. Types like
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// and
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// implement this interface to provide consistent access to metafields. You
+		/// can retrieve a [single
+		/// metafield](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafield)
+		/// by namespace and key, or fetch [multiple
+		/// metafields](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafields)
+		/// in a single request. If you omit the namespace, then the [app-reserved
+		/// namespace](https://shopify.dev/docs/apps/build/metafields#app-owned-metafields)
+		/// is used by default.
 		@discardableResult
 		open func onMarket(subfields: (MarketQuery) -> Void) -> HasMetafieldsQuery {
 			let subquery = MarketQuery()
@@ -185,8 +328,21 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents information about the metafields associated to the specified 
-		/// resource. 
+		/// Implemented by resources that support custom metadata through
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// objects. Types like
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// and
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// implement this interface to provide consistent access to metafields. You
+		/// can retrieve a [single
+		/// metafield](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafield)
+		/// by namespace and key, or fetch [multiple
+		/// metafields](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafields)
+		/// in a single request. If you omit the namespace, then the [app-reserved
+		/// namespace](https://shopify.dev/docs/apps/build/metafields#app-owned-metafields)
+		/// is used by default.
 		@discardableResult
 		open func onOrder(subfields: (OrderQuery) -> Void) -> HasMetafieldsQuery {
 			let subquery = OrderQuery()
@@ -195,8 +351,21 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents information about the metafields associated to the specified 
-		/// resource. 
+		/// Implemented by resources that support custom metadata through
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// objects. Types like
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// and
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// implement this interface to provide consistent access to metafields. You
+		/// can retrieve a [single
+		/// metafield](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafield)
+		/// by namespace and key, or fetch [multiple
+		/// metafields](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafields)
+		/// in a single request. If you omit the namespace, then the [app-reserved
+		/// namespace](https://shopify.dev/docs/apps/build/metafields#app-owned-metafields)
+		/// is used by default.
 		@discardableResult
 		open func onPage(subfields: (PageQuery) -> Void) -> HasMetafieldsQuery {
 			let subquery = PageQuery()
@@ -205,8 +374,21 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents information about the metafields associated to the specified 
-		/// resource. 
+		/// Implemented by resources that support custom metadata through
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// objects. Types like
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// and
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// implement this interface to provide consistent access to metafields. You
+		/// can retrieve a [single
+		/// metafield](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafield)
+		/// by namespace and key, or fetch [multiple
+		/// metafields](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafields)
+		/// in a single request. If you omit the namespace, then the [app-reserved
+		/// namespace](https://shopify.dev/docs/apps/build/metafields#app-owned-metafields)
+		/// is used by default.
 		@discardableResult
 		open func onProduct(subfields: (ProductQuery) -> Void) -> HasMetafieldsQuery {
 			let subquery = ProductQuery()
@@ -215,8 +397,21 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents information about the metafields associated to the specified 
-		/// resource. 
+		/// Implemented by resources that support custom metadata through
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// objects. Types like
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// and
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// implement this interface to provide consistent access to metafields. You
+		/// can retrieve a [single
+		/// metafield](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafield)
+		/// by namespace and key, or fetch [multiple
+		/// metafields](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafields)
+		/// in a single request. If you omit the namespace, then the [app-reserved
+		/// namespace](https://shopify.dev/docs/apps/build/metafields#app-owned-metafields)
+		/// is used by default.
 		@discardableResult
 		open func onProductVariant(subfields: (ProductVariantQuery) -> Void) -> HasMetafieldsQuery {
 			let subquery = ProductVariantQuery()
@@ -225,8 +420,21 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents information about the metafields associated to the specified 
-		/// resource. 
+		/// Implemented by resources that support custom metadata through
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// objects. Types like
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// and
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// implement this interface to provide consistent access to metafields. You
+		/// can retrieve a [single
+		/// metafield](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafield)
+		/// by namespace and key, or fetch [multiple
+		/// metafields](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafields)
+		/// in a single request. If you omit the namespace, then the [app-reserved
+		/// namespace](https://shopify.dev/docs/apps/build/metafields#app-owned-metafields)
+		/// is used by default.
 		@discardableResult
 		open func onSellingPlan(subfields: (SellingPlanQuery) -> Void) -> HasMetafieldsQuery {
 			let subquery = SellingPlanQuery()
@@ -235,8 +443,21 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents information about the metafields associated to the specified 
-		/// resource. 
+		/// Implemented by resources that support custom metadata through
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// objects. Types like
+		/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+		/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+		/// and
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// implement this interface to provide consistent access to metafields. You
+		/// can retrieve a [single
+		/// metafield](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafield)
+		/// by namespace and key, or fetch [multiple
+		/// metafields](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafields)
+		/// in a single request. If you omit the namespace, then the [app-reserved
+		/// namespace](https://shopify.dev/docs/apps/build/metafields#app-owned-metafields)
+		/// is used by default.
 		@discardableResult
 		open func onShop(subfields: (ShopQuery) -> Void) -> HasMetafieldsQuery {
 			let subquery = ShopQuery()
@@ -246,8 +467,21 @@ extension Storefront {
 		}
 	}
 
-	/// Represents information about the metafields associated to the specified 
-	/// resource. 
+	/// Implemented by resources that support custom metadata through
+	/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+	/// objects. Types like
+	/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+	/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+	/// and
+	/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+	/// implement this interface to provide consistent access to metafields. You
+	/// can retrieve a [single
+	/// metafield](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafield)
+	/// by namespace and key, or fetch [multiple
+	/// metafields](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields#fields-metafields)
+	/// in a single request. If you omit the namespace, then the [app-reserved
+	/// namespace](https://shopify.dev/docs/apps/build/metafields#app-owned-metafields)
+	/// is used by default.
 	open class UnknownHasMetafields: GraphQL.AbstractResponse, GraphQLObject, HasMetafields {
 		public typealias Query = HasMetafieldsQuery
 
@@ -316,9 +550,9 @@ extension Storefront {
 			}
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		open var metafield: Storefront.Metafield? {
 			return internalGetMetafield()
 		}
@@ -331,8 +565,8 @@ extension Storefront {
 			return field(field: "metafield", aliasSuffix: alias) as! Storefront.Metafield?
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		open var metafields: [Storefront.Metafield?] {
 			return internalGetMetafields()
 		}

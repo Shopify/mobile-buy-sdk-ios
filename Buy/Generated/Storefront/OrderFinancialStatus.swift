@@ -27,27 +27,27 @@
 import Foundation
 
 extension Storefront {
-	/// Represents the order's current financial status. 
+	/// Represents the order's current financial status.
 	public enum OrderFinancialStatus: String {
-		/// Displayed as **Authorized**. 
+		/// Displayed as **Authorized**.
 		case authorized = "AUTHORIZED"
 
-		/// Displayed as **Paid**. 
+		/// Displayed as **Paid**.
 		case paid = "PAID"
 
-		/// Displayed as **Partially paid**. 
+		/// Displayed as **Partially paid**.
 		case partiallyPaid = "PARTIALLY_PAID"
 
-		/// Displayed as **Partially refunded**. 
+		/// Displayed as **Partially refunded**.
 		case partiallyRefunded = "PARTIALLY_REFUNDED"
 
-		/// Displayed as **Pending**. 
+		/// Displayed as **Pending**.
 		case pending = "PENDING"
 
-		/// Displayed as **Refunded**. 
+		/// Displayed as **Refunded**.
 		case refunded = "REFUNDED"
 
-		/// Displayed as **Voided**. 
+		/// Displayed as **Voided**.
 		case voided = "VOIDED"
 
 		case unknownValue = ""

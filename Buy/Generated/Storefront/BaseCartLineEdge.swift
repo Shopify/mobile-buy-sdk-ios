@@ -27,19 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type which holds one BaseCartLine and a cursor during 
-	/// pagination. 
+	/// An auto-generated type which holds one BaseCartLine and a cursor during
+	/// pagination.
 	open class BaseCartLineEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = BaseCartLineEdge
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		@discardableResult
 		open func cursor(alias: String? = nil) -> BaseCartLineEdgeQuery {
 			addField(field: "cursor", aliasSuffix: alias)
 			return self
 		}
 
-		/// The item at the end of BaseCartLineEdge. 
+		/// The item at the end of BaseCartLineEdge.
 		@discardableResult
 		open func node(alias: String? = nil, _ subfields: (BaseCartLineQuery) -> Void) -> BaseCartLineEdgeQuery {
 			let subquery = BaseCartLineQuery()
@@ -50,8 +50,8 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type which holds one BaseCartLine and a cursor during 
-	/// pagination. 
+	/// An auto-generated type which holds one BaseCartLine and a cursor during
+	/// pagination.
 	open class BaseCartLineEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = BaseCartLineEdgeQuery
 
@@ -75,7 +75,7 @@ extension Storefront {
 			}
 		}
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		open var cursor: String {
 			return internalGetCursor()
 		}
@@ -84,7 +84,7 @@ extension Storefront {
 			return field(field: "cursor", aliasSuffix: alias) as! String
 		}
 
-		/// The item at the end of BaseCartLineEdge. 
+		/// The item at the end of BaseCartLineEdge.
 		open var node: BaseCartLine {
 			return internalGetNode()
 		}

@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// The checkout charge when the full amount isn't charged at checkout. 
+	/// The checkout charge when the full amount isn't charged at checkout.
 	public enum SellingPlanCheckoutChargeType: String {
-		/// The checkout charge is a percentage of the product or variant price. 
+		/// The checkout charge is a percentage of the product or variant price.
 		case percentage = "PERCENTAGE"
 
-		/// The checkout charge is a fixed price amount. 
+		/// The checkout charge is a fixed price amount.
 		case price = "PRICE"
 
 		case unknownValue = ""

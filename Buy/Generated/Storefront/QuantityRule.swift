@@ -27,31 +27,31 @@
 import Foundation
 
 extension Storefront {
-	/// The quantity rule for the product variant in a given context. 
+	/// The quantity rule for the product variant in a given context.
 	open class QuantityRuleQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = QuantityRule
 
-		/// The value that specifies the quantity increment between minimum and maximum 
-		/// of the rule. Only quantities divisible by this value will be considered 
-		/// valid. The increment must be lower than or equal to the minimum and the 
-		/// maximum, and both minimum and maximum must be divisible by this value. 
+		/// The value that specifies the quantity increment between minimum and maximum
+		/// of the rule. Only quantities divisible by this value will be considered
+		/// valid. The increment must be lower than or equal to the minimum and the
+		/// maximum, and both minimum and maximum must be divisible by this value.
 		@discardableResult
 		open func increment(alias: String? = nil) -> QuantityRuleQuery {
 			addField(field: "increment", aliasSuffix: alias)
 			return self
 		}
 
-		/// An optional value that defines the highest allowed quantity purchased by 
-		/// the customer. If defined, maximum must be lower than or equal to the 
-		/// minimum and must be a multiple of the increment. 
+		/// An optional value that defines the highest allowed quantity purchased by
+		/// the customer. If defined, maximum must be lower than or equal to the
+		/// minimum and must be a multiple of the increment.
 		@discardableResult
 		open func maximum(alias: String? = nil) -> QuantityRuleQuery {
 			addField(field: "maximum", aliasSuffix: alias)
 			return self
 		}
 
-		/// The value that defines the lowest allowed quantity purchased by the 
-		/// customer. The minimum must be a multiple of the quantity rule's increment. 
+		/// The value that defines the lowest allowed quantity purchased by the
+		/// customer. The minimum must be a multiple of the quantity rule's increment.
 		@discardableResult
 		open func minimum(alias: String? = nil) -> QuantityRuleQuery {
 			addField(field: "minimum", aliasSuffix: alias)
@@ -59,7 +59,7 @@ extension Storefront {
 		}
 	}
 
-	/// The quantity rule for the product variant in a given context. 
+	/// The quantity rule for the product variant in a given context.
 	open class QuantityRule: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = QuantityRuleQuery
 
@@ -90,10 +90,10 @@ extension Storefront {
 			}
 		}
 
-		/// The value that specifies the quantity increment between minimum and maximum 
-		/// of the rule. Only quantities divisible by this value will be considered 
-		/// valid. The increment must be lower than or equal to the minimum and the 
-		/// maximum, and both minimum and maximum must be divisible by this value. 
+		/// The value that specifies the quantity increment between minimum and maximum
+		/// of the rule. Only quantities divisible by this value will be considered
+		/// valid. The increment must be lower than or equal to the minimum and the
+		/// maximum, and both minimum and maximum must be divisible by this value.
 		open var increment: Int32 {
 			return internalGetIncrement()
 		}
@@ -102,9 +102,9 @@ extension Storefront {
 			return field(field: "increment", aliasSuffix: alias) as! Int32
 		}
 
-		/// An optional value that defines the highest allowed quantity purchased by 
-		/// the customer. If defined, maximum must be lower than or equal to the 
-		/// minimum and must be a multiple of the increment. 
+		/// An optional value that defines the highest allowed quantity purchased by
+		/// the customer. If defined, maximum must be lower than or equal to the
+		/// minimum and must be a multiple of the increment.
 		open var maximum: Int32? {
 			return internalGetMaximum()
 		}
@@ -113,8 +113,8 @@ extension Storefront {
 			return field(field: "maximum", aliasSuffix: alias) as! Int32?
 		}
 
-		/// The value that defines the lowest allowed quantity purchased by the 
-		/// customer. The minimum must be a multiple of the quantity rule's increment. 
+		/// The value that defines the lowest allowed quantity purchased by the
+		/// customer. The minimum must be a multiple of the quantity rule's increment.
 		open var minimum: Int32 {
 			return internalGetMinimum()
 		}

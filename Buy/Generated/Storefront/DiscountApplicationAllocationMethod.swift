@@ -27,16 +27,20 @@
 import Foundation
 
 extension Storefront {
-	/// The method by which the discount's value is allocated onto its entitled 
-	/// lines. 
+	/// Controls how a discount's value is distributed across entitled lines. A
+	/// discount can either spread its value across all entitled lines or apply the
+	/// full value to each line individually. Used by the
+	/// [`DiscountApplication`](https://shopify.dev/docs/api/storefront/current/interfaces/DiscountApplication)
+	/// interface and its implementations to capture the intentions of a discount
+	/// source at the time of application.
 	public enum DiscountApplicationAllocationMethod: String {
-		/// The value is spread across all entitled lines. 
+		/// The value is spread across all entitled lines.
 		case across = "ACROSS"
 
-		/// The value is applied onto every entitled line. 
+		/// The value is applied onto every entitled line.
 		case each = "EACH"
 
-		/// The value is specifically applied onto a particular line. 
+		/// The value is specifically applied onto a particular line.
 		@available(*, deprecated, message: "Use ACROSS instead.")
 		case one = "ONE"
 

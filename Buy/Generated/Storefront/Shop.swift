@@ -27,12 +27,28 @@
 import Foundation
 
 extension Storefront {
-	/// Shop represents a collection of the general settings and information about 
-	/// the shop. 
+	/// The central hub for store-wide settings and information accessible through
+	/// the Storefront API. Provides the shop's name, description, and branding
+	/// configuration including logos and colors through the
+	/// [`Brand`](https://shopify.dev/docs/api/storefront/current/objects/Brand)
+	/// object. Access store policies such as privacy, refund, shipping, and terms
+	/// of service via
+	/// [`ShopPolicy`](https://shopify.dev/docs/api/storefront/current/objects/ShopPolicy),
+	/// and the subscription policy via
+	/// [`ShopPolicyWithDefault`](https://shopify.dev/docs/api/storefront/current/objects/ShopPolicyWithDefault).
+	/// [`PaymentSettings`](https://shopify.dev/docs/api/storefront/current/objects/PaymentSettings)
+	/// expose accepted card brands, supported digital wallets, and enabled
+	/// presentment currencies. The object also includes the primary
+	/// [`Domain`](https://shopify.dev/docs/api/storefront/current/objects/Domain),
+	/// countries the shop ships to,
+	/// [`ShopPayInstallmentsPricing`](https://shopify.dev/docs/api/storefront/current/objects/ShopPayInstallmentsPricing),
+	/// and
+	/// [`SocialLoginProvider`](https://shopify.dev/docs/api/storefront/current/objects/SocialLoginProvider)
+	/// options for customer accounts.
 	open class ShopQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Shop
 
-		/// The shop's branding configuration. 
+		/// The shop's branding configuration.
 		@discardableResult
 		open func brand(alias: String? = nil, _ subfields: (BrandQuery) -> Void) -> ShopQuery {
 			let subquery = BrandQuery()
@@ -42,31 +58,31 @@ extension Storefront {
 			return self
 		}
 
-		/// The URL for the customer account (only present if shop has a customer 
-		/// account vanity domain). 
+		/// The URL for the customer account (only present if shop has a customer
+		/// account vanity domain).
 		@discardableResult
 		open func customerAccountUrl(alias: String? = nil) -> ShopQuery {
 			addField(field: "customerAccountUrl", aliasSuffix: alias)
 			return self
 		}
 
-		/// A description of the shop. 
+		/// A description of the shop.
 		@discardableResult
 		open func description(alias: String? = nil) -> ShopQuery {
 			addField(field: "description", aliasSuffix: alias)
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> ShopQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		///
 		/// - parameters:
 		///     - namespace: The container the metafield belongs to. If omitted, the app-reserved namespace will be used.
@@ -91,12 +107,12 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		///
 		/// - parameters:
 		///     - identifiers: The list of metafields to retrieve by namespace and key.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -114,22 +130,22 @@ extension Storefront {
 			return self
 		}
 
-		/// A string representing the way currency is formatted when the currency isn’t 
-		/// specified. 
+		/// A string representing the way currency is formatted when the currency isn’t
+		/// specified.
 		@discardableResult
 		open func moneyFormat(alias: String? = nil) -> ShopQuery {
 			addField(field: "moneyFormat", aliasSuffix: alias)
 			return self
 		}
 
-		/// The shop’s name. 
+		/// The shop’s name.
 		@discardableResult
 		open func name(alias: String? = nil) -> ShopQuery {
 			addField(field: "name", aliasSuffix: alias)
 			return self
 		}
 
-		/// Settings related to payments. 
+		/// Settings related to payments.
 		@discardableResult
 		open func paymentSettings(alias: String? = nil, _ subfields: (PaymentSettingsQuery) -> Void) -> ShopQuery {
 			let subquery = PaymentSettingsQuery()
@@ -139,7 +155,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The primary domain of the shop’s Online Store. 
+		/// The primary domain of the shop’s Online Store.
 		@discardableResult
 		open func primaryDomain(alias: String? = nil, _ subfields: (DomainQuery) -> Void) -> ShopQuery {
 			let subquery = DomainQuery()
@@ -149,7 +165,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The shop’s privacy policy. 
+		/// The shop’s privacy policy.
 		@discardableResult
 		open func privacyPolicy(alias: String? = nil, _ subfields: (ShopPolicyQuery) -> Void) -> ShopQuery {
 			let subquery = ShopPolicyQuery()
@@ -159,7 +175,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The shop’s refund policy. 
+		/// The shop’s refund policy.
 		@discardableResult
 		open func refundPolicy(alias: String? = nil, _ subfields: (ShopPolicyQuery) -> Void) -> ShopQuery {
 			let subquery = ShopPolicyQuery()
@@ -169,7 +185,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The shop’s shipping policy. 
+		/// The shop’s shipping policy.
 		@discardableResult
 		open func shippingPolicy(alias: String? = nil, _ subfields: (ShopPolicyQuery) -> Void) -> ShopQuery {
 			let subquery = ShopPolicyQuery()
@@ -179,14 +195,14 @@ extension Storefront {
 			return self
 		}
 
-		/// Countries that the shop ships to. 
+		/// Countries that the shop ships to.
 		@discardableResult
 		open func shipsToCountries(alias: String? = nil) -> ShopQuery {
 			addField(field: "shipsToCountries", aliasSuffix: alias)
 			return self
 		}
 
-		/// The Shop Pay Installments pricing information for the shop. 
+		/// The Shop Pay Installments pricing information for the shop.
 		@discardableResult
 		open func shopPayInstallmentsPricing(alias: String? = nil, _ subfields: (ShopPayInstallmentsPricingQuery) -> Void) -> ShopQuery {
 			let subquery = ShopPayInstallmentsPricingQuery()
@@ -196,7 +212,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The shop’s subscription policy. 
+		/// The shop’s subscription policy.
 		@discardableResult
 		open func subscriptionPolicy(alias: String? = nil, _ subfields: (ShopPolicyWithDefaultQuery) -> Void) -> ShopQuery {
 			let subquery = ShopPolicyWithDefaultQuery()
@@ -206,7 +222,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The shop’s terms of service. 
+		/// The shop’s terms of service.
 		@discardableResult
 		open func termsOfService(alias: String? = nil, _ subfields: (ShopPolicyQuery) -> Void) -> ShopQuery {
 			let subquery = ShopPolicyQuery()
@@ -217,8 +233,24 @@ extension Storefront {
 		}
 	}
 
-	/// Shop represents a collection of the general settings and information about 
-	/// the shop. 
+	/// The central hub for store-wide settings and information accessible through
+	/// the Storefront API. Provides the shop's name, description, and branding
+	/// configuration including logos and colors through the
+	/// [`Brand`](https://shopify.dev/docs/api/storefront/current/objects/Brand)
+	/// object. Access store policies such as privacy, refund, shipping, and terms
+	/// of service via
+	/// [`ShopPolicy`](https://shopify.dev/docs/api/storefront/current/objects/ShopPolicy),
+	/// and the subscription policy via
+	/// [`ShopPolicyWithDefault`](https://shopify.dev/docs/api/storefront/current/objects/ShopPolicyWithDefault).
+	/// [`PaymentSettings`](https://shopify.dev/docs/api/storefront/current/objects/PaymentSettings)
+	/// expose accepted card brands, supported digital wallets, and enabled
+	/// presentment currencies. The object also includes the primary
+	/// [`Domain`](https://shopify.dev/docs/api/storefront/current/objects/Domain),
+	/// countries the shop ships to,
+	/// [`ShopPayInstallmentsPricing`](https://shopify.dev/docs/api/storefront/current/objects/ShopPayInstallmentsPricing),
+	/// and
+	/// [`SocialLoginProvider`](https://shopify.dev/docs/api/storefront/current/objects/SocialLoginProvider)
+	/// options for customer accounts.
 	open class Shop: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node {
 		public typealias Query = ShopQuery
 
@@ -346,7 +378,7 @@ extension Storefront {
 			}
 		}
 
-		/// The shop's branding configuration. 
+		/// The shop's branding configuration.
 		open var brand: Storefront.Brand? {
 			return internalGetBrand()
 		}
@@ -355,8 +387,8 @@ extension Storefront {
 			return field(field: "brand", aliasSuffix: alias) as! Storefront.Brand?
 		}
 
-		/// The URL for the customer account (only present if shop has a customer 
-		/// account vanity domain). 
+		/// The URL for the customer account (only present if shop has a customer
+		/// account vanity domain).
 		open var customerAccountUrl: String? {
 			return internalGetCustomerAccountUrl()
 		}
@@ -365,7 +397,7 @@ extension Storefront {
 			return field(field: "customerAccountUrl", aliasSuffix: alias) as! String?
 		}
 
-		/// A description of the shop. 
+		/// A description of the shop.
 		open var description: String? {
 			return internalGetDescription()
 		}
@@ -374,7 +406,7 @@ extension Storefront {
 			return field(field: "description", aliasSuffix: alias) as! String?
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -383,9 +415,9 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		open var metafield: Storefront.Metafield? {
 			return internalGetMetafield()
 		}
@@ -398,8 +430,8 @@ extension Storefront {
 			return field(field: "metafield", aliasSuffix: alias) as! Storefront.Metafield?
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		open var metafields: [Storefront.Metafield?] {
 			return internalGetMetafields()
 		}
@@ -412,8 +444,8 @@ extension Storefront {
 			return field(field: "metafields", aliasSuffix: alias) as! [Storefront.Metafield?]
 		}
 
-		/// A string representing the way currency is formatted when the currency isn’t 
-		/// specified. 
+		/// A string representing the way currency is formatted when the currency isn’t
+		/// specified.
 		open var moneyFormat: String {
 			return internalGetMoneyFormat()
 		}
@@ -422,7 +454,7 @@ extension Storefront {
 			return field(field: "moneyFormat", aliasSuffix: alias) as! String
 		}
 
-		/// The shop’s name. 
+		/// The shop’s name.
 		open var name: String {
 			return internalGetName()
 		}
@@ -431,7 +463,7 @@ extension Storefront {
 			return field(field: "name", aliasSuffix: alias) as! String
 		}
 
-		/// Settings related to payments. 
+		/// Settings related to payments.
 		open var paymentSettings: Storefront.PaymentSettings {
 			return internalGetPaymentSettings()
 		}
@@ -440,7 +472,7 @@ extension Storefront {
 			return field(field: "paymentSettings", aliasSuffix: alias) as! Storefront.PaymentSettings
 		}
 
-		/// The primary domain of the shop’s Online Store. 
+		/// The primary domain of the shop’s Online Store.
 		open var primaryDomain: Storefront.Domain {
 			return internalGetPrimaryDomain()
 		}
@@ -449,7 +481,7 @@ extension Storefront {
 			return field(field: "primaryDomain", aliasSuffix: alias) as! Storefront.Domain
 		}
 
-		/// The shop’s privacy policy. 
+		/// The shop’s privacy policy.
 		open var privacyPolicy: Storefront.ShopPolicy? {
 			return internalGetPrivacyPolicy()
 		}
@@ -458,7 +490,7 @@ extension Storefront {
 			return field(field: "privacyPolicy", aliasSuffix: alias) as! Storefront.ShopPolicy?
 		}
 
-		/// The shop’s refund policy. 
+		/// The shop’s refund policy.
 		open var refundPolicy: Storefront.ShopPolicy? {
 			return internalGetRefundPolicy()
 		}
@@ -467,7 +499,7 @@ extension Storefront {
 			return field(field: "refundPolicy", aliasSuffix: alias) as! Storefront.ShopPolicy?
 		}
 
-		/// The shop’s shipping policy. 
+		/// The shop’s shipping policy.
 		open var shippingPolicy: Storefront.ShopPolicy? {
 			return internalGetShippingPolicy()
 		}
@@ -476,7 +508,7 @@ extension Storefront {
 			return field(field: "shippingPolicy", aliasSuffix: alias) as! Storefront.ShopPolicy?
 		}
 
-		/// Countries that the shop ships to. 
+		/// Countries that the shop ships to.
 		open var shipsToCountries: [Storefront.CountryCode] {
 			return internalGetShipsToCountries()
 		}
@@ -485,7 +517,7 @@ extension Storefront {
 			return field(field: "shipsToCountries", aliasSuffix: alias) as! [Storefront.CountryCode]
 		}
 
-		/// The Shop Pay Installments pricing information for the shop. 
+		/// The Shop Pay Installments pricing information for the shop.
 		open var shopPayInstallmentsPricing: Storefront.ShopPayInstallmentsPricing? {
 			return internalGetShopPayInstallmentsPricing()
 		}
@@ -494,7 +526,7 @@ extension Storefront {
 			return field(field: "shopPayInstallmentsPricing", aliasSuffix: alias) as! Storefront.ShopPayInstallmentsPricing?
 		}
 
-		/// The shop’s subscription policy. 
+		/// The shop’s subscription policy.
 		open var subscriptionPolicy: Storefront.ShopPolicyWithDefault? {
 			return internalGetSubscriptionPolicy()
 		}
@@ -503,7 +535,7 @@ extension Storefront {
 			return field(field: "subscriptionPolicy", aliasSuffix: alias) as! Storefront.ShopPolicyWithDefault?
 		}
 
-		/// The shop’s terms of service. 
+		/// The shop’s terms of service.
 		open var termsOfService: Storefront.ShopPolicy? {
 			return internalGetTermsOfService()
 		}

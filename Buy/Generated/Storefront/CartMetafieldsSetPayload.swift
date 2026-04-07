@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Return type for `cartMetafieldsSet` mutation. 
+	/// Return type for `cartMetafieldsSet` mutation.
 	open class CartMetafieldsSetPayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartMetafieldsSetPayload
 
-		/// The list of cart metafields that were set. 
+		/// The list of cart metafields that were set.
 		@discardableResult
 		open func metafields(alias: String? = nil, _ subfields: (MetafieldQuery) -> Void) -> CartMetafieldsSetPayloadQuery {
 			let subquery = MetafieldQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (MetafieldsSetUserErrorQuery) -> Void) -> CartMetafieldsSetPayloadQuery {
 			let subquery = MetafieldsSetUserErrorQuery()
@@ -52,7 +52,7 @@ extension Storefront {
 		}
 	}
 
-	/// Return type for `cartMetafieldsSet` mutation. 
+	/// Return type for `cartMetafieldsSet` mutation.
 	open class CartMetafieldsSetPayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CartMetafieldsSetPayloadQuery
 
@@ -77,7 +77,7 @@ extension Storefront {
 			}
 		}
 
-		/// The list of cart metafields that were set. 
+		/// The list of cart metafields that were set.
 		open var metafields: [Storefront.Metafield]? {
 			return internalGetMetafields()
 		}
@@ -86,7 +86,7 @@ extension Storefront {
 			return field(field: "metafields", aliasSuffix: alias) as! [Storefront.Metafield]?
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		open var userErrors: [Storefront.MetafieldsSetUserError] {
 			return internalGetUserErrors()
 		}

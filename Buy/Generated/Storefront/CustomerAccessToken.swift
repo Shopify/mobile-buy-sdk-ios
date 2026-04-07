@@ -27,19 +27,29 @@
 import Foundation
 
 extension Storefront {
-	/// A CustomerAccessToken represents the unique token required to make 
-	/// modifications to the customer object. 
+	/// A unique authentication token that identifies a logged-in customer and
+	/// authorizes modifications to the
+	/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+	/// object. The token is required for customer-specific operations like
+	/// updating profile information or managing addresses. Tokens have an
+	/// expiration date and must be renewed using
+	/// [`customerAccessTokenRenew`](https://shopify.dev/docs/api/storefront/current/mutations/customerAccessTokenRenew)
+	/// before they expire. Create tokens with
+	/// [`customerAccessTokenCreate`](https://shopify.dev/docs/api/storefront/current/mutations/customerAccessTokenCreate)
+	/// using legacy customer account authentication (email and password), or with
+	/// [`customerAccessTokenCreateWithMultipass`](https://shopify.dev/docs/api/storefront/current/mutations/customerAccessTokenCreateWithMultipass)
+	/// for single sign-on flows.
 	open class CustomerAccessTokenQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CustomerAccessToken
 
-		/// The customer’s access token. 
+		/// The customer’s access token.
 		@discardableResult
 		open func accessToken(alias: String? = nil) -> CustomerAccessTokenQuery {
 			addField(field: "accessToken", aliasSuffix: alias)
 			return self
 		}
 
-		/// The date and time when the customer access token expires. 
+		/// The date and time when the customer access token expires.
 		@discardableResult
 		open func expiresAt(alias: String? = nil) -> CustomerAccessTokenQuery {
 			addField(field: "expiresAt", aliasSuffix: alias)
@@ -47,8 +57,18 @@ extension Storefront {
 		}
 	}
 
-	/// A CustomerAccessToken represents the unique token required to make 
-	/// modifications to the customer object. 
+	/// A unique authentication token that identifies a logged-in customer and
+	/// authorizes modifications to the
+	/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+	/// object. The token is required for customer-specific operations like
+	/// updating profile information or managing addresses. Tokens have an
+	/// expiration date and must be renewed using
+	/// [`customerAccessTokenRenew`](https://shopify.dev/docs/api/storefront/current/mutations/customerAccessTokenRenew)
+	/// before they expire. Create tokens with
+	/// [`customerAccessTokenCreate`](https://shopify.dev/docs/api/storefront/current/mutations/customerAccessTokenCreate)
+	/// using legacy customer account authentication (email and password), or with
+	/// [`customerAccessTokenCreateWithMultipass`](https://shopify.dev/docs/api/storefront/current/mutations/customerAccessTokenCreateWithMultipass)
+	/// for single sign-on flows.
 	open class CustomerAccessToken: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CustomerAccessTokenQuery
 
@@ -72,7 +92,7 @@ extension Storefront {
 			}
 		}
 
-		/// The customer’s access token. 
+		/// The customer’s access token.
 		open var accessToken: String {
 			return internalGetAccessToken()
 		}
@@ -81,7 +101,7 @@ extension Storefront {
 			return field(field: "accessToken", aliasSuffix: alias) as! String
 		}
 
-		/// The date and time when the customer access token expires. 
+		/// The date and time when the customer access token expires.
 		open var expiresAt: Date {
 			return internalGetExpiresAt()
 		}

@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// A failed completion to checkout a cart. 
+	/// A failed completion to checkout a cart.
 	open class CartCompletionFailedQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartCompletionFailed
 
-		/// The errors that caused the checkout to fail. 
+		/// The errors that caused the checkout to fail.
 		@discardableResult
 		open func errors(alias: String? = nil, _ subfields: (CompletionErrorQuery) -> Void) -> CartCompletionFailedQuery {
 			let subquery = CompletionErrorQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The ID of the cart completion attempt. 
+		/// The ID of the cart completion attempt.
 		@discardableResult
 		open func id(alias: String? = nil) -> CartCompletionFailedQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -49,7 +49,7 @@ extension Storefront {
 		}
 	}
 
-	/// A failed completion to checkout a cart. 
+	/// A failed completion to checkout a cart.
 	open class CartCompletionFailed: GraphQL.AbstractResponse, GraphQLObject, CartCompletionAttemptResult {
 		public typealias Query = CartCompletionFailedQuery
 
@@ -73,7 +73,7 @@ extension Storefront {
 			}
 		}
 
-		/// The errors that caused the checkout to fail. 
+		/// The errors that caused the checkout to fail.
 		open var errors: [Storefront.CompletionError] {
 			return internalGetErrors()
 		}
@@ -82,7 +82,7 @@ extension Storefront {
 			return field(field: "errors", aliasSuffix: alias) as! [Storefront.CompletionError]
 		}
 
-		/// The ID of the cart completion attempt. 
+		/// The ID of the cart completion attempt.
 		open var id: String {
 			return internalGetId()
 		}

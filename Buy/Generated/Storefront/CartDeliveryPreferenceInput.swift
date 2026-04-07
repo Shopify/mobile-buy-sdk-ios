@@ -27,20 +27,20 @@
 import Foundation
 
 extension Storefront {
-	/// Delivery preferences can be used to prefill the delivery section at 
-	/// checkout. 
+	/// Delivery preferences can be used to prefill the delivery section at
+	/// checkout.
 	open class CartDeliveryPreferenceInput {
-		/// The preferred delivery methods such as shipping, local pickup or through 
-		/// pickup points. The input must not contain more than `250` values. 
+		/// The preferred delivery methods such as shipping, local pickup or through
+		/// pickup points. The input must not contain more than `250` values.
 		open var deliveryMethod: Input<[PreferenceDeliveryMethodType]>
 
-		/// The pickup handle prefills checkout fields with the location for either 
-		/// local pickup or pickup points delivery methods. It accepts both location ID 
-		/// for local pickup and external IDs for pickup points. The input must not 
-		/// contain more than `250` values. 
+		/// The pickup handle prefills checkout fields with the location for either
+		/// local pickup or pickup points delivery methods. It accepts both location ID
+		/// for local pickup and external IDs for pickup points. The input must not
+		/// contain more than `250` values.
 		open var pickupHandle: Input<[String]>
 
-		/// The coordinates of a delivery location in order of preference. 
+		/// The coordinates of a delivery location in order of preference.
 		open var coordinates: Input<CartDeliveryCoordinatesPreferenceInput>
 
 		/// Creates the input object.

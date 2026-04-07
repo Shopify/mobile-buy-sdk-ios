@@ -27,19 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type which holds one OrderLineItem and a cursor during 
-	/// pagination. 
+	/// An auto-generated type which holds one OrderLineItem and a cursor during
+	/// pagination.
 	open class OrderLineItemEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = OrderLineItemEdge
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		@discardableResult
 		open func cursor(alias: String? = nil) -> OrderLineItemEdgeQuery {
 			addField(field: "cursor", aliasSuffix: alias)
 			return self
 		}
 
-		/// The item at the end of OrderLineItemEdge. 
+		/// The item at the end of OrderLineItemEdge.
 		@discardableResult
 		open func node(alias: String? = nil, _ subfields: (OrderLineItemQuery) -> Void) -> OrderLineItemEdgeQuery {
 			let subquery = OrderLineItemQuery()
@@ -50,8 +50,8 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type which holds one OrderLineItem and a cursor during 
-	/// pagination. 
+	/// An auto-generated type which holds one OrderLineItem and a cursor during
+	/// pagination.
 	open class OrderLineItemEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = OrderLineItemEdgeQuery
 
@@ -75,7 +75,7 @@ extension Storefront {
 			}
 		}
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		open var cursor: String {
 			return internalGetCursor()
 		}
@@ -84,7 +84,7 @@ extension Storefront {
 			return field(field: "cursor", aliasSuffix: alias) as! String
 		}
 
-		/// The item at the end of OrderLineItemEdge. 
+		/// The item at the end of OrderLineItemEdge.
 		open var node: Storefront.OrderLineItem {
 			return internalGetNode()
 		}

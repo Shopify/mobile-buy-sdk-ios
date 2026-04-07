@@ -27,19 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// Type for paginating through multiple sitemap's resources. 
+	/// Type for paginating through multiple sitemap's resources.
 	open class PaginatedSitemapResourcesQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = PaginatedSitemapResources
 
-		/// Whether there are more pages to fetch following the current page. 
+		/// Whether there are more pages to fetch following the current page.
 		@discardableResult
 		open func hasNextPage(alias: String? = nil) -> PaginatedSitemapResourcesQuery {
 			addField(field: "hasNextPage", aliasSuffix: alias)
 			return self
 		}
 
-		/// List of sitemap resources for the current page. Note: The number of items 
-		/// varies between 0 and 250 per page. 
+		/// List of sitemap resources for the current page. Note: The number of items
+		/// varies between 0 and 250 per page.
 		@discardableResult
 		open func items(alias: String? = nil, _ subfields: (SitemapResourceInterfaceQuery) -> Void) -> PaginatedSitemapResourcesQuery {
 			let subquery = SitemapResourceInterfaceQuery()
@@ -50,7 +50,7 @@ extension Storefront {
 		}
 	}
 
-	/// Type for paginating through multiple sitemap's resources. 
+	/// Type for paginating through multiple sitemap's resources.
 	open class PaginatedSitemapResources: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = PaginatedSitemapResourcesQuery
 
@@ -74,7 +74,7 @@ extension Storefront {
 			}
 		}
 
-		/// Whether there are more pages to fetch following the current page. 
+		/// Whether there are more pages to fetch following the current page.
 		open var hasNextPage: Bool {
 			return internalGetHasNextPage()
 		}
@@ -83,8 +83,8 @@ extension Storefront {
 			return field(field: "hasNextPage", aliasSuffix: alias) as! Bool
 		}
 
-		/// List of sitemap resources for the current page. Note: The number of items 
-		/// varies between 0 and 250 per page. 
+		/// List of sitemap resources for the current page. Note: The number of items
+		/// varies between 0 and 250 per page.
 		open var items: [SitemapResourceInterface] {
 			return internalGetItems()
 		}

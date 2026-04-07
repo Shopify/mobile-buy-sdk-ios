@@ -27,35 +27,44 @@
 import Foundation
 
 extension Storefront {
-	/// Represents an image resource. 
+	/// An image resource with URL, dimensions, and transformation options. Used
+	/// for product images, collection images, media previews, and other visual
+	/// content throughout the storefront. The
+	/// [`url`](https://shopify.dev/docs/api/storefront/current/objects/Image#field-Image.fields.url)
+	/// field accepts an
+	/// [`ImageTransformInput`](https://shopify.dev/docs/api/storefront/current/input-objects/ImageTransformInput)
+	/// argument for resizing, cropping, scaling for retina displays, and
+	/// converting between image formats. Use the
+	/// [`thumbhash`](https://shopify.dev/docs/api/storefront/current/objects/Image#field-Image.fields.thumbhash)
+	/// field to display lightweight placeholders while images load.
 	open class ImageQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Image
 
-		/// A word or phrase to share the nature or contents of an image. 
+		/// A word or phrase to share the nature or contents of an image.
 		@discardableResult
 		open func altText(alias: String? = nil) -> ImageQuery {
 			addField(field: "altText", aliasSuffix: alias)
 			return self
 		}
 
-		/// The original height of the image in pixels. Returns `null` if the image 
-		/// isn't hosted by Shopify. 
+		/// The original height of the image in pixels. Returns `null` if the image
+		/// isn't hosted by Shopify.
 		@discardableResult
 		open func height(alias: String? = nil) -> ImageQuery {
 			addField(field: "height", aliasSuffix: alias)
 			return self
 		}
 
-		/// A unique ID for the image. 
+		/// A unique ID for the image.
 		@discardableResult
 		open func id(alias: String? = nil) -> ImageQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The location of the original image as a URL. If there are any existing 
-		/// transformations in the original source URL, they will remain and not be 
-		/// stripped. 
+		/// The location of the original image as a URL. If there are any existing
+		/// transformations in the original source URL, they will remain and not be
+		/// stripped.
 		@available(*, deprecated, message: "Use `url` instead.")
 		@discardableResult
 		open func originalSrc(alias: String? = nil) -> ImageQuery {
@@ -63,7 +72,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The location of the image as a URL. 
+		/// The location of the image as a URL.
 		@available(*, deprecated, message: "Use `url` instead.")
 		@discardableResult
 		open func src(alias: String? = nil) -> ImageQuery {
@@ -71,19 +80,19 @@ extension Storefront {
 			return self
 		}
 
-		/// The ThumbHash of the image. Useful to display placeholder images while the 
-		/// original image is loading. See https://evanw.github.io/thumbhash/ for 
-		/// details on how to use it. 
+		/// The ThumbHash of the image. Useful to display placeholder images while the
+		/// original image is loading. See https://evanw.github.io/thumbhash/ for
+		/// details on how to use it.
 		@discardableResult
 		open func thumbhash(alias: String? = nil) -> ImageQuery {
 			addField(field: "thumbhash", aliasSuffix: alias)
 			return self
 		}
 
-		/// The location of the transformed image as a URL. All transformation 
-		/// arguments are considered "best-effort". If they can be applied to an image, 
-		/// they will be. Otherwise any transformations which an image type doesn't 
-		/// support will be ignored. 
+		/// The location of the transformed image as a URL. All transformation
+		/// arguments are considered "best-effort". If they can be applied to an image,
+		/// they will be. Otherwise any transformations which an image type doesn't
+		/// support will be ignored.
 		///
 		/// - parameters:
 		///     - maxWidth: Image width in pixels between 1 and 5760.
@@ -123,12 +132,12 @@ extension Storefront {
 			return self
 		}
 
-		/// The location of the image as a URL. If no transform options are specified, 
-		/// then the original image will be preserved including any pre-applied 
-		/// transforms. All transformation options are considered "best-effort". Any 
-		/// transformation that the original image type doesn't support will be 
-		/// ignored. If you need multiple variations of the same image, then you can 
-		/// use [GraphQL aliases](https://graphql.org/learn/queries/#aliases). 
+		/// The location of the image as a URL. If no transform options are specified,
+		/// then the original image will be preserved including any pre-applied
+		/// transforms. All transformation options are considered "best-effort". Any
+		/// transformation that the original image type doesn't support will be
+		/// ignored. If you need multiple variations of the same image, then you can
+		/// use [GraphQL aliases](https://graphql.org/learn/queries/#aliases).
 		///
 		/// - parameters:
 		///     - transform: A set of options to transform the original image.
@@ -147,8 +156,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The original width of the image in pixels. Returns `null` if the image 
-		/// isn't hosted by Shopify. 
+		/// The original width of the image in pixels. Returns `null` if the image
+		/// isn't hosted by Shopify.
 		@discardableResult
 		open func width(alias: String? = nil) -> ImageQuery {
 			addField(field: "width", aliasSuffix: alias)
@@ -156,7 +165,16 @@ extension Storefront {
 		}
 	}
 
-	/// Represents an image resource. 
+	/// An image resource with URL, dimensions, and transformation options. Used
+	/// for product images, collection images, media previews, and other visual
+	/// content throughout the storefront. The
+	/// [`url`](https://shopify.dev/docs/api/storefront/current/objects/Image#field-Image.fields.url)
+	/// field accepts an
+	/// [`ImageTransformInput`](https://shopify.dev/docs/api/storefront/current/input-objects/ImageTransformInput)
+	/// argument for resizing, cropping, scaling for retina displays, and
+	/// converting between image formats. Use the
+	/// [`thumbhash`](https://shopify.dev/docs/api/storefront/current/objects/Image#field-Image.fields.thumbhash)
+	/// field to display lightweight placeholders while images load.
 	open class Image: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ImageQuery
 
@@ -227,7 +245,7 @@ extension Storefront {
 			}
 		}
 
-		/// A word or phrase to share the nature or contents of an image. 
+		/// A word or phrase to share the nature or contents of an image.
 		open var altText: String? {
 			return internalGetAltText()
 		}
@@ -236,8 +254,8 @@ extension Storefront {
 			return field(field: "altText", aliasSuffix: alias) as! String?
 		}
 
-		/// The original height of the image in pixels. Returns `null` if the image 
-		/// isn't hosted by Shopify. 
+		/// The original height of the image in pixels. Returns `null` if the image
+		/// isn't hosted by Shopify.
 		open var height: Int32? {
 			return internalGetHeight()
 		}
@@ -246,7 +264,7 @@ extension Storefront {
 			return field(field: "height", aliasSuffix: alias) as! Int32?
 		}
 
-		/// A unique ID for the image. 
+		/// A unique ID for the image.
 		open var id: GraphQL.ID? {
 			return internalGetId()
 		}
@@ -255,9 +273,9 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID?
 		}
 
-		/// The location of the original image as a URL. If there are any existing 
-		/// transformations in the original source URL, they will remain and not be 
-		/// stripped. 
+		/// The location of the original image as a URL. If there are any existing
+		/// transformations in the original source URL, they will remain and not be
+		/// stripped.
 		@available(*, deprecated, message: "Use `url` instead.")
 		open var originalSrc: URL {
 			return internalGetOriginalSrc()
@@ -267,7 +285,7 @@ extension Storefront {
 			return field(field: "originalSrc", aliasSuffix: alias) as! URL
 		}
 
-		/// The location of the image as a URL. 
+		/// The location of the image as a URL.
 		@available(*, deprecated, message: "Use `url` instead.")
 		open var src: URL {
 			return internalGetSrc()
@@ -277,9 +295,9 @@ extension Storefront {
 			return field(field: "src", aliasSuffix: alias) as! URL
 		}
 
-		/// The ThumbHash of the image. Useful to display placeholder images while the 
-		/// original image is loading. See https://evanw.github.io/thumbhash/ for 
-		/// details on how to use it. 
+		/// The ThumbHash of the image. Useful to display placeholder images while the
+		/// original image is loading. See https://evanw.github.io/thumbhash/ for
+		/// details on how to use it.
 		open var thumbhash: String? {
 			return internalGetThumbhash()
 		}
@@ -288,10 +306,10 @@ extension Storefront {
 			return field(field: "thumbhash", aliasSuffix: alias) as! String?
 		}
 
-		/// The location of the transformed image as a URL. All transformation 
-		/// arguments are considered "best-effort". If they can be applied to an image, 
-		/// they will be. Otherwise any transformations which an image type doesn't 
-		/// support will be ignored. 
+		/// The location of the transformed image as a URL. All transformation
+		/// arguments are considered "best-effort". If they can be applied to an image,
+		/// they will be. Otherwise any transformations which an image type doesn't
+		/// support will be ignored.
 		@available(*, deprecated, message: "Use `url(transform:)` instead")
 		open var transformedSrc: URL {
 			return internalGetTransformedSrc()
@@ -307,12 +325,12 @@ extension Storefront {
 			return field(field: "transformedSrc", aliasSuffix: alias) as! URL
 		}
 
-		/// The location of the image as a URL. If no transform options are specified, 
-		/// then the original image will be preserved including any pre-applied 
-		/// transforms. All transformation options are considered "best-effort". Any 
-		/// transformation that the original image type doesn't support will be 
-		/// ignored. If you need multiple variations of the same image, then you can 
-		/// use [GraphQL aliases](https://graphql.org/learn/queries/#aliases). 
+		/// The location of the image as a URL. If no transform options are specified,
+		/// then the original image will be preserved including any pre-applied
+		/// transforms. All transformation options are considered "best-effort". Any
+		/// transformation that the original image type doesn't support will be
+		/// ignored. If you need multiple variations of the same image, then you can
+		/// use [GraphQL aliases](https://graphql.org/learn/queries/#aliases).
 		open var url: URL {
 			return internalGetUrl()
 		}
@@ -325,8 +343,8 @@ extension Storefront {
 			return field(field: "url", aliasSuffix: alias) as! URL
 		}
 
-		/// The original width of the image in pixels. Returns `null` if the image 
-		/// isn't hosted by Shopify. 
+		/// The original width of the image in pixels. Returns `null` if the image
+		/// isn't hosted by Shopify.
 		open var width: Int32? {
 			return internalGetWidth()
 		}

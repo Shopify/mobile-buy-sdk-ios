@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type for paginating through multiple Metaobjects. 
+	/// An auto-generated type for paginating through multiple Metaobjects.
 	open class MetaobjectConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MetaobjectConnection
 
-		/// A list of edges. 
+		/// A list of edges.
 		@discardableResult
 		open func edges(alias: String? = nil, _ subfields: (MetaobjectEdgeQuery) -> Void) -> MetaobjectConnectionQuery {
 			let subquery = MetaobjectEdgeQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of the nodes contained in MetaobjectEdge. 
+		/// A list of the nodes contained in MetaobjectEdge.
 		@discardableResult
 		open func nodes(alias: String? = nil, _ subfields: (MetaobjectQuery) -> Void) -> MetaobjectConnectionQuery {
 			let subquery = MetaobjectQuery()
@@ -51,7 +51,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> MetaobjectConnectionQuery {
 			let subquery = PageInfoQuery()
@@ -62,7 +62,7 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type for paginating through multiple Metaobjects. 
+	/// An auto-generated type for paginating through multiple Metaobjects.
 	open class MetaobjectConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = MetaobjectConnectionQuery
 
@@ -92,7 +92,7 @@ extension Storefront {
 			}
 		}
 
-		/// A list of edges. 
+		/// A list of edges.
 		open var edges: [Storefront.MetaobjectEdge] {
 			return internalGetEdges()
 		}
@@ -101,7 +101,7 @@ extension Storefront {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.MetaobjectEdge]
 		}
 
-		/// A list of the nodes contained in MetaobjectEdge. 
+		/// A list of the nodes contained in MetaobjectEdge.
 		open var nodes: [Storefront.Metaobject] {
 			return internalGetNodes()
 		}
@@ -110,7 +110,7 @@ extension Storefront {
 			return field(field: "nodes", aliasSuffix: alias) as! [Storefront.Metaobject]
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
 		}

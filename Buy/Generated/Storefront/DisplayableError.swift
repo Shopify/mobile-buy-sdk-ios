@@ -26,7 +26,7 @@
 
 import Foundation
 
-/// Represents an error in the input of a mutation. 
+/// Represents an error in the input of a mutation.
 public protocol DisplayableError {
 	var field: [String]? { get }
 
@@ -34,18 +34,18 @@ public protocol DisplayableError {
 }
 
 extension Storefront {
-	/// Represents an error in the input of a mutation. 
+	/// Represents an error in the input of a mutation.
 	open class DisplayableErrorQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = DisplayableError
 
-		/// The path to the input field that caused the error. 
+		/// The path to the input field that caused the error.
 		@discardableResult
 		open func field(alias: String? = nil) -> DisplayableErrorQuery {
 			addField(field: "field", aliasSuffix: alias)
 			return self
 		}
 
-		/// The error message. 
+		/// The error message.
 		@discardableResult
 		open func message(alias: String? = nil) -> DisplayableErrorQuery {
 			addField(field: "message", aliasSuffix: alias)
@@ -57,7 +57,7 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// Represents an error in the input of a mutation. 
+		/// Represents an error in the input of a mutation.
 		@discardableResult
 		open func onCartUserError(subfields: (CartUserErrorQuery) -> Void) -> DisplayableErrorQuery {
 			let subquery = CartUserErrorQuery()
@@ -66,7 +66,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents an error in the input of a mutation. 
+		/// Represents an error in the input of a mutation.
 		@discardableResult
 		open func onCustomerUserError(subfields: (CustomerUserErrorQuery) -> Void) -> DisplayableErrorQuery {
 			let subquery = CustomerUserErrorQuery()
@@ -75,7 +75,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents an error in the input of a mutation. 
+		/// Represents an error in the input of a mutation.
 		@discardableResult
 		open func onMetafieldDeleteUserError(subfields: (MetafieldDeleteUserErrorQuery) -> Void) -> DisplayableErrorQuery {
 			let subquery = MetafieldDeleteUserErrorQuery()
@@ -84,7 +84,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents an error in the input of a mutation. 
+		/// Represents an error in the input of a mutation.
 		@discardableResult
 		open func onMetafieldsSetUserError(subfields: (MetafieldsSetUserErrorQuery) -> Void) -> DisplayableErrorQuery {
 			let subquery = MetafieldsSetUserErrorQuery()
@@ -93,7 +93,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents an error in the input of a mutation. 
+		/// Represents an error in the input of a mutation.
 		@discardableResult
 		open func onUserError(subfields: (UserErrorQuery) -> Void) -> DisplayableErrorQuery {
 			let subquery = UserErrorQuery()
@@ -102,7 +102,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents an error in the input of a mutation. 
+		/// Represents an error in the input of a mutation.
 		@discardableResult
 		open func onUserErrorsShopPayPaymentRequestSessionUserErrors(subfields: (UserErrorsShopPayPaymentRequestSessionUserErrorsQuery) -> Void) -> DisplayableErrorQuery {
 			let subquery = UserErrorsShopPayPaymentRequestSessionUserErrorsQuery()
@@ -112,7 +112,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents an error in the input of a mutation. 
+	/// Represents an error in the input of a mutation.
 	open class UnknownDisplayableError: GraphQL.AbstractResponse, GraphQLObject, DisplayableError {
 		public typealias Query = DisplayableErrorQuery
 
@@ -159,7 +159,7 @@ extension Storefront {
 			}
 		}
 
-		/// The path to the input field that caused the error. 
+		/// The path to the input field that caused the error.
 		open var field: [String]? {
 			return internalGetField()
 		}
@@ -168,7 +168,7 @@ extension Storefront {
 			return field(field: "field", aliasSuffix: alias) as! [String]?
 		}
 
-		/// The error message. 
+		/// The error message.
 		open var message: String {
 			return internalGetMessage()
 		}

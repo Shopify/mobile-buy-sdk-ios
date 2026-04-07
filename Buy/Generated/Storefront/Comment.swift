@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// A comment on an article. 
+	/// A comment on an article.
 	open class CommentQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Comment
 
-		/// The comment’s author. 
+		/// The comment’s author.
 		@discardableResult
 		open func author(alias: String? = nil, _ subfields: (CommentAuthorQuery) -> Void) -> CommentQuery {
 			let subquery = CommentAuthorQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Stripped content of the comment, single line with HTML tags removed. 
+		/// Stripped content of the comment, single line with HTML tags removed.
 		///
 		/// - parameters:
 		///     - truncateAt: Truncates a string after the given length.
@@ -60,14 +60,14 @@ extension Storefront {
 			return self
 		}
 
-		/// The content of the comment, complete with HTML formatting. 
+		/// The content of the comment, complete with HTML formatting.
 		@discardableResult
 		open func contentHtml(alias: String? = nil) -> CommentQuery {
 			addField(field: "contentHtml", aliasSuffix: alias)
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> CommentQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -75,7 +75,7 @@ extension Storefront {
 		}
 	}
 
-	/// A comment on an article. 
+	/// A comment on an article.
 	open class Comment: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = CommentQuery
 
@@ -111,7 +111,7 @@ extension Storefront {
 			}
 		}
 
-		/// The comment’s author. 
+		/// The comment’s author.
 		open var author: Storefront.CommentAuthor {
 			return internalGetAuthor()
 		}
@@ -120,7 +120,7 @@ extension Storefront {
 			return field(field: "author", aliasSuffix: alias) as! Storefront.CommentAuthor
 		}
 
-		/// Stripped content of the comment, single line with HTML tags removed. 
+		/// Stripped content of the comment, single line with HTML tags removed.
 		open var content: String {
 			return internalGetContent()
 		}
@@ -133,7 +133,7 @@ extension Storefront {
 			return field(field: "content", aliasSuffix: alias) as! String
 		}
 
-		/// The content of the comment, complete with HTML formatting. 
+		/// The content of the comment, complete with HTML formatting.
 		open var contentHtml: String {
 			return internalGetContentHtml()
 		}
@@ -142,7 +142,7 @@ extension Storefront {
 			return field(field: "contentHtml", aliasSuffix: alias) as! String
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}

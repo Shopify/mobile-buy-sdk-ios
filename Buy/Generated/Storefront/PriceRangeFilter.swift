@@ -27,13 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields for a filter used to view a subset of products in a 
-	/// collection matching a specific price range. 
+	/// A price range for filtering products in a collection. Used by the
+	/// [`ProductFilter`](https://shopify.dev/docs/api/storefront/current/input-objects/ProductFilter)
+	/// input's
+	/// [`price`](https://shopify.dev/docs/api/storefront/current/input-objects/ProductFilter#fields-price)
+	/// field. > Note: Omitting the
+	/// [maximum](https://shopify.dev/docs/api/storefront/currents/input-objects/PriceRangeFilter#fields-max)
+	/// returns all products above the
+	/// [minimum](https://shopify.dev/docs/api/storefront/current/input-objects/PriceRangeFilter#fields-min).
 	open class PriceRangeFilter {
-		/// The minimum price in the range. Defaults to zero. 
+		/// The minimum price in the range. Defaults to zero.
 		open var min: Input<Double>
 
-		/// The maximum price in the range. Empty indicates no max price. 
+		/// The maximum price in the range. Empty indicates no max price.
 		open var max: Input<Double>
 
 		/// Creates the input object.

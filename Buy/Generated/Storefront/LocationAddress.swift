@@ -27,89 +27,89 @@
 import Foundation
 
 extension Storefront {
-	/// Represents the address of a location. 
+	/// Represents the address of a location.
 	open class LocationAddressQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = LocationAddress
 
-		/// The first line of the address for the location. 
+		/// The first line of the address for the location.
 		@discardableResult
 		open func address1(alias: String? = nil) -> LocationAddressQuery {
 			addField(field: "address1", aliasSuffix: alias)
 			return self
 		}
 
-		/// The second line of the address for the location. 
+		/// The second line of the address for the location.
 		@discardableResult
 		open func address2(alias: String? = nil) -> LocationAddressQuery {
 			addField(field: "address2", aliasSuffix: alias)
 			return self
 		}
 
-		/// The city of the location. 
+		/// The city of the location.
 		@discardableResult
 		open func city(alias: String? = nil) -> LocationAddressQuery {
 			addField(field: "city", aliasSuffix: alias)
 			return self
 		}
 
-		/// The country of the location. 
+		/// The country of the location.
 		@discardableResult
 		open func country(alias: String? = nil) -> LocationAddressQuery {
 			addField(field: "country", aliasSuffix: alias)
 			return self
 		}
 
-		/// The country code of the location. 
+		/// The country code of the location.
 		@discardableResult
 		open func countryCode(alias: String? = nil) -> LocationAddressQuery {
 			addField(field: "countryCode", aliasSuffix: alias)
 			return self
 		}
 
-		/// A formatted version of the address for the location. 
+		/// A formatted version of the address for the location.
 		@discardableResult
 		open func formatted(alias: String? = nil) -> LocationAddressQuery {
 			addField(field: "formatted", aliasSuffix: alias)
 			return self
 		}
 
-		/// The latitude coordinates of the location. 
+		/// The latitude coordinates of the location.
 		@discardableResult
 		open func latitude(alias: String? = nil) -> LocationAddressQuery {
 			addField(field: "latitude", aliasSuffix: alias)
 			return self
 		}
 
-		/// The longitude coordinates of the location. 
+		/// The longitude coordinates of the location.
 		@discardableResult
 		open func longitude(alias: String? = nil) -> LocationAddressQuery {
 			addField(field: "longitude", aliasSuffix: alias)
 			return self
 		}
 
-		/// The phone number of the location. 
+		/// The phone number of the location.
 		@discardableResult
 		open func phone(alias: String? = nil) -> LocationAddressQuery {
 			addField(field: "phone", aliasSuffix: alias)
 			return self
 		}
 
-		/// The province of the location. 
+		/// The province of the location.
 		@discardableResult
 		open func province(alias: String? = nil) -> LocationAddressQuery {
 			addField(field: "province", aliasSuffix: alias)
 			return self
 		}
 
-		/// The code for the province, state, or district of the address of the 
-		/// location. 
+		/// The code for the province, state, or district of the address of the
+		/// location.
 		@discardableResult
 		open func provinceCode(alias: String? = nil) -> LocationAddressQuery {
 			addField(field: "provinceCode", aliasSuffix: alias)
 			return self
 		}
 
-		/// The ZIP code of the location. 
+		/// The ZIP code of the location.
 		@discardableResult
 		open func zip(alias: String? = nil) -> LocationAddressQuery {
 			addField(field: "zip", aliasSuffix: alias)
@@ -117,7 +117,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents the address of a location. 
+	/// Represents the address of a location.
 	open class LocationAddress: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = LocationAddressQuery
 
@@ -212,7 +212,7 @@ extension Storefront {
 			}
 		}
 
-		/// The first line of the address for the location. 
+		/// The first line of the address for the location.
 		open var address1: String? {
 			return internalGetAddress1()
 		}
@@ -221,7 +221,7 @@ extension Storefront {
 			return field(field: "address1", aliasSuffix: alias) as! String?
 		}
 
-		/// The second line of the address for the location. 
+		/// The second line of the address for the location.
 		open var address2: String? {
 			return internalGetAddress2()
 		}
@@ -230,7 +230,7 @@ extension Storefront {
 			return field(field: "address2", aliasSuffix: alias) as! String?
 		}
 
-		/// The city of the location. 
+		/// The city of the location.
 		open var city: String? {
 			return internalGetCity()
 		}
@@ -239,7 +239,7 @@ extension Storefront {
 			return field(field: "city", aliasSuffix: alias) as! String?
 		}
 
-		/// The country of the location. 
+		/// The country of the location.
 		open var country: String? {
 			return internalGetCountry()
 		}
@@ -248,7 +248,7 @@ extension Storefront {
 			return field(field: "country", aliasSuffix: alias) as! String?
 		}
 
-		/// The country code of the location. 
+		/// The country code of the location.
 		open var countryCode: String? {
 			return internalGetCountryCode()
 		}
@@ -257,7 +257,7 @@ extension Storefront {
 			return field(field: "countryCode", aliasSuffix: alias) as! String?
 		}
 
-		/// A formatted version of the address for the location. 
+		/// A formatted version of the address for the location.
 		open var formatted: [String] {
 			return internalGetFormatted()
 		}
@@ -266,7 +266,7 @@ extension Storefront {
 			return field(field: "formatted", aliasSuffix: alias) as! [String]
 		}
 
-		/// The latitude coordinates of the location. 
+		/// The latitude coordinates of the location.
 		open var latitude: Double? {
 			return internalGetLatitude()
 		}
@@ -275,7 +275,7 @@ extension Storefront {
 			return field(field: "latitude", aliasSuffix: alias) as! Double?
 		}
 
-		/// The longitude coordinates of the location. 
+		/// The longitude coordinates of the location.
 		open var longitude: Double? {
 			return internalGetLongitude()
 		}
@@ -284,7 +284,7 @@ extension Storefront {
 			return field(field: "longitude", aliasSuffix: alias) as! Double?
 		}
 
-		/// The phone number of the location. 
+		/// The phone number of the location.
 		open var phone: String? {
 			return internalGetPhone()
 		}
@@ -293,7 +293,7 @@ extension Storefront {
 			return field(field: "phone", aliasSuffix: alias) as! String?
 		}
 
-		/// The province of the location. 
+		/// The province of the location.
 		open var province: String? {
 			return internalGetProvince()
 		}
@@ -302,8 +302,8 @@ extension Storefront {
 			return field(field: "province", aliasSuffix: alias) as! String?
 		}
 
-		/// The code for the province, state, or district of the address of the 
-		/// location. 
+		/// The code for the province, state, or district of the address of the
+		/// location.
 		open var provinceCode: String? {
 			return internalGetProvinceCode()
 		}
@@ -312,7 +312,7 @@ extension Storefront {
 			return field(field: "provinceCode", aliasSuffix: alias) as! String?
 		}
 
-		/// The ZIP code of the location. 
+		/// The ZIP code of the location.
 		open var zip: String? {
 			return internalGetZip()
 		}

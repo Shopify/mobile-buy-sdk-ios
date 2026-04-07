@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// The possible formats for a media presentation. 
+	/// The possible formats for a media presentation.
 	public enum MediaPresentationFormat: String {
-		/// A media image presentation. 
+		/// A media image presentation.
 		case image = "IMAGE"
 
-		/// A model viewer presentation. 
+		/// A model viewer presentation.
 		case modelViewer = "MODEL_VIEWER"
 
 		case unknownValue = ""

@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// Response signifying that the access to cart request is currently being 
-	/// throttled. The client can retry after `poll_after`. 
+	/// Response signifying that the access to cart request is currently being
+	/// throttled. The client can retry after `poll_after`.
 	open class CartThrottledQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartThrottled
 
-		/// The result of cart preparation for completion. 
+		/// The result of cart preparation for completion.
 		@discardableResult
 		open func cart(alias: String? = nil, _ subfields: (CartQuery) -> Void) -> CartThrottledQuery {
 			let subquery = CartQuery()
@@ -42,7 +42,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The polling delay. 
+		/// The polling delay.
 		@discardableResult
 		open func pollAfter(alias: String? = nil) -> CartThrottledQuery {
 			addField(field: "pollAfter", aliasSuffix: alias)
@@ -50,8 +50,8 @@ extension Storefront {
 		}
 	}
 
-	/// Response signifying that the access to cart request is currently being 
-	/// throttled. The client can retry after `poll_after`. 
+	/// Response signifying that the access to cart request is currently being
+	/// throttled. The client can retry after `poll_after`.
 	open class CartThrottled: GraphQL.AbstractResponse, GraphQLObject, CartPrepareForCompletionResult {
 		public typealias Query = CartThrottledQuery
 
@@ -76,7 +76,7 @@ extension Storefront {
 			}
 		}
 
-		/// The result of cart preparation for completion. 
+		/// The result of cart preparation for completion.
 		open var cart: Storefront.Cart? {
 			return internalGetCart()
 		}
@@ -85,7 +85,7 @@ extension Storefront {
 			return field(field: "cart", aliasSuffix: alias) as! Storefront.Cart?
 		}
 
-		/// The polling delay. 
+		/// The polling delay.
 		open var pollAfter: Date {
 			return internalGetPollAfter()
 		}

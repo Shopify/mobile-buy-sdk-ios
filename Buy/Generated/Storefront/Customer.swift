@@ -27,21 +27,31 @@
 import Foundation
 
 extension Storefront {
-	/// A customer represents a customer account with the shop. Customer accounts 
-	/// store contact information for the customer, saving logged-in customers the 
-	/// trouble of having to provide it at every checkout. 
+	/// A customer account with the shop. Includes data such as contact
+	/// information,
+	/// [addresses](https://shopify.dev/docs/api/storefront/current/objects/MailingAddress)
+	/// and marketing preferences for logged-in customers, so they don't have to
+	/// provide these details at every checkout. Access the customer through the
+	/// [`customer`](https://shopify.dev/docs/api/storefront/current/queries/customer)
+	/// query using a customer access token obtained from the
+	/// [`customerAccessTokenCreate`](https://shopify.dev/docs/api/storefront/current/mutations/customerAccessTokenCreate)
+	/// mutation. The object implements the
+	/// [`HasMetafields`](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields)
+	/// interface, enabling retrieval of [custom
+	/// data](https://shopify.dev/docs/apps/build/custom-data) associated with the
+	/// customer.
 	open class CustomerQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Customer
 
-		/// Indicates whether the customer has consented to be sent marketing material 
-		/// via email. 
+		/// Indicates whether the customer has consented to be sent marketing material
+		/// via email.
 		@discardableResult
 		open func acceptsMarketing(alias: String? = nil) -> CustomerQuery {
 			addField(field: "acceptsMarketing", aliasSuffix: alias)
 			return self
 		}
 
-		/// A list of addresses for the customer. 
+		/// A list of addresses for the customer.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -83,14 +93,14 @@ extension Storefront {
 			return self
 		}
 
-		/// The date and time when the customer was created. 
+		/// The date and time when the customer was created.
 		@discardableResult
 		open func createdAt(alias: String? = nil) -> CustomerQuery {
 			addField(field: "createdAt", aliasSuffix: alias)
 			return self
 		}
 
-		/// The customer’s default address. 
+		/// The customer’s default address.
 		@discardableResult
 		open func defaultAddress(alias: String? = nil, _ subfields: (MailingAddressQuery) -> Void) -> CustomerQuery {
 			let subquery = MailingAddressQuery()
@@ -100,44 +110,44 @@ extension Storefront {
 			return self
 		}
 
-		/// The customer’s name, email or phone number. 
+		/// The customer’s name, email or phone number.
 		@discardableResult
 		open func displayName(alias: String? = nil) -> CustomerQuery {
 			addField(field: "displayName", aliasSuffix: alias)
 			return self
 		}
 
-		/// The customer’s email address. 
+		/// The customer’s email address.
 		@discardableResult
 		open func email(alias: String? = nil) -> CustomerQuery {
 			addField(field: "email", aliasSuffix: alias)
 			return self
 		}
 
-		/// The customer’s first name. 
+		/// The customer’s first name.
 		@discardableResult
 		open func firstName(alias: String? = nil) -> CustomerQuery {
 			addField(field: "firstName", aliasSuffix: alias)
 			return self
 		}
 
-		/// A unique ID for the customer. 
+		/// A unique ID for the customer.
 		@discardableResult
 		open func id(alias: String? = nil) -> CustomerQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The customer’s last name. 
+		/// The customer’s last name.
 		@discardableResult
 		open func lastName(alias: String? = nil) -> CustomerQuery {
 			addField(field: "lastName", aliasSuffix: alias)
 			return self
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		///
 		/// - parameters:
 		///     - namespace: The container the metafield belongs to. If omitted, the app-reserved namespace will be used.
@@ -162,12 +172,12 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		///
 		/// - parameters:
 		///     - identifiers: The list of metafields to retrieve by namespace and key.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -185,15 +195,15 @@ extension Storefront {
 			return self
 		}
 
-		/// The number of orders that the customer has made at the store in their 
-		/// lifetime. 
+		/// The number of orders that the customer has made at the store in their
+		/// lifetime.
 		@discardableResult
 		open func numberOfOrders(alias: String? = nil) -> CustomerQuery {
 			addField(field: "numberOfOrders", aliasSuffix: alias)
 			return self
 		}
 
-		/// The orders associated with the customer. 
+		/// The orders associated with the customer.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -249,22 +259,22 @@ extension Storefront {
 			return self
 		}
 
-		/// The customer’s phone number. 
+		/// The customer’s phone number.
 		@discardableResult
 		open func phone(alias: String? = nil) -> CustomerQuery {
 			addField(field: "phone", aliasSuffix: alias)
 			return self
 		}
 
-		/// A comma separated list of tags that have been added to the customer. 
-		/// Additional access scope required: unauthenticated_read_customer_tags. 
+		/// A comma separated list of tags that have been added to the customer.
+		/// Additional access scope required: unauthenticated_read_customer_tags.
 		@discardableResult
 		open func tags(alias: String? = nil) -> CustomerQuery {
 			addField(field: "tags", aliasSuffix: alias)
 			return self
 		}
 
-		/// The date and time when the customer information was updated. 
+		/// The date and time when the customer information was updated.
 		@discardableResult
 		open func updatedAt(alias: String? = nil) -> CustomerQuery {
 			addField(field: "updatedAt", aliasSuffix: alias)
@@ -272,9 +282,19 @@ extension Storefront {
 		}
 	}
 
-	/// A customer represents a customer account with the shop. Customer accounts 
-	/// store contact information for the customer, saving logged-in customers the 
-	/// trouble of having to provide it at every checkout. 
+	/// A customer account with the shop. Includes data such as contact
+	/// information,
+	/// [addresses](https://shopify.dev/docs/api/storefront/current/objects/MailingAddress)
+	/// and marketing preferences for logged-in customers, so they don't have to
+	/// provide these details at every checkout. Access the customer through the
+	/// [`customer`](https://shopify.dev/docs/api/storefront/current/queries/customer)
+	/// query using a customer access token obtained from the
+	/// [`customerAccessTokenCreate`](https://shopify.dev/docs/api/storefront/current/mutations/customerAccessTokenCreate)
+	/// mutation. The object implements the
+	/// [`HasMetafields`](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields)
+	/// interface, enabling retrieval of [custom
+	/// data](https://shopify.dev/docs/apps/build/custom-data) associated with the
+	/// customer.
 	open class Customer: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource {
 		public typealias Query = CustomerQuery
 
@@ -392,8 +412,8 @@ extension Storefront {
 			}
 		}
 
-		/// Indicates whether the customer has consented to be sent marketing material 
-		/// via email. 
+		/// Indicates whether the customer has consented to be sent marketing material
+		/// via email.
 		open var acceptsMarketing: Bool {
 			return internalGetAcceptsMarketing()
 		}
@@ -402,7 +422,7 @@ extension Storefront {
 			return field(field: "acceptsMarketing", aliasSuffix: alias) as! Bool
 		}
 
-		/// A list of addresses for the customer. 
+		/// A list of addresses for the customer.
 		open var addresses: Storefront.MailingAddressConnection {
 			return internalGetAddresses()
 		}
@@ -415,7 +435,7 @@ extension Storefront {
 			return field(field: "addresses", aliasSuffix: alias) as! Storefront.MailingAddressConnection
 		}
 
-		/// The date and time when the customer was created. 
+		/// The date and time when the customer was created.
 		open var createdAt: Date {
 			return internalGetCreatedAt()
 		}
@@ -424,7 +444,7 @@ extension Storefront {
 			return field(field: "createdAt", aliasSuffix: alias) as! Date
 		}
 
-		/// The customer’s default address. 
+		/// The customer’s default address.
 		open var defaultAddress: Storefront.MailingAddress? {
 			return internalGetDefaultAddress()
 		}
@@ -433,7 +453,7 @@ extension Storefront {
 			return field(field: "defaultAddress", aliasSuffix: alias) as! Storefront.MailingAddress?
 		}
 
-		/// The customer’s name, email or phone number. 
+		/// The customer’s name, email or phone number.
 		open var displayName: String {
 			return internalGetDisplayName()
 		}
@@ -442,7 +462,7 @@ extension Storefront {
 			return field(field: "displayName", aliasSuffix: alias) as! String
 		}
 
-		/// The customer’s email address. 
+		/// The customer’s email address.
 		open var email: String? {
 			return internalGetEmail()
 		}
@@ -451,7 +471,7 @@ extension Storefront {
 			return field(field: "email", aliasSuffix: alias) as! String?
 		}
 
-		/// The customer’s first name. 
+		/// The customer’s first name.
 		open var firstName: String? {
 			return internalGetFirstName()
 		}
@@ -460,7 +480,7 @@ extension Storefront {
 			return field(field: "firstName", aliasSuffix: alias) as! String?
 		}
 
-		/// A unique ID for the customer. 
+		/// A unique ID for the customer.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -469,7 +489,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The customer’s last name. 
+		/// The customer’s last name.
 		open var lastName: String? {
 			return internalGetLastName()
 		}
@@ -478,9 +498,9 @@ extension Storefront {
 			return field(field: "lastName", aliasSuffix: alias) as! String?
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		open var metafield: Storefront.Metafield? {
 			return internalGetMetafield()
 		}
@@ -493,8 +513,8 @@ extension Storefront {
 			return field(field: "metafield", aliasSuffix: alias) as! Storefront.Metafield?
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		open var metafields: [Storefront.Metafield?] {
 			return internalGetMetafields()
 		}
@@ -507,8 +527,8 @@ extension Storefront {
 			return field(field: "metafields", aliasSuffix: alias) as! [Storefront.Metafield?]
 		}
 
-		/// The number of orders that the customer has made at the store in their 
-		/// lifetime. 
+		/// The number of orders that the customer has made at the store in their
+		/// lifetime.
 		open var numberOfOrders: String {
 			return internalGetNumberOfOrders()
 		}
@@ -517,7 +537,7 @@ extension Storefront {
 			return field(field: "numberOfOrders", aliasSuffix: alias) as! String
 		}
 
-		/// The orders associated with the customer. 
+		/// The orders associated with the customer.
 		open var orders: Storefront.OrderConnection {
 			return internalGetOrders()
 		}
@@ -530,7 +550,7 @@ extension Storefront {
 			return field(field: "orders", aliasSuffix: alias) as! Storefront.OrderConnection
 		}
 
-		/// The customer’s phone number. 
+		/// The customer’s phone number.
 		open var phone: String? {
 			return internalGetPhone()
 		}
@@ -539,8 +559,8 @@ extension Storefront {
 			return field(field: "phone", aliasSuffix: alias) as! String?
 		}
 
-		/// A comma separated list of tags that have been added to the customer. 
-		/// Additional access scope required: unauthenticated_read_customer_tags. 
+		/// A comma separated list of tags that have been added to the customer.
+		/// Additional access scope required: unauthenticated_read_customer_tags.
 		open var tags: [String] {
 			return internalGetTags()
 		}
@@ -549,7 +569,7 @@ extension Storefront {
 			return field(field: "tags", aliasSuffix: alias) as! [String]
 		}
 
-		/// The date and time when the customer information was updated. 
+		/// The date and time when the customer information was updated.
 		open var updatedAt: Date {
 			return internalGetUpdatedAt()
 		}

@@ -27,20 +27,20 @@
 import Foundation
 
 extension Storefront {
-	/// The set of valid sort keys for the ProductImage query. 
+	/// The set of valid sort keys for the ProductImage query.
 	public enum ProductImageSortKeys: String {
-		/// Sort by the `created_at` value. 
+		/// Sort by the `created_at` value.
 		case createdAt = "CREATED_AT"
 
-		/// Sort by the `id` value. 
+		/// Sort by the `id` value.
 		case id = "ID"
 
-		/// Sort by the `position` value. 
+		/// Sort by the `position` value.
 		case position = "POSITION"
 
-		/// Sort by relevance to the search terms when the `query` parameter is 
-		/// specified on the connection. Don't use this sort key when no search query 
-		/// is specified. 
+		/// Sort by relevance to the search terms when the `query` parameter is
+		/// specified on the connection. Don't use this sort key when no search query
+		/// is specified.
 		case relevance = "RELEVANCE"
 
 		case unknownValue = ""

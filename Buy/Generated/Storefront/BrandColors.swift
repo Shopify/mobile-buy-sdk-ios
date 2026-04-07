@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// The colors of the shop's brand. 
+	/// The colors of the shop's brand.
 	open class BrandColorsQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = BrandColors
 
-		/// The shop's primary brand colors. 
+		/// The shop's primary brand colors.
 		@discardableResult
 		open func primary(alias: String? = nil, _ subfields: (BrandColorGroupQuery) -> Void) -> BrandColorsQuery {
 			let subquery = BrandColorGroupQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The shop's secondary brand colors. 
+		/// The shop's secondary brand colors.
 		@discardableResult
 		open func secondary(alias: String? = nil, _ subfields: (BrandColorGroupQuery) -> Void) -> BrandColorsQuery {
 			let subquery = BrandColorGroupQuery()
@@ -52,7 +52,7 @@ extension Storefront {
 		}
 	}
 
-	/// The colors of the shop's brand. 
+	/// The colors of the shop's brand.
 	open class BrandColors: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = BrandColorsQuery
 
@@ -76,7 +76,7 @@ extension Storefront {
 			}
 		}
 
-		/// The shop's primary brand colors. 
+		/// The shop's primary brand colors.
 		open var primary: [Storefront.BrandColorGroup] {
 			return internalGetPrimary()
 		}
@@ -85,7 +85,7 @@ extension Storefront {
 			return field(field: "primary", aliasSuffix: alias) as! [Storefront.BrandColorGroup]
 		}
 
-		/// The shop's secondary brand colors. 
+		/// The shop's secondary brand colors.
 		open var secondary: [Storefront.BrandColorGroup] {
 			return internalGetSecondary()
 		}

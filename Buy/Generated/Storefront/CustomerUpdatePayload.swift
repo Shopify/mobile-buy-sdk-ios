@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Return type for `customerUpdate` mutation. 
+	/// Return type for `customerUpdate` mutation.
 	open class CustomerUpdatePayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CustomerUpdatePayload
 
-		/// The updated customer object. 
+		/// The updated customer object.
 		@discardableResult
 		open func customer(alias: String? = nil, _ subfields: (CustomerQuery) -> Void) -> CustomerUpdatePayloadQuery {
 			let subquery = CustomerQuery()
@@ -41,9 +41,9 @@ extension Storefront {
 			return self
 		}
 
-		/// The newly created customer access token. If the customer's password is 
-		/// updated, all previous access tokens (including the one used to perform this 
-		/// mutation) become invalid, and a new token is generated. 
+		/// The newly created customer access token. If the customer's password is
+		/// updated, all previous access tokens (including the one used to perform this
+		/// mutation) become invalid, and a new token is generated.
 		@discardableResult
 		open func customerAccessToken(alias: String? = nil, _ subfields: (CustomerAccessTokenQuery) -> Void) -> CustomerUpdatePayloadQuery {
 			let subquery = CustomerAccessTokenQuery()
@@ -53,7 +53,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		@discardableResult
 		open func customerUserErrors(alias: String? = nil, _ subfields: (CustomerUserErrorQuery) -> Void) -> CustomerUpdatePayloadQuery {
 			let subquery = CustomerUserErrorQuery()
@@ -63,7 +63,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		@available(*, deprecated, message: "Use `customerUserErrors` instead.")
 		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerUpdatePayloadQuery {
@@ -75,7 +75,7 @@ extension Storefront {
 		}
 	}
 
-	/// Return type for `customerUpdate` mutation. 
+	/// Return type for `customerUpdate` mutation.
 	open class CustomerUpdatePayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CustomerUpdatePayloadQuery
 
@@ -113,7 +113,7 @@ extension Storefront {
 			}
 		}
 
-		/// The updated customer object. 
+		/// The updated customer object.
 		open var customer: Storefront.Customer? {
 			return internalGetCustomer()
 		}
@@ -122,9 +122,9 @@ extension Storefront {
 			return field(field: "customer", aliasSuffix: alias) as! Storefront.Customer?
 		}
 
-		/// The newly created customer access token. If the customer's password is 
-		/// updated, all previous access tokens (including the one used to perform this 
-		/// mutation) become invalid, and a new token is generated. 
+		/// The newly created customer access token. If the customer's password is
+		/// updated, all previous access tokens (including the one used to perform this
+		/// mutation) become invalid, and a new token is generated.
 		open var customerAccessToken: Storefront.CustomerAccessToken? {
 			return internalGetCustomerAccessToken()
 		}
@@ -133,7 +133,7 @@ extension Storefront {
 			return field(field: "customerAccessToken", aliasSuffix: alias) as! Storefront.CustomerAccessToken?
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		open var customerUserErrors: [Storefront.CustomerUserError] {
 			return internalGetCustomerUserErrors()
 		}
@@ -142,7 +142,7 @@ extension Storefront {
 			return field(field: "customerUserErrors", aliasSuffix: alias) as! [Storefront.CustomerUserError]
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		@available(*, deprecated, message: "Use `customerUserErrors` instead.")
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()

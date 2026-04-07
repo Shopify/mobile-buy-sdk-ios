@@ -27,11 +27,23 @@
 import Foundation
 
 extension Storefront {
-	/// The taxonomy category for the product. 
+	/// A category from Shopify's [Standard Product
+	/// Taxonomy](https://shopify.github.io/product-taxonomy/releases/unstable/?categoryId=sg-4-17-2-17)
+	/// assigned to a
+	/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product).
+	/// Categories provide hierarchical classification through the `ancestors`
+	/// field. The
+	/// [`ancestors`](https://shopify.dev/docs/api/storefront/current/objects/TaxonomyCategory#field-TaxonomyCategory.fields.ancestors)
+	/// field returns the parent chain from the immediate parent up to the root.
+	/// Each ancestor category also includes its own `ancestors`. The
+	/// [`name`](https://shopify.dev/docs/api/storefront/latest/objects/TaxonomyCategory#field-TaxonomyCategory.fields.name)
+	/// field returns the localized category name based on the storefront's request
+	/// language with shop locale fallbacks. If a translation isn't available for
+	/// the resolved locale, the English taxonomy name is returned.
 	open class TaxonomyCategoryQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = TaxonomyCategory
 
-		/// All parent nodes of the current taxonomy category. 
+		/// All parent nodes of the current taxonomy category.
 		@discardableResult
 		open func ancestors(alias: String? = nil, _ subfields: (TaxonomyCategoryQuery) -> Void) -> TaxonomyCategoryQuery {
 			let subquery = TaxonomyCategoryQuery()
@@ -41,14 +53,14 @@ extension Storefront {
 			return self
 		}
 
-		/// A static identifier for the taxonomy category. 
+		/// A static identifier for the taxonomy category.
 		@discardableResult
 		open func id(alias: String? = nil) -> TaxonomyCategoryQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The localized name of the taxonomy category. 
+		/// The localized name of the taxonomy category.
 		@discardableResult
 		open func name(alias: String? = nil) -> TaxonomyCategoryQuery {
 			addField(field: "name", aliasSuffix: alias)
@@ -56,7 +68,19 @@ extension Storefront {
 		}
 	}
 
-	/// The taxonomy category for the product. 
+	/// A category from Shopify's [Standard Product
+	/// Taxonomy](https://shopify.github.io/product-taxonomy/releases/unstable/?categoryId=sg-4-17-2-17)
+	/// assigned to a
+	/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product).
+	/// Categories provide hierarchical classification through the `ancestors`
+	/// field. The
+	/// [`ancestors`](https://shopify.dev/docs/api/storefront/current/objects/TaxonomyCategory#field-TaxonomyCategory.fields.ancestors)
+	/// field returns the parent chain from the immediate parent up to the root.
+	/// Each ancestor category also includes its own `ancestors`. The
+	/// [`name`](https://shopify.dev/docs/api/storefront/latest/objects/TaxonomyCategory#field-TaxonomyCategory.fields.name)
+	/// field returns the localized category name based on the storefront's request
+	/// language with shop locale fallbacks. If a translation isn't available for
+	/// the resolved locale, the English taxonomy name is returned.
 	open class TaxonomyCategory: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = TaxonomyCategoryQuery
 
@@ -86,7 +110,7 @@ extension Storefront {
 			}
 		}
 
-		/// All parent nodes of the current taxonomy category. 
+		/// All parent nodes of the current taxonomy category.
 		open var ancestors: [Storefront.TaxonomyCategory] {
 			return internalGetAncestors()
 		}
@@ -95,7 +119,7 @@ extension Storefront {
 			return field(field: "ancestors", aliasSuffix: alias) as! [Storefront.TaxonomyCategory]
 		}
 
-		/// A static identifier for the taxonomy category. 
+		/// A static identifier for the taxonomy category.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -104,7 +128,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The localized name of the taxonomy category. 
+		/// The localized name of the taxonomy category.
 		open var name: String {
 			return internalGetName()
 		}

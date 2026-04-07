@@ -26,12 +26,12 @@
 
 import Foundation
 
-/// The result of a cart completion attempt. 
+/// The result of a cart completion attempt.
 public protocol CartCompletionAttemptResult {
 }
 
 extension Storefront {
-	/// The result of a cart completion attempt. 
+	/// The result of a cart completion attempt.
 	open class CartCompletionAttemptResultQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartCompletionAttemptResult
 
@@ -40,7 +40,7 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// The result of a cart completion attempt. 
+		/// The result of a cart completion attempt.
 		@discardableResult
 		open func onCartCompletionActionRequired(subfields: (CartCompletionActionRequiredQuery) -> Void) -> CartCompletionAttemptResultQuery {
 			let subquery = CartCompletionActionRequiredQuery()
@@ -49,7 +49,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The result of a cart completion attempt. 
+		/// The result of a cart completion attempt.
 		@discardableResult
 		open func onCartCompletionFailed(subfields: (CartCompletionFailedQuery) -> Void) -> CartCompletionAttemptResultQuery {
 			let subquery = CartCompletionFailedQuery()
@@ -58,7 +58,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The result of a cart completion attempt. 
+		/// The result of a cart completion attempt.
 		@discardableResult
 		open func onCartCompletionProcessing(subfields: (CartCompletionProcessingQuery) -> Void) -> CartCompletionAttemptResultQuery {
 			let subquery = CartCompletionProcessingQuery()
@@ -67,7 +67,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The result of a cart completion attempt. 
+		/// The result of a cart completion attempt.
 		@discardableResult
 		open func onCartCompletionSuccess(subfields: (CartCompletionSuccessQuery) -> Void) -> CartCompletionAttemptResultQuery {
 			let subquery = CartCompletionSuccessQuery()
@@ -77,7 +77,7 @@ extension Storefront {
 		}
 	}
 
-	/// The result of a cart completion attempt. 
+	/// The result of a cart completion attempt.
 	open class UnknownCartCompletionAttemptResult: GraphQL.AbstractResponse, GraphQLObject, CartCompletionAttemptResult {
 		public typealias Query = CartCompletionAttemptResultQuery
 

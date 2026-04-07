@@ -27,19 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type which holds one CartDeliveryGroup and a cursor 
-	/// during pagination. 
+	/// An auto-generated type which holds one CartDeliveryGroup and a cursor
+	/// during pagination.
 	open class CartDeliveryGroupEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartDeliveryGroupEdge
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		@discardableResult
 		open func cursor(alias: String? = nil) -> CartDeliveryGroupEdgeQuery {
 			addField(field: "cursor", aliasSuffix: alias)
 			return self
 		}
 
-		/// The item at the end of CartDeliveryGroupEdge. 
+		/// The item at the end of CartDeliveryGroupEdge.
 		@discardableResult
 		open func node(alias: String? = nil, _ subfields: (CartDeliveryGroupQuery) -> Void) -> CartDeliveryGroupEdgeQuery {
 			let subquery = CartDeliveryGroupQuery()
@@ -50,8 +50,8 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type which holds one CartDeliveryGroup and a cursor 
-	/// during pagination. 
+	/// An auto-generated type which holds one CartDeliveryGroup and a cursor
+	/// during pagination.
 	open class CartDeliveryGroupEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CartDeliveryGroupEdgeQuery
 
@@ -75,7 +75,7 @@ extension Storefront {
 			}
 		}
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		open var cursor: String {
 			return internalGetCursor()
 		}
@@ -84,7 +84,7 @@ extension Storefront {
 			return field(field: "cursor", aliasSuffix: alias) as! String
 		}
 
-		/// The item at the end of CartDeliveryGroupEdge. 
+		/// The item at the end of CartDeliveryGroupEdge.
 		open var node: Storefront.CartDeliveryGroup {
 			return internalGetNode()
 		}

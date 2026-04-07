@@ -27,13 +27,13 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields for updating the selected delivery options for a delivery 
-	/// group. 
+	/// The input fields for updating the selected delivery options for a delivery
+	/// group.
 	open class CartSelectedDeliveryOptionInput {
-		/// The ID of the cart delivery group. 
+		/// The ID of the cart delivery group.
 		open var deliveryGroupId: GraphQL.ID
 
-		/// The handle of the selected delivery option. 
+		/// The handle of the selected delivery option.
 		open var deliveryOptionHandle: String
 
 		/// Creates the input object.

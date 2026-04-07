@@ -27,19 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type which holds one UrlRedirect and a cursor during 
-	/// pagination. 
+	/// An auto-generated type which holds one UrlRedirect and a cursor during
+	/// pagination.
 	open class UrlRedirectEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = UrlRedirectEdge
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		@discardableResult
 		open func cursor(alias: String? = nil) -> UrlRedirectEdgeQuery {
 			addField(field: "cursor", aliasSuffix: alias)
 			return self
 		}
 
-		/// The item at the end of UrlRedirectEdge. 
+		/// The item at the end of UrlRedirectEdge.
 		@discardableResult
 		open func node(alias: String? = nil, _ subfields: (UrlRedirectQuery) -> Void) -> UrlRedirectEdgeQuery {
 			let subquery = UrlRedirectQuery()
@@ -50,8 +50,8 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type which holds one UrlRedirect and a cursor during 
-	/// pagination. 
+	/// An auto-generated type which holds one UrlRedirect and a cursor during
+	/// pagination.
 	open class UrlRedirectEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = UrlRedirectEdgeQuery
 
@@ -75,7 +75,7 @@ extension Storefront {
 			}
 		}
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		open var cursor: String {
 			return internalGetCursor()
 		}
@@ -84,7 +84,7 @@ extension Storefront {
 			return field(field: "cursor", aliasSuffix: alias) as! String
 		}
 
-		/// The item at the end of UrlRedirectEdge. 
+		/// The item at the end of UrlRedirectEdge.
 		open var node: Storefront.UrlRedirect {
 			return internalGetNode()
 		}

@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// A percentage amount that's deducted from the original variant price. For 
-	/// example, 10% off. 
+	/// A percentage amount that's deducted from the original variant price. For
+	/// example, 10% off.
 	open class SellingPlanPercentagePriceAdjustmentQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlanPercentagePriceAdjustment
 
-		/// The percentage value of the price adjustment. 
+		/// The percentage value of the price adjustment.
 		@discardableResult
 		open func adjustmentPercentage(alias: String? = nil) -> SellingPlanPercentagePriceAdjustmentQuery {
 			addField(field: "adjustmentPercentage", aliasSuffix: alias)
@@ -40,8 +40,8 @@ extension Storefront {
 		}
 	}
 
-	/// A percentage amount that's deducted from the original variant price. For 
-	/// example, 10% off. 
+	/// A percentage amount that's deducted from the original variant price. For
+	/// example, 10% off.
 	open class SellingPlanPercentagePriceAdjustment: GraphQL.AbstractResponse, GraphQLObject, SellingPlanPriceAdjustmentValue {
 		public typealias Query = SellingPlanPercentagePriceAdjustmentQuery
 
@@ -59,7 +59,7 @@ extension Storefront {
 			}
 		}
 
-		/// The percentage value of the price adjustment. 
+		/// The percentage value of the price adjustment.
 		open var adjustmentPercentage: Double {
 			return internalGetAdjustmentPercentage()
 		}

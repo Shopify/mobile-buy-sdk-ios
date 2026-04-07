@@ -27,18 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// The set of valid sort keys for the Location query. 
+	/// The set of valid sort keys for the Location query.
 	public enum LocationSortKeys: String {
-		/// Sort by the `city` value. 
+		/// Sort by the `city` value.
 		case city = "CITY"
 
-		/// Sort by the `distance` value. 
+		/// Sort by the `distance` value.
 		case distance = "DISTANCE"
 
-		/// Sort by the `id` value. 
+		/// Sort by the `id` value.
 		case id = "ID"
 
-		/// Sort by the `name` value. 
+		/// Sort by the `name` value.
 		case name = "NAME"
 
 		case unknownValue = ""

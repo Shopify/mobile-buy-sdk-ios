@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// The delivery properties of the cart. 
+	/// The delivery properties of the cart.
 	open class CartDeliveryQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartDelivery
 
-		/// Selectable addresses to present to the buyer on the cart. 
+		/// Selectable addresses to present to the buyer on the cart.
 		///
 		/// - parameters:
 		///     - selected: Filter the addresses by selected status.
@@ -54,7 +54,7 @@ extension Storefront {
 		}
 	}
 
-	/// The delivery properties of the cart. 
+	/// The delivery properties of the cart.
 	open class CartDelivery: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CartDeliveryQuery
 
@@ -72,7 +72,7 @@ extension Storefront {
 			}
 		}
 
-		/// Selectable addresses to present to the buyer on the cart. 
+		/// Selectable addresses to present to the buyer on the cart.
 		open var addresses: [Storefront.CartSelectableAddress] {
 			return internalGetAddresses()
 		}

@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Return type for `customerReset` mutation. 
+	/// Return type for `customerReset` mutation.
 	open class CustomerResetPayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CustomerResetPayload
 
-		/// The customer object which was reset. 
+		/// The customer object which was reset.
 		@discardableResult
 		open func customer(alias: String? = nil, _ subfields: (CustomerQuery) -> Void) -> CustomerResetPayloadQuery {
 			let subquery = CustomerQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A newly created customer access token object for the customer. 
+		/// A newly created customer access token object for the customer.
 		@discardableResult
 		open func customerAccessToken(alias: String? = nil, _ subfields: (CustomerAccessTokenQuery) -> Void) -> CustomerResetPayloadQuery {
 			let subquery = CustomerAccessTokenQuery()
@@ -51,7 +51,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		@discardableResult
 		open func customerUserErrors(alias: String? = nil, _ subfields: (CustomerUserErrorQuery) -> Void) -> CustomerResetPayloadQuery {
 			let subquery = CustomerUserErrorQuery()
@@ -61,7 +61,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		@available(*, deprecated, message: "Use `customerUserErrors` instead.")
 		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerResetPayloadQuery {
@@ -73,7 +73,7 @@ extension Storefront {
 		}
 	}
 
-	/// Return type for `customerReset` mutation. 
+	/// Return type for `customerReset` mutation.
 	open class CustomerResetPayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CustomerResetPayloadQuery
 
@@ -111,7 +111,7 @@ extension Storefront {
 			}
 		}
 
-		/// The customer object which was reset. 
+		/// The customer object which was reset.
 		open var customer: Storefront.Customer? {
 			return internalGetCustomer()
 		}
@@ -120,7 +120,7 @@ extension Storefront {
 			return field(field: "customer", aliasSuffix: alias) as! Storefront.Customer?
 		}
 
-		/// A newly created customer access token object for the customer. 
+		/// A newly created customer access token object for the customer.
 		open var customerAccessToken: Storefront.CustomerAccessToken? {
 			return internalGetCustomerAccessToken()
 		}
@@ -129,7 +129,7 @@ extension Storefront {
 			return field(field: "customerAccessToken", aliasSuffix: alias) as! Storefront.CustomerAccessToken?
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		open var customerUserErrors: [Storefront.CustomerUserError] {
 			return internalGetCustomerUserErrors()
 		}
@@ -138,7 +138,7 @@ extension Storefront {
 			return field(field: "customerUserErrors", aliasSuffix: alias) as! [Storefront.CustomerUserError]
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		@available(*, deprecated, message: "Use `customerUserErrors` instead.")
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()

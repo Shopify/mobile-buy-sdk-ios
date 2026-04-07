@@ -27,15 +27,15 @@
 import Foundation
 
 extension Storefront {
-	/// A set of preferences tied to the buyer interacting with the cart. 
-	/// Preferences are used to prefill fields in at checkout to streamline 
-	/// information collection. Preferences are not synced back to the cart if they 
-	/// are overwritten. 
+	/// A set of preferences tied to the buyer interacting with the cart.
+	/// Preferences are used to prefill fields in at checkout to streamline
+	/// information collection. Preferences are not synced back to the cart if they
+	/// are overwritten.
 	open class CartPreferencesQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartPreferences
 
-		/// Delivery preferences can be used to prefill the delivery section in at 
-		/// checkout. 
+		/// Delivery preferences can be used to prefill the delivery section in at
+		/// checkout.
 		@discardableResult
 		open func delivery(alias: String? = nil, _ subfields: (CartDeliveryPreferenceQuery) -> Void) -> CartPreferencesQuery {
 			let subquery = CartDeliveryPreferenceQuery()
@@ -45,8 +45,8 @@ extension Storefront {
 			return self
 		}
 
-		/// Wallet preferences are used to populate relevant payment fields in the 
-		/// checkout flow. Accepted value: `["shop_pay"]`. 
+		/// Wallet preferences are used to populate relevant payment fields in the
+		/// checkout flow. Accepted value: `["shop_pay"]`.
 		@discardableResult
 		open func wallet(alias: String? = nil) -> CartPreferencesQuery {
 			addField(field: "wallet", aliasSuffix: alias)
@@ -54,10 +54,10 @@ extension Storefront {
 		}
 	}
 
-	/// A set of preferences tied to the buyer interacting with the cart. 
-	/// Preferences are used to prefill fields in at checkout to streamline 
-	/// information collection. Preferences are not synced back to the cart if they 
-	/// are overwritten. 
+	/// A set of preferences tied to the buyer interacting with the cart.
+	/// Preferences are used to prefill fields in at checkout to streamline
+	/// information collection. Preferences are not synced back to the cart if they
+	/// are overwritten.
 	open class CartPreferences: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CartPreferencesQuery
 
@@ -83,8 +83,8 @@ extension Storefront {
 			}
 		}
 
-		/// Delivery preferences can be used to prefill the delivery section in at 
-		/// checkout. 
+		/// Delivery preferences can be used to prefill the delivery section in at
+		/// checkout.
 		open var delivery: Storefront.CartDeliveryPreference? {
 			return internalGetDelivery()
 		}
@@ -93,8 +93,8 @@ extension Storefront {
 			return field(field: "delivery", aliasSuffix: alias) as! Storefront.CartDeliveryPreference?
 		}
 
-		/// Wallet preferences are used to populate relevant payment fields in the 
-		/// checkout flow. Accepted value: `["shop_pay"]`. 
+		/// Wallet preferences are used to populate relevant payment fields in the
+		/// checkout flow. Accepted value: `["shop_pay"]`.
 		open var wallet: [String]? {
 			return internalGetWallet()
 		}

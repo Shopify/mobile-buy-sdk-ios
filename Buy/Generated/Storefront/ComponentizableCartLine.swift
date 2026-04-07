@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Represents information about the grouped merchandise in the cart. 
+	/// Represents information about the grouped merchandise in the cart.
 	open class ComponentizableCartLineQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ComponentizableCartLine
 
-		/// An attribute associated with the cart line. 
+		/// An attribute associated with the cart line.
 		///
 		/// - parameters:
 		///     - key: The key of the attribute.
@@ -51,8 +51,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The attributes associated with the cart line. Attributes are represented as 
-		/// key-value pairs. 
+		/// The attributes associated with the cart line. Attributes are represented as
+		/// key-value pairs.
 		@discardableResult
 		open func attributes(alias: String? = nil, _ subfields: (AttributeQuery) -> Void) -> ComponentizableCartLineQuery {
 			let subquery = AttributeQuery()
@@ -62,8 +62,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The cost of the merchandise that the buyer will pay for at checkout. The 
-		/// costs are subject to change and changes will be reflected at checkout. 
+		/// The cost of the merchandise that the buyer will pay for at checkout. The
+		/// costs are subject to change and changes will be reflected at checkout.
 		@discardableResult
 		open func cost(alias: String? = nil, _ subfields: (CartLineCostQuery) -> Void) -> ComponentizableCartLineQuery {
 			let subquery = CartLineCostQuery()
@@ -73,7 +73,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The discounts that have been applied to the cart line. 
+		/// The discounts that have been applied to the cart line.
 		@discardableResult
 		open func discountAllocations(alias: String? = nil, _ subfields: (CartDiscountAllocationQuery) -> Void) -> ComponentizableCartLineQuery {
 			let subquery = CartDiscountAllocationQuery()
@@ -83,9 +83,9 @@ extension Storefront {
 			return self
 		}
 
-		/// The estimated cost of the merchandise that the buyer will pay for at 
-		/// checkout. The estimated costs are subject to change and changes will be 
-		/// reflected at checkout. 
+		/// The estimated cost of the merchandise that the buyer will pay for at
+		/// checkout. The estimated costs are subject to change and changes will be
+		/// reflected at checkout.
 		@available(*, deprecated, message: "Use `cost` instead.")
 		@discardableResult
 		open func estimatedCost(alias: String? = nil, _ subfields: (CartLineEstimatedCostQuery) -> Void) -> ComponentizableCartLineQuery {
@@ -96,14 +96,14 @@ extension Storefront {
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> ComponentizableCartLineQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The components of the line item. 
+		/// The components of the line item.
 		@discardableResult
 		open func lineComponents(alias: String? = nil, _ subfields: (CartLineQuery) -> Void) -> ComponentizableCartLineQuery {
 			let subquery = CartLineQuery()
@@ -113,7 +113,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The merchandise that the buyer intends to purchase. 
+		/// The merchandise that the buyer intends to purchase.
 		@discardableResult
 		open func merchandise(alias: String? = nil, _ subfields: (MerchandiseQuery) -> Void) -> ComponentizableCartLineQuery {
 			let subquery = MerchandiseQuery()
@@ -123,15 +123,15 @@ extension Storefront {
 			return self
 		}
 
-		/// The quantity of the merchandise that the customer intends to purchase. 
+		/// The quantity of the merchandise that the customer intends to purchase.
 		@discardableResult
 		open func quantity(alias: String? = nil) -> ComponentizableCartLineQuery {
 			addField(field: "quantity", aliasSuffix: alias)
 			return self
 		}
 
-		/// The selling plan associated with the cart line and the effect that each 
-		/// selling plan has on variants when they're purchased. 
+		/// The selling plan associated with the cart line and the effect that each
+		/// selling plan has on variants when they're purchased.
 		@discardableResult
 		open func sellingPlanAllocation(alias: String? = nil, _ subfields: (SellingPlanAllocationQuery) -> Void) -> ComponentizableCartLineQuery {
 			let subquery = SellingPlanAllocationQuery()
@@ -142,7 +142,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents information about the grouped merchandise in the cart. 
+	/// Represents information about the grouped merchandise in the cart.
 	open class ComponentizableCartLine: GraphQL.AbstractResponse, GraphQLObject, BaseCartLine, Node {
 		public typealias Query = ComponentizableCartLineQuery
 
@@ -216,7 +216,7 @@ extension Storefront {
 			}
 		}
 
-		/// An attribute associated with the cart line. 
+		/// An attribute associated with the cart line.
 		open var attribute: Storefront.Attribute? {
 			return internalGetAttribute()
 		}
@@ -229,8 +229,8 @@ extension Storefront {
 			return field(field: "attribute", aliasSuffix: alias) as! Storefront.Attribute?
 		}
 
-		/// The attributes associated with the cart line. Attributes are represented as 
-		/// key-value pairs. 
+		/// The attributes associated with the cart line. Attributes are represented as
+		/// key-value pairs.
 		open var attributes: [Storefront.Attribute] {
 			return internalGetAttributes()
 		}
@@ -239,8 +239,8 @@ extension Storefront {
 			return field(field: "attributes", aliasSuffix: alias) as! [Storefront.Attribute]
 		}
 
-		/// The cost of the merchandise that the buyer will pay for at checkout. The 
-		/// costs are subject to change and changes will be reflected at checkout. 
+		/// The cost of the merchandise that the buyer will pay for at checkout. The
+		/// costs are subject to change and changes will be reflected at checkout.
 		open var cost: Storefront.CartLineCost {
 			return internalGetCost()
 		}
@@ -249,7 +249,7 @@ extension Storefront {
 			return field(field: "cost", aliasSuffix: alias) as! Storefront.CartLineCost
 		}
 
-		/// The discounts that have been applied to the cart line. 
+		/// The discounts that have been applied to the cart line.
 		open var discountAllocations: [CartDiscountAllocation] {
 			return internalGetDiscountAllocations()
 		}
@@ -258,9 +258,9 @@ extension Storefront {
 			return field(field: "discountAllocations", aliasSuffix: alias) as! [CartDiscountAllocation]
 		}
 
-		/// The estimated cost of the merchandise that the buyer will pay for at 
-		/// checkout. The estimated costs are subject to change and changes will be 
-		/// reflected at checkout. 
+		/// The estimated cost of the merchandise that the buyer will pay for at
+		/// checkout. The estimated costs are subject to change and changes will be
+		/// reflected at checkout.
 		@available(*, deprecated, message: "Use `cost` instead.")
 		open var estimatedCost: Storefront.CartLineEstimatedCost {
 			return internalGetEstimatedCost()
@@ -270,7 +270,7 @@ extension Storefront {
 			return field(field: "estimatedCost", aliasSuffix: alias) as! Storefront.CartLineEstimatedCost
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -279,7 +279,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The components of the line item. 
+		/// The components of the line item.
 		open var lineComponents: [Storefront.CartLine] {
 			return internalGetLineComponents()
 		}
@@ -288,7 +288,7 @@ extension Storefront {
 			return field(field: "lineComponents", aliasSuffix: alias) as! [Storefront.CartLine]
 		}
 
-		/// The merchandise that the buyer intends to purchase. 
+		/// The merchandise that the buyer intends to purchase.
 		open var merchandise: Merchandise {
 			return internalGetMerchandise()
 		}
@@ -297,7 +297,7 @@ extension Storefront {
 			return field(field: "merchandise", aliasSuffix: alias) as! Merchandise
 		}
 
-		/// The quantity of the merchandise that the customer intends to purchase. 
+		/// The quantity of the merchandise that the customer intends to purchase.
 		open var quantity: Int32 {
 			return internalGetQuantity()
 		}
@@ -306,8 +306,8 @@ extension Storefront {
 			return field(field: "quantity", aliasSuffix: alias) as! Int32
 		}
 
-		/// The selling plan associated with the cart line and the effect that each 
-		/// selling plan has on variants when they're purchased. 
+		/// The selling plan associated with the cart line and the effect that each
+		/// selling plan has on variants when they're purchased.
 		open var sellingPlanAllocation: Storefront.SellingPlanAllocation? {
 			return internalGetSellingPlanAllocation()
 		}

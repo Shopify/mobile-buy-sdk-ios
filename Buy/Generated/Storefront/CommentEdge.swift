@@ -27,19 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type which holds one Comment and a cursor during 
-	/// pagination. 
+	/// An auto-generated type which holds one Comment and a cursor during
+	/// pagination.
 	open class CommentEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CommentEdge
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		@discardableResult
 		open func cursor(alias: String? = nil) -> CommentEdgeQuery {
 			addField(field: "cursor", aliasSuffix: alias)
 			return self
 		}
 
-		/// The item at the end of CommentEdge. 
+		/// The item at the end of CommentEdge.
 		@discardableResult
 		open func node(alias: String? = nil, _ subfields: (CommentQuery) -> Void) -> CommentEdgeQuery {
 			let subquery = CommentQuery()
@@ -50,8 +50,8 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type which holds one Comment and a cursor during 
-	/// pagination. 
+	/// An auto-generated type which holds one Comment and a cursor during
+	/// pagination.
 	open class CommentEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CommentEdgeQuery
 
@@ -75,7 +75,7 @@ extension Storefront {
 			}
 		}
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		open var cursor: String {
 			return internalGetCursor()
 		}
@@ -84,7 +84,7 @@ extension Storefront {
 			return field(field: "cursor", aliasSuffix: alias) as! String
 		}
 
-		/// The item at the end of CommentEdge. 
+		/// The item at the end of CommentEdge.
 		open var node: Storefront.Comment {
 			return internalGetNode()
 		}

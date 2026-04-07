@@ -27,33 +27,36 @@
 import Foundation
 
 extension Storefront {
-	/// Possible error codes that can be returned by `MetafieldsSetUserError`. 
+	/// Possible error codes that can be returned by `MetafieldsSetUserError`.
 	public enum MetafieldsSetUserErrorCode: String {
-		/// The input value is blank. 
+		/// The current app is not authorized to perform this action.
+		case appNotAuthorized = "APP_NOT_AUTHORIZED"
+
+		/// The input value is blank.
 		case blank = "BLANK"
 
-		/// The input value isn't included in the list. 
+		/// The input value isn't included in the list.
 		case inclusion = "INCLUSION"
 
-		/// The owner ID is invalid. 
+		/// The owner ID is invalid.
 		case invalidOwner = "INVALID_OWNER"
 
-		/// The type is invalid. 
+		/// The type is invalid.
 		case invalidType = "INVALID_TYPE"
 
-		/// The value is invalid for metafield type or for definition options. 
+		/// The value is invalid for metafield type or for definition options.
 		case invalidValue = "INVALID_VALUE"
 
-		/// The input value should be less than or equal to the maximum value allowed. 
+		/// The input value should be less than or equal to the maximum value allowed.
 		case lessThanOrEqualTo = "LESS_THAN_OR_EQUAL_TO"
 
-		/// The input value needs to be blank. 
+		/// The input value needs to be blank.
 		case present = "PRESENT"
 
-		/// The input value is too long. 
+		/// The input value is too long.
 		case tooLong = "TOO_LONG"
 
-		/// The input value is too short. 
+		/// The input value is too short.
 		case tooShort = "TOO_SHORT"
 
 		case unknownValue = ""

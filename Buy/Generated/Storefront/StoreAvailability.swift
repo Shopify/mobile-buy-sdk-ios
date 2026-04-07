@@ -27,20 +27,27 @@
 import Foundation
 
 extension Storefront {
-	/// The availability of a product variant at a particular location. Local 
-	/// pick-up must be enabled in the store's shipping settings, otherwise this 
-	/// will return an empty result. 
+	/// Inventory information for a product variant at a physical store location
+	/// that offers local pickup. Includes stock availability, quantity on hand,
+	/// and estimated pickup readiness time. Local pickup must be [enabled in the
+	/// store's shipping
+	/// settings](https://help.shopify.com/manual/shipping/setting-up-and-managing-your-shipping/local-methods/local-pickup)
+	/// for this data to be returned. Results can be sorted by proximity to a
+	/// customer's location using the `near` argument on the
+	/// [`ProductVariant.storeAvailability`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant#field-ProductVariant.fields.storeAvailability)
+	/// connection. Learn more about [supporting local pickup on
+	/// storefronts](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/products-collections/local-pickup).
 	open class StoreAvailabilityQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = StoreAvailability
 
-		/// Whether the product variant is in-stock at this location. 
+		/// Whether the product variant is in-stock at this location.
 		@discardableResult
 		open func available(alias: String? = nil) -> StoreAvailabilityQuery {
 			addField(field: "available", aliasSuffix: alias)
 			return self
 		}
 
-		/// The location where this product variant is stocked at. 
+		/// The location where this product variant is stocked at.
 		@discardableResult
 		open func location(alias: String? = nil, _ subfields: (LocationQuery) -> Void) -> StoreAvailabilityQuery {
 			let subquery = LocationQuery()
@@ -50,15 +57,15 @@ extension Storefront {
 			return self
 		}
 
-		/// Returns the estimated amount of time it takes for pickup to be ready 
-		/// (Example: Usually ready in 24 hours). 
+		/// Returns the estimated amount of time it takes for pickup to be ready
+		/// (Example: Usually ready in 24 hours).
 		@discardableResult
 		open func pickUpTime(alias: String? = nil) -> StoreAvailabilityQuery {
 			addField(field: "pickUpTime", aliasSuffix: alias)
 			return self
 		}
 
-		/// The quantity of the product variant in-stock at this location. 
+		/// The quantity of the product variant in-stock at this location.
 		@discardableResult
 		open func quantityAvailable(alias: String? = nil) -> StoreAvailabilityQuery {
 			addField(field: "quantityAvailable", aliasSuffix: alias)
@@ -66,9 +73,16 @@ extension Storefront {
 		}
 	}
 
-	/// The availability of a product variant at a particular location. Local 
-	/// pick-up must be enabled in the store's shipping settings, otherwise this 
-	/// will return an empty result. 
+	/// Inventory information for a product variant at a physical store location
+	/// that offers local pickup. Includes stock availability, quantity on hand,
+	/// and estimated pickup readiness time. Local pickup must be [enabled in the
+	/// store's shipping
+	/// settings](https://help.shopify.com/manual/shipping/setting-up-and-managing-your-shipping/local-methods/local-pickup)
+	/// for this data to be returned. Results can be sorted by proximity to a
+	/// customer's location using the `near` argument on the
+	/// [`ProductVariant.storeAvailability`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant#field-ProductVariant.fields.storeAvailability)
+	/// connection. Learn more about [supporting local pickup on
+	/// storefronts](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/products-collections/local-pickup).
 	open class StoreAvailability: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = StoreAvailabilityQuery
 
@@ -104,7 +118,7 @@ extension Storefront {
 			}
 		}
 
-		/// Whether the product variant is in-stock at this location. 
+		/// Whether the product variant is in-stock at this location.
 		open var available: Bool {
 			return internalGetAvailable()
 		}
@@ -113,7 +127,7 @@ extension Storefront {
 			return field(field: "available", aliasSuffix: alias) as! Bool
 		}
 
-		/// The location where this product variant is stocked at. 
+		/// The location where this product variant is stocked at.
 		open var location: Storefront.Location {
 			return internalGetLocation()
 		}
@@ -122,8 +136,8 @@ extension Storefront {
 			return field(field: "location", aliasSuffix: alias) as! Storefront.Location
 		}
 
-		/// Returns the estimated amount of time it takes for pickup to be ready 
-		/// (Example: Usually ready in 24 hours). 
+		/// Returns the estimated amount of time it takes for pickup to be ready
+		/// (Example: Usually ready in 24 hours).
 		open var pickUpTime: String {
 			return internalGetPickUpTime()
 		}
@@ -132,7 +146,7 @@ extension Storefront {
 			return field(field: "pickUpTime", aliasSuffix: alias) as! String
 		}
 
-		/// The quantity of the product variant in-stock at this location. 
+		/// The quantity of the product variant in-stock at this location.
 		open var quantityAvailable: Int32 {
 			return internalGetQuantityAvailable()
 		}

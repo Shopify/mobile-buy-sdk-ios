@@ -27,13 +27,13 @@
 import Foundation
 
 extension Storefront {
-	/// Defines what type of merchandise is in the delivery group. 
+	/// Defines what type of merchandise is in the delivery group.
 	public enum CartDeliveryGroupType: String {
-		/// The delivery group only contains merchandise that is either a one time 
-		/// purchase or a first delivery of subscription merchandise. 
+		/// The delivery group only contains merchandise that is either a one time
+		/// purchase or a first delivery of subscription merchandise.
 		case oneTimePurchase = "ONE_TIME_PURCHASE"
 
-		/// The delivery group only contains subscription merchandise. 
+		/// The delivery group only contains subscription merchandise.
 		case subscription = "SUBSCRIPTION"
 
 		case unknownValue = ""

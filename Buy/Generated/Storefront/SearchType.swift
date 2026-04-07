@@ -27,15 +27,15 @@
 import Foundation
 
 extension Storefront {
-	/// The types of search items to perform search within. 
+	/// The types of search items to perform search within.
 	public enum SearchType: String {
-		/// Returns matching articles. 
+		/// Returns matching articles.
 		case article = "ARTICLE"
 
-		/// Returns matching pages. 
+		/// Returns matching pages.
 		case page = "PAGE"
 
-		/// Returns matching products. 
+		/// Returns matching products.
 		case product = "PRODUCT"
 
 		case unknownValue = ""

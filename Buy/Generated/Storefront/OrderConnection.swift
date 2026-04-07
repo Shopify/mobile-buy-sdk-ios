@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type for paginating through multiple Orders. 
+	/// An auto-generated type for paginating through multiple Orders.
 	open class OrderConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = OrderConnection
 
-		/// A list of edges. 
+		/// A list of edges.
 		@discardableResult
 		open func edges(alias: String? = nil, _ subfields: (OrderEdgeQuery) -> Void) -> OrderConnectionQuery {
 			let subquery = OrderEdgeQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of the nodes contained in OrderEdge. 
+		/// A list of the nodes contained in OrderEdge.
 		@discardableResult
 		open func nodes(alias: String? = nil, _ subfields: (OrderQuery) -> Void) -> OrderConnectionQuery {
 			let subquery = OrderQuery()
@@ -51,7 +51,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> OrderConnectionQuery {
 			let subquery = PageInfoQuery()
@@ -61,7 +61,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The total count of Orders. 
+		/// The total count of Orders.
 		@discardableResult
 		open func totalCount(alias: String? = nil) -> OrderConnectionQuery {
 			addField(field: "totalCount", aliasSuffix: alias)
@@ -69,7 +69,7 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type for paginating through multiple Orders. 
+	/// An auto-generated type for paginating through multiple Orders.
 	open class OrderConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = OrderConnectionQuery
 
@@ -105,7 +105,7 @@ extension Storefront {
 			}
 		}
 
-		/// A list of edges. 
+		/// A list of edges.
 		open var edges: [Storefront.OrderEdge] {
 			return internalGetEdges()
 		}
@@ -114,7 +114,7 @@ extension Storefront {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.OrderEdge]
 		}
 
-		/// A list of the nodes contained in OrderEdge. 
+		/// A list of the nodes contained in OrderEdge.
 		open var nodes: [Storefront.Order] {
 			return internalGetNodes()
 		}
@@ -123,7 +123,7 @@ extension Storefront {
 			return field(field: "nodes", aliasSuffix: alias) as! [Storefront.Order]
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
 		}
@@ -132,7 +132,7 @@ extension Storefront {
 			return field(field: "pageInfo", aliasSuffix: alias) as! Storefront.PageInfo
 		}
 
-		/// The total count of Orders. 
+		/// The total count of Orders.
 		open var totalCount: String {
 			return internalGetTotalCount()
 		}

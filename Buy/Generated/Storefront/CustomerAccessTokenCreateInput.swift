@@ -27,12 +27,17 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields required to create a customer access token. 
+	/// The input fields for authenticating a customer with email and password.
+	/// Used by the
+	/// [`customerAccessTokenCreate`](https://shopify.dev/docs/api/storefront/current/mutations/customerAccessTokenCreate)
+	/// mutation to generate a
+	/// [`CustomerAccessToken`](https://shopify.dev/docs/api/storefront/current/objects/CustomerAccessToken),
+	/// which is required to read or modify customer data.
 	open class CustomerAccessTokenCreateInput {
-		/// The email associated to the customer. 
+		/// The email associated to the customer.
 		open var email: String
 
-		/// The login password to be used by the customer. 
+		/// The login password to be used by the customer.
 		open var password: String
 
 		/// Creates the input object.

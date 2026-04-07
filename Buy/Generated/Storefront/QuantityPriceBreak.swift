@@ -27,19 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// Quantity price breaks lets you offer different rates that are based on the 
-	/// amount of a specific variant being ordered. 
+	/// Quantity price breaks lets you offer different rates that are based on the
+	/// amount of a specific variant being ordered.
 	open class QuantityPriceBreakQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = QuantityPriceBreak
 
-		/// Minimum quantity required to reach new quantity break price. 
+		/// Minimum quantity required to reach new quantity break price.
 		@discardableResult
 		open func minimumQuantity(alias: String? = nil) -> QuantityPriceBreakQuery {
 			addField(field: "minimumQuantity", aliasSuffix: alias)
 			return self
 		}
 
-		/// The price of variant after reaching the minimum quanity. 
+		/// The price of variant after reaching the minimum quanity.
 		@discardableResult
 		open func price(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> QuantityPriceBreakQuery {
 			let subquery = MoneyV2Query()
@@ -50,8 +50,8 @@ extension Storefront {
 		}
 	}
 
-	/// Quantity price breaks lets you offer different rates that are based on the 
-	/// amount of a specific variant being ordered. 
+	/// Quantity price breaks lets you offer different rates that are based on the
+	/// amount of a specific variant being ordered.
 	open class QuantityPriceBreak: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = QuantityPriceBreakQuery
 
@@ -75,7 +75,7 @@ extension Storefront {
 			}
 		}
 
-		/// Minimum quantity required to reach new quantity break price. 
+		/// Minimum quantity required to reach new quantity break price.
 		open var minimumQuantity: Int32 {
 			return internalGetMinimumQuantity()
 		}
@@ -84,7 +84,7 @@ extension Storefront {
 			return field(field: "minimumQuantity", aliasSuffix: alias) as! Int32
 		}
 
-		/// The price of variant after reaching the minimum quanity. 
+		/// The price of variant after reaching the minimum quanity.
 		open var price: Storefront.MoneyV2 {
 			return internalGetPrice()
 		}

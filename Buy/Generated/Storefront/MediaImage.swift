@@ -27,25 +27,35 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a Shopify hosted image. 
+	/// An image hosted on Shopify's content delivery network (CDN). Used for
+	/// product images, brand logos, and other visual content across the
+	/// storefront. The
+	/// [`image`](https://shopify.dev/docs/api/storefront/current/objects/MediaImage#field-MediaImage.fields.image)
+	/// field provides the actual image data with transformation options.
+	/// Implements the
+	/// [`Media`](https://shopify.dev/docs/api/storefront/current/interfaces/Media)
+	/// interface alongside other media types like
+	/// [`Video`](https://shopify.dev/docs/api/storefront/current/objects/Video)
+	/// and
+	/// [`Model3d`](https://shopify.dev/docs/api/storefront/current/objects/Model3d).
 	open class MediaImageQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MediaImage
 
-		/// A word or phrase to share the nature or contents of a media. 
+		/// A word or phrase to share the nature or contents of a media.
 		@discardableResult
 		open func alt(alias: String? = nil) -> MediaImageQuery {
 			addField(field: "alt", aliasSuffix: alias)
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> MediaImageQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The image for the media. 
+		/// The image for the media.
 		@discardableResult
 		open func image(alias: String? = nil, _ subfields: (ImageQuery) -> Void) -> MediaImageQuery {
 			let subquery = ImageQuery()
@@ -55,14 +65,14 @@ extension Storefront {
 			return self
 		}
 
-		/// The media content type. 
+		/// The media content type.
 		@discardableResult
 		open func mediaContentType(alias: String? = nil) -> MediaImageQuery {
 			addField(field: "mediaContentType", aliasSuffix: alias)
 			return self
 		}
 
-		/// The presentation for a media. 
+		/// The presentation for a media.
 		@discardableResult
 		open func presentation(alias: String? = nil, _ subfields: (MediaPresentationQuery) -> Void) -> MediaImageQuery {
 			let subquery = MediaPresentationQuery()
@@ -72,7 +82,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The preview image for the media. 
+		/// The preview image for the media.
 		@discardableResult
 		open func previewImage(alias: String? = nil, _ subfields: (ImageQuery) -> Void) -> MediaImageQuery {
 			let subquery = ImageQuery()
@@ -83,7 +93,17 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a Shopify hosted image. 
+	/// An image hosted on Shopify's content delivery network (CDN). Used for
+	/// product images, brand logos, and other visual content across the
+	/// storefront. The
+	/// [`image`](https://shopify.dev/docs/api/storefront/current/objects/MediaImage#field-MediaImage.fields.image)
+	/// field provides the actual image data with transformation options.
+	/// Implements the
+	/// [`Media`](https://shopify.dev/docs/api/storefront/current/interfaces/Media)
+	/// interface alongside other media types like
+	/// [`Video`](https://shopify.dev/docs/api/storefront/current/objects/Video)
+	/// and
+	/// [`Model3d`](https://shopify.dev/docs/api/storefront/current/objects/Model3d).
 	open class MediaImage: GraphQL.AbstractResponse, GraphQLObject, Media, MetafieldReference, Node {
 		public typealias Query = MediaImageQuery
 
@@ -135,7 +155,7 @@ extension Storefront {
 			}
 		}
 
-		/// A word or phrase to share the nature or contents of a media. 
+		/// A word or phrase to share the nature or contents of a media.
 		open var alt: String? {
 			return internalGetAlt()
 		}
@@ -144,7 +164,7 @@ extension Storefront {
 			return field(field: "alt", aliasSuffix: alias) as! String?
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -153,7 +173,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The image for the media. 
+		/// The image for the media.
 		open var image: Storefront.Image? {
 			return internalGetImage()
 		}
@@ -162,7 +182,7 @@ extension Storefront {
 			return field(field: "image", aliasSuffix: alias) as! Storefront.Image?
 		}
 
-		/// The media content type. 
+		/// The media content type.
 		open var mediaContentType: Storefront.MediaContentType {
 			return internalGetMediaContentType()
 		}
@@ -171,7 +191,7 @@ extension Storefront {
 			return field(field: "mediaContentType", aliasSuffix: alias) as! Storefront.MediaContentType
 		}
 
-		/// The presentation for a media. 
+		/// The presentation for a media.
 		open var presentation: Storefront.MediaPresentation? {
 			return internalGetPresentation()
 		}
@@ -180,7 +200,7 @@ extension Storefront {
 			return field(field: "presentation", aliasSuffix: alias) as! Storefront.MediaPresentation?
 		}
 
-		/// The preview image for the media. 
+		/// The preview image for the media.
 		open var previewImage: Storefront.Image? {
 			return internalGetPreviewImage()
 		}

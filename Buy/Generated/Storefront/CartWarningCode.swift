@@ -27,54 +27,57 @@
 import Foundation
 
 extension Storefront {
-	/// The code for the cart warning. 
+	/// The code for the cart warning.
 	public enum CartWarningCode: String {
-		/// The discount code cannot be honored. 
+		/// The discount code cannot be honored.
 		case discountCodeNotHonoured = "DISCOUNT_CODE_NOT_HONOURED"
 
-		/// The discount is currently inactive. 
+		/// The discount is currently inactive.
 		case discountCurrentlyInactive = "DISCOUNT_CURRENTLY_INACTIVE"
 
-		/// The customer is not eligible for this discount. 
+		/// The customer is not eligible for this discount.
 		case discountCustomerNotEligible = "DISCOUNT_CUSTOMER_NOT_ELIGIBLE"
 
-		/// The customer's discount usage limit has been reached. 
+		/// The customer's discount usage limit has been reached.
 		case discountCustomerUsageLimitReached = "DISCOUNT_CUSTOMER_USAGE_LIMIT_REACHED"
 
-		/// An eligible customer is missing for this discount. 
+		/// An eligible customer is missing for this discount.
 		case discountEligibleCustomerMissing = "DISCOUNT_ELIGIBLE_CUSTOMER_MISSING"
 
-		/// The purchase type is incompatible with this discount. 
+		/// The purchase type is incompatible with this discount.
 		case discountIncompatiblePurchaseType = "DISCOUNT_INCOMPATIBLE_PURCHASE_TYPE"
 
-		/// The discount was not found. 
+		/// The discount was not found.
 		case discountNotFound = "DISCOUNT_NOT_FOUND"
 
-		/// There are no entitled line items for this discount. 
+		/// There are no entitled line items for this discount.
 		case discountNoEntitledLineItems = "DISCOUNT_NO_ENTITLED_LINE_ITEMS"
 
-		/// There are no entitled shipping lines for this discount. 
+		/// There are no entitled shipping lines for this discount.
 		case discountNoEntitledShippingLines = "DISCOUNT_NO_ENTITLED_SHIPPING_LINES"
 
-		/// The purchase is not in range for this discount. 
+		/// The purchase is not in range for this discount.
 		case discountPurchaseNotInRange = "DISCOUNT_PURCHASE_NOT_IN_RANGE"
 
-		/// The quantity is not in range for this discount. 
+		/// The quantity is not in range for this discount.
 		case discountQuantityNotInRange = "DISCOUNT_QUANTITY_NOT_IN_RANGE"
 
-		/// The discount usage limit has been reached. 
+		/// The discount usage limit has been reached.
 		case discountUsageLimitReached = "DISCOUNT_USAGE_LIMIT_REACHED"
 
-		/// A delivery address with the same details already exists on this cart. 
+		/// A delivery address with the same details already exists on this cart.
 		case duplicateDeliveryAddress = "DUPLICATE_DELIVERY_ADDRESS"
 
-		/// The merchandise does not have enough stock. 
+		/// The merchandise does not have enough stock.
 		case merchandiseNotEnoughStock = "MERCHANDISE_NOT_ENOUGH_STOCK"
 
-		/// The merchandise is out of stock. 
+		/// The merchandise is out of stock.
 		case merchandiseOutOfStock = "MERCHANDISE_OUT_OF_STOCK"
 
-		/// Gift cards are not available as a payment method. 
+		/// Only one-time purchase is available for B2B orders.
+		case merchandiseSellingPlanNotApplicableOnCompanyLocation = "MERCHANDISE_SELLING_PLAN_NOT_APPLICABLE_ON_COMPANY_LOCATION"
+
+		/// Gift cards are not available as a payment method.
 		case paymentsGiftCardsUnavailable = "PAYMENTS_GIFT_CARDS_UNAVAILABLE"
 
 		case unknownValue = ""

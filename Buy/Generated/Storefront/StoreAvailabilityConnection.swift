@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type for paginating through multiple StoreAvailabilities. 
+	/// An auto-generated type for paginating through multiple StoreAvailabilities.
 	open class StoreAvailabilityConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = StoreAvailabilityConnection
 
-		/// A list of edges. 
+		/// A list of edges.
 		@discardableResult
 		open func edges(alias: String? = nil, _ subfields: (StoreAvailabilityEdgeQuery) -> Void) -> StoreAvailabilityConnectionQuery {
 			let subquery = StoreAvailabilityEdgeQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of the nodes contained in StoreAvailabilityEdge. 
+		/// A list of the nodes contained in StoreAvailabilityEdge.
 		@discardableResult
 		open func nodes(alias: String? = nil, _ subfields: (StoreAvailabilityQuery) -> Void) -> StoreAvailabilityConnectionQuery {
 			let subquery = StoreAvailabilityQuery()
@@ -51,7 +51,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> StoreAvailabilityConnectionQuery {
 			let subquery = PageInfoQuery()
@@ -62,7 +62,7 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type for paginating through multiple StoreAvailabilities. 
+	/// An auto-generated type for paginating through multiple StoreAvailabilities.
 	open class StoreAvailabilityConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = StoreAvailabilityConnectionQuery
 
@@ -92,7 +92,7 @@ extension Storefront {
 			}
 		}
 
-		/// A list of edges. 
+		/// A list of edges.
 		open var edges: [Storefront.StoreAvailabilityEdge] {
 			return internalGetEdges()
 		}
@@ -101,7 +101,7 @@ extension Storefront {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.StoreAvailabilityEdge]
 		}
 
-		/// A list of the nodes contained in StoreAvailabilityEdge. 
+		/// A list of the nodes contained in StoreAvailabilityEdge.
 		open var nodes: [Storefront.StoreAvailability] {
 			return internalGetNodes()
 		}
@@ -110,7 +110,7 @@ extension Storefront {
 			return field(field: "nodes", aliasSuffix: alias) as! [Storefront.StoreAvailability]
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
 		}

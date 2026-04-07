@@ -27,25 +27,25 @@
 import Foundation
 
 extension Storefront {
-	/// Return type for `customerAccessTokenDelete` mutation. 
+	/// Return type for `customerAccessTokenDelete` mutation.
 	open class CustomerAccessTokenDeletePayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CustomerAccessTokenDeletePayload
 
-		/// The destroyed access token. 
+		/// The destroyed access token.
 		@discardableResult
 		open func deletedAccessToken(alias: String? = nil) -> CustomerAccessTokenDeletePayloadQuery {
 			addField(field: "deletedAccessToken", aliasSuffix: alias)
 			return self
 		}
 
-		/// ID of the destroyed customer access token. 
+		/// ID of the destroyed customer access token.
 		@discardableResult
 		open func deletedCustomerAccessTokenId(alias: String? = nil) -> CustomerAccessTokenDeletePayloadQuery {
 			addField(field: "deletedCustomerAccessTokenId", aliasSuffix: alias)
 			return self
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerAccessTokenDeletePayloadQuery {
 			let subquery = UserErrorQuery()
@@ -56,7 +56,7 @@ extension Storefront {
 		}
 	}
 
-	/// Return type for `customerAccessTokenDelete` mutation. 
+	/// Return type for `customerAccessTokenDelete` mutation.
 	open class CustomerAccessTokenDeletePayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CustomerAccessTokenDeletePayloadQuery
 
@@ -88,7 +88,7 @@ extension Storefront {
 			}
 		}
 
-		/// The destroyed access token. 
+		/// The destroyed access token.
 		open var deletedAccessToken: String? {
 			return internalGetDeletedAccessToken()
 		}
@@ -97,7 +97,7 @@ extension Storefront {
 			return field(field: "deletedAccessToken", aliasSuffix: alias) as! String?
 		}
 
-		/// ID of the destroyed customer access token. 
+		/// ID of the destroyed customer access token.
 		open var deletedCustomerAccessTokenId: String? {
 			return internalGetDeletedCustomerAccessTokenId()
 		}
@@ -106,7 +106,7 @@ extension Storefront {
 			return field(field: "deletedCustomerAccessTokenId", aliasSuffix: alias) as! String?
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()
 		}

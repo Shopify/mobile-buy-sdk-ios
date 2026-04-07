@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// The action for the 3DS payment redirect. 
+	/// The action for the 3DS payment redirect.
 	open class CompletePaymentChallengeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CompletePaymentChallenge
 
-		/// The URL for the 3DS payment redirect. 
+		/// The URL for the 3DS payment redirect.
 		@discardableResult
 		open func redirectUrl(alias: String? = nil) -> CompletePaymentChallengeQuery {
 			addField(field: "redirectUrl", aliasSuffix: alias)
@@ -39,7 +39,7 @@ extension Storefront {
 		}
 	}
 
-	/// The action for the 3DS payment redirect. 
+	/// The action for the 3DS payment redirect.
 	open class CompletePaymentChallenge: GraphQL.AbstractResponse, GraphQLObject, CartCompletionAction {
 		public typealias Query = CompletePaymentChallengeQuery
 
@@ -58,7 +58,7 @@ extension Storefront {
 			}
 		}
 
-		/// The URL for the 3DS payment redirect. 
+		/// The URL for the 3DS payment redirect.
 		open var redirectUrl: URL? {
 			return internalGetRedirectUrl()
 		}

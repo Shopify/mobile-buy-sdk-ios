@@ -26,12 +26,12 @@
 
 import Foundation
 
-/// The selling plan billing policy. 
+/// The selling plan billing policy.
 public protocol SellingPlanBillingPolicy {
 }
 
 extension Storefront {
-	/// The selling plan billing policy. 
+	/// The selling plan billing policy.
 	open class SellingPlanBillingPolicyQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlanBillingPolicy
 
@@ -40,7 +40,7 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// The selling plan billing policy. 
+		/// The selling plan billing policy.
 		@discardableResult
 		open func onSellingPlanRecurringBillingPolicy(subfields: (SellingPlanRecurringBillingPolicyQuery) -> Void) -> SellingPlanBillingPolicyQuery {
 			let subquery = SellingPlanRecurringBillingPolicyQuery()
@@ -50,7 +50,7 @@ extension Storefront {
 		}
 	}
 
-	/// The selling plan billing policy. 
+	/// The selling plan billing policy.
 	open class UnknownSellingPlanBillingPolicy: GraphQL.AbstractResponse, GraphQLObject, SellingPlanBillingPolicy {
 		public typealias Query = SellingPlanBillingPolicyQuery
 

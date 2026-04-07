@@ -27,19 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type which holds one SearchResultItem and a cursor during 
-	/// pagination. 
+	/// An auto-generated type which holds one SearchResultItem and a cursor during
+	/// pagination.
 	open class SearchResultItemEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SearchResultItemEdge
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		@discardableResult
 		open func cursor(alias: String? = nil) -> SearchResultItemEdgeQuery {
 			addField(field: "cursor", aliasSuffix: alias)
 			return self
 		}
 
-		/// The item at the end of SearchResultItemEdge. 
+		/// The item at the end of SearchResultItemEdge.
 		@discardableResult
 		open func node(alias: String? = nil, _ subfields: (SearchResultItemQuery) -> Void) -> SearchResultItemEdgeQuery {
 			let subquery = SearchResultItemQuery()
@@ -50,8 +50,8 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type which holds one SearchResultItem and a cursor during 
-	/// pagination. 
+	/// An auto-generated type which holds one SearchResultItem and a cursor during
+	/// pagination.
 	open class SearchResultItemEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = SearchResultItemEdgeQuery
 
@@ -75,7 +75,7 @@ extension Storefront {
 			}
 		}
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		open var cursor: String {
 			return internalGetCursor()
 		}
@@ -84,7 +84,7 @@ extension Storefront {
 			return field(field: "cursor", aliasSuffix: alias) as! String
 		}
 
-		/// The item at the end of SearchResultItemEdge. 
+		/// The item at the end of SearchResultItemEdge.
 		open var node: SearchResultItem {
 			return internalGetNode()
 		}

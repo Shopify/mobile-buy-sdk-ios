@@ -26,12 +26,12 @@
 
 import Foundation
 
-/// The portion of the price to be charged at checkout. 
+/// The portion of the price to be charged at checkout.
 public protocol SellingPlanCheckoutChargeValue {
 }
 
 extension Storefront {
-	/// The portion of the price to be charged at checkout. 
+	/// The portion of the price to be charged at checkout.
 	open class SellingPlanCheckoutChargeValueQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlanCheckoutChargeValue
 
@@ -40,7 +40,7 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// The portion of the price to be charged at checkout. 
+		/// The portion of the price to be charged at checkout.
 		@discardableResult
 		open func onMoneyV2(subfields: (MoneyV2Query) -> Void) -> SellingPlanCheckoutChargeValueQuery {
 			let subquery = MoneyV2Query()
@@ -49,7 +49,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The portion of the price to be charged at checkout. 
+		/// The portion of the price to be charged at checkout.
 		@discardableResult
 		open func onSellingPlanCheckoutChargePercentageValue(subfields: (SellingPlanCheckoutChargePercentageValueQuery) -> Void) -> SellingPlanCheckoutChargeValueQuery {
 			let subquery = SellingPlanCheckoutChargePercentageValueQuery()
@@ -59,7 +59,7 @@ extension Storefront {
 		}
 	}
 
-	/// The portion of the price to be charged at checkout. 
+	/// The portion of the price to be charged at checkout.
 	open class UnknownSellingPlanCheckoutChargeValue: GraphQL.AbstractResponse, GraphQLObject, SellingPlanCheckoutChargeValue {
 		public typealias Query = SellingPlanCheckoutChargeValueQuery
 

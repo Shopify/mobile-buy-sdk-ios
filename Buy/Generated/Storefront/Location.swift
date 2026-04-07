@@ -27,11 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a location where product inventory is held. 
+	/// A physical store location where product inventory is held and that supports
+	/// in-store pickup. Provides the location's name, address, and geographic
+	/// coordinates for proximity-based sorting. Use with
+	/// [`StoreAvailability`](https://shopify.dev/docs/api/storefront/current/objects/StoreAvailability)
+	/// to show customers where a
+	/// [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant)
+	/// is available for pickup. Learn more about [supporting local pickup on
+	/// storefronts](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/products-collections/local-pickup).
 	open class LocationQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Location
 
-		/// The address of the location. 
+		/// The address of the location.
 		@discardableResult
 		open func address(alias: String? = nil, _ subfields: (LocationAddressQuery) -> Void) -> LocationQuery {
 			let subquery = LocationAddressQuery()
@@ -41,16 +48,16 @@ extension Storefront {
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> LocationQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		///
 		/// - parameters:
 		///     - namespace: The container the metafield belongs to. If omitted, the app-reserved namespace will be used.
@@ -75,12 +82,12 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		///
 		/// - parameters:
 		///     - identifiers: The list of metafields to retrieve by namespace and key.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -98,7 +105,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The name of the location. 
+		/// The name of the location.
 		@discardableResult
 		open func name(alias: String? = nil) -> LocationQuery {
 			addField(field: "name", aliasSuffix: alias)
@@ -106,7 +113,14 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a location where product inventory is held. 
+	/// A physical store location where product inventory is held and that supports
+	/// in-store pickup. Provides the location's name, address, and geographic
+	/// coordinates for proximity-based sorting. Use with
+	/// [`StoreAvailability`](https://shopify.dev/docs/api/storefront/current/objects/StoreAvailability)
+	/// to show customers where a
+	/// [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant)
+	/// is available for pickup. Learn more about [supporting local pickup on
+	/// storefronts](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/products-collections/local-pickup).
 	open class Location: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node {
 		public typealias Query = LocationQuery
 
@@ -153,7 +167,7 @@ extension Storefront {
 			}
 		}
 
-		/// The address of the location. 
+		/// The address of the location.
 		open var address: Storefront.LocationAddress {
 			return internalGetAddress()
 		}
@@ -162,7 +176,7 @@ extension Storefront {
 			return field(field: "address", aliasSuffix: alias) as! Storefront.LocationAddress
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -171,9 +185,9 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		open var metafield: Storefront.Metafield? {
 			return internalGetMetafield()
 		}
@@ -186,8 +200,8 @@ extension Storefront {
 			return field(field: "metafield", aliasSuffix: alias) as! Storefront.Metafield?
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		open var metafields: [Storefront.Metafield?] {
 			return internalGetMetafields()
 		}
@@ -200,7 +214,7 @@ extension Storefront {
 			return field(field: "metafields", aliasSuffix: alias) as! [Storefront.Metafield?]
 		}
 
-		/// The name of the location. 
+		/// The name of the location.
 		open var name: String {
 			return internalGetName()
 		}

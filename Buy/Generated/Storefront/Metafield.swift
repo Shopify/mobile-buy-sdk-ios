@@ -27,49 +27,64 @@
 import Foundation
 
 extension Storefront {
-	/// Metafields represent custom metadata attached to a resource. Metafields can 
-	/// be sorted into namespaces and are comprised of keys, values, and value 
-	/// types. 
+	/// [Custom metadata](https://shopify.dev/docs/apps/build/metafields) attached
+	/// to a Shopify resource such as a
+	/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+	/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+	/// or
+	/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer).
+	/// Each metafield is identified by a namespace and key, and stores a value
+	/// with an associated type. Values are always stored as strings, but the
+	/// [`type`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.type)
+	/// field indicates how to interpret the data. When a metafield's type is a
+	/// resource reference, use the
+	/// [`reference`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.reference)
+	/// or
+	/// [`references`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.references)
+	/// fields to retrieve the linked objects. Access metafields on any resource
+	/// that implements the
+	/// [`HasMetafields`](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields)
+	/// interface.
 	open class MetafieldQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Metafield
 
-		/// The date and time when the storefront metafield was created. 
+		/// The date and time when the storefront metafield was created.
 		@discardableResult
 		open func createdAt(alias: String? = nil) -> MetafieldQuery {
 			addField(field: "createdAt", aliasSuffix: alias)
 			return self
 		}
 
-		/// The description of a metafield. 
+		/// The description of a metafield.
 		@discardableResult
 		open func description(alias: String? = nil) -> MetafieldQuery {
 			addField(field: "description", aliasSuffix: alias)
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> MetafieldQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The unique identifier for the metafield within its namespace. 
+		/// The unique identifier for the metafield within its namespace.
 		@discardableResult
 		open func key(alias: String? = nil) -> MetafieldQuery {
 			addField(field: "key", aliasSuffix: alias)
 			return self
 		}
 
-		/// The container for a group of metafields that the metafield is associated 
-		/// with. 
+		/// The container for a group of metafields that the metafield is associated
+		/// with.
 		@discardableResult
 		open func namespace(alias: String? = nil) -> MetafieldQuery {
 			addField(field: "namespace", aliasSuffix: alias)
 			return self
 		}
 
-		/// The type of resource that the metafield is attached to. 
+		/// The type of resource that the metafield is attached to.
 		@discardableResult
 		open func parentResource(alias: String? = nil, _ subfields: (MetafieldParentResourceQuery) -> Void) -> MetafieldQuery {
 			let subquery = MetafieldParentResourceQuery()
@@ -79,7 +94,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Returns a reference object if the metafield's type is a resource reference. 
+		/// Returns a reference object if the metafield's type is a resource reference.
 		@discardableResult
 		open func reference(alias: String? = nil, _ subfields: (MetafieldReferenceQuery) -> Void) -> MetafieldQuery {
 			let subquery = MetafieldReferenceQuery()
@@ -89,8 +104,8 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of reference objects if the metafield's type is a resource reference 
-		/// list. 
+		/// A list of reference objects if the metafield's type is a resource reference
+		/// list.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -127,23 +142,23 @@ extension Storefront {
 			return self
 		}
 
-		/// The type name of the metafield. Refer to the list of [supported 
-		/// types](https://shopify.dev/apps/metafields/definitions/types). 
+		/// The type name of the metafield. Refer to the list of [supported
+		/// types](https://shopify.dev/apps/metafields/definitions/types).
 		@discardableResult
 		open func type(alias: String? = nil) -> MetafieldQuery {
 			addField(field: "type", aliasSuffix: alias)
 			return self
 		}
 
-		/// The date and time when the metafield was last updated. 
+		/// The date and time when the metafield was last updated.
 		@discardableResult
 		open func updatedAt(alias: String? = nil) -> MetafieldQuery {
 			addField(field: "updatedAt", aliasSuffix: alias)
 			return self
 		}
 
-		/// The data stored in the metafield. Always stored as a string, regardless of 
-		/// the metafield's type. 
+		/// The data stored in the metafield. Always stored as a string, regardless of
+		/// the metafield's type.
 		@discardableResult
 		open func value(alias: String? = nil) -> MetafieldQuery {
 			addField(field: "value", aliasSuffix: alias)
@@ -151,9 +166,24 @@ extension Storefront {
 		}
 	}
 
-	/// Metafields represent custom metadata attached to a resource. Metafields can 
-	/// be sorted into namespaces and are comprised of keys, values, and value 
-	/// types. 
+	/// [Custom metadata](https://shopify.dev/docs/apps/build/metafields) attached
+	/// to a Shopify resource such as a
+	/// [`Product`](https://shopify.dev/docs/api/storefront/current/objects/Product),
+	/// [`Collection`](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+	/// or
+	/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer).
+	/// Each metafield is identified by a namespace and key, and stores a value
+	/// with an associated type. Values are always stored as strings, but the
+	/// [`type`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.type)
+	/// field indicates how to interpret the data. When a metafield's type is a
+	/// resource reference, use the
+	/// [`reference`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.reference)
+	/// or
+	/// [`references`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.references)
+	/// fields to retrieve the linked objects. Access metafields on any resource
+	/// that implements the
+	/// [`HasMetafields`](https://shopify.dev/docs/api/storefront/current/interfaces/HasMetafields)
+	/// interface.
 	open class Metafield: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = MetafieldQuery
 
@@ -234,7 +264,7 @@ extension Storefront {
 			}
 		}
 
-		/// The date and time when the storefront metafield was created. 
+		/// The date and time when the storefront metafield was created.
 		open var createdAt: Date {
 			return internalGetCreatedAt()
 		}
@@ -243,7 +273,7 @@ extension Storefront {
 			return field(field: "createdAt", aliasSuffix: alias) as! Date
 		}
 
-		/// The description of a metafield. 
+		/// The description of a metafield.
 		open var description: String? {
 			return internalGetDescription()
 		}
@@ -252,7 +282,7 @@ extension Storefront {
 			return field(field: "description", aliasSuffix: alias) as! String?
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -261,7 +291,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The unique identifier for the metafield within its namespace. 
+		/// The unique identifier for the metafield within its namespace.
 		open var key: String {
 			return internalGetKey()
 		}
@@ -270,8 +300,8 @@ extension Storefront {
 			return field(field: "key", aliasSuffix: alias) as! String
 		}
 
-		/// The container for a group of metafields that the metafield is associated 
-		/// with. 
+		/// The container for a group of metafields that the metafield is associated
+		/// with.
 		open var namespace: String {
 			return internalGetNamespace()
 		}
@@ -280,7 +310,7 @@ extension Storefront {
 			return field(field: "namespace", aliasSuffix: alias) as! String
 		}
 
-		/// The type of resource that the metafield is attached to. 
+		/// The type of resource that the metafield is attached to.
 		open var parentResource: MetafieldParentResource {
 			return internalGetParentResource()
 		}
@@ -289,7 +319,7 @@ extension Storefront {
 			return field(field: "parentResource", aliasSuffix: alias) as! MetafieldParentResource
 		}
 
-		/// Returns a reference object if the metafield's type is a resource reference. 
+		/// Returns a reference object if the metafield's type is a resource reference.
 		open var reference: MetafieldReference? {
 			return internalGetReference()
 		}
@@ -298,8 +328,8 @@ extension Storefront {
 			return field(field: "reference", aliasSuffix: alias) as! MetafieldReference?
 		}
 
-		/// A list of reference objects if the metafield's type is a resource reference 
-		/// list. 
+		/// A list of reference objects if the metafield's type is a resource reference
+		/// list.
 		open var references: Storefront.MetafieldReferenceConnection? {
 			return internalGetReferences()
 		}
@@ -312,8 +342,8 @@ extension Storefront {
 			return field(field: "references", aliasSuffix: alias) as! Storefront.MetafieldReferenceConnection?
 		}
 
-		/// The type name of the metafield. Refer to the list of [supported 
-		/// types](https://shopify.dev/apps/metafields/definitions/types). 
+		/// The type name of the metafield. Refer to the list of [supported
+		/// types](https://shopify.dev/apps/metafields/definitions/types).
 		open var type: String {
 			return internalGetType()
 		}
@@ -322,7 +352,7 @@ extension Storefront {
 			return field(field: "type", aliasSuffix: alias) as! String
 		}
 
-		/// The date and time when the metafield was last updated. 
+		/// The date and time when the metafield was last updated.
 		open var updatedAt: Date {
 			return internalGetUpdatedAt()
 		}
@@ -331,8 +361,8 @@ extension Storefront {
 			return field(field: "updatedAt", aliasSuffix: alias) as! Date
 		}
 
-		/// The data stored in the metafield. Always stored as a string, regardless of 
-		/// the metafield's type. 
+		/// The data stored in the metafield. Always stored as a string, regardless of
+		/// the metafield's type.
 		open var value: String {
 			return internalGetValue()
 		}

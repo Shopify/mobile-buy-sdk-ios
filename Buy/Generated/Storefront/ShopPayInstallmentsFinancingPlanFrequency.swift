@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// The payment frequency for a Shop Pay Installments Financing Plan. 
+	/// The payment frequency for a Shop Pay Installments Financing Plan.
 	public enum ShopPayInstallmentsFinancingPlanFrequency: String {
-		/// Monthly payment frequency. 
+		/// Monthly payment frequency.
 		case monthly = "MONTHLY"
 
-		/// Weekly payment frequency. 
+		/// Weekly payment frequency.
 		case weekly = "WEEKLY"
 
 		case unknownValue = ""

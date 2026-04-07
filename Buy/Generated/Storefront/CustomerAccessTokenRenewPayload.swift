@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Return type for `customerAccessTokenRenew` mutation. 
+	/// Return type for `customerAccessTokenRenew` mutation.
 	open class CustomerAccessTokenRenewPayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CustomerAccessTokenRenewPayload
 
-		/// The renewed customer access token object. 
+		/// The renewed customer access token object.
 		@discardableResult
 		open func customerAccessToken(alias: String? = nil, _ subfields: (CustomerAccessTokenQuery) -> Void) -> CustomerAccessTokenRenewPayloadQuery {
 			let subquery = CustomerAccessTokenQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerAccessTokenRenewPayloadQuery {
 			let subquery = UserErrorQuery()
@@ -52,7 +52,7 @@ extension Storefront {
 		}
 	}
 
-	/// Return type for `customerAccessTokenRenew` mutation. 
+	/// Return type for `customerAccessTokenRenew` mutation.
 	open class CustomerAccessTokenRenewPayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CustomerAccessTokenRenewPayloadQuery
 
@@ -77,7 +77,7 @@ extension Storefront {
 			}
 		}
 
-		/// The renewed customer access token object. 
+		/// The renewed customer access token object.
 		open var customerAccessToken: Storefront.CustomerAccessToken? {
 			return internalGetCustomerAccessToken()
 		}
@@ -86,7 +86,7 @@ extension Storefront {
 			return field(field: "customerAccessToken", aliasSuffix: alias) as! Storefront.CustomerAccessToken?
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()
 		}

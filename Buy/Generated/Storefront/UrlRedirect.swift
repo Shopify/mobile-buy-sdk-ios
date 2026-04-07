@@ -27,26 +27,26 @@
 import Foundation
 
 extension Storefront {
-	/// A redirect on the online store. 
+	/// A redirect on the online store.
 	open class UrlRedirectQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = UrlRedirect
 
-		/// The ID of the URL redirect. 
+		/// The ID of the URL redirect.
 		@discardableResult
 		open func id(alias: String? = nil) -> UrlRedirectQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The old path to be redirected from. When the user visits this path, they'll 
-		/// be redirected to the target location. 
+		/// The old path to be redirected from. When the user visits this path, they'll
+		/// be redirected to the target location.
 		@discardableResult
 		open func path(alias: String? = nil) -> UrlRedirectQuery {
 			addField(field: "path", aliasSuffix: alias)
 			return self
 		}
 
-		/// The target location where the user will be redirected to. 
+		/// The target location where the user will be redirected to.
 		@discardableResult
 		open func target(alias: String? = nil) -> UrlRedirectQuery {
 			addField(field: "target", aliasSuffix: alias)
@@ -54,7 +54,7 @@ extension Storefront {
 		}
 	}
 
-	/// A redirect on the online store. 
+	/// A redirect on the online store.
 	open class UrlRedirect: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = UrlRedirectQuery
 
@@ -84,7 +84,7 @@ extension Storefront {
 			}
 		}
 
-		/// The ID of the URL redirect. 
+		/// The ID of the URL redirect.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -93,8 +93,8 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The old path to be redirected from. When the user visits this path, they'll 
-		/// be redirected to the target location. 
+		/// The old path to be redirected from. When the user visits this path, they'll
+		/// be redirected to the target location.
 		open var path: String {
 			return internalGetPath()
 		}
@@ -103,7 +103,7 @@ extension Storefront {
 			return field(field: "path", aliasSuffix: alias) as! String
 		}
 
-		/// The target location where the user will be redirected to. 
+		/// The target location where the user will be redirected to.
 		open var target: String {
 			return internalGetTarget()
 		}

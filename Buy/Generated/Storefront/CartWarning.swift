@@ -27,25 +27,29 @@
 import Foundation
 
 extension Storefront {
-	/// A warning that occurred during a cart mutation. 
+	/// A non-blocking issue that occurred during a cart mutation. Unlike errors,
+	/// warnings don't prevent the mutation from completing but indicate potential
+	/// problems that may affect the buyer's experience. Each warning includes a
+	/// code identifying the issue type, a human-readable message, and a target ID
+	/// pointing to the affected resource.
 	open class CartWarningQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartWarning
 
-		/// The code of the warning. 
+		/// The code of the warning.
 		@discardableResult
 		open func code(alias: String? = nil) -> CartWarningQuery {
 			addField(field: "code", aliasSuffix: alias)
 			return self
 		}
 
-		/// The message text of the warning. 
+		/// The message text of the warning.
 		@discardableResult
 		open func message(alias: String? = nil) -> CartWarningQuery {
 			addField(field: "message", aliasSuffix: alias)
 			return self
 		}
 
-		/// The target of the warning. 
+		/// The target of the warning.
 		@discardableResult
 		open func target(alias: String? = nil) -> CartWarningQuery {
 			addField(field: "target", aliasSuffix: alias)
@@ -53,7 +57,11 @@ extension Storefront {
 		}
 	}
 
-	/// A warning that occurred during a cart mutation. 
+	/// A non-blocking issue that occurred during a cart mutation. Unlike errors,
+	/// warnings don't prevent the mutation from completing but indicate potential
+	/// problems that may affect the buyer's experience. Each warning includes a
+	/// code identifying the issue type, a human-readable message, and a target ID
+	/// pointing to the affected resource.
 	open class CartWarning: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CartWarningQuery
 
@@ -83,7 +91,7 @@ extension Storefront {
 			}
 		}
 
-		/// The code of the warning. 
+		/// The code of the warning.
 		open var code: Storefront.CartWarningCode {
 			return internalGetCode()
 		}
@@ -92,7 +100,7 @@ extension Storefront {
 			return field(field: "code", aliasSuffix: alias) as! Storefront.CartWarningCode
 		}
 
-		/// The message text of the warning. 
+		/// The message text of the warning.
 		open var message: String {
 			return internalGetMessage()
 		}
@@ -101,7 +109,7 @@ extension Storefront {
 			return field(field: "message", aliasSuffix: alias) as! String
 		}
 
-		/// The target of the warning. 
+		/// The target of the warning.
 		open var target: GraphQL.ID {
 			return internalGetTarget()
 		}

@@ -26,23 +26,23 @@
 
 import Foundation
 
-/// Represents a resource that you can track the origin of the search traffic. 
+/// Represents a resource that you can track the origin of the search traffic.
 public protocol Trackable {
 	var trackingParameters: String? { get }
 }
 
 extension Storefront {
-	/// Represents a resource that you can track the origin of the search traffic. 
+	/// Represents a resource that you can track the origin of the search traffic.
 	open class TrackableQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Trackable
 
-		/// URL parameters to be added to a page URL to track the origin of on-site 
-		/// search traffic for [analytics 
-		/// reporting](https://help.shopify.com/manual/reports-and-analytics/shopify-reports/report-types/default-reports/behaviour-reports). 
-		/// Returns a result when accessed through the 
-		/// [search](https://shopify.dev/docs/api/storefront/current/queries/search) or 
-		/// [predictiveSearch](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch) 
-		/// queries, otherwise returns null. 
+		/// URL parameters to be added to a page URL to track the origin of on-site
+		/// search traffic for [analytics
+		/// reporting](https://help.shopify.com/manual/reports-and-analytics/shopify-reports/report-types/default-reports/behaviour-reports).
+		/// Returns a result when accessed through the
+		/// [search](https://shopify.dev/docs/api/storefront/current/queries/search) or
+		/// [predictiveSearch](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch)
+		/// queries, otherwise returns null.
 		@discardableResult
 		open func trackingParameters(alias: String? = nil) -> TrackableQuery {
 			addField(field: "trackingParameters", aliasSuffix: alias)
@@ -54,7 +54,7 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// Represents a resource that you can track the origin of the search traffic. 
+		/// Represents a resource that you can track the origin of the search traffic.
 		@discardableResult
 		open func onArticle(subfields: (ArticleQuery) -> Void) -> TrackableQuery {
 			let subquery = ArticleQuery()
@@ -63,7 +63,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents a resource that you can track the origin of the search traffic. 
+		/// Represents a resource that you can track the origin of the search traffic.
 		@discardableResult
 		open func onCollection(subfields: (CollectionQuery) -> Void) -> TrackableQuery {
 			let subquery = CollectionQuery()
@@ -72,7 +72,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents a resource that you can track the origin of the search traffic. 
+		/// Represents a resource that you can track the origin of the search traffic.
 		@discardableResult
 		open func onPage(subfields: (PageQuery) -> Void) -> TrackableQuery {
 			let subquery = PageQuery()
@@ -81,7 +81,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents a resource that you can track the origin of the search traffic. 
+		/// Represents a resource that you can track the origin of the search traffic.
 		@discardableResult
 		open func onProduct(subfields: (ProductQuery) -> Void) -> TrackableQuery {
 			let subquery = ProductQuery()
@@ -90,7 +90,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents a resource that you can track the origin of the search traffic. 
+		/// Represents a resource that you can track the origin of the search traffic.
 		@discardableResult
 		open func onSearchQuerySuggestion(subfields: (SearchQuerySuggestionQuery) -> Void) -> TrackableQuery {
 			let subquery = SearchQuerySuggestionQuery()
@@ -100,7 +100,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a resource that you can track the origin of the search traffic. 
+	/// Represents a resource that you can track the origin of the search traffic.
 	open class UnknownTrackable: GraphQL.AbstractResponse, GraphQLObject, Trackable {
 		public typealias Query = TrackableQuery
 
@@ -139,13 +139,13 @@ extension Storefront {
 			}
 		}
 
-		/// URL parameters to be added to a page URL to track the origin of on-site 
-		/// search traffic for [analytics 
-		/// reporting](https://help.shopify.com/manual/reports-and-analytics/shopify-reports/report-types/default-reports/behaviour-reports). 
-		/// Returns a result when accessed through the 
-		/// [search](https://shopify.dev/docs/api/storefront/current/queries/search) or 
-		/// [predictiveSearch](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch) 
-		/// queries, otherwise returns null. 
+		/// URL parameters to be added to a page URL to track the origin of on-site
+		/// search traffic for [analytics
+		/// reporting](https://help.shopify.com/manual/reports-and-analytics/shopify-reports/report-types/default-reports/behaviour-reports).
+		/// Returns a result when accessed through the
+		/// [search](https://shopify.dev/docs/api/storefront/current/queries/search) or
+		/// [predictiveSearch](https://shopify.dev/docs/api/storefront/current/queries/predictiveSearch)
+		/// queries, otherwise returns null.
 		open var trackingParameters: String? {
 			return internalGetTrackingParameters()
 		}

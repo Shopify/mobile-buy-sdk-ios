@@ -27,48 +27,57 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a mailing address for customers and shipping. 
+	/// A physical mailing address associated with a
+	/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+	/// or
+	/// [`Order`](https://shopify.dev/docs/api/storefront/current/objects/Order).
+	/// Stores standard address components including street address, city,
+	/// province, country, and postal code, along with customer name and company
+	/// information. The address includes geographic coordinates and provides
+	/// pre-formatted output through the
+	/// [`formatted`](https://shopify.dev/docs/api/storefront/current/objects/MailingAddress#field-MailingAddress.fields.formatted)
+	/// field, which can optionally include or exclude name and company details.
 	open class MailingAddressQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MailingAddress
 
-		/// The first line of the address. Typically the street address or PO Box 
-		/// number. 
+		/// The first line of the address. Typically the street address or PO Box
+		/// number.
 		@discardableResult
 		open func address1(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "address1", aliasSuffix: alias)
 			return self
 		}
 
-		/// The second line of the address. Typically the number of the apartment, 
-		/// suite, or unit. 
+		/// The second line of the address. Typically the number of the apartment,
+		/// suite, or unit.
 		@discardableResult
 		open func address2(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "address2", aliasSuffix: alias)
 			return self
 		}
 
-		/// The name of the city, district, village, or town. 
+		/// The name of the city, district, village, or town.
 		@discardableResult
 		open func city(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "city", aliasSuffix: alias)
 			return self
 		}
 
-		/// The name of the customer's company or organization. 
+		/// The name of the customer's company or organization.
 		@discardableResult
 		open func company(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "company", aliasSuffix: alias)
 			return self
 		}
 
-		/// The name of the country. 
+		/// The name of the country.
 		@discardableResult
 		open func country(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "country", aliasSuffix: alias)
 			return self
 		}
 
-		/// The two-letter code for the country of the address. For example, US. 
+		/// The two-letter code for the country of the address. For example, US.
 		@available(*, deprecated, message: "Use `countryCodeV2` instead.")
 		@discardableResult
 		open func countryCode(alias: String? = nil) -> MailingAddressQuery {
@@ -76,21 +85,21 @@ extension Storefront {
 			return self
 		}
 
-		/// The two-letter code for the country of the address. For example, US. 
+		/// The two-letter code for the country of the address. For example, US.
 		@discardableResult
 		open func countryCodeV2(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "countryCodeV2", aliasSuffix: alias)
 			return self
 		}
 
-		/// The first name of the customer. 
+		/// The first name of the customer.
 		@discardableResult
 		open func firstName(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "firstName", aliasSuffix: alias)
 			return self
 		}
 
-		/// A formatted version of the address, customized by the provided arguments. 
+		/// A formatted version of the address, customized by the provided arguments.
 		///
 		/// - parameters:
 		///     - withName: Whether to include the customer's name in the formatted address.
@@ -114,71 +123,71 @@ extension Storefront {
 			return self
 		}
 
-		/// A comma-separated list of the values for city, province, and country. 
+		/// A comma-separated list of the values for city, province, and country.
 		@discardableResult
 		open func formattedArea(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "formattedArea", aliasSuffix: alias)
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The last name of the customer. 
+		/// The last name of the customer.
 		@discardableResult
 		open func lastName(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "lastName", aliasSuffix: alias)
 			return self
 		}
 
-		/// The latitude coordinate of the customer address. 
+		/// The latitude coordinate of the customer address.
 		@discardableResult
 		open func latitude(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "latitude", aliasSuffix: alias)
 			return self
 		}
 
-		/// The longitude coordinate of the customer address. 
+		/// The longitude coordinate of the customer address.
 		@discardableResult
 		open func longitude(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "longitude", aliasSuffix: alias)
 			return self
 		}
 
-		/// The full name of the customer, based on firstName and lastName. 
+		/// The full name of the customer, based on firstName and lastName.
 		@discardableResult
 		open func name(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "name", aliasSuffix: alias)
 			return self
 		}
 
-		/// A unique phone number for the customer. Formatted using E.164 standard. For 
-		/// example, _+16135551111_. 
+		/// A unique phone number for the customer. Formatted using E.164 standard. For
+		/// example, _+16135551111_.
 		@discardableResult
 		open func phone(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "phone", aliasSuffix: alias)
 			return self
 		}
 
-		/// The region of the address, such as the province, state, or district. 
+		/// The region of the address, such as the province, state, or district.
 		@discardableResult
 		open func province(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "province", aliasSuffix: alias)
 			return self
 		}
 
-		/// The alphanumeric code for the region. For example, ON. 
+		/// The alphanumeric code for the region. For example, ON.
 		@discardableResult
 		open func provinceCode(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "provinceCode", aliasSuffix: alias)
 			return self
 		}
 
-		/// The zip or postal code of the address. 
+		/// The zip or postal code of the address.
 		@discardableResult
 		open func zip(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "zip", aliasSuffix: alias)
@@ -186,7 +195,16 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a mailing address for customers and shipping. 
+	/// A physical mailing address associated with a
+	/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+	/// or
+	/// [`Order`](https://shopify.dev/docs/api/storefront/current/objects/Order).
+	/// Stores standard address components including street address, city,
+	/// province, country, and postal code, along with customer name and company
+	/// information. The address includes geographic coordinates and provides
+	/// pre-formatted output through the
+	/// [`formatted`](https://shopify.dev/docs/api/storefront/current/objects/MailingAddress#field-MailingAddress.fields.formatted)
+	/// field, which can optionally include or exclude name and company details.
 	open class MailingAddress: GraphQL.AbstractResponse, GraphQLObject, DeliveryAddress, Node {
 		public typealias Query = MailingAddressQuery
 
@@ -329,8 +347,8 @@ extension Storefront {
 			}
 		}
 
-		/// The first line of the address. Typically the street address or PO Box 
-		/// number. 
+		/// The first line of the address. Typically the street address or PO Box
+		/// number.
 		open var address1: String? {
 			return internalGetAddress1()
 		}
@@ -339,8 +357,8 @@ extension Storefront {
 			return field(field: "address1", aliasSuffix: alias) as! String?
 		}
 
-		/// The second line of the address. Typically the number of the apartment, 
-		/// suite, or unit. 
+		/// The second line of the address. Typically the number of the apartment,
+		/// suite, or unit.
 		open var address2: String? {
 			return internalGetAddress2()
 		}
@@ -349,7 +367,7 @@ extension Storefront {
 			return field(field: "address2", aliasSuffix: alias) as! String?
 		}
 
-		/// The name of the city, district, village, or town. 
+		/// The name of the city, district, village, or town.
 		open var city: String? {
 			return internalGetCity()
 		}
@@ -358,7 +376,7 @@ extension Storefront {
 			return field(field: "city", aliasSuffix: alias) as! String?
 		}
 
-		/// The name of the customer's company or organization. 
+		/// The name of the customer's company or organization.
 		open var company: String? {
 			return internalGetCompany()
 		}
@@ -367,7 +385,7 @@ extension Storefront {
 			return field(field: "company", aliasSuffix: alias) as! String?
 		}
 
-		/// The name of the country. 
+		/// The name of the country.
 		open var country: String? {
 			return internalGetCountry()
 		}
@@ -376,7 +394,7 @@ extension Storefront {
 			return field(field: "country", aliasSuffix: alias) as! String?
 		}
 
-		/// The two-letter code for the country of the address. For example, US. 
+		/// The two-letter code for the country of the address. For example, US.
 		@available(*, deprecated, message: "Use `countryCodeV2` instead.")
 		open var countryCode: String? {
 			return internalGetCountryCode()
@@ -386,7 +404,7 @@ extension Storefront {
 			return field(field: "countryCode", aliasSuffix: alias) as! String?
 		}
 
-		/// The two-letter code for the country of the address. For example, US. 
+		/// The two-letter code for the country of the address. For example, US.
 		open var countryCodeV2: Storefront.CountryCode? {
 			return internalGetCountryCodeV2()
 		}
@@ -395,7 +413,7 @@ extension Storefront {
 			return field(field: "countryCodeV2", aliasSuffix: alias) as! Storefront.CountryCode?
 		}
 
-		/// The first name of the customer. 
+		/// The first name of the customer.
 		open var firstName: String? {
 			return internalGetFirstName()
 		}
@@ -404,7 +422,7 @@ extension Storefront {
 			return field(field: "firstName", aliasSuffix: alias) as! String?
 		}
 
-		/// A formatted version of the address, customized by the provided arguments. 
+		/// A formatted version of the address, customized by the provided arguments.
 		open var formatted: [String] {
 			return internalGetFormatted()
 		}
@@ -417,7 +435,7 @@ extension Storefront {
 			return field(field: "formatted", aliasSuffix: alias) as! [String]
 		}
 
-		/// A comma-separated list of the values for city, province, and country. 
+		/// A comma-separated list of the values for city, province, and country.
 		open var formattedArea: String? {
 			return internalGetFormattedArea()
 		}
@@ -426,7 +444,7 @@ extension Storefront {
 			return field(field: "formattedArea", aliasSuffix: alias) as! String?
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -435,7 +453,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The last name of the customer. 
+		/// The last name of the customer.
 		open var lastName: String? {
 			return internalGetLastName()
 		}
@@ -444,7 +462,7 @@ extension Storefront {
 			return field(field: "lastName", aliasSuffix: alias) as! String?
 		}
 
-		/// The latitude coordinate of the customer address. 
+		/// The latitude coordinate of the customer address.
 		open var latitude: Double? {
 			return internalGetLatitude()
 		}
@@ -453,7 +471,7 @@ extension Storefront {
 			return field(field: "latitude", aliasSuffix: alias) as! Double?
 		}
 
-		/// The longitude coordinate of the customer address. 
+		/// The longitude coordinate of the customer address.
 		open var longitude: Double? {
 			return internalGetLongitude()
 		}
@@ -462,7 +480,7 @@ extension Storefront {
 			return field(field: "longitude", aliasSuffix: alias) as! Double?
 		}
 
-		/// The full name of the customer, based on firstName and lastName. 
+		/// The full name of the customer, based on firstName and lastName.
 		open var name: String? {
 			return internalGetName()
 		}
@@ -471,8 +489,8 @@ extension Storefront {
 			return field(field: "name", aliasSuffix: alias) as! String?
 		}
 
-		/// A unique phone number for the customer. Formatted using E.164 standard. For 
-		/// example, _+16135551111_. 
+		/// A unique phone number for the customer. Formatted using E.164 standard. For
+		/// example, _+16135551111_.
 		open var phone: String? {
 			return internalGetPhone()
 		}
@@ -481,7 +499,7 @@ extension Storefront {
 			return field(field: "phone", aliasSuffix: alias) as! String?
 		}
 
-		/// The region of the address, such as the province, state, or district. 
+		/// The region of the address, such as the province, state, or district.
 		open var province: String? {
 			return internalGetProvince()
 		}
@@ -490,7 +508,7 @@ extension Storefront {
 			return field(field: "province", aliasSuffix: alias) as! String?
 		}
 
-		/// The alphanumeric code for the region. For example, ON. 
+		/// The alphanumeric code for the region. For example, ON.
 		open var provinceCode: String? {
 			return internalGetProvinceCode()
 		}
@@ -499,7 +517,7 @@ extension Storefront {
 			return field(field: "provinceCode", aliasSuffix: alias) as! String?
 		}
 
-		/// The zip or postal code of the address. 
+		/// The zip or postal code of the address.
 		open var zip: String? {
 			return internalGetZip()
 		}

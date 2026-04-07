@@ -27,43 +27,43 @@
 import Foundation
 
 extension Storefront {
-	/// A company's main point of contact. 
+	/// A company's main point of contact.
 	open class CompanyContactQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CompanyContact
 
-		/// The date and time ([ISO 8601 
-		/// format](http://en.wikipedia.org/wiki/ISO_8601)) at which the company 
-		/// contact was created in Shopify. 
+		/// The date and time ([ISO 8601
+		/// format](http://en.wikipedia.org/wiki/ISO_8601)) at which the company
+		/// contact was created in Shopify.
 		@discardableResult
 		open func createdAt(alias: String? = nil) -> CompanyContactQuery {
 			addField(field: "createdAt", aliasSuffix: alias)
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> CompanyContactQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The company contact's locale (language). 
+		/// The company contact's locale (language).
 		@discardableResult
 		open func locale(alias: String? = nil) -> CompanyContactQuery {
 			addField(field: "locale", aliasSuffix: alias)
 			return self
 		}
 
-		/// The company contact's job title. 
+		/// The company contact's job title.
 		@discardableResult
 		open func title(alias: String? = nil) -> CompanyContactQuery {
 			addField(field: "title", aliasSuffix: alias)
 			return self
 		}
 
-		/// The date and time ([ISO 8601 
-		/// format](http://en.wikipedia.org/wiki/ISO_8601)) at which the company 
-		/// contact was last modified. 
+		/// The date and time ([ISO 8601
+		/// format](http://en.wikipedia.org/wiki/ISO_8601)) at which the company
+		/// contact was last modified.
 		@discardableResult
 		open func updatedAt(alias: String? = nil) -> CompanyContactQuery {
 			addField(field: "updatedAt", aliasSuffix: alias)
@@ -71,7 +71,7 @@ extension Storefront {
 		}
 	}
 
-	/// A company's main point of contact. 
+	/// A company's main point of contact.
 	open class CompanyContact: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = CompanyContactQuery
 
@@ -115,9 +115,9 @@ extension Storefront {
 			}
 		}
 
-		/// The date and time ([ISO 8601 
-		/// format](http://en.wikipedia.org/wiki/ISO_8601)) at which the company 
-		/// contact was created in Shopify. 
+		/// The date and time ([ISO 8601
+		/// format](http://en.wikipedia.org/wiki/ISO_8601)) at which the company
+		/// contact was created in Shopify.
 		open var createdAt: Date {
 			return internalGetCreatedAt()
 		}
@@ -126,7 +126,7 @@ extension Storefront {
 			return field(field: "createdAt", aliasSuffix: alias) as! Date
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -135,7 +135,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The company contact's locale (language). 
+		/// The company contact's locale (language).
 		open var locale: String? {
 			return internalGetLocale()
 		}
@@ -144,7 +144,7 @@ extension Storefront {
 			return field(field: "locale", aliasSuffix: alias) as! String?
 		}
 
-		/// The company contact's job title. 
+		/// The company contact's job title.
 		open var title: String? {
 			return internalGetTitle()
 		}
@@ -153,9 +153,9 @@ extension Storefront {
 			return field(field: "title", aliasSuffix: alias) as! String?
 		}
 
-		/// The date and time ([ISO 8601 
-		/// format](http://en.wikipedia.org/wiki/ISO_8601)) at which the company 
-		/// contact was last modified. 
+		/// The date and time ([ISO 8601
+		/// format](http://en.wikipedia.org/wiki/ISO_8601)) at which the company
+		/// contact was last modified.
 		open var updatedAt: Date {
 			return internalGetUpdatedAt()
 		}

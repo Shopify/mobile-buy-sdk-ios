@@ -27,35 +27,40 @@
 import Foundation
 
 extension Storefront {
-	/// The set of valid sort keys for the Product query. 
+	/// Sorting options for the
+	/// [`products`](https://shopify.dev/docs/api/storefront/current/queries/products)
+	/// query. Supports sorting products by criteria such as best-selling and
+	/// price, and by product attributes such as type, and vendor. > Note: Use the
+	/// [`RELEVANCE`](https://shopify.dev/docs/api/storefront/current/enums/ProductSortKeys#enums-RELEVANCE)
+	/// key only when a search query is specified.
 	public enum ProductSortKeys: String {
-		/// Sort by the `best_selling` value. 
+		/// Sort by the `best_selling` value.
 		case bestSelling = "BEST_SELLING"
 
-		/// Sort by the `created_at` value. 
+		/// Sort by the `created_at` value.
 		case createdAt = "CREATED_AT"
 
-		/// Sort by the `id` value. 
+		/// Sort by the `id` value.
 		case id = "ID"
 
-		/// Sort by the `price` value. 
+		/// Sort by the `price` value.
 		case price = "PRICE"
 
-		/// Sort by the `product_type` value. 
+		/// Sort by the `product_type` value.
 		case productType = "PRODUCT_TYPE"
 
-		/// Sort by relevance to the search terms when the `query` parameter is 
-		/// specified on the connection. Don't use this sort key when no search query 
-		/// is specified. 
+		/// Sort by relevance to the search terms when the `query` parameter is
+		/// specified on the connection. Don't use this sort key when no search query
+		/// is specified.
 		case relevance = "RELEVANCE"
 
-		/// Sort by the `title` value. 
+		/// Sort by the `title` value.
 		case title = "TITLE"
 
-		/// Sort by the `updated_at` value. 
+		/// Sort by the `updated_at` value.
 		case updatedAt = "UPDATED_AT"
 
-		/// Sort by the `vendor` value. 
+		/// Sort by the `vendor` value.
 		case vendor = "VENDOR"
 
 		case unknownValue = ""

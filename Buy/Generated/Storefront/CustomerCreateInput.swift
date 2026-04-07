@@ -27,26 +27,34 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields to create a new customer. 
+	/// The input fields for creating a new
+	/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+	/// account. Used by the
+	/// [`customerCreate`](https://shopify.dev/docs/api/storefront/current/mutations/customerCreate)
+	/// mutation. For legacy customer accounts only and requires an email address
+	/// and password. Optionally accepts the customer's name, phone number, and
+	/// email marketing consent. > Caution: > The password is used for customer
+	/// authentication. Ensure it's transmitted securely and never logged or stored
+	/// in plain text.
 	open class CustomerCreateInput {
-		/// The customer’s first name. 
+		/// The customer’s first name.
 		open var firstName: Input<String>
 
-		/// The customer’s last name. 
+		/// The customer’s last name.
 		open var lastName: Input<String>
 
-		/// The customer’s email. 
+		/// The customer’s email.
 		open var email: String
 
-		/// A unique phone number for the customer. Formatted using E.164 standard. For 
-		/// example, _+16135551111_. 
+		/// A unique phone number for the customer. Formatted using E.164 standard. For
+		/// example, _+16135551111_.
 		open var phone: Input<String>
 
-		/// The login password used by the customer. 
+		/// The login password used by the customer.
 		open var password: String
 
-		/// Indicates whether the customer has consented to be sent marketing material 
-		/// via email. 
+		/// Indicates whether the customer has consented to be sent marketing material
+		/// via email.
 		open var acceptsMarketing: Input<Bool>
 
 		/// Creates the input object.
@@ -55,7 +63,7 @@ extension Storefront {
 		///     - firstName: The customer’s first name.
 		///     - lastName: The customer’s last name.
 		///     - email: The customer’s email.
-		///     - phone: A unique phone number for the customer.  Formatted using E.164 standard. For example, _+16135551111_. 
+		///     - phone: A unique phone number for the customer.  Formatted using E.164 standard. For example, _+16135551111_.
 		///     - password: The login password used by the customer.
 		///     - acceptsMarketing: Indicates whether the customer has consented to be sent marketing material via email.
 		///
@@ -78,7 +86,7 @@ extension Storefront {
 		///     - firstName: The customer’s first name.
 		///     - lastName: The customer’s last name.
 		///     - email: The customer’s email.
-		///     - phone: A unique phone number for the customer.  Formatted using E.164 standard. For example, _+16135551111_. 
+		///     - phone: A unique phone number for the customer.  Formatted using E.164 standard. For example, _+16135551111_.
 		///     - password: The login password used by the customer.
 		///     - acceptsMarketing: Indicates whether the customer has consented to be sent marketing material via email.
 		///

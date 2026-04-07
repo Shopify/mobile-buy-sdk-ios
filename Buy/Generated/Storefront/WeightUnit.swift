@@ -27,18 +27,21 @@
 import Foundation
 
 extension Storefront {
-	/// Units of measurement for weight. 
+	/// Units of measurement for weight, supporting both metric and imperial
+	/// systems. Used by
+	/// [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant)
+	/// to specify the unit for the variant's weight value.
 	public enum WeightUnit: String {
-		/// Metric system unit of mass. 
+		/// Metric system unit of mass.
 		case grams = "GRAMS"
 
-		/// 1 kilogram equals 1000 grams. 
+		/// 1 kilogram equals 1000 grams.
 		case kilograms = "KILOGRAMS"
 
-		/// Imperial system unit of mass. 
+		/// Imperial system unit of mass.
 		case ounces = "OUNCES"
 
-		/// 1 pound equals 16 ounces. 
+		/// 1 pound equals 16 ounces.
 		case pounds = "POUNDS"
 
 		case unknownValue = ""

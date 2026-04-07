@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type for paginating through multiple Locations. 
+	/// An auto-generated type for paginating through multiple Locations.
 	open class LocationConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = LocationConnection
 
-		/// A list of edges. 
+		/// A list of edges.
 		@discardableResult
 		open func edges(alias: String? = nil, _ subfields: (LocationEdgeQuery) -> Void) -> LocationConnectionQuery {
 			let subquery = LocationEdgeQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of the nodes contained in LocationEdge. 
+		/// A list of the nodes contained in LocationEdge.
 		@discardableResult
 		open func nodes(alias: String? = nil, _ subfields: (LocationQuery) -> Void) -> LocationConnectionQuery {
 			let subquery = LocationQuery()
@@ -51,7 +51,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> LocationConnectionQuery {
 			let subquery = PageInfoQuery()
@@ -62,7 +62,7 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type for paginating through multiple Locations. 
+	/// An auto-generated type for paginating through multiple Locations.
 	open class LocationConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = LocationConnectionQuery
 
@@ -92,7 +92,7 @@ extension Storefront {
 			}
 		}
 
-		/// A list of edges. 
+		/// A list of edges.
 		open var edges: [Storefront.LocationEdge] {
 			return internalGetEdges()
 		}
@@ -101,7 +101,7 @@ extension Storefront {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.LocationEdge]
 		}
 
-		/// A list of the nodes contained in LocationEdge. 
+		/// A list of the nodes contained in LocationEdge.
 		open var nodes: [Storefront.Location] {
 			return internalGetNodes()
 		}
@@ -110,7 +110,7 @@ extension Storefront {
 			return field(field: "nodes", aliasSuffix: alias) as! [Storefront.Location]
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
 		}

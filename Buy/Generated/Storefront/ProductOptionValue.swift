@@ -27,14 +27,24 @@
 import Foundation
 
 extension Storefront {
-	/// The product option value names. For example, "Red", "Blue", and "Green" for 
-	/// a "Color" option. 
+	/// A specific value for a
+	/// [`ProductOption`](https://shopify.dev/docs/api/storefront/current/objects/ProductOption),
+	/// such as "Red" or "Blue" for a "Color" option. Option values combine across
+	/// different options to create
+	/// [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant)
+	/// objects. Each value can include a visual swatch that displays a color or
+	/// image. The
+	/// [`firstSelectableVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductOptionValue#field-ProductOptionValue.fields.firstSelectableVariant)
+	/// field returns the variant that combines this option value with the
+	/// lowest-position values for all other options. This is useful for building
+	/// product selection interfaces. Learn more about [Shopify's product
+	/// model](https://shopify.dev/docs/apps/build/product-merchandising/products-and-collections).
 	open class ProductOptionValueQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ProductOptionValue
 
-		/// The product variant that combines this option value with the 
-		/// lowest-position option values for all other options. This field will always 
-		/// return a variant, provided a variant including this option value exists. 
+		/// The product variant that combines this option value with the
+		/// lowest-position option values for all other options. This field will always
+		/// return a variant, provided a variant including this option value exists.
 		@discardableResult
 		open func firstSelectableVariant(alias: String? = nil, _ subfields: (ProductVariantQuery) -> Void) -> ProductOptionValueQuery {
 			let subquery = ProductVariantQuery()
@@ -44,21 +54,21 @@ extension Storefront {
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> ProductOptionValueQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The name of the product option value. 
+		/// The name of the product option value.
 		@discardableResult
 		open func name(alias: String? = nil) -> ProductOptionValueQuery {
 			addField(field: "name", aliasSuffix: alias)
 			return self
 		}
 
-		/// The swatch of the product option value. 
+		/// The swatch of the product option value.
 		@discardableResult
 		open func swatch(alias: String? = nil, _ subfields: (ProductOptionValueSwatchQuery) -> Void) -> ProductOptionValueQuery {
 			let subquery = ProductOptionValueSwatchQuery()
@@ -69,8 +79,18 @@ extension Storefront {
 		}
 	}
 
-	/// The product option value names. For example, "Red", "Blue", and "Green" for 
-	/// a "Color" option. 
+	/// A specific value for a
+	/// [`ProductOption`](https://shopify.dev/docs/api/storefront/current/objects/ProductOption),
+	/// such as "Red" or "Blue" for a "Color" option. Option values combine across
+	/// different options to create
+	/// [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant)
+	/// objects. Each value can include a visual swatch that displays a color or
+	/// image. The
+	/// [`firstSelectableVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductOptionValue#field-ProductOptionValue.fields.firstSelectableVariant)
+	/// field returns the variant that combines this option value with the
+	/// lowest-position values for all other options. This is useful for building
+	/// product selection interfaces. Learn more about [Shopify's product
+	/// model](https://shopify.dev/docs/apps/build/product-merchandising/products-and-collections).
 	open class ProductOptionValue: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = ProductOptionValueQuery
 
@@ -108,9 +128,9 @@ extension Storefront {
 			}
 		}
 
-		/// The product variant that combines this option value with the 
-		/// lowest-position option values for all other options. This field will always 
-		/// return a variant, provided a variant including this option value exists. 
+		/// The product variant that combines this option value with the
+		/// lowest-position option values for all other options. This field will always
+		/// return a variant, provided a variant including this option value exists.
 		open var firstSelectableVariant: Storefront.ProductVariant? {
 			return internalGetFirstSelectableVariant()
 		}
@@ -119,7 +139,7 @@ extension Storefront {
 			return field(field: "firstSelectableVariant", aliasSuffix: alias) as! Storefront.ProductVariant?
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -128,7 +148,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The name of the product option value. 
+		/// The name of the product option value.
 		open var name: String {
 			return internalGetName()
 		}
@@ -137,7 +157,7 @@ extension Storefront {
 			return field(field: "name", aliasSuffix: alias) as! String
 		}
 
-		/// The swatch of the product option value. 
+		/// The swatch of the product option value.
 		open var swatch: Storefront.ProductOptionValueSwatch? {
 			return internalGetSwatch()
 		}

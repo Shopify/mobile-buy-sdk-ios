@@ -27,15 +27,15 @@
 import Foundation
 
 extension Storefront {
-	/// The loan type for a Shop Pay Installments Financing Plan Term. 
+	/// The loan type for a Shop Pay Installments Financing Plan Term.
 	public enum ShopPayInstallmentsLoan: String {
-		/// An interest-bearing loan type. 
+		/// An interest-bearing loan type.
 		case interest = "INTEREST"
 
-		/// A split-pay loan type. 
+		/// A split-pay loan type.
 		case splitPay = "SPLIT_PAY"
 
-		/// A zero-percent loan type. 
+		/// A zero-percent loan type.
 		case zeroPercent = "ZERO_PERCENT"
 
 		case unknownValue = ""

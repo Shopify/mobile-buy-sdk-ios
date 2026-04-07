@@ -27,45 +27,45 @@
 import Foundation
 
 extension Storefront {
-	/// A menu item type. 
+	/// A menu item type.
 	public enum MenuItemType: String {
-		/// An article link. 
+		/// An article link.
 		case article = "ARTICLE"
 
-		/// A blog link. 
+		/// A blog link.
 		case blog = "BLOG"
 
-		/// A catalog link. 
+		/// A catalog link.
 		case catalog = "CATALOG"
 
-		/// A collection link. 
+		/// A collection link.
 		case collection = "COLLECTION"
 
-		/// A collection link. 
+		/// A collection link.
 		case collections = "COLLECTIONS"
 
-		/// A customer account page link. 
+		/// A customer account page link.
 		case customerAccountPage = "CUSTOMER_ACCOUNT_PAGE"
 
-		/// A frontpage link. 
+		/// A frontpage link.
 		case frontpage = "FRONTPAGE"
 
-		/// An http link. 
+		/// An http link.
 		case http = "HTTP"
 
-		/// A metaobject page link. 
+		/// A metaobject page link.
 		case metaobject = "METAOBJECT"
 
-		/// A page link. 
+		/// A page link.
 		case page = "PAGE"
 
-		/// A product link. 
+		/// A product link.
 		case product = "PRODUCT"
 
-		/// A search link. 
+		/// A search link.
 		case search = "SEARCH"
 
-		/// A shop policy link. 
+		/// A shop policy link.
 		case shopPolicy = "SHOP_POLICY"
 
 		case unknownValue = ""

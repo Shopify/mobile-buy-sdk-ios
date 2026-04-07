@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a discount for a Shop Pay payment request. 
+	/// Represents a discount for a Shop Pay payment request.
 	open class ShopPayPaymentRequestDiscountQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ShopPayPaymentRequestDiscount
 
-		/// The amount of the discount. 
+		/// The amount of the discount.
 		@discardableResult
 		open func amount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ShopPayPaymentRequestDiscountQuery {
 			let subquery = MoneyV2Query()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The label of the discount. 
+		/// The label of the discount.
 		@discardableResult
 		open func label(alias: String? = nil) -> ShopPayPaymentRequestDiscountQuery {
 			addField(field: "label", aliasSuffix: alias)
@@ -49,7 +49,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a discount for a Shop Pay payment request. 
+	/// Represents a discount for a Shop Pay payment request.
 	open class ShopPayPaymentRequestDiscount: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ShopPayPaymentRequestDiscountQuery
 
@@ -73,7 +73,7 @@ extension Storefront {
 			}
 		}
 
-		/// The amount of the discount. 
+		/// The amount of the discount.
 		open var amount: Storefront.MoneyV2 {
 			return internalGetAmount()
 		}
@@ -82,7 +82,7 @@ extension Storefront {
 			return field(field: "amount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The label of the discount. 
+		/// The label of the discount.
 		open var label: String {
 			return internalGetLabel()
 		}

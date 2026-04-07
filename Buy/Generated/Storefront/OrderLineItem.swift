@@ -27,20 +27,20 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a single line in an order. There is one line item for each 
-	/// distinct product variant. 
+	/// Represents a single line in an order. There is one line item for each
+	/// distinct product variant.
 	open class OrderLineItemQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = OrderLineItem
 
-		/// The number of entries associated to the line item minus the items that have 
-		/// been removed. 
+		/// The number of entries associated to the line item minus the items that have
+		/// been removed.
 		@discardableResult
 		open func currentQuantity(alias: String? = nil) -> OrderLineItemQuery {
 			addField(field: "currentQuantity", aliasSuffix: alias)
 			return self
 		}
 
-		/// List of custom attributes associated to the line item. 
+		/// List of custom attributes associated to the line item.
 		@discardableResult
 		open func customAttributes(alias: String? = nil, _ subfields: (AttributeQuery) -> Void) -> OrderLineItemQuery {
 			let subquery = AttributeQuery()
@@ -50,8 +50,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The discounts that have been allocated onto the order line item by discount 
-		/// applications. 
+		/// The discounts that have been allocated onto the order line item by discount
+		/// applications.
 		@discardableResult
 		open func discountAllocations(alias: String? = nil, _ subfields: (DiscountAllocationQuery) -> Void) -> OrderLineItemQuery {
 			let subquery = DiscountAllocationQuery()
@@ -61,8 +61,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The total price of the line item, including discounts, and displayed in the 
-		/// presentment currency. 
+		/// The total price of the line item, including discounts, and displayed in the
+		/// presentment currency.
 		@discardableResult
 		open func discountedTotalPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderLineItemQuery {
 			let subquery = MoneyV2Query()
@@ -72,9 +72,9 @@ extension Storefront {
 			return self
 		}
 
-		/// The total price of the line item, not including any discounts. The total 
-		/// price is calculated using the original unit price multiplied by the 
-		/// quantity, and it's displayed in the presentment currency. 
+		/// The total price of the line item, not including any discounts. The total
+		/// price is calculated using the original unit price multiplied by the
+		/// quantity, and it's displayed in the presentment currency.
 		@discardableResult
 		open func originalTotalPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderLineItemQuery {
 			let subquery = MoneyV2Query()
@@ -84,21 +84,21 @@ extension Storefront {
 			return self
 		}
 
-		/// The number of products variants associated to the line item. 
+		/// The number of products variants associated to the line item.
 		@discardableResult
 		open func quantity(alias: String? = nil) -> OrderLineItemQuery {
 			addField(field: "quantity", aliasSuffix: alias)
 			return self
 		}
 
-		/// The title of the product combined with title of the variant. 
+		/// The title of the product combined with title of the variant.
 		@discardableResult
 		open func title(alias: String? = nil) -> OrderLineItemQuery {
 			addField(field: "title", aliasSuffix: alias)
 			return self
 		}
 
-		/// The product variant object associated to the line item. 
+		/// The product variant object associated to the line item.
 		@discardableResult
 		open func variant(alias: String? = nil, _ subfields: (ProductVariantQuery) -> Void) -> OrderLineItemQuery {
 			let subquery = ProductVariantQuery()
@@ -109,8 +109,8 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a single line in an order. There is one line item for each 
-	/// distinct product variant. 
+	/// Represents a single line in an order. There is one line item for each
+	/// distinct product variant.
 	open class OrderLineItem: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = OrderLineItemQuery
 
@@ -171,8 +171,8 @@ extension Storefront {
 			}
 		}
 
-		/// The number of entries associated to the line item minus the items that have 
-		/// been removed. 
+		/// The number of entries associated to the line item minus the items that have
+		/// been removed.
 		open var currentQuantity: Int32 {
 			return internalGetCurrentQuantity()
 		}
@@ -181,7 +181,7 @@ extension Storefront {
 			return field(field: "currentQuantity", aliasSuffix: alias) as! Int32
 		}
 
-		/// List of custom attributes associated to the line item. 
+		/// List of custom attributes associated to the line item.
 		open var customAttributes: [Storefront.Attribute] {
 			return internalGetCustomAttributes()
 		}
@@ -190,8 +190,8 @@ extension Storefront {
 			return field(field: "customAttributes", aliasSuffix: alias) as! [Storefront.Attribute]
 		}
 
-		/// The discounts that have been allocated onto the order line item by discount 
-		/// applications. 
+		/// The discounts that have been allocated onto the order line item by discount
+		/// applications.
 		open var discountAllocations: [Storefront.DiscountAllocation] {
 			return internalGetDiscountAllocations()
 		}
@@ -200,8 +200,8 @@ extension Storefront {
 			return field(field: "discountAllocations", aliasSuffix: alias) as! [Storefront.DiscountAllocation]
 		}
 
-		/// The total price of the line item, including discounts, and displayed in the 
-		/// presentment currency. 
+		/// The total price of the line item, including discounts, and displayed in the
+		/// presentment currency.
 		open var discountedTotalPrice: Storefront.MoneyV2 {
 			return internalGetDiscountedTotalPrice()
 		}
@@ -210,9 +210,9 @@ extension Storefront {
 			return field(field: "discountedTotalPrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The total price of the line item, not including any discounts. The total 
-		/// price is calculated using the original unit price multiplied by the 
-		/// quantity, and it's displayed in the presentment currency. 
+		/// The total price of the line item, not including any discounts. The total
+		/// price is calculated using the original unit price multiplied by the
+		/// quantity, and it's displayed in the presentment currency.
 		open var originalTotalPrice: Storefront.MoneyV2 {
 			return internalGetOriginalTotalPrice()
 		}
@@ -221,7 +221,7 @@ extension Storefront {
 			return field(field: "originalTotalPrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The number of products variants associated to the line item. 
+		/// The number of products variants associated to the line item.
 		open var quantity: Int32 {
 			return internalGetQuantity()
 		}
@@ -230,7 +230,7 @@ extension Storefront {
 			return field(field: "quantity", aliasSuffix: alias) as! Int32
 		}
 
-		/// The title of the product combined with title of the variant. 
+		/// The title of the product combined with title of the variant.
 		open var title: String {
 			return internalGetTitle()
 		}
@@ -239,7 +239,7 @@ extension Storefront {
 			return field(field: "title", aliasSuffix: alias) as! String
 		}
 
-		/// The product variant object associated to the line item. 
+		/// The product variant object associated to the line item.
 		open var variant: Storefront.ProductVariant? {
 			return internalGetVariant()
 		}

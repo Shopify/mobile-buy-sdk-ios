@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a Shop Pay payment request. 
+	/// Represents a Shop Pay payment request.
 	open class ShopPayPaymentRequestQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ShopPayPaymentRequest
 
-		/// The delivery methods for the payment request. 
+		/// The delivery methods for the payment request.
 		@discardableResult
 		open func deliveryMethods(alias: String? = nil, _ subfields: (ShopPayPaymentRequestDeliveryMethodQuery) -> Void) -> ShopPayPaymentRequestQuery {
 			let subquery = ShopPayPaymentRequestDeliveryMethodQuery()
@@ -41,14 +41,14 @@ extension Storefront {
 			return self
 		}
 
-		/// The discount codes for the payment request. 
+		/// The discount codes for the payment request.
 		@discardableResult
 		open func discountCodes(alias: String? = nil) -> ShopPayPaymentRequestQuery {
 			addField(field: "discountCodes", aliasSuffix: alias)
 			return self
 		}
 
-		/// The discounts for the payment request order. 
+		/// The discounts for the payment request order.
 		@discardableResult
 		open func discounts(alias: String? = nil, _ subfields: (ShopPayPaymentRequestDiscountQuery) -> Void) -> ShopPayPaymentRequestQuery {
 			let subquery = ShopPayPaymentRequestDiscountQuery()
@@ -58,7 +58,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The line items for the payment request. 
+		/// The line items for the payment request.
 		@discardableResult
 		open func lineItems(alias: String? = nil, _ subfields: (ShopPayPaymentRequestLineItemQuery) -> Void) -> ShopPayPaymentRequestQuery {
 			let subquery = ShopPayPaymentRequestLineItemQuery()
@@ -68,28 +68,28 @@ extension Storefront {
 			return self
 		}
 
-		/// The locale for the payment request. 
+		/// The locale for the payment request.
 		@discardableResult
 		open func locale(alias: String? = nil) -> ShopPayPaymentRequestQuery {
 			addField(field: "locale", aliasSuffix: alias)
 			return self
 		}
 
-		/// The presentment currency for the payment request. 
+		/// The presentment currency for the payment request.
 		@discardableResult
 		open func presentmentCurrency(alias: String? = nil) -> ShopPayPaymentRequestQuery {
 			addField(field: "presentmentCurrency", aliasSuffix: alias)
 			return self
 		}
 
-		/// The delivery method type for the payment request. 
+		/// The delivery method type for the payment request.
 		@discardableResult
 		open func selectedDeliveryMethodType(alias: String? = nil) -> ShopPayPaymentRequestQuery {
 			addField(field: "selectedDeliveryMethodType", aliasSuffix: alias)
 			return self
 		}
 
-		/// The shipping address for the payment request. 
+		/// The shipping address for the payment request.
 		@discardableResult
 		open func shippingAddress(alias: String? = nil, _ subfields: (ShopPayPaymentRequestContactFieldQuery) -> Void) -> ShopPayPaymentRequestQuery {
 			let subquery = ShopPayPaymentRequestContactFieldQuery()
@@ -99,7 +99,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The shipping lines for the payment request. 
+		/// The shipping lines for the payment request.
 		@discardableResult
 		open func shippingLines(alias: String? = nil, _ subfields: (ShopPayPaymentRequestShippingLineQuery) -> Void) -> ShopPayPaymentRequestQuery {
 			let subquery = ShopPayPaymentRequestShippingLineQuery()
@@ -109,7 +109,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The subtotal amount for the payment request. 
+		/// The subtotal amount for the payment request.
 		@discardableResult
 		open func subtotal(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ShopPayPaymentRequestQuery {
 			let subquery = MoneyV2Query()
@@ -119,7 +119,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The total amount for the payment request. 
+		/// The total amount for the payment request.
 		@discardableResult
 		open func total(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ShopPayPaymentRequestQuery {
 			let subquery = MoneyV2Query()
@@ -129,7 +129,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The total shipping price for the payment request. 
+		/// The total shipping price for the payment request.
 		@discardableResult
 		open func totalShippingPrice(alias: String? = nil, _ subfields: (ShopPayPaymentRequestTotalShippingPriceQuery) -> Void) -> ShopPayPaymentRequestQuery {
 			let subquery = ShopPayPaymentRequestTotalShippingPriceQuery()
@@ -139,7 +139,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The total tax for the payment request. 
+		/// The total tax for the payment request.
 		@discardableResult
 		open func totalTax(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ShopPayPaymentRequestQuery {
 			let subquery = MoneyV2Query()
@@ -150,7 +150,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a Shop Pay payment request. 
+	/// Represents a Shop Pay payment request.
 	open class ShopPayPaymentRequest: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ShopPayPaymentRequestQuery
 
@@ -244,7 +244,7 @@ extension Storefront {
 			}
 		}
 
-		/// The delivery methods for the payment request. 
+		/// The delivery methods for the payment request.
 		open var deliveryMethods: [Storefront.ShopPayPaymentRequestDeliveryMethod] {
 			return internalGetDeliveryMethods()
 		}
@@ -253,7 +253,7 @@ extension Storefront {
 			return field(field: "deliveryMethods", aliasSuffix: alias) as! [Storefront.ShopPayPaymentRequestDeliveryMethod]
 		}
 
-		/// The discount codes for the payment request. 
+		/// The discount codes for the payment request.
 		open var discountCodes: [String] {
 			return internalGetDiscountCodes()
 		}
@@ -262,7 +262,7 @@ extension Storefront {
 			return field(field: "discountCodes", aliasSuffix: alias) as! [String]
 		}
 
-		/// The discounts for the payment request order. 
+		/// The discounts for the payment request order.
 		open var discounts: [Storefront.ShopPayPaymentRequestDiscount]? {
 			return internalGetDiscounts()
 		}
@@ -271,7 +271,7 @@ extension Storefront {
 			return field(field: "discounts", aliasSuffix: alias) as! [Storefront.ShopPayPaymentRequestDiscount]?
 		}
 
-		/// The line items for the payment request. 
+		/// The line items for the payment request.
 		open var lineItems: [Storefront.ShopPayPaymentRequestLineItem] {
 			return internalGetLineItems()
 		}
@@ -280,7 +280,7 @@ extension Storefront {
 			return field(field: "lineItems", aliasSuffix: alias) as! [Storefront.ShopPayPaymentRequestLineItem]
 		}
 
-		/// The locale for the payment request. 
+		/// The locale for the payment request.
 		open var locale: String {
 			return internalGetLocale()
 		}
@@ -289,7 +289,7 @@ extension Storefront {
 			return field(field: "locale", aliasSuffix: alias) as! String
 		}
 
-		/// The presentment currency for the payment request. 
+		/// The presentment currency for the payment request.
 		open var presentmentCurrency: Storefront.CurrencyCode {
 			return internalGetPresentmentCurrency()
 		}
@@ -298,7 +298,7 @@ extension Storefront {
 			return field(field: "presentmentCurrency", aliasSuffix: alias) as! Storefront.CurrencyCode
 		}
 
-		/// The delivery method type for the payment request. 
+		/// The delivery method type for the payment request.
 		open var selectedDeliveryMethodType: Storefront.ShopPayPaymentRequestDeliveryMethodType {
 			return internalGetSelectedDeliveryMethodType()
 		}
@@ -307,7 +307,7 @@ extension Storefront {
 			return field(field: "selectedDeliveryMethodType", aliasSuffix: alias) as! Storefront.ShopPayPaymentRequestDeliveryMethodType
 		}
 
-		/// The shipping address for the payment request. 
+		/// The shipping address for the payment request.
 		open var shippingAddress: Storefront.ShopPayPaymentRequestContactField? {
 			return internalGetShippingAddress()
 		}
@@ -316,7 +316,7 @@ extension Storefront {
 			return field(field: "shippingAddress", aliasSuffix: alias) as! Storefront.ShopPayPaymentRequestContactField?
 		}
 
-		/// The shipping lines for the payment request. 
+		/// The shipping lines for the payment request.
 		open var shippingLines: [Storefront.ShopPayPaymentRequestShippingLine] {
 			return internalGetShippingLines()
 		}
@@ -325,7 +325,7 @@ extension Storefront {
 			return field(field: "shippingLines", aliasSuffix: alias) as! [Storefront.ShopPayPaymentRequestShippingLine]
 		}
 
-		/// The subtotal amount for the payment request. 
+		/// The subtotal amount for the payment request.
 		open var subtotal: Storefront.MoneyV2 {
 			return internalGetSubtotal()
 		}
@@ -334,7 +334,7 @@ extension Storefront {
 			return field(field: "subtotal", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The total amount for the payment request. 
+		/// The total amount for the payment request.
 		open var total: Storefront.MoneyV2 {
 			return internalGetTotal()
 		}
@@ -343,7 +343,7 @@ extension Storefront {
 			return field(field: "total", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The total shipping price for the payment request. 
+		/// The total shipping price for the payment request.
 		open var totalShippingPrice: Storefront.ShopPayPaymentRequestTotalShippingPrice? {
 			return internalGetTotalShippingPrice()
 		}
@@ -352,7 +352,7 @@ extension Storefront {
 			return field(field: "totalShippingPrice", aliasSuffix: alias) as! Storefront.ShopPayPaymentRequestTotalShippingPrice?
 		}
 
-		/// The total tax for the payment request. 
+		/// The total tax for the payment request.
 		open var totalTax: Storefront.MoneyV2? {
 			return internalGetTotalTax()
 		}

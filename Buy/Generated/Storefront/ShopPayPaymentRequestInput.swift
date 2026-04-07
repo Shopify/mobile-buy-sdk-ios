@@ -27,50 +27,50 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields represent a Shop Pay payment request. 
+	/// The input fields represent a Shop Pay payment request.
 	open class ShopPayPaymentRequestInput {
-		/// The discount codes for the payment request. The input must not contain more 
-		/// than `250` values. 
+		/// The discount codes for the payment request. The input must not contain more
+		/// than `250` values.
 		open var discountCodes: Input<[String]>
 
-		/// The line items for the payment request. The input must not contain more 
-		/// than `250` values. 
+		/// The line items for the payment request. The input must not contain more
+		/// than `250` values.
 		open var lineItems: Input<[ShopPayPaymentRequestLineItemInput]>
 
-		/// The shipping lines for the payment request. The input must not contain more 
-		/// than `250` values. 
+		/// The shipping lines for the payment request. The input must not contain more
+		/// than `250` values.
 		open var shippingLines: Input<[ShopPayPaymentRequestShippingLineInput]>
 
-		/// The total amount for the payment request. 
+		/// The total amount for the payment request.
 		open var total: MoneyInput
 
-		/// The subtotal amount for the payment request. 
+		/// The subtotal amount for the payment request.
 		open var subtotal: MoneyInput
 
-		/// The discounts for the payment request order. The input must not contain 
-		/// more than `250` values. 
+		/// The discounts for the payment request order. The input must not contain
+		/// more than `250` values.
 		open var discounts: Input<[ShopPayPaymentRequestDiscountInput]>
 
-		/// The total shipping price for the payment request. 
+		/// The total shipping price for the payment request.
 		open var totalShippingPrice: Input<ShopPayPaymentRequestTotalShippingPriceInput>
 
-		/// The total tax for the payment request. 
+		/// The total tax for the payment request.
 		open var totalTax: Input<MoneyInput>
 
-		/// The delivery methods for the payment request. The input must not contain 
-		/// more than `250` values. 
+		/// The delivery methods for the payment request. The input must not contain
+		/// more than `250` values.
 		open var deliveryMethods: Input<[ShopPayPaymentRequestDeliveryMethodInput]>
 
-		/// The delivery method type for the payment request. 
+		/// The delivery method type for the payment request.
 		open var selectedDeliveryMethodType: Input<ShopPayPaymentRequestDeliveryMethodType>
 
-		/// The locale for the payment request. 
+		/// The locale for the payment request.
 		open var locale: String
 
-		/// The presentment currency for the payment request. 
+		/// The presentment currency for the payment request.
 		open var presentmentCurrency: CurrencyCode
 
-		/// The encrypted payment method for the payment request. 
+		/// The encrypted payment method for the payment request.
 		open var paymentMethod: Input<String>
 
 		/// Creates the input object.

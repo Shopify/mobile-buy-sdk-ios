@@ -26,21 +26,21 @@
 
 import Foundation
 
-/// Represents a resource that can be published to the Online Store sales 
-/// channel. 
+/// Represents a resource that can be published to the Online Store sales
+/// channel.
 public protocol OnlineStorePublishable {
 	var onlineStoreUrl: URL? { get }
 }
 
 extension Storefront {
-	/// Represents a resource that can be published to the Online Store sales 
-	/// channel. 
+	/// Represents a resource that can be published to the Online Store sales
+	/// channel.
 	open class OnlineStorePublishableQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = OnlineStorePublishable
 
-		/// The URL used for viewing the resource on the shop's Online Store. Returns 
-		/// `null` if the resource is currently not published to the Online Store sales 
-		/// channel. 
+		/// The URL used for viewing the resource on the shop's Online Store. Returns
+		/// `null` if the resource is currently not published to the Online Store sales
+		/// channel.
 		@discardableResult
 		open func onlineStoreUrl(alias: String? = nil) -> OnlineStorePublishableQuery {
 			addField(field: "onlineStoreUrl", aliasSuffix: alias)
@@ -52,8 +52,8 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// Represents a resource that can be published to the Online Store sales 
-		/// channel. 
+		/// Represents a resource that can be published to the Online Store sales
+		/// channel.
 		@discardableResult
 		open func onArticle(subfields: (ArticleQuery) -> Void) -> OnlineStorePublishableQuery {
 			let subquery = ArticleQuery()
@@ -62,8 +62,8 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents a resource that can be published to the Online Store sales 
-		/// channel. 
+		/// Represents a resource that can be published to the Online Store sales
+		/// channel.
 		@discardableResult
 		open func onBlog(subfields: (BlogQuery) -> Void) -> OnlineStorePublishableQuery {
 			let subquery = BlogQuery()
@@ -72,8 +72,8 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents a resource that can be published to the Online Store sales 
-		/// channel. 
+		/// Represents a resource that can be published to the Online Store sales
+		/// channel.
 		@discardableResult
 		open func onCollection(subfields: (CollectionQuery) -> Void) -> OnlineStorePublishableQuery {
 			let subquery = CollectionQuery()
@@ -82,8 +82,8 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents a resource that can be published to the Online Store sales 
-		/// channel. 
+		/// Represents a resource that can be published to the Online Store sales
+		/// channel.
 		@discardableResult
 		open func onMetaobject(subfields: (MetaobjectQuery) -> Void) -> OnlineStorePublishableQuery {
 			let subquery = MetaobjectQuery()
@@ -92,8 +92,8 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents a resource that can be published to the Online Store sales 
-		/// channel. 
+		/// Represents a resource that can be published to the Online Store sales
+		/// channel.
 		@discardableResult
 		open func onPage(subfields: (PageQuery) -> Void) -> OnlineStorePublishableQuery {
 			let subquery = PageQuery()
@@ -102,8 +102,8 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents a resource that can be published to the Online Store sales 
-		/// channel. 
+		/// Represents a resource that can be published to the Online Store sales
+		/// channel.
 		@discardableResult
 		open func onProduct(subfields: (ProductQuery) -> Void) -> OnlineStorePublishableQuery {
 			let subquery = ProductQuery()
@@ -113,8 +113,8 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a resource that can be published to the Online Store sales 
-	/// channel. 
+	/// Represents a resource that can be published to the Online Store sales
+	/// channel.
 	open class UnknownOnlineStorePublishable: GraphQL.AbstractResponse, GraphQLObject, OnlineStorePublishable {
 		public typealias Query = OnlineStorePublishableQuery
 
@@ -155,9 +155,9 @@ extension Storefront {
 			}
 		}
 
-		/// The URL used for viewing the resource on the shop's Online Store. Returns 
-		/// `null` if the resource is currently not published to the Online Store sales 
-		/// channel. 
+		/// The URL used for viewing the resource on the shop's Online Store. Returns
+		/// `null` if the resource is currently not published to the Online Store sales
+		/// channel.
 		open var onlineStoreUrl: URL? {
 			return internalGetOnlineStoreUrl()
 		}

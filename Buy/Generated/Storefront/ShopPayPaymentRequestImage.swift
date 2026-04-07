@@ -27,18 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// Represents an image for a Shop Pay payment request line item. 
+	/// Represents an image for a Shop Pay payment request line item.
 	open class ShopPayPaymentRequestImageQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ShopPayPaymentRequestImage
 
-		/// The alt text of the image. 
+		/// The alt text of the image.
 		@discardableResult
 		open func alt(alias: String? = nil) -> ShopPayPaymentRequestImageQuery {
 			addField(field: "alt", aliasSuffix: alias)
 			return self
 		}
 
-		/// The source URL of the image. 
+		/// The source URL of the image.
 		@discardableResult
 		open func url(alias: String? = nil) -> ShopPayPaymentRequestImageQuery {
 			addField(field: "url", aliasSuffix: alias)
@@ -46,7 +46,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents an image for a Shop Pay payment request line item. 
+	/// Represents an image for a Shop Pay payment request line item.
 	open class ShopPayPaymentRequestImage: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ShopPayPaymentRequestImageQuery
 
@@ -71,7 +71,7 @@ extension Storefront {
 			}
 		}
 
-		/// The alt text of the image. 
+		/// The alt text of the image.
 		open var alt: String? {
 			return internalGetAlt()
 		}
@@ -80,7 +80,7 @@ extension Storefront {
 			return field(field: "alt", aliasSuffix: alias) as! String?
 		}
 
-		/// The source URL of the image. 
+		/// The source URL of the image.
 		open var url: String {
 			return internalGetUrl()
 		}

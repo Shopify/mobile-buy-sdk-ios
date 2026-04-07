@@ -27,18 +27,24 @@
 import Foundation
 
 extension Storefront {
-	/// Provides the value of a Metaobject field. 
+	/// The value of a field within a
+	/// [`Metaobject`](https://shopify.dev/docs/api/storefront/current/objects/Metaobject).
+	/// For fields that reference other resources, use the
+	/// [`reference`](https://shopify.dev/docs/api/storefront/current/objects/MetaobjectField#field-MetaobjectField.fields.reference)
+	/// field for single references or
+	/// [`references`](https://shopify.dev/docs/api/storefront/current/objects/MetaobjectField#field-MetaobjectField.fields.references)
+	/// for lists.
 	open class MetaobjectFieldQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MetaobjectField
 
-		/// The field key. 
+		/// The field key.
 		@discardableResult
 		open func key(alias: String? = nil) -> MetaobjectFieldQuery {
 			addField(field: "key", aliasSuffix: alias)
 			return self
 		}
 
-		/// A referenced object if the field type is a resource reference. 
+		/// A referenced object if the field type is a resource reference.
 		@discardableResult
 		open func reference(alias: String? = nil, _ subfields: (MetafieldReferenceQuery) -> Void) -> MetaobjectFieldQuery {
 			let subquery = MetafieldReferenceQuery()
@@ -48,8 +54,8 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of referenced objects if the field type is a resource reference 
-		/// list. 
+		/// A list of referenced objects if the field type is a resource reference
+		/// list.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -86,15 +92,15 @@ extension Storefront {
 			return self
 		}
 
-		/// The type name of the field. See the list of [supported 
-		/// types](https://shopify.dev/apps/metafields/definitions/types). 
+		/// The type name of the field. See the list of [supported
+		/// types](https://shopify.dev/apps/metafields/definitions/types).
 		@discardableResult
 		open func type(alias: String? = nil) -> MetaobjectFieldQuery {
 			addField(field: "type", aliasSuffix: alias)
 			return self
 		}
 
-		/// The field value. 
+		/// The field value.
 		@discardableResult
 		open func value(alias: String? = nil) -> MetaobjectFieldQuery {
 			addField(field: "value", aliasSuffix: alias)
@@ -102,7 +108,13 @@ extension Storefront {
 		}
 	}
 
-	/// Provides the value of a Metaobject field. 
+	/// The value of a field within a
+	/// [`Metaobject`](https://shopify.dev/docs/api/storefront/current/objects/Metaobject).
+	/// For fields that reference other resources, use the
+	/// [`reference`](https://shopify.dev/docs/api/storefront/current/objects/MetaobjectField#field-MetaobjectField.fields.reference)
+	/// field for single references or
+	/// [`references`](https://shopify.dev/docs/api/storefront/current/objects/MetaobjectField#field-MetaobjectField.fields.references)
+	/// for lists.
 	open class MetaobjectField: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = MetaobjectFieldQuery
 
@@ -147,7 +159,7 @@ extension Storefront {
 			}
 		}
 
-		/// The field key. 
+		/// The field key.
 		open var key: String {
 			return internalGetKey()
 		}
@@ -156,7 +168,7 @@ extension Storefront {
 			return field(field: "key", aliasSuffix: alias) as! String
 		}
 
-		/// A referenced object if the field type is a resource reference. 
+		/// A referenced object if the field type is a resource reference.
 		open var reference: MetafieldReference? {
 			return internalGetReference()
 		}
@@ -165,8 +177,8 @@ extension Storefront {
 			return field(field: "reference", aliasSuffix: alias) as! MetafieldReference?
 		}
 
-		/// A list of referenced objects if the field type is a resource reference 
-		/// list. 
+		/// A list of referenced objects if the field type is a resource reference
+		/// list.
 		open var references: Storefront.MetafieldReferenceConnection? {
 			return internalGetReferences()
 		}
@@ -179,8 +191,8 @@ extension Storefront {
 			return field(field: "references", aliasSuffix: alias) as! Storefront.MetafieldReferenceConnection?
 		}
 
-		/// The type name of the field. See the list of [supported 
-		/// types](https://shopify.dev/apps/metafields/definitions/types). 
+		/// The type name of the field. See the list of [supported
+		/// types](https://shopify.dev/apps/metafields/definitions/types).
 		open var type: String {
 			return internalGetType()
 		}
@@ -189,7 +201,7 @@ extension Storefront {
 			return field(field: "type", aliasSuffix: alias) as! String
 		}
 
-		/// The field value. 
+		/// The field value.
 		open var value: String? {
 			return internalGetValue()
 		}

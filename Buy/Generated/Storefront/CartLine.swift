@@ -27,11 +27,22 @@
 import Foundation
 
 extension Storefront {
-	/// Represents information about the merchandise in the cart. 
+	/// An item in a customer's
+	/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart)
+	/// representing a product variant they intend to purchase. Each cart line
+	/// tracks the merchandise, quantity, cost breakdown, and any applied
+	/// discounts. Cart lines can include custom attributes for additional
+	/// information like gift wrapping requests, and can be associated with a
+	/// [`SellingPlanAllocation`](https://shopify.dev/docs/api/storefront/current/objects/SellingPlanAllocation)
+	/// for purchase options like subscriptions, pre-orders, or try-before-you-buy.
+	/// The
+	/// [`instructions`](https://shopify.dev/docs/api/storefront/current/objects/CartLine#field-CartLine.fields.instructions)
+	/// field indicates whether the line can be removed or have its quantity
+	/// updated.
 	open class CartLineQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartLine
 
-		/// An attribute associated with the cart line. 
+		/// An attribute associated with the cart line.
 		///
 		/// - parameters:
 		///     - key: The key of the attribute.
@@ -51,8 +62,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The attributes associated with the cart line. Attributes are represented as 
-		/// key-value pairs. 
+		/// The attributes associated with the cart line. Attributes are represented as
+		/// key-value pairs.
 		@discardableResult
 		open func attributes(alias: String? = nil, _ subfields: (AttributeQuery) -> Void) -> CartLineQuery {
 			let subquery = AttributeQuery()
@@ -62,8 +73,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The cost of the merchandise that the buyer will pay for at checkout. The 
-		/// costs are subject to change and changes will be reflected at checkout. 
+		/// The cost of the merchandise that the buyer will pay for at checkout. The
+		/// costs are subject to change and changes will be reflected at checkout.
 		@discardableResult
 		open func cost(alias: String? = nil, _ subfields: (CartLineCostQuery) -> Void) -> CartLineQuery {
 			let subquery = CartLineCostQuery()
@@ -73,7 +84,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The discounts that have been applied to the cart line. 
+		/// The discounts that have been applied to the cart line.
 		@discardableResult
 		open func discountAllocations(alias: String? = nil, _ subfields: (CartDiscountAllocationQuery) -> Void) -> CartLineQuery {
 			let subquery = CartDiscountAllocationQuery()
@@ -83,9 +94,9 @@ extension Storefront {
 			return self
 		}
 
-		/// The estimated cost of the merchandise that the buyer will pay for at 
-		/// checkout. The estimated costs are subject to change and changes will be 
-		/// reflected at checkout. 
+		/// The estimated cost of the merchandise that the buyer will pay for at
+		/// checkout. The estimated costs are subject to change and changes will be
+		/// reflected at checkout.
 		@available(*, deprecated, message: "Use `cost` instead.")
 		@discardableResult
 		open func estimatedCost(alias: String? = nil, _ subfields: (CartLineEstimatedCostQuery) -> Void) -> CartLineQuery {
@@ -96,14 +107,24 @@ extension Storefront {
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> CartLineQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The merchandise that the buyer intends to purchase. 
+		/// The instructions for the line item.
+		@discardableResult
+		open func instructions(alias: String? = nil, _ subfields: (CartLineInstructionsQuery) -> Void) -> CartLineQuery {
+			let subquery = CartLineInstructionsQuery()
+			subfields(subquery)
+
+			addField(field: "instructions", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// The merchandise that the buyer intends to purchase.
 		@discardableResult
 		open func merchandise(alias: String? = nil, _ subfields: (MerchandiseQuery) -> Void) -> CartLineQuery {
 			let subquery = MerchandiseQuery()
@@ -113,15 +134,25 @@ extension Storefront {
 			return self
 		}
 
-		/// The quantity of the merchandise that the customer intends to purchase. 
+		/// The parent of the line item.
+		@discardableResult
+		open func parentRelationship(alias: String? = nil, _ subfields: (CartLineParentRelationshipQuery) -> Void) -> CartLineQuery {
+			let subquery = CartLineParentRelationshipQuery()
+			subfields(subquery)
+
+			addField(field: "parentRelationship", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// The quantity of the merchandise that the customer intends to purchase.
 		@discardableResult
 		open func quantity(alias: String? = nil) -> CartLineQuery {
 			addField(field: "quantity", aliasSuffix: alias)
 			return self
 		}
 
-		/// The selling plan associated with the cart line and the effect that each 
-		/// selling plan has on variants when they're purchased. 
+		/// The selling plan associated with the cart line and the effect that each
+		/// selling plan has on variants when they're purchased.
 		@discardableResult
 		open func sellingPlanAllocation(alias: String? = nil, _ subfields: (SellingPlanAllocationQuery) -> Void) -> CartLineQuery {
 			let subquery = SellingPlanAllocationQuery()
@@ -132,7 +163,18 @@ extension Storefront {
 		}
 	}
 
-	/// Represents information about the merchandise in the cart. 
+	/// An item in a customer's
+	/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart)
+	/// representing a product variant they intend to purchase. Each cart line
+	/// tracks the merchandise, quantity, cost breakdown, and any applied
+	/// discounts. Cart lines can include custom attributes for additional
+	/// information like gift wrapping requests, and can be associated with a
+	/// [`SellingPlanAllocation`](https://shopify.dev/docs/api/storefront/current/objects/SellingPlanAllocation)
+	/// for purchase options like subscriptions, pre-orders, or try-before-you-buy.
+	/// The
+	/// [`instructions`](https://shopify.dev/docs/api/storefront/current/objects/CartLine#field-CartLine.fields.instructions)
+	/// field indicates whether the line can be removed or have its quantity
+	/// updated.
 	open class CartLine: GraphQL.AbstractResponse, GraphQLObject, BaseCartLine, Node {
 		public typealias Query = CartLineQuery
 
@@ -176,11 +218,24 @@ extension Storefront {
 				}
 				return GraphQL.ID(rawValue: value)
 
+				case "instructions":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: CartLine.self, field: fieldName, value: fieldValue)
+				}
+				return try CartLineInstructions(fields: value)
+
 				case "merchandise":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: CartLine.self, field: fieldName, value: fieldValue)
 				}
 				return try UnknownMerchandise.create(fields: value)
+
+				case "parentRelationship":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: CartLine.self, field: fieldName, value: fieldValue)
+				}
+				return try CartLineParentRelationship(fields: value)
 
 				case "quantity":
 				guard let value = value as? Int else {
@@ -200,7 +255,7 @@ extension Storefront {
 			}
 		}
 
-		/// An attribute associated with the cart line. 
+		/// An attribute associated with the cart line.
 		open var attribute: Storefront.Attribute? {
 			return internalGetAttribute()
 		}
@@ -213,8 +268,8 @@ extension Storefront {
 			return field(field: "attribute", aliasSuffix: alias) as! Storefront.Attribute?
 		}
 
-		/// The attributes associated with the cart line. Attributes are represented as 
-		/// key-value pairs. 
+		/// The attributes associated with the cart line. Attributes are represented as
+		/// key-value pairs.
 		open var attributes: [Storefront.Attribute] {
 			return internalGetAttributes()
 		}
@@ -223,8 +278,8 @@ extension Storefront {
 			return field(field: "attributes", aliasSuffix: alias) as! [Storefront.Attribute]
 		}
 
-		/// The cost of the merchandise that the buyer will pay for at checkout. The 
-		/// costs are subject to change and changes will be reflected at checkout. 
+		/// The cost of the merchandise that the buyer will pay for at checkout. The
+		/// costs are subject to change and changes will be reflected at checkout.
 		open var cost: Storefront.CartLineCost {
 			return internalGetCost()
 		}
@@ -233,7 +288,7 @@ extension Storefront {
 			return field(field: "cost", aliasSuffix: alias) as! Storefront.CartLineCost
 		}
 
-		/// The discounts that have been applied to the cart line. 
+		/// The discounts that have been applied to the cart line.
 		open var discountAllocations: [CartDiscountAllocation] {
 			return internalGetDiscountAllocations()
 		}
@@ -242,9 +297,9 @@ extension Storefront {
 			return field(field: "discountAllocations", aliasSuffix: alias) as! [CartDiscountAllocation]
 		}
 
-		/// The estimated cost of the merchandise that the buyer will pay for at 
-		/// checkout. The estimated costs are subject to change and changes will be 
-		/// reflected at checkout. 
+		/// The estimated cost of the merchandise that the buyer will pay for at
+		/// checkout. The estimated costs are subject to change and changes will be
+		/// reflected at checkout.
 		@available(*, deprecated, message: "Use `cost` instead.")
 		open var estimatedCost: Storefront.CartLineEstimatedCost {
 			return internalGetEstimatedCost()
@@ -254,7 +309,7 @@ extension Storefront {
 			return field(field: "estimatedCost", aliasSuffix: alias) as! Storefront.CartLineEstimatedCost
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -263,7 +318,16 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The merchandise that the buyer intends to purchase. 
+		/// The instructions for the line item.
+		open var instructions: Storefront.CartLineInstructions {
+			return internalGetInstructions()
+		}
+
+		func internalGetInstructions(alias: String? = nil) -> Storefront.CartLineInstructions {
+			return field(field: "instructions", aliasSuffix: alias) as! Storefront.CartLineInstructions
+		}
+
+		/// The merchandise that the buyer intends to purchase.
 		open var merchandise: Merchandise {
 			return internalGetMerchandise()
 		}
@@ -272,7 +336,16 @@ extension Storefront {
 			return field(field: "merchandise", aliasSuffix: alias) as! Merchandise
 		}
 
-		/// The quantity of the merchandise that the customer intends to purchase. 
+		/// The parent of the line item.
+		open var parentRelationship: Storefront.CartLineParentRelationship? {
+			return internalGetParentRelationship()
+		}
+
+		func internalGetParentRelationship(alias: String? = nil) -> Storefront.CartLineParentRelationship? {
+			return field(field: "parentRelationship", aliasSuffix: alias) as! Storefront.CartLineParentRelationship?
+		}
+
+		/// The quantity of the merchandise that the customer intends to purchase.
 		open var quantity: Int32 {
 			return internalGetQuantity()
 		}
@@ -281,8 +354,8 @@ extension Storefront {
 			return field(field: "quantity", aliasSuffix: alias) as! Int32
 		}
 
-		/// The selling plan associated with the cart line and the effect that each 
-		/// selling plan has on variants when they're purchased. 
+		/// The selling plan associated with the cart line and the effect that each
+		/// selling plan has on variants when they're purchased.
 		open var sellingPlanAllocation: Storefront.SellingPlanAllocation? {
 			return internalGetSellingPlanAllocation()
 		}
@@ -321,9 +394,19 @@ extension Storefront {
 					response.append(internalGetEstimatedCost())
 					response.append(contentsOf: internalGetEstimatedCost().childResponseObjectMap())
 
+					case "instructions":
+					response.append(internalGetInstructions())
+					response.append(contentsOf: internalGetInstructions().childResponseObjectMap())
+
 					case "merchandise":
 					response.append((internalGetMerchandise() as! GraphQL.AbstractResponse))
 					response.append(contentsOf: (internalGetMerchandise() as! GraphQL.AbstractResponse).childResponseObjectMap())
+
+					case "parentRelationship":
+					if let value = internalGetParentRelationship() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
 
 					case "sellingPlanAllocation":
 					if let value = internalGetSellingPlanAllocation() {

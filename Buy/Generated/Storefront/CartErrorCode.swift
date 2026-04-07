@@ -27,153 +27,175 @@
 import Foundation
 
 extension Storefront {
-	/// Possible error codes that can be returned by `CartUserError`. 
+	/// Error codes returned by
+	/// [`CartUserError`](https://shopify.dev/docs/api/storefront/current/objects/CartUserError)
+	/// during cart mutations. Covers validation failures for addresses,
+	/// quantities, delivery options, merchandise lines, discount codes, and
+	/// metafields.
 	public enum CartErrorCode: String {
-		/// The specified address field contains emojis. 
+		/// The specified address field contains emojis.
 		case addressFieldContainsEmojis = "ADDRESS_FIELD_CONTAINS_EMOJIS"
 
-		/// The specified address field contains HTML tags. 
+		/// The specified address field contains HTML tags.
 		case addressFieldContainsHtmlTags = "ADDRESS_FIELD_CONTAINS_HTML_TAGS"
 
-		/// The specified address field contains a URL. 
+		/// The specified address field contains a URL.
 		case addressFieldContainsUrl = "ADDRESS_FIELD_CONTAINS_URL"
 
-		/// The specified address field does not match the expected pattern. 
+		/// The specified address field does not match the expected pattern.
 		case addressFieldDoesNotMatchExpectedPattern = "ADDRESS_FIELD_DOES_NOT_MATCH_EXPECTED_PATTERN"
 
-		/// The specified address field is required. 
+		/// The specified address field is required.
 		case addressFieldIsRequired = "ADDRESS_FIELD_IS_REQUIRED"
 
-		/// The specified address field is too long. 
+		/// The specified address field is too long.
 		case addressFieldIsTooLong = "ADDRESS_FIELD_IS_TOO_LONG"
 
-		/// The cart is too large to save. 
+		/// Bundles and addons cannot be mixed.
+		case bundlesAndAddonsCannotBeMixed = "BUNDLES_AND_ADDONS_CANNOT_BE_MIXED"
+
+		/// Buyer cannot purchase for company location.
+		case buyerCannotPurchaseForCompanyLocation = "BUYER_CANNOT_PURCHASE_FOR_COMPANY_LOCATION"
+
+		/// The cart is too large to save.
 		case cartTooLarge = "CART_TOO_LARGE"
 
-		/// The input value is invalid. 
+		/// The input value is invalid.
 		case invalid = "INVALID"
 
-		/// Company location not found or not allowed. 
+		/// Company location not found or not allowed.
 		case invalidCompanyLocation = "INVALID_COMPANY_LOCATION"
 
-		/// The delivery address was not found. 
+		/// The delivery address was not found.
 		case invalidDeliveryAddressId = "INVALID_DELIVERY_ADDRESS_ID"
 
-		/// Delivery group was not found in cart. 
+		/// Delivery group was not found in cart.
 		case invalidDeliveryGroup = "INVALID_DELIVERY_GROUP"
 
-		/// Delivery option was not valid. 
+		/// Delivery option was not valid.
 		case invalidDeliveryOption = "INVALID_DELIVERY_OPTION"
 
-		/// The quantity must be a multiple of the specified increment. 
+		/// The quantity must be a multiple of the specified increment.
 		case invalidIncrement = "INVALID_INCREMENT"
 
-		/// Merchandise line was not found in cart. 
+		/// Merchandise line was not found in cart.
 		case invalidMerchandiseLine = "INVALID_MERCHANDISE_LINE"
 
-		/// The metafields were not valid. 
+		/// The metafields were not valid.
 		case invalidMetafields = "INVALID_METAFIELDS"
 
-		/// The payment wasn't valid. 
+		/// The payment wasn't valid.
 		case invalidPayment = "INVALID_PAYMENT"
 
-		/// The payment is invalid. Deferred payment is required. 
+		/// The payment is invalid. Deferred payment is required.
 		case invalidPaymentDeferredPaymentRequired = "INVALID_PAYMENT_DEFERRED_PAYMENT_REQUIRED"
 
-		/// Cannot update payment on an empty cart 
+		/// Cannot update payment on an empty cart
 		case invalidPaymentEmptyCart = "INVALID_PAYMENT_EMPTY_CART"
 
-		/// The given zip code is invalid for the provided country. 
+		/// The given zip code is invalid for the provided country.
 		case invalidZipCodeForCountry = "INVALID_ZIP_CODE_FOR_COUNTRY"
 
-		/// The given zip code is invalid for the provided province. 
+		/// The given zip code is invalid for the provided province.
 		case invalidZipCodeForProvince = "INVALID_ZIP_CODE_FOR_PROVINCE"
 
-		/// The input value should be less than the maximum value allowed. 
+		/// The input value should be less than the maximum value allowed.
 		case lessThan = "LESS_THAN"
 
-		/// The quantity must be below the specified maximum for the item. 
+		/// The quantity must be below the specified maximum for the item.
 		case maximumExceeded = "MAXIMUM_EXCEEDED"
 
-		/// The quantity must be above the specified minimum for the item. 
+		/// Item cannot be purchased as configured.
+		case merchandiseNotApplicable = "MERCHANDISE_NOT_APPLICABLE"
+
+		/// The quantity must be above the specified minimum for the item.
 		case minimumNotMet = "MINIMUM_NOT_MET"
 
-		/// The customer access token is required when setting a company location. 
+		/// The customer access token is required when setting a company location.
 		case missingCustomerAccessToken = "MISSING_CUSTOMER_ACCESS_TOKEN"
 
-		/// Missing discount code. 
+		/// Missing discount code.
 		case missingDiscountCode = "MISSING_DISCOUNT_CODE"
 
-		/// Missing note. 
+		/// Missing note.
 		case missingNote = "MISSING_NOTE"
 
-		/// The note length must be below the specified maximum. 
+		/// The note length must be below the specified maximum.
 		case noteTooLong = "NOTE_TOO_LONG"
 
-		/// Only one delivery address can be selected. 
+		/// Only one delivery address can be selected.
 		case onlyOneDeliveryAddressCanBeSelected = "ONLY_ONE_DELIVERY_ADDRESS_CAN_BE_SELECTED"
 
-		/// Credit card has expired. 
+		/// Parent line nesting is too deep or circular.
+		case parentLineNestingTooDeep = "PARENT_LINE_NESTING_TOO_DEEP"
+
+		/// Parent line not found.
+		case parentLineNotFound = "PARENT_LINE_NOT_FOUND"
+
+		/// Nested cartlines are blocked due to an incompatibility.
+		case parentLineOperationBlocked = "PARENT_LINE_OPERATION_BLOCKED"
+
+		/// Credit card has expired.
 		case paymentsCreditCardBaseExpired = "PAYMENTS_CREDIT_CARD_BASE_EXPIRED"
 
-		/// Credit card gateway is not supported. 
+		/// Credit card gateway is not supported.
 		case paymentsCreditCardBaseGatewayNotSupported = "PAYMENTS_CREDIT_CARD_BASE_GATEWAY_NOT_SUPPORTED"
 
-		/// Credit card error. 
+		/// Credit card error.
 		case paymentsCreditCardGeneric = "PAYMENTS_CREDIT_CARD_GENERIC"
 
-		/// Credit card month is invalid. 
+		/// Credit card month is invalid.
 		case paymentsCreditCardMonthInclusion = "PAYMENTS_CREDIT_CARD_MONTH_INCLUSION"
 
-		/// Credit card number is invalid. 
+		/// Credit card number is invalid.
 		case paymentsCreditCardNumberInvalid = "PAYMENTS_CREDIT_CARD_NUMBER_INVALID"
 
-		/// Credit card number format is invalid. 
+		/// Credit card number format is invalid.
 		case paymentsCreditCardNumberInvalidFormat = "PAYMENTS_CREDIT_CARD_NUMBER_INVALID_FORMAT"
 
-		/// Credit card verification value is blank. 
+		/// Credit card verification value is blank.
 		case paymentsCreditCardVerificationValueBlank = "PAYMENTS_CREDIT_CARD_VERIFICATION_VALUE_BLANK"
 
-		/// Credit card verification value is invalid for card type. 
+		/// Credit card verification value is invalid for card type.
 		case paymentsCreditCardVerificationValueInvalidForCardType = "PAYMENTS_CREDIT_CARD_VERIFICATION_VALUE_INVALID_FOR_CARD_TYPE"
 
-		/// Credit card has expired. 
+		/// Credit card has expired.
 		case paymentsCreditCardYearExpired = "PAYMENTS_CREDIT_CARD_YEAR_EXPIRED"
 
-		/// Credit card expiry year is invalid. 
+		/// Credit card expiry year is invalid.
 		case paymentsCreditCardYearInvalidExpiryYear = "PAYMENTS_CREDIT_CARD_YEAR_INVALID_EXPIRY_YEAR"
 
-		/// The payment method is not applicable. 
+		/// The payment method is not applicable.
 		case paymentMethodNotApplicable = "PAYMENT_METHOD_NOT_APPLICABLE"
 
-		/// The payment method is not supported. 
+		/// The payment method is not supported.
 		case paymentMethodNotSupported = "PAYMENT_METHOD_NOT_SUPPORTED"
 
-		/// The delivery group is in a pending state. 
+		/// The delivery group is in a pending state.
 		case pendingDeliveryGroups = "PENDING_DELIVERY_GROUPS"
 
-		/// The given province cannot be found. 
+		/// The given province cannot be found.
 		case provinceNotFound = "PROVINCE_NOT_FOUND"
 
-		/// Selling plan is not applicable. 
+		/// Selling plan is not applicable.
 		case sellingPlanNotApplicable = "SELLING_PLAN_NOT_APPLICABLE"
 
-		/// An error occurred while saving the cart. 
+		/// An error occurred while saving the cart.
 		case serviceUnavailable = "SERVICE_UNAVAILABLE"
 
-		/// Too many delivery addresses on Cart. 
+		/// Too many delivery addresses on Cart.
 		case tooManyDeliveryAddresses = "TOO_MANY_DELIVERY_ADDRESSES"
 
-		/// A general error occurred during address validation. 
+		/// A general error occurred during address validation.
 		case unspecifiedAddressError = "UNSPECIFIED_ADDRESS_ERROR"
 
-		/// Validation failed. 
+		/// Validation failed.
 		case validationCustom = "VALIDATION_CUSTOM"
 
-		/// Variant can only be purchased with a selling plan. 
+		/// Variant can only be purchased with a selling plan.
 		case variantRequiresSellingPlan = "VARIANT_REQUIRES_SELLING_PLAN"
 
-		/// The given zip code is unsupported. 
+		/// The given zip code is unsupported.
 		case zipCodeNotSupported = "ZIP_CODE_NOT_SUPPORTED"
 
 		case unknownValue = ""

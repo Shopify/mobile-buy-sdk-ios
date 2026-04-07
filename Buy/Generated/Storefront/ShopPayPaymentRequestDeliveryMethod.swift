@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a delivery method for a Shop Pay payment request. 
+	/// Represents a delivery method for a Shop Pay payment request.
 	open class ShopPayPaymentRequestDeliveryMethodQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ShopPayPaymentRequestDeliveryMethod
 
-		/// The amount for the delivery method. 
+		/// The amount for the delivery method.
 		@discardableResult
 		open func amount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ShopPayPaymentRequestDeliveryMethodQuery {
 			let subquery = MoneyV2Query()
@@ -41,42 +41,42 @@ extension Storefront {
 			return self
 		}
 
-		/// The code of the delivery method. 
+		/// The code of the delivery method.
 		@discardableResult
 		open func code(alias: String? = nil) -> ShopPayPaymentRequestDeliveryMethodQuery {
 			addField(field: "code", aliasSuffix: alias)
 			return self
 		}
 
-		/// The detail about when the delivery may be expected. 
+		/// The detail about when the delivery may be expected.
 		@discardableResult
 		open func deliveryExpectationLabel(alias: String? = nil) -> ShopPayPaymentRequestDeliveryMethodQuery {
 			addField(field: "deliveryExpectationLabel", aliasSuffix: alias)
 			return self
 		}
 
-		/// The detail of the delivery method. 
+		/// The detail of the delivery method.
 		@discardableResult
 		open func detail(alias: String? = nil) -> ShopPayPaymentRequestDeliveryMethodQuery {
 			addField(field: "detail", aliasSuffix: alias)
 			return self
 		}
 
-		/// The label of the delivery method. 
+		/// The label of the delivery method.
 		@discardableResult
 		open func label(alias: String? = nil) -> ShopPayPaymentRequestDeliveryMethodQuery {
 			addField(field: "label", aliasSuffix: alias)
 			return self
 		}
 
-		/// The maximum delivery date for the delivery method. 
+		/// The maximum delivery date for the delivery method.
 		@discardableResult
 		open func maxDeliveryDate(alias: String? = nil) -> ShopPayPaymentRequestDeliveryMethodQuery {
 			addField(field: "maxDeliveryDate", aliasSuffix: alias)
 			return self
 		}
 
-		/// The minimum delivery date for the delivery method. 
+		/// The minimum delivery date for the delivery method.
 		@discardableResult
 		open func minDeliveryDate(alias: String? = nil) -> ShopPayPaymentRequestDeliveryMethodQuery {
 			addField(field: "minDeliveryDate", aliasSuffix: alias)
@@ -84,7 +84,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a delivery method for a Shop Pay payment request. 
+	/// Represents a delivery method for a Shop Pay payment request.
 	open class ShopPayPaymentRequestDeliveryMethod: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ShopPayPaymentRequestDeliveryMethodQuery
 
@@ -142,7 +142,7 @@ extension Storefront {
 			}
 		}
 
-		/// The amount for the delivery method. 
+		/// The amount for the delivery method.
 		open var amount: Storefront.MoneyV2 {
 			return internalGetAmount()
 		}
@@ -151,7 +151,7 @@ extension Storefront {
 			return field(field: "amount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The code of the delivery method. 
+		/// The code of the delivery method.
 		open var code: String {
 			return internalGetCode()
 		}
@@ -160,7 +160,7 @@ extension Storefront {
 			return field(field: "code", aliasSuffix: alias) as! String
 		}
 
-		/// The detail about when the delivery may be expected. 
+		/// The detail about when the delivery may be expected.
 		open var deliveryExpectationLabel: String? {
 			return internalGetDeliveryExpectationLabel()
 		}
@@ -169,7 +169,7 @@ extension Storefront {
 			return field(field: "deliveryExpectationLabel", aliasSuffix: alias) as! String?
 		}
 
-		/// The detail of the delivery method. 
+		/// The detail of the delivery method.
 		open var detail: String? {
 			return internalGetDetail()
 		}
@@ -178,7 +178,7 @@ extension Storefront {
 			return field(field: "detail", aliasSuffix: alias) as! String?
 		}
 
-		/// The label of the delivery method. 
+		/// The label of the delivery method.
 		open var label: String {
 			return internalGetLabel()
 		}
@@ -187,7 +187,7 @@ extension Storefront {
 			return field(field: "label", aliasSuffix: alias) as! String
 		}
 
-		/// The maximum delivery date for the delivery method. 
+		/// The maximum delivery date for the delivery method.
 		open var maxDeliveryDate: String? {
 			return internalGetMaxDeliveryDate()
 		}
@@ -196,7 +196,7 @@ extension Storefront {
 			return field(field: "maxDeliveryDate", aliasSuffix: alias) as! String?
 		}
 
-		/// The minimum delivery date for the delivery method. 
+		/// The minimum delivery date for the delivery method.
 		open var minDeliveryDate: String? {
 			return internalGetMinDeliveryDate()
 		}

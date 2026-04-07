@@ -27,42 +27,42 @@
 import Foundation
 
 extension Storefront {
-	/// A policy for the store that comes with a default value, such as a 
-	/// subscription policy. If the merchant hasn't configured a policy for their 
-	/// store, then the policy will return the default value. Otherwise, the policy 
-	/// will return the merchant-configured value. 
+	/// A policy for the store that comes with a default value, such as a
+	/// subscription policy. If the merchant hasn't configured a policy for their
+	/// store, then the policy will return the default value. Otherwise, the policy
+	/// will return the merchant-configured value.
 	open class ShopPolicyWithDefaultQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ShopPolicyWithDefault
 
-		/// The text of the policy. Maximum size: 64KB. 
+		/// The text of the policy. Maximum size: 64KB.
 		@discardableResult
 		open func body(alias: String? = nil) -> ShopPolicyWithDefaultQuery {
 			addField(field: "body", aliasSuffix: alias)
 			return self
 		}
 
-		/// The handle of the policy. 
+		/// The handle of the policy.
 		@discardableResult
 		open func handle(alias: String? = nil) -> ShopPolicyWithDefaultQuery {
 			addField(field: "handle", aliasSuffix: alias)
 			return self
 		}
 
-		/// The unique ID of the policy. A default policy doesn't have an ID. 
+		/// The unique ID of the policy. A default policy doesn't have an ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> ShopPolicyWithDefaultQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The title of the policy. 
+		/// The title of the policy.
 		@discardableResult
 		open func title(alias: String? = nil) -> ShopPolicyWithDefaultQuery {
 			addField(field: "title", aliasSuffix: alias)
 			return self
 		}
 
-		/// Public URL to the policy. 
+		/// Public URL to the policy.
 		@discardableResult
 		open func url(alias: String? = nil) -> ShopPolicyWithDefaultQuery {
 			addField(field: "url", aliasSuffix: alias)
@@ -70,10 +70,10 @@ extension Storefront {
 		}
 	}
 
-	/// A policy for the store that comes with a default value, such as a 
-	/// subscription policy. If the merchant hasn't configured a policy for their 
-	/// store, then the policy will return the default value. Otherwise, the policy 
-	/// will return the merchant-configured value. 
+	/// A policy for the store that comes with a default value, such as a
+	/// subscription policy. If the merchant hasn't configured a policy for their
+	/// store, then the policy will return the default value. Otherwise, the policy
+	/// will return the merchant-configured value.
 	open class ShopPolicyWithDefault: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ShopPolicyWithDefaultQuery
 
@@ -116,7 +116,7 @@ extension Storefront {
 			}
 		}
 
-		/// The text of the policy. Maximum size: 64KB. 
+		/// The text of the policy. Maximum size: 64KB.
 		open var body: String {
 			return internalGetBody()
 		}
@@ -125,7 +125,7 @@ extension Storefront {
 			return field(field: "body", aliasSuffix: alias) as! String
 		}
 
-		/// The handle of the policy. 
+		/// The handle of the policy.
 		open var handle: String {
 			return internalGetHandle()
 		}
@@ -134,7 +134,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// The unique ID of the policy. A default policy doesn't have an ID. 
+		/// The unique ID of the policy. A default policy doesn't have an ID.
 		open var id: GraphQL.ID? {
 			return internalGetId()
 		}
@@ -143,7 +143,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID?
 		}
 
-		/// The title of the policy. 
+		/// The title of the policy.
 		open var title: String {
 			return internalGetTitle()
 		}
@@ -152,7 +152,7 @@ extension Storefront {
 			return field(field: "title", aliasSuffix: alias) as! String
 		}
 
-		/// Public URL to the policy. 
+		/// Public URL to the policy.
 		open var url: URL {
 			return internalGetUrl()
 		}

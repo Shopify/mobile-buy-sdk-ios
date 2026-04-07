@@ -27,20 +27,20 @@
 import Foundation
 
 extension Storefront {
-	/// Cart submit for checkout completion is already accepted. 
+	/// Cart submit for checkout completion is already accepted.
 	open class SubmitSuccessQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SubmitSuccess
 
-		/// The ID of the cart completion attempt that will be used for polling for the 
-		/// result. 
+		/// The ID of the cart completion attempt that will be used for polling for the
+		/// result.
 		@discardableResult
 		open func attemptId(alias: String? = nil) -> SubmitSuccessQuery {
 			addField(field: "attemptId", aliasSuffix: alias)
 			return self
 		}
 
-		/// The url to which the buyer should be redirected after the cart is 
-		/// successfully submitted. 
+		/// The url to which the buyer should be redirected after the cart is
+		/// successfully submitted.
 		@discardableResult
 		open func redirectUrl(alias: String? = nil) -> SubmitSuccessQuery {
 			addField(field: "redirectUrl", aliasSuffix: alias)
@@ -48,7 +48,7 @@ extension Storefront {
 		}
 	}
 
-	/// Cart submit for checkout completion is already accepted. 
+	/// Cart submit for checkout completion is already accepted.
 	open class SubmitSuccess: GraphQL.AbstractResponse, GraphQLObject, CartSubmitForCompletionResult {
 		public typealias Query = SubmitSuccessQuery
 
@@ -72,8 +72,8 @@ extension Storefront {
 			}
 		}
 
-		/// The ID of the cart completion attempt that will be used for polling for the 
-		/// result. 
+		/// The ID of the cart completion attempt that will be used for polling for the
+		/// result.
 		open var attemptId: String {
 			return internalGetAttemptId()
 		}
@@ -82,8 +82,8 @@ extension Storefront {
 			return field(field: "attemptId", aliasSuffix: alias) as! String
 		}
 
-		/// The url to which the buyer should be redirected after the cart is 
-		/// successfully submitted. 
+		/// The url to which the buyer should be redirected after the cart is
+		/// successfully submitted.
 		open var redirectUrl: URL {
 			return internalGetRedirectUrl()
 		}

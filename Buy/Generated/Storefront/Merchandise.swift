@@ -26,12 +26,16 @@
 
 import Foundation
 
-/// The merchandise to be purchased at checkout. 
+/// A
+/// [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant)
+/// that a buyer intends to purchase at checkout.
 public protocol Merchandise {
 }
 
 extension Storefront {
-	/// The merchandise to be purchased at checkout. 
+	/// A
+	/// [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant)
+	/// that a buyer intends to purchase at checkout.
 	open class MerchandiseQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Merchandise
 
@@ -40,7 +44,9 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// The merchandise to be purchased at checkout. 
+		/// A
+		/// [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant)
+		/// that a buyer intends to purchase at checkout.
 		@discardableResult
 		open func onProductVariant(subfields: (ProductVariantQuery) -> Void) -> MerchandiseQuery {
 			let subquery = ProductVariantQuery()
@@ -50,7 +56,9 @@ extension Storefront {
 		}
 	}
 
-	/// The merchandise to be purchased at checkout. 
+	/// A
+	/// [`ProductVariant`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant)
+	/// that a buyer intends to purchase at checkout.
 	open class UnknownMerchandise: GraphQL.AbstractResponse, GraphQLObject, Merchandise {
 		public typealias Query = MerchandiseQuery
 

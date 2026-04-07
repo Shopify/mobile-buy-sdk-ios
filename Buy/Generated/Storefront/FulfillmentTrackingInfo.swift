@@ -27,18 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// Tracking information associated with the fulfillment. 
+	/// Tracking information associated with the fulfillment.
 	open class FulfillmentTrackingInfoQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = FulfillmentTrackingInfo
 
-		/// The tracking number of the fulfillment. 
+		/// The tracking number of the fulfillment.
 		@discardableResult
 		open func number(alias: String? = nil) -> FulfillmentTrackingInfoQuery {
 			addField(field: "number", aliasSuffix: alias)
 			return self
 		}
 
-		/// The URL to track the fulfillment. 
+		/// The URL to track the fulfillment.
 		@discardableResult
 		open func url(alias: String? = nil) -> FulfillmentTrackingInfoQuery {
 			addField(field: "url", aliasSuffix: alias)
@@ -46,7 +46,7 @@ extension Storefront {
 		}
 	}
 
-	/// Tracking information associated with the fulfillment. 
+	/// Tracking information associated with the fulfillment.
 	open class FulfillmentTrackingInfo: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = FulfillmentTrackingInfoQuery
 
@@ -72,7 +72,7 @@ extension Storefront {
 			}
 		}
 
-		/// The tracking number of the fulfillment. 
+		/// The tracking number of the fulfillment.
 		open var number: String? {
 			return internalGetNumber()
 		}
@@ -81,7 +81,7 @@ extension Storefront {
 			return field(field: "number", aliasSuffix: alias) as! String?
 		}
 
-		/// The URL to track the fulfillment. 
+		/// The URL to track the fulfillment.
 		open var url: URL? {
 			return internalGetUrl()
 		}

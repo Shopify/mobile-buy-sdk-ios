@@ -27,13 +27,13 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields for submitting Shop Pay payment method information for 
-	/// checkout. 
+	/// The input fields for submitting Shop Pay payment method information for
+	/// checkout.
 	open class ShopPayWalletContentInput {
-		/// The customer's billing address. 
+		/// The customer's billing address.
 		open var billingAddress: MailingAddressInput
 
-		/// Session token for transaction. 
+		/// Session token for transaction.
 		open var sessionToken: String
 
 		/// Creates the input object.

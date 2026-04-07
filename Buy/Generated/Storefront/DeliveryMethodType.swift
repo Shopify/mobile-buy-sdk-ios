@@ -27,24 +27,24 @@
 import Foundation
 
 extension Storefront {
-	/// List of different delivery method types. 
+	/// List of different delivery method types.
 	public enum DeliveryMethodType: String {
-		/// Local Delivery. 
+		/// Local Delivery.
 		case local = "LOCAL"
 
-		/// None. 
+		/// None.
 		case `none` = "NONE"
 
-		/// Shipping to a Pickup Point. 
+		/// Shipping to a Pickup Point.
 		case pickupPoint = "PICKUP_POINT"
 
-		/// Local Pickup. 
+		/// Local Pickup.
 		case pickUp = "PICK_UP"
 
-		/// Retail. 
+		/// Retail.
 		case retail = "RETAIL"
 
-		/// Shipping. 
+		/// Shipping.
 		case shipping = "SHIPPING"
 
 		case unknownValue = ""

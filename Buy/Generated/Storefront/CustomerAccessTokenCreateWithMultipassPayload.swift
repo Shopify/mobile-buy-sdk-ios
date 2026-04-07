@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Return type for `customerAccessTokenCreateWithMultipass` mutation. 
+	/// Return type for `customerAccessTokenCreateWithMultipass` mutation.
 	open class CustomerAccessTokenCreateWithMultipassPayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CustomerAccessTokenCreateWithMultipassPayload
 
-		/// An access token object associated with the customer. 
+		/// An access token object associated with the customer.
 		@discardableResult
 		open func customerAccessToken(alias: String? = nil, _ subfields: (CustomerAccessTokenQuery) -> Void) -> CustomerAccessTokenCreateWithMultipassPayloadQuery {
 			let subquery = CustomerAccessTokenQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		@discardableResult
 		open func customerUserErrors(alias: String? = nil, _ subfields: (CustomerUserErrorQuery) -> Void) -> CustomerAccessTokenCreateWithMultipassPayloadQuery {
 			let subquery = CustomerUserErrorQuery()
@@ -52,7 +52,7 @@ extension Storefront {
 		}
 	}
 
-	/// Return type for `customerAccessTokenCreateWithMultipass` mutation. 
+	/// Return type for `customerAccessTokenCreateWithMultipass` mutation.
 	open class CustomerAccessTokenCreateWithMultipassPayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CustomerAccessTokenCreateWithMultipassPayloadQuery
 
@@ -77,7 +77,7 @@ extension Storefront {
 			}
 		}
 
-		/// An access token object associated with the customer. 
+		/// An access token object associated with the customer.
 		open var customerAccessToken: Storefront.CustomerAccessToken? {
 			return internalGetCustomerAccessToken()
 		}
@@ -86,7 +86,7 @@ extension Storefront {
 			return field(field: "customerAccessToken", aliasSuffix: alias) as! Storefront.CustomerAccessToken?
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		open var customerUserErrors: [Storefront.CustomerUserError] {
 			return internalGetCustomerUserErrors()
 		}

@@ -26,7 +26,14 @@
 
 import Foundation
 
-/// Represents a cart line common fields. 
+/// Defines the shared fields for items in a shopping cart. Implemented by
+/// [`CartLine`](https://shopify.dev/docs/api/storefront/current/objects/CartLine)
+/// for individual merchandise and
+/// [`ComponentizableCartLine`](https://shopify.dev/docs/api/storefront/current/objects/ComponentizableCartLine)
+/// for grouped merchandise like bundles. Each implementation includes the
+/// merchandise being purchased, quantity, cost breakdown, applied discounts,
+/// custom attributes, and any associated
+/// [`SellingPlan`](https://shopify.dev/docs/api/storefront/current/objects/SellingPlan).
 public protocol BaseCartLine {
 	var attribute: Storefront.Attribute? { get }
 
@@ -50,11 +57,18 @@ public protocol BaseCartLine {
 }
 
 extension Storefront {
-	/// Represents a cart line common fields. 
+	/// Defines the shared fields for items in a shopping cart. Implemented by
+	/// [`CartLine`](https://shopify.dev/docs/api/storefront/current/objects/CartLine)
+	/// for individual merchandise and
+	/// [`ComponentizableCartLine`](https://shopify.dev/docs/api/storefront/current/objects/ComponentizableCartLine)
+	/// for grouped merchandise like bundles. Each implementation includes the
+	/// merchandise being purchased, quantity, cost breakdown, applied discounts,
+	/// custom attributes, and any associated
+	/// [`SellingPlan`](https://shopify.dev/docs/api/storefront/current/objects/SellingPlan).
 	open class BaseCartLineQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = BaseCartLine
 
-		/// An attribute associated with the cart line. 
+		/// An attribute associated with the cart line.
 		///
 		/// - parameters:
 		///     - key: The key of the attribute.
@@ -74,8 +88,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The attributes associated with the cart line. Attributes are represented as 
-		/// key-value pairs. 
+		/// The attributes associated with the cart line. Attributes are represented as
+		/// key-value pairs.
 		@discardableResult
 		open func attributes(alias: String? = nil, _ subfields: (AttributeQuery) -> Void) -> BaseCartLineQuery {
 			let subquery = AttributeQuery()
@@ -85,8 +99,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The cost of the merchandise that the buyer will pay for at checkout. The 
-		/// costs are subject to change and changes will be reflected at checkout. 
+		/// The cost of the merchandise that the buyer will pay for at checkout. The
+		/// costs are subject to change and changes will be reflected at checkout.
 		@discardableResult
 		open func cost(alias: String? = nil, _ subfields: (CartLineCostQuery) -> Void) -> BaseCartLineQuery {
 			let subquery = CartLineCostQuery()
@@ -96,7 +110,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The discounts that have been applied to the cart line. 
+		/// The discounts that have been applied to the cart line.
 		@discardableResult
 		open func discountAllocations(alias: String? = nil, _ subfields: (CartDiscountAllocationQuery) -> Void) -> BaseCartLineQuery {
 			let subquery = CartDiscountAllocationQuery()
@@ -106,9 +120,9 @@ extension Storefront {
 			return self
 		}
 
-		/// The estimated cost of the merchandise that the buyer will pay for at 
-		/// checkout. The estimated costs are subject to change and changes will be 
-		/// reflected at checkout. 
+		/// The estimated cost of the merchandise that the buyer will pay for at
+		/// checkout. The estimated costs are subject to change and changes will be
+		/// reflected at checkout.
 		@available(*, deprecated, message: "Use `cost` instead.")
 		@discardableResult
 		open func estimatedCost(alias: String? = nil, _ subfields: (CartLineEstimatedCostQuery) -> Void) -> BaseCartLineQuery {
@@ -119,14 +133,14 @@ extension Storefront {
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> BaseCartLineQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The merchandise that the buyer intends to purchase. 
+		/// The merchandise that the buyer intends to purchase.
 		@discardableResult
 		open func merchandise(alias: String? = nil, _ subfields: (MerchandiseQuery) -> Void) -> BaseCartLineQuery {
 			let subquery = MerchandiseQuery()
@@ -136,15 +150,15 @@ extension Storefront {
 			return self
 		}
 
-		/// The quantity of the merchandise that the customer intends to purchase. 
+		/// The quantity of the merchandise that the customer intends to purchase.
 		@discardableResult
 		open func quantity(alias: String? = nil) -> BaseCartLineQuery {
 			addField(field: "quantity", aliasSuffix: alias)
 			return self
 		}
 
-		/// The selling plan associated with the cart line and the effect that each 
-		/// selling plan has on variants when they're purchased. 
+		/// The selling plan associated with the cart line and the effect that each
+		/// selling plan has on variants when they're purchased.
 		@discardableResult
 		open func sellingPlanAllocation(alias: String? = nil, _ subfields: (SellingPlanAllocationQuery) -> Void) -> BaseCartLineQuery {
 			let subquery = SellingPlanAllocationQuery()
@@ -159,7 +173,14 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// Represents a cart line common fields. 
+		/// Defines the shared fields for items in a shopping cart. Implemented by
+		/// [`CartLine`](https://shopify.dev/docs/api/storefront/current/objects/CartLine)
+		/// for individual merchandise and
+		/// [`ComponentizableCartLine`](https://shopify.dev/docs/api/storefront/current/objects/ComponentizableCartLine)
+		/// for grouped merchandise like bundles. Each implementation includes the
+		/// merchandise being purchased, quantity, cost breakdown, applied discounts,
+		/// custom attributes, and any associated
+		/// [`SellingPlan`](https://shopify.dev/docs/api/storefront/current/objects/SellingPlan).
 		@discardableResult
 		open func onCartLine(subfields: (CartLineQuery) -> Void) -> BaseCartLineQuery {
 			let subquery = CartLineQuery()
@@ -168,7 +189,14 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents a cart line common fields. 
+		/// Defines the shared fields for items in a shopping cart. Implemented by
+		/// [`CartLine`](https://shopify.dev/docs/api/storefront/current/objects/CartLine)
+		/// for individual merchandise and
+		/// [`ComponentizableCartLine`](https://shopify.dev/docs/api/storefront/current/objects/ComponentizableCartLine)
+		/// for grouped merchandise like bundles. Each implementation includes the
+		/// merchandise being purchased, quantity, cost breakdown, applied discounts,
+		/// custom attributes, and any associated
+		/// [`SellingPlan`](https://shopify.dev/docs/api/storefront/current/objects/SellingPlan).
 		@discardableResult
 		open func onComponentizableCartLine(subfields: (ComponentizableCartLineQuery) -> Void) -> BaseCartLineQuery {
 			let subquery = ComponentizableCartLineQuery()
@@ -178,7 +206,14 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a cart line common fields. 
+	/// Defines the shared fields for items in a shopping cart. Implemented by
+	/// [`CartLine`](https://shopify.dev/docs/api/storefront/current/objects/CartLine)
+	/// for individual merchandise and
+	/// [`ComponentizableCartLine`](https://shopify.dev/docs/api/storefront/current/objects/ComponentizableCartLine)
+	/// for grouped merchandise like bundles. Each implementation includes the
+	/// merchandise being purchased, quantity, cost breakdown, applied discounts,
+	/// custom attributes, and any associated
+	/// [`SellingPlan`](https://shopify.dev/docs/api/storefront/current/objects/SellingPlan).
 	open class UnknownBaseCartLine: GraphQL.AbstractResponse, GraphQLObject, BaseCartLine {
 		public typealias Query = BaseCartLineQuery
 
@@ -260,7 +295,7 @@ extension Storefront {
 			}
 		}
 
-		/// An attribute associated with the cart line. 
+		/// An attribute associated with the cart line.
 		open var attribute: Storefront.Attribute? {
 			return internalGetAttribute()
 		}
@@ -273,8 +308,8 @@ extension Storefront {
 			return field(field: "attribute", aliasSuffix: alias) as! Storefront.Attribute?
 		}
 
-		/// The attributes associated with the cart line. Attributes are represented as 
-		/// key-value pairs. 
+		/// The attributes associated with the cart line. Attributes are represented as
+		/// key-value pairs.
 		open var attributes: [Storefront.Attribute] {
 			return internalGetAttributes()
 		}
@@ -283,8 +318,8 @@ extension Storefront {
 			return field(field: "attributes", aliasSuffix: alias) as! [Storefront.Attribute]
 		}
 
-		/// The cost of the merchandise that the buyer will pay for at checkout. The 
-		/// costs are subject to change and changes will be reflected at checkout. 
+		/// The cost of the merchandise that the buyer will pay for at checkout. The
+		/// costs are subject to change and changes will be reflected at checkout.
 		open var cost: Storefront.CartLineCost {
 			return internalGetCost()
 		}
@@ -293,7 +328,7 @@ extension Storefront {
 			return field(field: "cost", aliasSuffix: alias) as! Storefront.CartLineCost
 		}
 
-		/// The discounts that have been applied to the cart line. 
+		/// The discounts that have been applied to the cart line.
 		open var discountAllocations: [CartDiscountAllocation] {
 			return internalGetDiscountAllocations()
 		}
@@ -302,9 +337,9 @@ extension Storefront {
 			return field(field: "discountAllocations", aliasSuffix: alias) as! [CartDiscountAllocation]
 		}
 
-		/// The estimated cost of the merchandise that the buyer will pay for at 
-		/// checkout. The estimated costs are subject to change and changes will be 
-		/// reflected at checkout. 
+		/// The estimated cost of the merchandise that the buyer will pay for at
+		/// checkout. The estimated costs are subject to change and changes will be
+		/// reflected at checkout.
 		@available(*, deprecated, message: "Use `cost` instead.")
 		open var estimatedCost: Storefront.CartLineEstimatedCost {
 			return internalGetEstimatedCost()
@@ -314,7 +349,7 @@ extension Storefront {
 			return field(field: "estimatedCost", aliasSuffix: alias) as! Storefront.CartLineEstimatedCost
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -323,7 +358,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The merchandise that the buyer intends to purchase. 
+		/// The merchandise that the buyer intends to purchase.
 		open var merchandise: Merchandise {
 			return internalGetMerchandise()
 		}
@@ -332,7 +367,7 @@ extension Storefront {
 			return field(field: "merchandise", aliasSuffix: alias) as! Merchandise
 		}
 
-		/// The quantity of the merchandise that the customer intends to purchase. 
+		/// The quantity of the merchandise that the customer intends to purchase.
 		open var quantity: Int32 {
 			return internalGetQuantity()
 		}
@@ -341,8 +376,8 @@ extension Storefront {
 			return field(field: "quantity", aliasSuffix: alias) as! Int32
 		}
 
-		/// The selling plan associated with the cart line and the effect that each 
-		/// selling plan has on variants when they're purchased. 
+		/// The selling plan associated with the cart line and the effect that each
+		/// selling plan has on variants when they're purchased.
 		open var sellingPlanAllocation: Storefront.SellingPlanAllocation? {
 			return internalGetSellingPlanAllocation()
 		}

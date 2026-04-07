@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// Decides the distribution of results. 
+	/// Decides the distribution of results.
 	public enum PredictiveSearchLimitScope: String {
-		/// Return results up to limit across all types. 
+		/// Return results up to limit across all types.
 		case all = "ALL"
 
-		/// Return results up to limit per type. 
+		/// Return results up to limit per type.
 		case each = "EACH"
 
 		case unknownValue = ""

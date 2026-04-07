@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Return type for `cartPrepareForCompletion` mutation. 
+	/// Return type for `cartPrepareForCompletion` mutation.
 	open class CartPrepareForCompletionPayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartPrepareForCompletionPayload
 
-		/// The result of cart preparation for completion. 
+		/// The result of cart preparation for completion.
 		@discardableResult
 		open func result(alias: String? = nil, _ subfields: (CartPrepareForCompletionResultQuery) -> Void) -> CartPrepareForCompletionPayloadQuery {
 			let subquery = CartPrepareForCompletionResultQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (CartUserErrorQuery) -> Void) -> CartPrepareForCompletionPayloadQuery {
 			let subquery = CartUserErrorQuery()
@@ -52,7 +52,7 @@ extension Storefront {
 		}
 	}
 
-	/// Return type for `cartPrepareForCompletion` mutation. 
+	/// Return type for `cartPrepareForCompletion` mutation.
 	open class CartPrepareForCompletionPayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CartPrepareForCompletionPayloadQuery
 
@@ -77,7 +77,7 @@ extension Storefront {
 			}
 		}
 
-		/// The result of cart preparation for completion. 
+		/// The result of cart preparation for completion.
 		open var result: CartPrepareForCompletionResult? {
 			return internalGetResult()
 		}
@@ -86,7 +86,7 @@ extension Storefront {
 			return field(field: "result", aliasSuffix: alias) as! CartPrepareForCompletionResult?
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		open var userErrors: [Storefront.CartUserError] {
 			return internalGetUserErrors()
 		}

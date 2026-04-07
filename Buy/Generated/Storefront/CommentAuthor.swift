@@ -27,18 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// The author of a comment. 
+	/// The author of a comment.
 	open class CommentAuthorQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CommentAuthor
 
-		/// The author's email. 
+		/// The author's email.
 		@discardableResult
 		open func email(alias: String? = nil) -> CommentAuthorQuery {
 			addField(field: "email", aliasSuffix: alias)
 			return self
 		}
 
-		/// The author’s name. 
+		/// The author’s name.
 		@discardableResult
 		open func name(alias: String? = nil) -> CommentAuthorQuery {
 			addField(field: "name", aliasSuffix: alias)
@@ -46,7 +46,7 @@ extension Storefront {
 		}
 	}
 
-	/// The author of a comment. 
+	/// The author of a comment.
 	open class CommentAuthor: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CommentAuthorQuery
 
@@ -70,7 +70,7 @@ extension Storefront {
 			}
 		}
 
-		/// The author's email. 
+		/// The author's email.
 		open var email: String {
 			return internalGetEmail()
 		}
@@ -79,7 +79,7 @@ extension Storefront {
 			return field(field: "email", aliasSuffix: alias) as! String
 		}
 
-		/// The author’s name. 
+		/// The author’s name.
 		open var name: String {
 			return internalGetName()
 		}

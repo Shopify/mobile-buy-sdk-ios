@@ -27,12 +27,15 @@
 import Foundation
 
 extension Storefront {
-	/// Possible error codes that can be returned by `MetafieldDeleteUserError`. 
+	/// Possible error codes that can be returned by `MetafieldDeleteUserError`.
 	public enum MetafieldDeleteErrorCode: String {
-		/// The owner ID is invalid. 
+		/// The current app is not authorized to perform this action.
+		case appNotAuthorized = "APP_NOT_AUTHORIZED"
+
+		/// The owner ID is invalid.
 		case invalidOwner = "INVALID_OWNER"
 
-		/// Metafield not found. 
+		/// Metafield not found.
 		case metafieldDoesNotExist = "METAFIELD_DOES_NOT_EXIST"
 
 		case unknownValue = ""

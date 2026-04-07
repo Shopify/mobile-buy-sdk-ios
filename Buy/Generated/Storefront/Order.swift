@@ -27,14 +27,14 @@
 import Foundation
 
 extension Storefront {
-	/// An order is a customer’s completed request to purchase one or more products 
-	/// from a shop. An order is created when a customer completes the checkout 
-	/// process, during which time they provides an email address, billing address 
-	/// and payment information. 
+	/// An order is a customer’s completed request to purchase one or more products
+	/// from a shop. An order is created when a customer completes the checkout
+	/// process, during which time they provides an email address, billing address
+	/// and payment information.
 	open class OrderQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Order
 
-		/// The address associated with the payment method. 
+		/// The address associated with the payment method.
 		@discardableResult
 		open func billingAddress(alias: String? = nil, _ subfields: (MailingAddressQuery) -> Void) -> OrderQuery {
 			let subquery = MailingAddressQuery()
@@ -44,33 +44,33 @@ extension Storefront {
 			return self
 		}
 
-		/// The reason for the order's cancellation. Returns `null` if the order wasn't 
-		/// canceled. 
+		/// The reason for the order's cancellation. Returns `null` if the order wasn't
+		/// canceled.
 		@discardableResult
 		open func cancelReason(alias: String? = nil) -> OrderQuery {
 			addField(field: "cancelReason", aliasSuffix: alias)
 			return self
 		}
 
-		/// The date and time when the order was canceled. Returns null if the order 
-		/// wasn't canceled. 
+		/// The date and time when the order was canceled. Returns null if the order
+		/// wasn't canceled.
 		@discardableResult
 		open func canceledAt(alias: String? = nil) -> OrderQuery {
 			addField(field: "canceledAt", aliasSuffix: alias)
 			return self
 		}
 
-		/// The code of the currency used for the payment. 
+		/// The code of the currency used for the payment.
 		@discardableResult
 		open func currencyCode(alias: String? = nil) -> OrderQuery {
 			addField(field: "currencyCode", aliasSuffix: alias)
 			return self
 		}
 
-		/// The subtotal of line items and their discounts, excluding line items that 
-		/// have been removed. Does not contain order-level discounts, duties, shipping 
-		/// costs, or shipping discounts. Taxes aren't included unless the order is a 
-		/// taxes-included order. 
+		/// The subtotal of line items and their discounts, excluding line items that
+		/// have been removed. Does not contain order-level discounts, duties, shipping
+		/// costs, or shipping discounts. Taxes aren't included unless the order is a
+		/// taxes-included order.
 		@discardableResult
 		open func currentSubtotalPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
 			let subquery = MoneyV2Query()
@@ -80,7 +80,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The total cost of duties for the order, including refunds. 
+		/// The total cost of duties for the order, including refunds.
 		@discardableResult
 		open func currentTotalDuties(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
 			let subquery = MoneyV2Query()
@@ -90,8 +90,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The total amount of the order, including duties, taxes and discounts, minus 
-		/// amounts for line items that have been removed. 
+		/// The total amount of the order, including duties, taxes and discounts, minus
+		/// amounts for line items that have been removed.
 		@discardableResult
 		open func currentTotalPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
 			let subquery = MoneyV2Query()
@@ -101,9 +101,9 @@ extension Storefront {
 			return self
 		}
 
-		/// The total cost of shipping, excluding shipping lines that have been 
-		/// refunded or removed. Taxes aren't included unless the order is a 
-		/// taxes-included order. 
+		/// The total cost of shipping, excluding shipping lines that have been
+		/// refunded or removed. Taxes aren't included unless the order is a
+		/// taxes-included order.
 		@discardableResult
 		open func currentTotalShippingPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
 			let subquery = MoneyV2Query()
@@ -113,8 +113,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The total of all taxes applied to the order, excluding taxes for returned 
-		/// line items. 
+		/// The total of all taxes applied to the order, excluding taxes for returned
+		/// line items.
 		@discardableResult
 		open func currentTotalTax(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
 			let subquery = MoneyV2Query()
@@ -124,8 +124,8 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of the custom attributes added to the order. For example, whether an 
-		/// order is a customer's first. 
+		/// A list of the custom attributes added to the order. For example, whether an
+		/// order is a customer's first.
 		@discardableResult
 		open func customAttributes(alias: String? = nil, _ subfields: (AttributeQuery) -> Void) -> OrderQuery {
 			let subquery = AttributeQuery()
@@ -135,21 +135,21 @@ extension Storefront {
 			return self
 		}
 
-		/// The locale code in which this specific order happened. 
+		/// The locale code in which this specific order happened.
 		@discardableResult
 		open func customerLocale(alias: String? = nil) -> OrderQuery {
 			addField(field: "customerLocale", aliasSuffix: alias)
 			return self
 		}
 
-		/// The unique URL that the customer can use to access the order. 
+		/// The unique URL that the customer can use to access the order.
 		@discardableResult
 		open func customerUrl(alias: String? = nil) -> OrderQuery {
 			addField(field: "customerUrl", aliasSuffix: alias)
 			return self
 		}
 
-		/// Discounts that have been applied on the order. 
+		/// Discounts that have been applied on the order.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -191,42 +191,42 @@ extension Storefront {
 			return self
 		}
 
-		/// Whether the order has had any edits applied or not. 
+		/// Whether the order has had any edits applied or not.
 		@discardableResult
 		open func edited(alias: String? = nil) -> OrderQuery {
 			addField(field: "edited", aliasSuffix: alias)
 			return self
 		}
 
-		/// The customer's email address. 
+		/// The customer's email address.
 		@discardableResult
 		open func email(alias: String? = nil) -> OrderQuery {
 			addField(field: "email", aliasSuffix: alias)
 			return self
 		}
 
-		/// The financial status of the order. 
+		/// The financial status of the order.
 		@discardableResult
 		open func financialStatus(alias: String? = nil) -> OrderQuery {
 			addField(field: "financialStatus", aliasSuffix: alias)
 			return self
 		}
 
-		/// The fulfillment status for the order. 
+		/// The fulfillment status for the order.
 		@discardableResult
 		open func fulfillmentStatus(alias: String? = nil) -> OrderQuery {
 			addField(field: "fulfillmentStatus", aliasSuffix: alias)
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> OrderQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// List of the order’s line items. 
+		/// List of the order’s line items.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -268,9 +268,9 @@ extension Storefront {
 			return self
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		///
 		/// - parameters:
 		///     - namespace: The container the metafield belongs to. If omitted, the app-reserved namespace will be used.
@@ -295,12 +295,12 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		///
 		/// - parameters:
 		///     - identifiers: The list of metafields to retrieve by namespace and key.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -318,23 +318,23 @@ extension Storefront {
 			return self
 		}
 
-		/// Unique identifier for the order that appears on the order. For example, 
-		/// _#1000_ or _Store1001. 
+		/// Unique identifier for the order that appears on the order. For example,
+		/// _#1000_ or _Store1001.
 		@discardableResult
 		open func name(alias: String? = nil) -> OrderQuery {
 			addField(field: "name", aliasSuffix: alias)
 			return self
 		}
 
-		/// A unique numeric identifier for the order for use by shop owner and 
-		/// customer. 
+		/// A unique numeric identifier for the order for use by shop owner and
+		/// customer.
 		@discardableResult
 		open func orderNumber(alias: String? = nil) -> OrderQuery {
 			addField(field: "orderNumber", aliasSuffix: alias)
 			return self
 		}
 
-		/// The total cost of duties charged at checkout. 
+		/// The total cost of duties charged at checkout.
 		@discardableResult
 		open func originalTotalDuties(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
 			let subquery = MoneyV2Query()
@@ -344,7 +344,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The total price of the order before any applied edits. 
+		/// The total price of the order before any applied edits.
 		@discardableResult
 		open func originalTotalPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
 			let subquery = MoneyV2Query()
@@ -354,23 +354,23 @@ extension Storefront {
 			return self
 		}
 
-		/// The customer's phone number for receiving SMS notifications. 
+		/// The customer's phone number for receiving SMS notifications.
 		@discardableResult
 		open func phone(alias: String? = nil) -> OrderQuery {
 			addField(field: "phone", aliasSuffix: alias)
 			return self
 		}
 
-		/// The date and time when the order was imported. This value can be set to 
-		/// dates in the past when importing from other systems. If no value is 
-		/// provided, it will be auto-generated based on current date and time. 
+		/// The date and time when the order was imported. This value can be set to
+		/// dates in the past when importing from other systems. If no value is
+		/// provided, it will be auto-generated based on current date and time.
 		@discardableResult
 		open func processedAt(alias: String? = nil) -> OrderQuery {
 			addField(field: "processedAt", aliasSuffix: alias)
 			return self
 		}
 
-		/// The address to where the order will be shipped. 
+		/// The address to where the order will be shipped.
 		@discardableResult
 		open func shippingAddress(alias: String? = nil, _ subfields: (MailingAddressQuery) -> Void) -> OrderQuery {
 			let subquery = MailingAddressQuery()
@@ -380,8 +380,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The discounts that have been allocated onto the shipping line by discount 
-		/// applications. 
+		/// The discounts that have been allocated onto the shipping line by discount
+		/// applications.
 		@discardableResult
 		open func shippingDiscountAllocations(alias: String? = nil, _ subfields: (DiscountAllocationQuery) -> Void) -> OrderQuery {
 			let subquery = DiscountAllocationQuery()
@@ -391,14 +391,14 @@ extension Storefront {
 			return self
 		}
 
-		/// The unique URL for the order's status page. 
+		/// The unique URL for the order's status page.
 		@discardableResult
 		open func statusUrl(alias: String? = nil) -> OrderQuery {
 			addField(field: "statusUrl", aliasSuffix: alias)
 			return self
 		}
 
-		/// Price of the order before shipping and taxes. 
+		/// Price of the order before shipping and taxes.
 		@discardableResult
 		open func subtotalPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
 			let subquery = MoneyV2Query()
@@ -408,7 +408,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Price of the order before duties, shipping and taxes. 
+		/// Price of the order before duties, shipping and taxes.
 		@available(*, deprecated, message: "Use `subtotalPrice` instead.")
 		@discardableResult
 		open func subtotalPriceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
@@ -419,7 +419,7 @@ extension Storefront {
 			return self
 		}
 
-		/// List of the order’s successful fulfillments. 
+		/// List of the order’s successful fulfillments.
 		///
 		/// - parameters:
 		///     - first: Truncate the array result to this size.
@@ -441,8 +441,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The sum of all the prices of all the items in the order, duties, taxes and 
-		/// discounts included (must be positive). 
+		/// The sum of all the prices of all the items in the order, duties, taxes and
+		/// discounts included (must be positive).
 		@discardableResult
 		open func totalPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
 			let subquery = MoneyV2Query()
@@ -452,8 +452,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The sum of all the prices of all the items in the order, duties, taxes and 
-		/// discounts included (must be positive). 
+		/// The sum of all the prices of all the items in the order, duties, taxes and
+		/// discounts included (must be positive).
 		@available(*, deprecated, message: "Use `totalPrice` instead.")
 		@discardableResult
 		open func totalPriceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
@@ -464,7 +464,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The total amount that has been refunded. 
+		/// The total amount that has been refunded.
 		@discardableResult
 		open func totalRefunded(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
 			let subquery = MoneyV2Query()
@@ -474,7 +474,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The total amount that has been refunded. 
+		/// The total amount that has been refunded.
 		@available(*, deprecated, message: "Use `totalRefunded` instead.")
 		@discardableResult
 		open func totalRefundedV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
@@ -485,7 +485,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The total cost of shipping. 
+		/// The total cost of shipping.
 		@discardableResult
 		open func totalShippingPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
 			let subquery = MoneyV2Query()
@@ -495,7 +495,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The total cost of shipping. 
+		/// The total cost of shipping.
 		@available(*, deprecated, message: "Use `totalShippingPrice` instead.")
 		@discardableResult
 		open func totalShippingPriceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
@@ -506,7 +506,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The total cost of taxes. 
+		/// The total cost of taxes.
 		@discardableResult
 		open func totalTax(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
 			let subquery = MoneyV2Query()
@@ -516,7 +516,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The total cost of taxes. 
+		/// The total cost of taxes.
 		@available(*, deprecated, message: "Use `totalTax` instead.")
 		@discardableResult
 		open func totalTaxV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
@@ -528,10 +528,10 @@ extension Storefront {
 		}
 	}
 
-	/// An order is a customer’s completed request to purchase one or more products 
-	/// from a shop. An order is created when a customer completes the checkout 
-	/// process, during which time they provides an email address, billing address 
-	/// and payment information. 
+	/// An order is a customer’s completed request to purchase one or more products
+	/// from a shop. An order is created when a customer completes the checkout
+	/// process, during which time they provides an email address, billing address
+	/// and payment information.
 	open class Order: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node {
 		public typealias Query = OrderQuery
 
@@ -810,7 +810,7 @@ extension Storefront {
 			}
 		}
 
-		/// The address associated with the payment method. 
+		/// The address associated with the payment method.
 		open var billingAddress: Storefront.MailingAddress? {
 			return internalGetBillingAddress()
 		}
@@ -819,8 +819,8 @@ extension Storefront {
 			return field(field: "billingAddress", aliasSuffix: alias) as! Storefront.MailingAddress?
 		}
 
-		/// The reason for the order's cancellation. Returns `null` if the order wasn't 
-		/// canceled. 
+		/// The reason for the order's cancellation. Returns `null` if the order wasn't
+		/// canceled.
 		open var cancelReason: Storefront.OrderCancelReason? {
 			return internalGetCancelReason()
 		}
@@ -829,8 +829,8 @@ extension Storefront {
 			return field(field: "cancelReason", aliasSuffix: alias) as! Storefront.OrderCancelReason?
 		}
 
-		/// The date and time when the order was canceled. Returns null if the order 
-		/// wasn't canceled. 
+		/// The date and time when the order was canceled. Returns null if the order
+		/// wasn't canceled.
 		open var canceledAt: Date? {
 			return internalGetCanceledAt()
 		}
@@ -839,7 +839,7 @@ extension Storefront {
 			return field(field: "canceledAt", aliasSuffix: alias) as! Date?
 		}
 
-		/// The code of the currency used for the payment. 
+		/// The code of the currency used for the payment.
 		open var currencyCode: Storefront.CurrencyCode {
 			return internalGetCurrencyCode()
 		}
@@ -848,10 +848,10 @@ extension Storefront {
 			return field(field: "currencyCode", aliasSuffix: alias) as! Storefront.CurrencyCode
 		}
 
-		/// The subtotal of line items and their discounts, excluding line items that 
-		/// have been removed. Does not contain order-level discounts, duties, shipping 
-		/// costs, or shipping discounts. Taxes aren't included unless the order is a 
-		/// taxes-included order. 
+		/// The subtotal of line items and their discounts, excluding line items that
+		/// have been removed. Does not contain order-level discounts, duties, shipping
+		/// costs, or shipping discounts. Taxes aren't included unless the order is a
+		/// taxes-included order.
 		open var currentSubtotalPrice: Storefront.MoneyV2 {
 			return internalGetCurrentSubtotalPrice()
 		}
@@ -860,7 +860,7 @@ extension Storefront {
 			return field(field: "currentSubtotalPrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The total cost of duties for the order, including refunds. 
+		/// The total cost of duties for the order, including refunds.
 		open var currentTotalDuties: Storefront.MoneyV2? {
 			return internalGetCurrentTotalDuties()
 		}
@@ -869,8 +869,8 @@ extension Storefront {
 			return field(field: "currentTotalDuties", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
-		/// The total amount of the order, including duties, taxes and discounts, minus 
-		/// amounts for line items that have been removed. 
+		/// The total amount of the order, including duties, taxes and discounts, minus
+		/// amounts for line items that have been removed.
 		open var currentTotalPrice: Storefront.MoneyV2 {
 			return internalGetCurrentTotalPrice()
 		}
@@ -879,9 +879,9 @@ extension Storefront {
 			return field(field: "currentTotalPrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The total cost of shipping, excluding shipping lines that have been 
-		/// refunded or removed. Taxes aren't included unless the order is a 
-		/// taxes-included order. 
+		/// The total cost of shipping, excluding shipping lines that have been
+		/// refunded or removed. Taxes aren't included unless the order is a
+		/// taxes-included order.
 		open var currentTotalShippingPrice: Storefront.MoneyV2 {
 			return internalGetCurrentTotalShippingPrice()
 		}
@@ -890,8 +890,8 @@ extension Storefront {
 			return field(field: "currentTotalShippingPrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The total of all taxes applied to the order, excluding taxes for returned 
-		/// line items. 
+		/// The total of all taxes applied to the order, excluding taxes for returned
+		/// line items.
 		open var currentTotalTax: Storefront.MoneyV2 {
 			return internalGetCurrentTotalTax()
 		}
@@ -900,8 +900,8 @@ extension Storefront {
 			return field(field: "currentTotalTax", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// A list of the custom attributes added to the order. For example, whether an 
-		/// order is a customer's first. 
+		/// A list of the custom attributes added to the order. For example, whether an
+		/// order is a customer's first.
 		open var customAttributes: [Storefront.Attribute] {
 			return internalGetCustomAttributes()
 		}
@@ -910,7 +910,7 @@ extension Storefront {
 			return field(field: "customAttributes", aliasSuffix: alias) as! [Storefront.Attribute]
 		}
 
-		/// The locale code in which this specific order happened. 
+		/// The locale code in which this specific order happened.
 		open var customerLocale: String? {
 			return internalGetCustomerLocale()
 		}
@@ -919,7 +919,7 @@ extension Storefront {
 			return field(field: "customerLocale", aliasSuffix: alias) as! String?
 		}
 
-		/// The unique URL that the customer can use to access the order. 
+		/// The unique URL that the customer can use to access the order.
 		open var customerUrl: URL? {
 			return internalGetCustomerUrl()
 		}
@@ -928,7 +928,7 @@ extension Storefront {
 			return field(field: "customerUrl", aliasSuffix: alias) as! URL?
 		}
 
-		/// Discounts that have been applied on the order. 
+		/// Discounts that have been applied on the order.
 		open var discountApplications: Storefront.DiscountApplicationConnection {
 			return internalGetDiscountApplications()
 		}
@@ -941,7 +941,7 @@ extension Storefront {
 			return field(field: "discountApplications", aliasSuffix: alias) as! Storefront.DiscountApplicationConnection
 		}
 
-		/// Whether the order has had any edits applied or not. 
+		/// Whether the order has had any edits applied or not.
 		open var edited: Bool {
 			return internalGetEdited()
 		}
@@ -950,7 +950,7 @@ extension Storefront {
 			return field(field: "edited", aliasSuffix: alias) as! Bool
 		}
 
-		/// The customer's email address. 
+		/// The customer's email address.
 		open var email: String? {
 			return internalGetEmail()
 		}
@@ -959,7 +959,7 @@ extension Storefront {
 			return field(field: "email", aliasSuffix: alias) as! String?
 		}
 
-		/// The financial status of the order. 
+		/// The financial status of the order.
 		open var financialStatus: Storefront.OrderFinancialStatus? {
 			return internalGetFinancialStatus()
 		}
@@ -968,7 +968,7 @@ extension Storefront {
 			return field(field: "financialStatus", aliasSuffix: alias) as! Storefront.OrderFinancialStatus?
 		}
 
-		/// The fulfillment status for the order. 
+		/// The fulfillment status for the order.
 		open var fulfillmentStatus: Storefront.OrderFulfillmentStatus {
 			return internalGetFulfillmentStatus()
 		}
@@ -977,7 +977,7 @@ extension Storefront {
 			return field(field: "fulfillmentStatus", aliasSuffix: alias) as! Storefront.OrderFulfillmentStatus
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -986,7 +986,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// List of the order’s line items. 
+		/// List of the order’s line items.
 		open var lineItems: Storefront.OrderLineItemConnection {
 			return internalGetLineItems()
 		}
@@ -999,9 +999,9 @@ extension Storefront {
 			return field(field: "lineItems", aliasSuffix: alias) as! Storefront.OrderLineItemConnection
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		open var metafield: Storefront.Metafield? {
 			return internalGetMetafield()
 		}
@@ -1014,8 +1014,8 @@ extension Storefront {
 			return field(field: "metafield", aliasSuffix: alias) as! Storefront.Metafield?
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		open var metafields: [Storefront.Metafield?] {
 			return internalGetMetafields()
 		}
@@ -1028,8 +1028,8 @@ extension Storefront {
 			return field(field: "metafields", aliasSuffix: alias) as! [Storefront.Metafield?]
 		}
 
-		/// Unique identifier for the order that appears on the order. For example, 
-		/// _#1000_ or _Store1001. 
+		/// Unique identifier for the order that appears on the order. For example,
+		/// _#1000_ or _Store1001.
 		open var name: String {
 			return internalGetName()
 		}
@@ -1038,8 +1038,8 @@ extension Storefront {
 			return field(field: "name", aliasSuffix: alias) as! String
 		}
 
-		/// A unique numeric identifier for the order for use by shop owner and 
-		/// customer. 
+		/// A unique numeric identifier for the order for use by shop owner and
+		/// customer.
 		open var orderNumber: Int32 {
 			return internalGetOrderNumber()
 		}
@@ -1048,7 +1048,7 @@ extension Storefront {
 			return field(field: "orderNumber", aliasSuffix: alias) as! Int32
 		}
 
-		/// The total cost of duties charged at checkout. 
+		/// The total cost of duties charged at checkout.
 		open var originalTotalDuties: Storefront.MoneyV2? {
 			return internalGetOriginalTotalDuties()
 		}
@@ -1057,7 +1057,7 @@ extension Storefront {
 			return field(field: "originalTotalDuties", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
-		/// The total price of the order before any applied edits. 
+		/// The total price of the order before any applied edits.
 		open var originalTotalPrice: Storefront.MoneyV2 {
 			return internalGetOriginalTotalPrice()
 		}
@@ -1066,7 +1066,7 @@ extension Storefront {
 			return field(field: "originalTotalPrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The customer's phone number for receiving SMS notifications. 
+		/// The customer's phone number for receiving SMS notifications.
 		open var phone: String? {
 			return internalGetPhone()
 		}
@@ -1075,9 +1075,9 @@ extension Storefront {
 			return field(field: "phone", aliasSuffix: alias) as! String?
 		}
 
-		/// The date and time when the order was imported. This value can be set to 
-		/// dates in the past when importing from other systems. If no value is 
-		/// provided, it will be auto-generated based on current date and time. 
+		/// The date and time when the order was imported. This value can be set to
+		/// dates in the past when importing from other systems. If no value is
+		/// provided, it will be auto-generated based on current date and time.
 		open var processedAt: Date {
 			return internalGetProcessedAt()
 		}
@@ -1086,7 +1086,7 @@ extension Storefront {
 			return field(field: "processedAt", aliasSuffix: alias) as! Date
 		}
 
-		/// The address to where the order will be shipped. 
+		/// The address to where the order will be shipped.
 		open var shippingAddress: Storefront.MailingAddress? {
 			return internalGetShippingAddress()
 		}
@@ -1095,8 +1095,8 @@ extension Storefront {
 			return field(field: "shippingAddress", aliasSuffix: alias) as! Storefront.MailingAddress?
 		}
 
-		/// The discounts that have been allocated onto the shipping line by discount 
-		/// applications. 
+		/// The discounts that have been allocated onto the shipping line by discount
+		/// applications.
 		open var shippingDiscountAllocations: [Storefront.DiscountAllocation] {
 			return internalGetShippingDiscountAllocations()
 		}
@@ -1105,7 +1105,7 @@ extension Storefront {
 			return field(field: "shippingDiscountAllocations", aliasSuffix: alias) as! [Storefront.DiscountAllocation]
 		}
 
-		/// The unique URL for the order's status page. 
+		/// The unique URL for the order's status page.
 		open var statusUrl: URL {
 			return internalGetStatusUrl()
 		}
@@ -1114,7 +1114,7 @@ extension Storefront {
 			return field(field: "statusUrl", aliasSuffix: alias) as! URL
 		}
 
-		/// Price of the order before shipping and taxes. 
+		/// Price of the order before shipping and taxes.
 		open var subtotalPrice: Storefront.MoneyV2? {
 			return internalGetSubtotalPrice()
 		}
@@ -1123,7 +1123,7 @@ extension Storefront {
 			return field(field: "subtotalPrice", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
-		/// Price of the order before duties, shipping and taxes. 
+		/// Price of the order before duties, shipping and taxes.
 		@available(*, deprecated, message: "Use `subtotalPrice` instead.")
 		open var subtotalPriceV2: Storefront.MoneyV2? {
 			return internalGetSubtotalPriceV2()
@@ -1133,7 +1133,7 @@ extension Storefront {
 			return field(field: "subtotalPriceV2", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
-		/// List of the order’s successful fulfillments. 
+		/// List of the order’s successful fulfillments.
 		open var successfulFulfillments: [Storefront.Fulfillment]? {
 			return internalGetSuccessfulFulfillments()
 		}
@@ -1146,8 +1146,8 @@ extension Storefront {
 			return field(field: "successfulFulfillments", aliasSuffix: alias) as! [Storefront.Fulfillment]?
 		}
 
-		/// The sum of all the prices of all the items in the order, duties, taxes and 
-		/// discounts included (must be positive). 
+		/// The sum of all the prices of all the items in the order, duties, taxes and
+		/// discounts included (must be positive).
 		open var totalPrice: Storefront.MoneyV2 {
 			return internalGetTotalPrice()
 		}
@@ -1156,8 +1156,8 @@ extension Storefront {
 			return field(field: "totalPrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The sum of all the prices of all the items in the order, duties, taxes and 
-		/// discounts included (must be positive). 
+		/// The sum of all the prices of all the items in the order, duties, taxes and
+		/// discounts included (must be positive).
 		@available(*, deprecated, message: "Use `totalPrice` instead.")
 		open var totalPriceV2: Storefront.MoneyV2 {
 			return internalGetTotalPriceV2()
@@ -1167,7 +1167,7 @@ extension Storefront {
 			return field(field: "totalPriceV2", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The total amount that has been refunded. 
+		/// The total amount that has been refunded.
 		open var totalRefunded: Storefront.MoneyV2 {
 			return internalGetTotalRefunded()
 		}
@@ -1176,7 +1176,7 @@ extension Storefront {
 			return field(field: "totalRefunded", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The total amount that has been refunded. 
+		/// The total amount that has been refunded.
 		@available(*, deprecated, message: "Use `totalRefunded` instead.")
 		open var totalRefundedV2: Storefront.MoneyV2 {
 			return internalGetTotalRefundedV2()
@@ -1186,7 +1186,7 @@ extension Storefront {
 			return field(field: "totalRefundedV2", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The total cost of shipping. 
+		/// The total cost of shipping.
 		open var totalShippingPrice: Storefront.MoneyV2 {
 			return internalGetTotalShippingPrice()
 		}
@@ -1195,7 +1195,7 @@ extension Storefront {
 			return field(field: "totalShippingPrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The total cost of shipping. 
+		/// The total cost of shipping.
 		@available(*, deprecated, message: "Use `totalShippingPrice` instead.")
 		open var totalShippingPriceV2: Storefront.MoneyV2 {
 			return internalGetTotalShippingPriceV2()
@@ -1205,7 +1205,7 @@ extension Storefront {
 			return field(field: "totalShippingPriceV2", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The total cost of taxes. 
+		/// The total cost of taxes.
 		open var totalTax: Storefront.MoneyV2? {
 			return internalGetTotalTax()
 		}
@@ -1214,7 +1214,7 @@ extension Storefront {
 			return field(field: "totalTax", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
-		/// The total cost of taxes. 
+		/// The total cost of taxes.
 		@available(*, deprecated, message: "Use `totalTax` instead.")
 		open var totalTaxV2: Storefront.MoneyV2? {
 			return internalGetTotalTaxV2()

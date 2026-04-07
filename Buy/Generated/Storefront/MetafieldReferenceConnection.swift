@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type for paginating through multiple MetafieldReferences. 
+	/// An auto-generated type for paginating through multiple MetafieldReferences.
 	open class MetafieldReferenceConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MetafieldReferenceConnection
 
-		/// A list of edges. 
+		/// A list of edges.
 		@discardableResult
 		open func edges(alias: String? = nil, _ subfields: (MetafieldReferenceEdgeQuery) -> Void) -> MetafieldReferenceConnectionQuery {
 			let subquery = MetafieldReferenceEdgeQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of the nodes contained in MetafieldReferenceEdge. 
+		/// A list of the nodes contained in MetafieldReferenceEdge.
 		@discardableResult
 		open func nodes(alias: String? = nil, _ subfields: (MetafieldReferenceQuery) -> Void) -> MetafieldReferenceConnectionQuery {
 			let subquery = MetafieldReferenceQuery()
@@ -51,7 +51,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> MetafieldReferenceConnectionQuery {
 			let subquery = PageInfoQuery()
@@ -62,7 +62,7 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type for paginating through multiple MetafieldReferences. 
+	/// An auto-generated type for paginating through multiple MetafieldReferences.
 	open class MetafieldReferenceConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = MetafieldReferenceConnectionQuery
 
@@ -92,7 +92,7 @@ extension Storefront {
 			}
 		}
 
-		/// A list of edges. 
+		/// A list of edges.
 		open var edges: [Storefront.MetafieldReferenceEdge] {
 			return internalGetEdges()
 		}
@@ -101,7 +101,7 @@ extension Storefront {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.MetafieldReferenceEdge]
 		}
 
-		/// A list of the nodes contained in MetafieldReferenceEdge. 
+		/// A list of the nodes contained in MetafieldReferenceEdge.
 		open var nodes: [MetafieldReference] {
 			return internalGetNodes()
 		}
@@ -110,7 +110,7 @@ extension Storefront {
 			return field(field: "nodes", aliasSuffix: alias) as! [MetafieldReference]
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
 		}

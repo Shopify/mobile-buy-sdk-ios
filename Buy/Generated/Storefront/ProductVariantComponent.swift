@@ -27,11 +27,17 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a component of a bundle variant. 
+	/// An individual product variant included in a [fixed
+	/// bundle](https://shopify.dev/docs/apps/build/product-merchandising/bundles).
+	/// Fixed bundles group multiple products together and sell them as a single
+	/// unit, with the bundle's inventory determined by its components. Access
+	/// components through the `ProductVariant` object's
+	/// [`components`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant#field-ProductVariant.fields.components)
+	/// field.
 	open class ProductVariantComponentQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ProductVariantComponent
 
-		/// The product variant object that the component belongs to. 
+		/// The product variant object that the component belongs to.
 		@discardableResult
 		open func productVariant(alias: String? = nil, _ subfields: (ProductVariantQuery) -> Void) -> ProductVariantComponentQuery {
 			let subquery = ProductVariantQuery()
@@ -41,7 +47,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The quantity of component present in the bundle. 
+		/// The quantity of component present in the bundle.
 		@discardableResult
 		open func quantity(alias: String? = nil) -> ProductVariantComponentQuery {
 			addField(field: "quantity", aliasSuffix: alias)
@@ -49,7 +55,13 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a component of a bundle variant. 
+	/// An individual product variant included in a [fixed
+	/// bundle](https://shopify.dev/docs/apps/build/product-merchandising/bundles).
+	/// Fixed bundles group multiple products together and sell them as a single
+	/// unit, with the bundle's inventory determined by its components. Access
+	/// components through the `ProductVariant` object's
+	/// [`components`](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant#field-ProductVariant.fields.components)
+	/// field.
 	open class ProductVariantComponent: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ProductVariantComponentQuery
 
@@ -73,7 +85,7 @@ extension Storefront {
 			}
 		}
 
-		/// The product variant object that the component belongs to. 
+		/// The product variant object that the component belongs to.
 		open var productVariant: Storefront.ProductVariant {
 			return internalGetProductVariant()
 		}
@@ -82,7 +94,7 @@ extension Storefront {
 			return field(field: "productVariant", aliasSuffix: alias) as! Storefront.ProductVariant
 		}
 
-		/// The quantity of component present in the bundle. 
+		/// The quantity of component present in the bundle.
 		open var quantity: Int32 {
 			return internalGetQuantity()
 		}

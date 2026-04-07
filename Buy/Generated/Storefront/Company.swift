@@ -27,37 +27,43 @@
 import Foundation
 
 extension Storefront {
-	/// Represents information about a company which is also a customer of the 
-	/// shop. 
+	/// A B2B organization that purchases from the shop. In the Storefront API,
+	/// company information is accessed through the
+	/// [`PurchasingCompany`](https://shopify.dev/docs/api/storefront/current/objects/PurchasingCompany)
+	/// object on
+	/// [`CartBuyerIdentity`](https://shopify.dev/docs/api/storefront/current/objects/CartBuyerIdentity),
+	/// which provides the associated location and contact for the current
+	/// purchasing context. You can store custom data using
+	/// [metafields](https://shopify.dev/docs/apps/build/metafields).
 	open class CompanyQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Company
 
-		/// The date and time ([ISO 8601 
-		/// format](http://en.wikipedia.org/wiki/ISO_8601)) at which the company was 
-		/// created in Shopify. 
+		/// The date and time ([ISO 8601
+		/// format](http://en.wikipedia.org/wiki/ISO_8601)) at which the company was
+		/// created in Shopify.
 		@discardableResult
 		open func createdAt(alias: String? = nil) -> CompanyQuery {
 			addField(field: "createdAt", aliasSuffix: alias)
 			return self
 		}
 
-		/// A unique externally-supplied ID for the company. 
+		/// A unique externally-supplied ID for the company.
 		@discardableResult
 		open func externalId(alias: String? = nil) -> CompanyQuery {
 			addField(field: "externalId", aliasSuffix: alias)
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> CompanyQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		///
 		/// - parameters:
 		///     - namespace: The container the metafield belongs to. If omitted, the app-reserved namespace will be used.
@@ -82,12 +88,12 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		///
 		/// - parameters:
 		///     - identifiers: The list of metafields to retrieve by namespace and key.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -105,16 +111,16 @@ extension Storefront {
 			return self
 		}
 
-		/// The name of the company. 
+		/// The name of the company.
 		@discardableResult
 		open func name(alias: String? = nil) -> CompanyQuery {
 			addField(field: "name", aliasSuffix: alias)
 			return self
 		}
 
-		/// The date and time ([ISO 8601 
-		/// format](http://en.wikipedia.org/wiki/ISO_8601)) at which the company was 
-		/// last modified. 
+		/// The date and time ([ISO 8601
+		/// format](http://en.wikipedia.org/wiki/ISO_8601)) at which the company was
+		/// last modified.
 		@discardableResult
 		open func updatedAt(alias: String? = nil) -> CompanyQuery {
 			addField(field: "updatedAt", aliasSuffix: alias)
@@ -122,8 +128,14 @@ extension Storefront {
 		}
 	}
 
-	/// Represents information about a company which is also a customer of the 
-	/// shop. 
+	/// A B2B organization that purchases from the shop. In the Storefront API,
+	/// company information is accessed through the
+	/// [`PurchasingCompany`](https://shopify.dev/docs/api/storefront/current/objects/PurchasingCompany)
+	/// object on
+	/// [`CartBuyerIdentity`](https://shopify.dev/docs/api/storefront/current/objects/CartBuyerIdentity),
+	/// which provides the associated location and contact for the current
+	/// purchasing context. You can store custom data using
+	/// [metafields](https://shopify.dev/docs/apps/build/metafields).
 	open class Company: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node {
 		public typealias Query = CompanyQuery
 
@@ -183,9 +195,9 @@ extension Storefront {
 			}
 		}
 
-		/// The date and time ([ISO 8601 
-		/// format](http://en.wikipedia.org/wiki/ISO_8601)) at which the company was 
-		/// created in Shopify. 
+		/// The date and time ([ISO 8601
+		/// format](http://en.wikipedia.org/wiki/ISO_8601)) at which the company was
+		/// created in Shopify.
 		open var createdAt: Date {
 			return internalGetCreatedAt()
 		}
@@ -194,7 +206,7 @@ extension Storefront {
 			return field(field: "createdAt", aliasSuffix: alias) as! Date
 		}
 
-		/// A unique externally-supplied ID for the company. 
+		/// A unique externally-supplied ID for the company.
 		open var externalId: String? {
 			return internalGetExternalId()
 		}
@@ -203,7 +215,7 @@ extension Storefront {
 			return field(field: "externalId", aliasSuffix: alias) as! String?
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -212,9 +224,9 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		open var metafield: Storefront.Metafield? {
 			return internalGetMetafield()
 		}
@@ -227,8 +239,8 @@ extension Storefront {
 			return field(field: "metafield", aliasSuffix: alias) as! Storefront.Metafield?
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		open var metafields: [Storefront.Metafield?] {
 			return internalGetMetafields()
 		}
@@ -241,7 +253,7 @@ extension Storefront {
 			return field(field: "metafields", aliasSuffix: alias) as! [Storefront.Metafield?]
 		}
 
-		/// The name of the company. 
+		/// The name of the company.
 		open var name: String {
 			return internalGetName()
 		}
@@ -250,9 +262,9 @@ extension Storefront {
 			return field(field: "name", aliasSuffix: alias) as! String
 		}
 
-		/// The date and time ([ISO 8601 
-		/// format](http://en.wikipedia.org/wiki/ISO_8601)) at which the company was 
-		/// last modified. 
+		/// The date and time ([ISO 8601
+		/// format](http://en.wikipedia.org/wiki/ISO_8601)) at which the company was
+		/// last modified.
 		open var updatedAt: Date {
 			return internalGetUpdatedAt()
 		}

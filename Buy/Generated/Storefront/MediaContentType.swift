@@ -27,18 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// The possible content types for a media object. 
+	/// The possible content types for a media object.
 	public enum MediaContentType: String {
-		/// An externally hosted video. 
+		/// An externally hosted video.
 		case externalVideo = "EXTERNAL_VIDEO"
 
-		/// A Shopify hosted image. 
+		/// A Shopify hosted image.
 		case image = "IMAGE"
 
-		/// A 3d model. 
+		/// A 3d model.
 		case model3d = "MODEL_3D"
 
-		/// A Shopify hosted video. 
+		/// A Shopify hosted video.
 		case video = "VIDEO"
 
 		case unknownValue = ""

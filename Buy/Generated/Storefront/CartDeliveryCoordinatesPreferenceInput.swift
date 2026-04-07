@@ -27,19 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// Preferred location used to find the closest pick up point based on 
-	/// coordinates. 
+	/// Preferred location used to find the closest pick up point based on
+	/// coordinates.
 	open class CartDeliveryCoordinatesPreferenceInput {
-		/// The geographic latitude for a given location. Coordinates are required in 
-		/// order to set pickUpHandle for pickup points. 
+		/// The geographic latitude for a given location. Coordinates are required in
+		/// order to set pickUpHandle for pickup points.
 		open var latitude: Double
 
-		/// The geographic longitude for a given location. Coordinates are required in 
-		/// order to set pickUpHandle for pickup points. 
+		/// The geographic longitude for a given location. Coordinates are required in
+		/// order to set pickUpHandle for pickup points.
 		open var longitude: Double
 
-		/// The two-letter code for the country of the preferred location. For example, 
-		/// US. 
+		/// The two-letter code for the country of the preferred location. For example,
+		/// US.
 		open var countryCode: CountryCode
 
 		/// Creates the input object.
@@ -47,7 +47,7 @@ extension Storefront {
 		/// - parameters:
 		///     - latitude: The geographic latitude for a given location. Coordinates are required in order to set pickUpHandle for pickup points.
 		///     - longitude: The geographic longitude for a given location. Coordinates are required in order to set pickUpHandle for pickup points.
-		///     - countryCode: The two-letter code for the country of the preferred location.  For example, US. 
+		///     - countryCode: The two-letter code for the country of the preferred location.  For example, US.
 		///
 		public static func create(latitude: Double, longitude: Double, countryCode: CountryCode) -> CartDeliveryCoordinatesPreferenceInput {
 			return CartDeliveryCoordinatesPreferenceInput(latitude: latitude, longitude: longitude, countryCode: countryCode)
@@ -58,7 +58,7 @@ extension Storefront {
 		/// - parameters:
 		///     - latitude: The geographic latitude for a given location. Coordinates are required in order to set pickUpHandle for pickup points.
 		///     - longitude: The geographic longitude for a given location. Coordinates are required in order to set pickUpHandle for pickup points.
-		///     - countryCode: The two-letter code for the country of the preferred location.  For example, US. 
+		///     - countryCode: The two-letter code for the country of the preferred location.  For example, US.
 		///
 		public init(latitude: Double, longitude: Double, countryCode: CountryCode) {
 			self.latitude = latitude

@@ -27,21 +27,21 @@
 import Foundation
 
 extension Storefront {
-	/// The types of search items to perform predictive search on. 
+	/// The types of search items to perform predictive search on.
 	public enum PredictiveSearchType: String {
-		/// Returns matching articles. 
+		/// Returns matching articles.
 		case article = "ARTICLE"
 
-		/// Returns matching collections. 
+		/// Returns matching collections.
 		case collection = "COLLECTION"
 
-		/// Returns matching pages. 
+		/// Returns matching pages.
 		case page = "PAGE"
 
-		/// Returns matching products. 
+		/// Returns matching products.
 		case product = "PRODUCT"
 
-		/// Returns matching query strings. 
+		/// Returns matching query strings.
 		case query = "QUERY"
 
 		case unknownValue = ""

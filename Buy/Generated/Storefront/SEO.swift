@@ -27,18 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// SEO information. 
+	/// Search engine optimization metadata for a resource. The title and
+	/// description appear in search engine results and browser tabs.
 	open class SEOQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SEO
 
-		/// The meta description. 
+		/// The meta description.
 		@discardableResult
 		open func description(alias: String? = nil) -> SEOQuery {
 			addField(field: "description", aliasSuffix: alias)
 			return self
 		}
 
-		/// The SEO title. 
+		/// The SEO title.
 		@discardableResult
 		open func title(alias: String? = nil) -> SEOQuery {
 			addField(field: "title", aliasSuffix: alias)
@@ -46,7 +47,8 @@ extension Storefront {
 		}
 	}
 
-	/// SEO information. 
+	/// Search engine optimization metadata for a resource. The title and
+	/// description appear in search engine results and browser tabs.
 	open class SEO: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = SEOQuery
 
@@ -72,7 +74,7 @@ extension Storefront {
 			}
 		}
 
-		/// The meta description. 
+		/// The meta description.
 		open var description: String? {
 			return internalGetDescription()
 		}
@@ -81,7 +83,7 @@ extension Storefront {
 			return field(field: "description", aliasSuffix: alias) as! String?
 		}
 
-		/// The SEO title. 
+		/// The SEO title.
 		open var title: String? {
 			return internalGetTitle()
 		}

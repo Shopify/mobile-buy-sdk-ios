@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// Cart submit for checkout completion is successful. 
+	/// Cart submit for checkout completion is successful.
 	open class SubmitAlreadyAcceptedQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SubmitAlreadyAccepted
 
-		/// The ID of the cart completion attempt that will be used for polling for the 
-		/// result. 
+		/// The ID of the cart completion attempt that will be used for polling for the
+		/// result.
 		@discardableResult
 		open func attemptId(alias: String? = nil) -> SubmitAlreadyAcceptedQuery {
 			addField(field: "attemptId", aliasSuffix: alias)
@@ -40,7 +40,7 @@ extension Storefront {
 		}
 	}
 
-	/// Cart submit for checkout completion is successful. 
+	/// Cart submit for checkout completion is successful.
 	open class SubmitAlreadyAccepted: GraphQL.AbstractResponse, GraphQLObject, CartSubmitForCompletionResult {
 		public typealias Query = SubmitAlreadyAcceptedQuery
 
@@ -58,8 +58,8 @@ extension Storefront {
 			}
 		}
 
-		/// The ID of the cart completion attempt that will be used for polling for the 
-		/// result. 
+		/// The ID of the cart completion attempt that will be used for polling for the
+		/// result.
 		open var attemptId: String {
 			return internalGetAttemptId()
 		}

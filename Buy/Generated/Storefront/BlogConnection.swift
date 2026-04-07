@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type for paginating through multiple Blogs. 
+	/// An auto-generated type for paginating through multiple Blogs.
 	open class BlogConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = BlogConnection
 
-		/// A list of edges. 
+		/// A list of edges.
 		@discardableResult
 		open func edges(alias: String? = nil, _ subfields: (BlogEdgeQuery) -> Void) -> BlogConnectionQuery {
 			let subquery = BlogEdgeQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of the nodes contained in BlogEdge. 
+		/// A list of the nodes contained in BlogEdge.
 		@discardableResult
 		open func nodes(alias: String? = nil, _ subfields: (BlogQuery) -> Void) -> BlogConnectionQuery {
 			let subquery = BlogQuery()
@@ -51,7 +51,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> BlogConnectionQuery {
 			let subquery = PageInfoQuery()
@@ -62,7 +62,7 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type for paginating through multiple Blogs. 
+	/// An auto-generated type for paginating through multiple Blogs.
 	open class BlogConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = BlogConnectionQuery
 
@@ -92,7 +92,7 @@ extension Storefront {
 			}
 		}
 
-		/// A list of edges. 
+		/// A list of edges.
 		open var edges: [Storefront.BlogEdge] {
 			return internalGetEdges()
 		}
@@ -101,7 +101,7 @@ extension Storefront {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.BlogEdge]
 		}
 
-		/// A list of the nodes contained in BlogEdge. 
+		/// A list of the nodes contained in BlogEdge.
 		open var nodes: [Storefront.Blog] {
 			return internalGetNodes()
 		}
@@ -110,7 +110,7 @@ extension Storefront {
 			return field(field: "nodes", aliasSuffix: alias) as! [Storefront.Blog]
 		}
 
-		/// Information to aid in pagination. 
+		/// Information to aid in pagination.
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
 		}

@@ -27,25 +27,25 @@
 import Foundation
 
 extension Storefront {
-	/// Error codes for failed Shop Pay payment request session mutations. 
+	/// Error codes for failed Shop Pay payment request session mutations.
 	open class UserErrorsShopPayPaymentRequestSessionUserErrorsQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = UserErrorsShopPayPaymentRequestSessionUserErrors
 
-		/// The error code. 
+		/// The error code.
 		@discardableResult
 		open func code(alias: String? = nil) -> UserErrorsShopPayPaymentRequestSessionUserErrorsQuery {
 			addField(field: "code", aliasSuffix: alias)
 			return self
 		}
 
-		/// The path to the input field that caused the error. 
+		/// The path to the input field that caused the error.
 		@discardableResult
 		open func field(alias: String? = nil) -> UserErrorsShopPayPaymentRequestSessionUserErrorsQuery {
 			addField(field: "field", aliasSuffix: alias)
 			return self
 		}
 
-		/// The error message. 
+		/// The error message.
 		@discardableResult
 		open func message(alias: String? = nil) -> UserErrorsShopPayPaymentRequestSessionUserErrorsQuery {
 			addField(field: "message", aliasSuffix: alias)
@@ -53,7 +53,7 @@ extension Storefront {
 		}
 	}
 
-	/// Error codes for failed Shop Pay payment request session mutations. 
+	/// Error codes for failed Shop Pay payment request session mutations.
 	open class UserErrorsShopPayPaymentRequestSessionUserErrors: GraphQL.AbstractResponse, GraphQLObject, DisplayableError {
 		public typealias Query = UserErrorsShopPayPaymentRequestSessionUserErrorsQuery
 
@@ -85,7 +85,7 @@ extension Storefront {
 			}
 		}
 
-		/// The error code. 
+		/// The error code.
 		open var code: Storefront.UserErrorsShopPayPaymentRequestSessionUserErrorsCode? {
 			return internalGetCode()
 		}
@@ -94,7 +94,7 @@ extension Storefront {
 			return field(field: "code", aliasSuffix: alias) as! Storefront.UserErrorsShopPayPaymentRequestSessionUserErrorsCode?
 		}
 
-		/// The path to the input field that caused the error. 
+		/// The path to the input field that caused the error.
 		open var field: [String]? {
 			return internalGetField()
 		}
@@ -103,7 +103,7 @@ extension Storefront {
 			return field(field: "field", aliasSuffix: alias) as! [String]?
 		}
 
-		/// The error message. 
+		/// The error message.
 		open var message: String {
 			return internalGetMessage()
 		}

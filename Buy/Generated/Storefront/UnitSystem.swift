@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// Systems of weights and measures. 
+	/// Systems of weights and measures.
 	public enum UnitSystem: String {
-		/// Imperial system of weights and measures. 
+		/// Imperial system of weights and measures.
 		case imperialSystem = "IMPERIAL_SYSTEM"
 
-		/// Metric system of weights and measures. 
+		/// Metric system of weights and measures.
 		case metricSystem = "METRIC_SYSTEM"
 
 		case unknownValue = ""

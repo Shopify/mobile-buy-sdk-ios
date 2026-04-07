@@ -27,48 +27,54 @@
 import Foundation
 
 extension Storefront {
-	/// Manual discount applications capture the intentions of a discount that was 
-	/// manually created. 
+	/// A discount created manually by a merchant, as opposed to [automatic
+	/// discounts](https://help.shopify.com/manual/discounts/discount-methods/automatic-discounts)
+	/// or [discount
+	/// codes](https://help.shopify.com/manual/discounts/discount-methods/discount-codes).
+	/// Implements the
+	/// [`DiscountApplication`](https://shopify.dev/docs/api/storefront/current/interfaces/DiscountApplication)
+	/// interface and includes a title, optional description, and the discount
+	/// value as either a fixed amount or percentage.
 	open class ManualDiscountApplicationQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ManualDiscountApplication
 
-		/// The method by which the discount's value is allocated to its entitled 
-		/// items. 
+		/// The method by which the discount's value is allocated to its entitled
+		/// items.
 		@discardableResult
 		open func allocationMethod(alias: String? = nil) -> ManualDiscountApplicationQuery {
 			addField(field: "allocationMethod", aliasSuffix: alias)
 			return self
 		}
 
-		/// The description of the application. 
+		/// The description of the application.
 		@discardableResult
 		open func description(alias: String? = nil) -> ManualDiscountApplicationQuery {
 			addField(field: "description", aliasSuffix: alias)
 			return self
 		}
 
-		/// Which lines of targetType that the discount is allocated over. 
+		/// Which lines of targetType that the discount is allocated over.
 		@discardableResult
 		open func targetSelection(alias: String? = nil) -> ManualDiscountApplicationQuery {
 			addField(field: "targetSelection", aliasSuffix: alias)
 			return self
 		}
 
-		/// The type of line that the discount is applicable towards. 
+		/// The type of line that the discount is applicable towards.
 		@discardableResult
 		open func targetType(alias: String? = nil) -> ManualDiscountApplicationQuery {
 			addField(field: "targetType", aliasSuffix: alias)
 			return self
 		}
 
-		/// The title of the application. 
+		/// The title of the application.
 		@discardableResult
 		open func title(alias: String? = nil) -> ManualDiscountApplicationQuery {
 			addField(field: "title", aliasSuffix: alias)
 			return self
 		}
 
-		/// The value of the discount application. 
+		/// The value of the discount application.
 		@discardableResult
 		open func value(alias: String? = nil, _ subfields: (PricingValueQuery) -> Void) -> ManualDiscountApplicationQuery {
 			let subquery = PricingValueQuery()
@@ -79,8 +85,14 @@ extension Storefront {
 		}
 	}
 
-	/// Manual discount applications capture the intentions of a discount that was 
-	/// manually created. 
+	/// A discount created manually by a merchant, as opposed to [automatic
+	/// discounts](https://help.shopify.com/manual/discounts/discount-methods/automatic-discounts)
+	/// or [discount
+	/// codes](https://help.shopify.com/manual/discounts/discount-methods/discount-codes).
+	/// Implements the
+	/// [`DiscountApplication`](https://shopify.dev/docs/api/storefront/current/interfaces/DiscountApplication)
+	/// interface and includes a title, optional description, and the discount
+	/// value as either a fixed amount or percentage.
 	open class ManualDiscountApplication: GraphQL.AbstractResponse, GraphQLObject, DiscountApplication {
 		public typealias Query = ManualDiscountApplicationQuery
 
@@ -129,8 +141,8 @@ extension Storefront {
 			}
 		}
 
-		/// The method by which the discount's value is allocated to its entitled 
-		/// items. 
+		/// The method by which the discount's value is allocated to its entitled
+		/// items.
 		open var allocationMethod: Storefront.DiscountApplicationAllocationMethod {
 			return internalGetAllocationMethod()
 		}
@@ -139,7 +151,7 @@ extension Storefront {
 			return field(field: "allocationMethod", aliasSuffix: alias) as! Storefront.DiscountApplicationAllocationMethod
 		}
 
-		/// The description of the application. 
+		/// The description of the application.
 		open var description: String? {
 			return internalGetDescription()
 		}
@@ -148,7 +160,7 @@ extension Storefront {
 			return field(field: "description", aliasSuffix: alias) as! String?
 		}
 
-		/// Which lines of targetType that the discount is allocated over. 
+		/// Which lines of targetType that the discount is allocated over.
 		open var targetSelection: Storefront.DiscountApplicationTargetSelection {
 			return internalGetTargetSelection()
 		}
@@ -157,7 +169,7 @@ extension Storefront {
 			return field(field: "targetSelection", aliasSuffix: alias) as! Storefront.DiscountApplicationTargetSelection
 		}
 
-		/// The type of line that the discount is applicable towards. 
+		/// The type of line that the discount is applicable towards.
 		open var targetType: Storefront.DiscountApplicationTargetType {
 			return internalGetTargetType()
 		}
@@ -166,7 +178,7 @@ extension Storefront {
 			return field(field: "targetType", aliasSuffix: alias) as! Storefront.DiscountApplicationTargetType
 		}
 
-		/// The title of the application. 
+		/// The title of the application.
 		open var title: String {
 			return internalGetTitle()
 		}
@@ -175,7 +187,7 @@ extension Storefront {
 			return field(field: "title", aliasSuffix: alias) as! String
 		}
 
-		/// The value of the discount application. 
+		/// The value of the discount application.
 		open var value: PricingValue {
 			return internalGetValue()
 		}

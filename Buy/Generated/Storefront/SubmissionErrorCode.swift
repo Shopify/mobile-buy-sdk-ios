@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// The code of the error that occurred during cart submit for completion. 
+	/// The code of the error that occurred during cart submit for completion.
 	public enum SubmissionErrorCode: String {
 		case buyerIdentityEmailIsInvalid = "BUYER_IDENTITY_EMAIL_IS_INVALID"
 
@@ -209,7 +209,7 @@ extension Storefront {
 
 		case paymentsWalletContentMissing = "PAYMENTS_WALLET_CONTENT_MISSING"
 
-		/// Redirect to checkout required to complete this action. 
+		/// Redirect to checkout required to complete this action.
 		case redirectToCheckoutRequired = "REDIRECT_TO_CHECKOUT_REQUIRED"
 
 		case taxesDeliveryGroupIdNotFound = "TAXES_DELIVERY_GROUP_ID_NOT_FOUND"
@@ -218,7 +218,7 @@ extension Storefront {
 
 		case taxesMustBeDefined = "TAXES_MUST_BE_DEFINED"
 
-		/// Validation failed. 
+		/// Validation failed.
 		case validationCustom = "VALIDATION_CUSTOM"
 
 		case unknownValue = ""

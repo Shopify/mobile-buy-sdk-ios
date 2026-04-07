@@ -27,13 +27,13 @@
 import Foundation
 
 extension Storefront {
-	/// The type of line (i.e. line item or shipping line) on an order that the 
-	/// discount is applicable towards. 
+	/// The type of line (i.e. line item or shipping line) on an order that the
+	/// discount is applicable towards.
 	public enum DiscountApplicationTargetType: String {
-		/// The discount applies onto line items. 
+		/// The discount applies onto line items.
 		case lineItem = "LINE_ITEM"
 
-		/// The discount applies onto shipping lines. 
+		/// The discount applies onto shipping lines.
 		case shippingLine = "SHIPPING_LINE"
 
 		case unknownValue = ""

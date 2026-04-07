@@ -26,12 +26,12 @@
 
 import Foundation
 
-/// The completion action to checkout a cart. 
+/// The completion action to checkout a cart.
 public protocol CartCompletionAction {
 }
 
 extension Storefront {
-	/// The completion action to checkout a cart. 
+	/// The completion action to checkout a cart.
 	open class CartCompletionActionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartCompletionAction
 
@@ -40,7 +40,7 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// The completion action to checkout a cart. 
+		/// The completion action to checkout a cart.
 		@discardableResult
 		open func onCompletePaymentChallenge(subfields: (CompletePaymentChallengeQuery) -> Void) -> CartCompletionActionQuery {
 			let subquery = CompletePaymentChallengeQuery()
@@ -50,7 +50,7 @@ extension Storefront {
 		}
 	}
 
-	/// The completion action to checkout a cart. 
+	/// The completion action to checkout a cart.
 	open class UnknownCartCompletionAction: GraphQL.AbstractResponse, GraphQLObject, CartCompletionAction {
 		public typealias Query = CartCompletionActionQuery
 

@@ -27,19 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type which holds one StoreAvailability and a cursor 
-	/// during pagination. 
+	/// An auto-generated type which holds one StoreAvailability and a cursor
+	/// during pagination.
 	open class StoreAvailabilityEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = StoreAvailabilityEdge
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		@discardableResult
 		open func cursor(alias: String? = nil) -> StoreAvailabilityEdgeQuery {
 			addField(field: "cursor", aliasSuffix: alias)
 			return self
 		}
 
-		/// The item at the end of StoreAvailabilityEdge. 
+		/// The item at the end of StoreAvailabilityEdge.
 		@discardableResult
 		open func node(alias: String? = nil, _ subfields: (StoreAvailabilityQuery) -> Void) -> StoreAvailabilityEdgeQuery {
 			let subquery = StoreAvailabilityQuery()
@@ -50,8 +50,8 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type which holds one StoreAvailability and a cursor 
-	/// during pagination. 
+	/// An auto-generated type which holds one StoreAvailability and a cursor
+	/// during pagination.
 	open class StoreAvailabilityEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = StoreAvailabilityEdgeQuery
 
@@ -75,7 +75,7 @@ extension Storefront {
 			}
 		}
 
-		/// A cursor for use in pagination. 
+		/// A cursor for use in pagination.
 		open var cursor: String {
 			return internalGetCursor()
 		}
@@ -84,7 +84,7 @@ extension Storefront {
 			return field(field: "cursor", aliasSuffix: alias) as! String
 		}
 
-		/// The item at the end of StoreAvailabilityEdge. 
+		/// The item at the end of StoreAvailabilityEdge.
 		open var node: Storefront.StoreAvailability {
 			return internalGetNode()
 		}

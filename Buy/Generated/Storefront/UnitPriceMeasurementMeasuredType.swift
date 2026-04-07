@@ -27,25 +27,25 @@
 import Foundation
 
 extension Storefront {
-	/// The accepted types of unit of measurement. 
+	/// The accepted types of unit of measurement.
 	public enum UnitPriceMeasurementMeasuredType: String {
-		/// Unit of measurements representing areas. 
+		/// Unit of measurements representing areas.
 		case area = "AREA"
 
-		/// Unit of measurements representing counts. 
+		/// Unit of measurements representing counts.
 		case count = "COUNT"
 
-		/// Unit of measurements representing lengths. 
+		/// Unit of measurements representing lengths.
 		case length = "LENGTH"
 
-		/// The type of measurement is unknown. Upgrade to the latest version of the 
-		/// API to resolve this type. 
+		/// The type of measurement is unknown. Upgrade to the latest version of the
+		/// API to resolve this type.
 		case unknown = "UNKNOWN"
 
-		/// Unit of measurements representing volumes. 
+		/// Unit of measurements representing volumes.
 		case volume = "VOLUME"
 
-		/// Unit of measurements representing weights. 
+		/// Unit of measurements representing weights.
 		case weight = "WEIGHT"
 
 		case unknownValue = ""

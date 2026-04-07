@@ -27,18 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// An error that occurred during a cart completion attempt. 
+	/// An error that occurred during a cart completion attempt.
 	open class CompletionErrorQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CompletionError
 
-		/// The error code. 
+		/// The error code.
 		@discardableResult
 		open func code(alias: String? = nil) -> CompletionErrorQuery {
 			addField(field: "code", aliasSuffix: alias)
 			return self
 		}
 
-		/// The error message. 
+		/// The error message.
 		@discardableResult
 		open func message(alias: String? = nil) -> CompletionErrorQuery {
 			addField(field: "message", aliasSuffix: alias)
@@ -46,7 +46,7 @@ extension Storefront {
 		}
 	}
 
-	/// An error that occurred during a cart completion attempt. 
+	/// An error that occurred during a cart completion attempt.
 	open class CompletionError: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CompletionErrorQuery
 
@@ -71,7 +71,7 @@ extension Storefront {
 			}
 		}
 
-		/// The error code. 
+		/// The error code.
 		open var code: Storefront.CompletionErrorCode {
 			return internalGetCode()
 		}
@@ -80,7 +80,7 @@ extension Storefront {
 			return field(field: "code", aliasSuffix: alias) as! Storefront.CompletionErrorCode
 		}
 
-		/// The error message. 
+		/// The error message.
 		open var message: String? {
 			return internalGetMessage()
 		}

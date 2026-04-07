@@ -27,15 +27,15 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields to create a shipping line for a Shop Pay payment request. 
+	/// The input fields to create a shipping line for a Shop Pay payment request.
 	open class ShopPayPaymentRequestShippingLineInput {
-		/// The code of the shipping line. 
+		/// The code of the shipping line.
 		open var code: Input<String>
 
-		/// The label of the shipping line. 
+		/// The label of the shipping line.
 		open var label: Input<String>
 
-		/// The amount for the shipping line. 
+		/// The amount for the shipping line.
 		open var amount: Input<MoneyInput>
 
 		/// Creates the input object.

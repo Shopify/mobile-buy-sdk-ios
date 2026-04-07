@@ -27,11 +27,17 @@
 import Foundation
 
 extension Storefront {
-	/// The cost of the merchandise line that the buyer will pay at checkout. 
+	/// Cost breakdown for a single line item in a
+	/// [cart](https://shopify.dev/docs/api/storefront/current/objects/Cart).
+	/// Includes the per-unit price, the subtotal before line-level discounts, and
+	/// the final total amount the buyer pays. The
+	/// [`compareAtAmountPerQuantity`](https://shopify.dev/docs/api/storefront/current/objects/CartLineCost#field-CartLineCost.fields.compareAtAmountPerQuantity)
+	/// field shows the original price when the item is on sale, enabling the
+	/// display of savings to customers.
 	open class CartLineCostQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartLineCost
 
-		/// The amount of the merchandise line. 
+		/// The amount of the merchandise line.
 		@discardableResult
 		open func amountPerQuantity(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartLineCostQuery {
 			let subquery = MoneyV2Query()
@@ -41,7 +47,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The compare at amount of the merchandise line. 
+		/// The compare at amount of the merchandise line.
 		@discardableResult
 		open func compareAtAmountPerQuantity(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartLineCostQuery {
 			let subquery = MoneyV2Query()
@@ -51,7 +57,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The cost of the merchandise line before line-level discounts. 
+		/// The cost of the merchandise line before line-level discounts.
 		@discardableResult
 		open func subtotalAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartLineCostQuery {
 			let subquery = MoneyV2Query()
@@ -61,7 +67,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The total cost of the merchandise line. 
+		/// The total cost of the merchandise line.
 		@discardableResult
 		open func totalAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartLineCostQuery {
 			let subquery = MoneyV2Query()
@@ -72,7 +78,13 @@ extension Storefront {
 		}
 	}
 
-	/// The cost of the merchandise line that the buyer will pay at checkout. 
+	/// Cost breakdown for a single line item in a
+	/// [cart](https://shopify.dev/docs/api/storefront/current/objects/Cart).
+	/// Includes the per-unit price, the subtotal before line-level discounts, and
+	/// the final total amount the buyer pays. The
+	/// [`compareAtAmountPerQuantity`](https://shopify.dev/docs/api/storefront/current/objects/CartLineCost#field-CartLineCost.fields.compareAtAmountPerQuantity)
+	/// field shows the original price when the item is on sale, enabling the
+	/// display of savings to customers.
 	open class CartLineCost: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CartLineCostQuery
 
@@ -109,7 +121,7 @@ extension Storefront {
 			}
 		}
 
-		/// The amount of the merchandise line. 
+		/// The amount of the merchandise line.
 		open var amountPerQuantity: Storefront.MoneyV2 {
 			return internalGetAmountPerQuantity()
 		}
@@ -118,7 +130,7 @@ extension Storefront {
 			return field(field: "amountPerQuantity", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The compare at amount of the merchandise line. 
+		/// The compare at amount of the merchandise line.
 		open var compareAtAmountPerQuantity: Storefront.MoneyV2? {
 			return internalGetCompareAtAmountPerQuantity()
 		}
@@ -127,7 +139,7 @@ extension Storefront {
 			return field(field: "compareAtAmountPerQuantity", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
-		/// The cost of the merchandise line before line-level discounts. 
+		/// The cost of the merchandise line before line-level discounts.
 		open var subtotalAmount: Storefront.MoneyV2 {
 			return internalGetSubtotalAmount()
 		}
@@ -136,7 +148,7 @@ extension Storefront {
 			return field(field: "subtotalAmount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The total cost of the merchandise line. 
+		/// The total cost of the merchandise line.
 		open var totalAmount: Storefront.MoneyV2 {
 			return internalGetTotalAmount()
 		}

@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// The result for a Shop Pay Installments pricing request. 
+	/// The result for a Shop Pay Installments pricing request.
 	open class ShopPayInstallmentsPricingQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ShopPayInstallmentsPricing
 
-		/// The financing plans available for the given price range. 
+		/// The financing plans available for the given price range.
 		@discardableResult
 		open func financingPlans(alias: String? = nil, _ subfields: (ShopPayInstallmentsFinancingPlanQuery) -> Void) -> ShopPayInstallmentsPricingQuery {
 			let subquery = ShopPayInstallmentsFinancingPlanQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The maximum price to qualify for financing. 
+		/// The maximum price to qualify for financing.
 		@discardableResult
 		open func maxPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ShopPayInstallmentsPricingQuery {
 			let subquery = MoneyV2Query()
@@ -51,7 +51,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The minimum price to qualify for financing. 
+		/// The minimum price to qualify for financing.
 		@discardableResult
 		open func minPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ShopPayInstallmentsPricingQuery {
 			let subquery = MoneyV2Query()
@@ -62,7 +62,7 @@ extension Storefront {
 		}
 	}
 
-	/// The result for a Shop Pay Installments pricing request. 
+	/// The result for a Shop Pay Installments pricing request.
 	open class ShopPayInstallmentsPricing: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ShopPayInstallmentsPricingQuery
 
@@ -92,7 +92,7 @@ extension Storefront {
 			}
 		}
 
-		/// The financing plans available for the given price range. 
+		/// The financing plans available for the given price range.
 		open var financingPlans: [Storefront.ShopPayInstallmentsFinancingPlan] {
 			return internalGetFinancingPlans()
 		}
@@ -101,7 +101,7 @@ extension Storefront {
 			return field(field: "financingPlans", aliasSuffix: alias) as! [Storefront.ShopPayInstallmentsFinancingPlan]
 		}
 
-		/// The maximum price to qualify for financing. 
+		/// The maximum price to qualify for financing.
 		open var maxPrice: Storefront.MoneyV2 {
 			return internalGetMaxPrice()
 		}
@@ -110,7 +110,7 @@ extension Storefront {
 			return field(field: "maxPrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The minimum price to qualify for financing. 
+		/// The minimum price to qualify for financing.
 		open var minPrice: Storefront.MoneyV2 {
 			return internalGetMinPrice()
 		}

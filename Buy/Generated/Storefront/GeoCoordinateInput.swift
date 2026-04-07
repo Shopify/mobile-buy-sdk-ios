@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields used to specify a geographical location. 
+	/// The input fields used to specify a geographical location.
 	open class GeoCoordinateInput {
-		/// The coordinate's latitude value. 
+		/// The coordinate's latitude value.
 		open var latitude: Double
 
-		/// The coordinate's longitude value. 
+		/// The coordinate's longitude value.
 		open var longitude: Double
 
 		/// Creates the input object.

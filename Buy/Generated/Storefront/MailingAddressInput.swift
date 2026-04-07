@@ -27,52 +27,62 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields to create or update a mailing address. 
+	/// The input fields for creating or updating a
+	/// [`MailingAddress`](https://shopify.dev/docs/api/storefront/current/objects/MailingAddress).
+	/// Accepts standard address components including street address, city,
+	/// province, country, and postal code, along with customer name and contact
+	/// information. Used by the
+	/// [`customerAddressCreate`](https://shopify.dev/docs/api/storefront/current/mutations/customerAddressCreate)
+	/// and
+	/// [`customerAddressUpdate`](https://shopify.dev/docs/api/storefront/current/mutations/customerAddressUpdate)
+	/// mutations, and as part of
+	/// [`DeliveryAddressInput`](https://shopify.dev/docs/api/storefront/current/input-objects/DeliveryAddressInput)
+	/// for cart delivery preferences.
 	open class MailingAddressInput {
-		/// The first line of the address. Typically the street address or PO Box 
-		/// number. 
+		/// The first line of the address. Typically the street address or PO Box
+		/// number.
 		open var address1: Input<String>
 
-		/// The second line of the address. Typically the number of the apartment, 
-		/// suite, or unit. 
+		/// The second line of the address. Typically the number of the apartment,
+		/// suite, or unit.
 		open var address2: Input<String>
 
-		/// The name of the city, district, village, or town. 
+		/// The name of the city, district, village, or town.
 		open var city: Input<String>
 
-		/// The name of the customer's company or organization. 
+		/// The name of the customer's company or organization.
 		open var company: Input<String>
 
-		/// The name of the country. 
+		/// The name of the country.
 		open var country: Input<String>
 
-		/// The first name of the customer. 
+		/// The first name of the customer.
 		open var firstName: Input<String>
 
-		/// The last name of the customer. 
+		/// The last name of the customer.
 		open var lastName: Input<String>
 
-		/// A unique phone number for the customer. Formatted using E.164 standard. For 
-		/// example, _+16135551111_. 
+		/// A unique phone number for the customer. Formatted using E.164 standard. For
+		/// example, _+16135551111_.
 		open var phone: Input<String>
 
-		/// The region of the address, such as the province, state, or district. 
+		/// The region of the address, such as the province, state, or district.
 		open var province: Input<String>
 
-		/// The zip or postal code of the address. 
+		/// The zip or postal code of the address.
 		open var zip: Input<String>
 
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - address1: The first line of the address. Typically the street address or PO Box number. 
-		///     - address2: The second line of the address. Typically the number of the apartment, suite, or unit. 
-		///     - city: The name of the city, district, village, or town. 
-		///     - company: The name of the customer's company or organization. 
+		///     - address1: The first line of the address. Typically the street address or PO Box number.
+		///     - address2: The second line of the address. Typically the number of the apartment, suite, or unit.
+		///     - city: The name of the city, district, village, or town.
+		///     - company: The name of the customer's company or organization.
 		///     - country: The name of the country.
 		///     - firstName: The first name of the customer.
 		///     - lastName: The last name of the customer.
-		///     - phone: A unique phone number for the customer.  Formatted using E.164 standard. For example, _+16135551111_. 
+		///     - phone: A unique phone number for the customer.  Formatted using E.164 standard. For example, _+16135551111_.
 		///     - province: The region of the address, such as the province, state, or district.
 		///     - zip: The zip or postal code of the address.
 		///
@@ -96,14 +106,14 @@ extension Storefront {
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - address1: The first line of the address. Typically the street address or PO Box number. 
-		///     - address2: The second line of the address. Typically the number of the apartment, suite, or unit. 
-		///     - city: The name of the city, district, village, or town. 
-		///     - company: The name of the customer's company or organization. 
+		///     - address1: The first line of the address. Typically the street address or PO Box number.
+		///     - address2: The second line of the address. Typically the number of the apartment, suite, or unit.
+		///     - city: The name of the city, district, village, or town.
+		///     - company: The name of the customer's company or organization.
 		///     - country: The name of the country.
 		///     - firstName: The first name of the customer.
 		///     - lastName: The last name of the customer.
-		///     - phone: A unique phone number for the customer.  Formatted using E.164 standard. For example, _+16135551111_. 
+		///     - phone: A unique phone number for the customer.  Formatted using E.164 standard. For example, _+16135551111_.
 		///     - province: The region of the address, such as the province, state, or district.
 		///     - zip: The zip or postal code of the address.
 		///

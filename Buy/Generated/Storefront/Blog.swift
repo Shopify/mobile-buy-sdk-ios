@@ -27,11 +27,21 @@
 import Foundation
 
 extension Storefront {
-	/// An online store blog. 
+	/// A blog container for
+	/// [`Article`](https://shopify.dev/docs/api/storefront/current/objects/Article)
+	/// objects. Stores can have multiple blogs, for example to organize content by
+	/// topic or purpose. Each blog provides access to its articles, contributing
+	/// [`ArticleAuthor`](https://shopify.dev/docs/api/storefront/current/objects/ArticleAuthor)
+	/// objects, and
+	/// [`SEO`](https://shopify.dev/docs/api/storefront/current/objects/SEO)
+	/// information. You can retrieve articles individually [by
+	/// handle](https://shopify.dev/docs/api/storefront/current/objects/Blog#field-Blog.fields.articleByHandle)
+	/// or as a [paginated
+	/// list](https://shopify.dev/docs/api/storefront/current/objects/Blog#field-Blog.fields.articles).
 	open class BlogQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Blog
 
-		/// Find an article by its handle. 
+		/// Find an article by its handle.
 		///
 		/// - parameters:
 		///     - handle: The handle of the article.
@@ -51,7 +61,7 @@ extension Storefront {
 			return self
 		}
 
-		/// List of the blog's articles. 
+		/// List of the blog's articles.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -112,7 +122,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The authors who have contributed to the blog. 
+		/// The authors who have contributed to the blog.
 		@discardableResult
 		open func authors(alias: String? = nil, _ subfields: (ArticleAuthorQuery) -> Void) -> BlogQuery {
 			let subquery = ArticleAuthorQuery()
@@ -122,24 +132,24 @@ extension Storefront {
 			return self
 		}
 
-		/// A human-friendly unique string for the Blog automatically generated from 
-		/// its title. 
+		/// A human-friendly unique string for the Blog automatically generated from
+		/// its title.
 		@discardableResult
 		open func handle(alias: String? = nil) -> BlogQuery {
 			addField(field: "handle", aliasSuffix: alias)
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> BlogQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		///
 		/// - parameters:
 		///     - namespace: The container the metafield belongs to. If omitted, the app-reserved namespace will be used.
@@ -164,12 +174,12 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		///
 		/// - parameters:
 		///     - identifiers: The list of metafields to retrieve by namespace and key.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -187,16 +197,16 @@ extension Storefront {
 			return self
 		}
 
-		/// The URL used for viewing the resource on the shop's Online Store. Returns 
-		/// `null` if the resource is currently not published to the Online Store sales 
-		/// channel. 
+		/// The URL used for viewing the resource on the shop's Online Store. Returns
+		/// `null` if the resource is currently not published to the Online Store sales
+		/// channel.
 		@discardableResult
 		open func onlineStoreUrl(alias: String? = nil) -> BlogQuery {
 			addField(field: "onlineStoreUrl", aliasSuffix: alias)
 			return self
 		}
 
-		/// The blog's SEO information. 
+		/// The blog's SEO information.
 		@discardableResult
 		open func seo(alias: String? = nil, _ subfields: (SEOQuery) -> Void) -> BlogQuery {
 			let subquery = SEOQuery()
@@ -206,7 +216,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The blogs’s title. 
+		/// The blogs’s title.
 		@discardableResult
 		open func title(alias: String? = nil) -> BlogQuery {
 			addField(field: "title", aliasSuffix: alias)
@@ -214,7 +224,17 @@ extension Storefront {
 		}
 	}
 
-	/// An online store blog. 
+	/// A blog container for
+	/// [`Article`](https://shopify.dev/docs/api/storefront/current/objects/Article)
+	/// objects. Stores can have multiple blogs, for example to organize content by
+	/// topic or purpose. Each blog provides access to its articles, contributing
+	/// [`ArticleAuthor`](https://shopify.dev/docs/api/storefront/current/objects/ArticleAuthor)
+	/// objects, and
+	/// [`SEO`](https://shopify.dev/docs/api/storefront/current/objects/SEO)
+	/// information. You can retrieve articles individually [by
+	/// handle](https://shopify.dev/docs/api/storefront/current/objects/Blog#field-Blog.fields.articleByHandle)
+	/// or as a [paginated
+	/// list](https://shopify.dev/docs/api/storefront/current/objects/Blog#field-Blog.fields.articles).
 	open class Blog: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MenuItemResource, MetafieldParentResource, Node, OnlineStorePublishable {
 		public typealias Query = BlogQuery
 
@@ -294,7 +314,7 @@ extension Storefront {
 			}
 		}
 
-		/// Find an article by its handle. 
+		/// Find an article by its handle.
 		open var articleByHandle: Storefront.Article? {
 			return internalGetArticleByHandle()
 		}
@@ -307,7 +327,7 @@ extension Storefront {
 			return field(field: "articleByHandle", aliasSuffix: alias) as! Storefront.Article?
 		}
 
-		/// List of the blog's articles. 
+		/// List of the blog's articles.
 		open var articles: Storefront.ArticleConnection {
 			return internalGetArticles()
 		}
@@ -320,7 +340,7 @@ extension Storefront {
 			return field(field: "articles", aliasSuffix: alias) as! Storefront.ArticleConnection
 		}
 
-		/// The authors who have contributed to the blog. 
+		/// The authors who have contributed to the blog.
 		open var authors: [Storefront.ArticleAuthor] {
 			return internalGetAuthors()
 		}
@@ -329,8 +349,8 @@ extension Storefront {
 			return field(field: "authors", aliasSuffix: alias) as! [Storefront.ArticleAuthor]
 		}
 
-		/// A human-friendly unique string for the Blog automatically generated from 
-		/// its title. 
+		/// A human-friendly unique string for the Blog automatically generated from
+		/// its title.
 		open var handle: String {
 			return internalGetHandle()
 		}
@@ -339,7 +359,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -348,9 +368,9 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		open var metafield: Storefront.Metafield? {
 			return internalGetMetafield()
 		}
@@ -363,8 +383,8 @@ extension Storefront {
 			return field(field: "metafield", aliasSuffix: alias) as! Storefront.Metafield?
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		open var metafields: [Storefront.Metafield?] {
 			return internalGetMetafields()
 		}
@@ -377,9 +397,9 @@ extension Storefront {
 			return field(field: "metafields", aliasSuffix: alias) as! [Storefront.Metafield?]
 		}
 
-		/// The URL used for viewing the resource on the shop's Online Store. Returns 
-		/// `null` if the resource is currently not published to the Online Store sales 
-		/// channel. 
+		/// The URL used for viewing the resource on the shop's Online Store. Returns
+		/// `null` if the resource is currently not published to the Online Store sales
+		/// channel.
 		open var onlineStoreUrl: URL? {
 			return internalGetOnlineStoreUrl()
 		}
@@ -388,7 +408,7 @@ extension Storefront {
 			return field(field: "onlineStoreUrl", aliasSuffix: alias) as! URL?
 		}
 
-		/// The blog's SEO information. 
+		/// The blog's SEO information.
 		open var seo: Storefront.SEO? {
 			return internalGetSeo()
 		}
@@ -397,7 +417,7 @@ extension Storefront {
 			return field(field: "seo", aliasSuffix: alias) as! Storefront.SEO?
 		}
 
-		/// The blogs’s title. 
+		/// The blogs’s title.
 		open var title: String {
 			return internalGetTitle()
 		}

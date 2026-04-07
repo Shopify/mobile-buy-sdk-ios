@@ -27,18 +27,23 @@
 import Foundation
 
 extension Storefront {
-	/// Color and image for visual representation. 
+	/// A visual representation for filter values, containing a color, an image, or
+	/// both. The
+	/// [`FilterValue`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue)
+	/// object's
+	/// [`swatch`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue#field-FilterValue.fields.swatch)
+	/// field returns this when the filter's presentation is set to `SWATCH`.
 	open class SwatchQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Swatch
 
-		/// The swatch color. 
+		/// The swatch color.
 		@discardableResult
 		open func color(alias: String? = nil) -> SwatchQuery {
 			addField(field: "color", aliasSuffix: alias)
 			return self
 		}
 
-		/// The swatch image. 
+		/// The swatch image.
 		@discardableResult
 		open func image(alias: String? = nil, _ subfields: (MediaImageQuery) -> Void) -> SwatchQuery {
 			let subquery = MediaImageQuery()
@@ -49,7 +54,12 @@ extension Storefront {
 		}
 	}
 
-	/// Color and image for visual representation. 
+	/// A visual representation for filter values, containing a color, an image, or
+	/// both. The
+	/// [`FilterValue`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue)
+	/// object's
+	/// [`swatch`](https://shopify.dev/docs/api/storefront/current/objects/FilterValue#field-FilterValue.fields.swatch)
+	/// field returns this when the filter's presentation is set to `SWATCH`.
 	open class Swatch: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = SwatchQuery
 
@@ -75,7 +85,7 @@ extension Storefront {
 			}
 		}
 
-		/// The swatch color. 
+		/// The swatch color.
 		open var color: String? {
 			return internalGetColor()
 		}
@@ -84,7 +94,7 @@ extension Storefront {
 			return field(field: "color", aliasSuffix: alias) as! String?
 		}
 
-		/// The swatch image. 
+		/// The swatch image.
 		open var image: Storefront.MediaImage? {
 			return internalGetImage()
 		}

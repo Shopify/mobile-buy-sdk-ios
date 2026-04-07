@@ -27,29 +27,35 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a selling method. For example, 'Subscribe and save' is a selling 
-	/// method where customers pay for goods or services per delivery. A selling 
-	/// plan group contains individual selling plans. 
+	/// A selling method that defines how products can be sold through purchase
+	/// options like subscriptions, pre-orders, or try-before-you-buy. Groups one
+	/// or more
+	/// [`SellingPlan`](https://shopify.dev/docs/api/storefront/current/objects/SellingPlan)
+	/// objects that share the same selling method and options. The
+	/// `SellingPlanGroup` acts as a container for one or more individual
+	/// `SellingPlan` objects, enabling merchants to offer multiple options (like
+	/// weekly or monthly deliveries) under one, unified category on a product
+	/// page.
 	open class SellingPlanGroupQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlanGroup
 
-		/// A display friendly name for the app that created the selling plan group. 
+		/// A display friendly name for the app that created the selling plan group.
 		@discardableResult
 		open func appName(alias: String? = nil) -> SellingPlanGroupQuery {
 			addField(field: "appName", aliasSuffix: alias)
 			return self
 		}
 
-		/// The name of the selling plan group. 
+		/// The name of the selling plan group.
 		@discardableResult
 		open func name(alias: String? = nil) -> SellingPlanGroupQuery {
 			addField(field: "name", aliasSuffix: alias)
 			return self
 		}
 
-		/// Represents the selling plan options available in the drop-down list in the 
-		/// storefront. For example, 'Delivery every week' or 'Delivery every 2 weeks' 
-		/// specifies the delivery frequency options for the product. 
+		/// Represents the selling plan options available in the drop-down list in the
+		/// storefront. For example, 'Delivery every week' or 'Delivery every 2 weeks'
+		/// specifies the delivery frequency options for the product.
 		@discardableResult
 		open func options(alias: String? = nil, _ subfields: (SellingPlanGroupOptionQuery) -> Void) -> SellingPlanGroupQuery {
 			let subquery = SellingPlanGroupOptionQuery()
@@ -59,10 +65,10 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of selling plans in a selling plan group. A selling plan is a 
-		/// representation of how products and variants can be sold and purchased. For 
-		/// example, an individual selling plan could be '6 weeks of prepaid granola, 
-		/// delivered weekly'. 
+		/// A list of selling plans in a selling plan group. A selling plan is a
+		/// representation of how products and variants can be sold and purchased. For
+		/// example, an individual selling plan could be '6 weeks of prepaid granola,
+		/// delivered weekly'.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -105,9 +111,15 @@ extension Storefront {
 		}
 	}
 
-	/// Represents a selling method. For example, 'Subscribe and save' is a selling 
-	/// method where customers pay for goods or services per delivery. A selling 
-	/// plan group contains individual selling plans. 
+	/// A selling method that defines how products can be sold through purchase
+	/// options like subscriptions, pre-orders, or try-before-you-buy. Groups one
+	/// or more
+	/// [`SellingPlan`](https://shopify.dev/docs/api/storefront/current/objects/SellingPlan)
+	/// objects that share the same selling method and options. The
+	/// `SellingPlanGroup` acts as a container for one or more individual
+	/// `SellingPlan` objects, enabling merchants to offer multiple options (like
+	/// weekly or monthly deliveries) under one, unified category on a product
+	/// page.
 	open class SellingPlanGroup: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = SellingPlanGroupQuery
 
@@ -144,7 +156,7 @@ extension Storefront {
 			}
 		}
 
-		/// A display friendly name for the app that created the selling plan group. 
+		/// A display friendly name for the app that created the selling plan group.
 		open var appName: String? {
 			return internalGetAppName()
 		}
@@ -153,7 +165,7 @@ extension Storefront {
 			return field(field: "appName", aliasSuffix: alias) as! String?
 		}
 
-		/// The name of the selling plan group. 
+		/// The name of the selling plan group.
 		open var name: String {
 			return internalGetName()
 		}
@@ -162,9 +174,9 @@ extension Storefront {
 			return field(field: "name", aliasSuffix: alias) as! String
 		}
 
-		/// Represents the selling plan options available in the drop-down list in the 
-		/// storefront. For example, 'Delivery every week' or 'Delivery every 2 weeks' 
-		/// specifies the delivery frequency options for the product. 
+		/// Represents the selling plan options available in the drop-down list in the
+		/// storefront. For example, 'Delivery every week' or 'Delivery every 2 weeks'
+		/// specifies the delivery frequency options for the product.
 		open var options: [Storefront.SellingPlanGroupOption] {
 			return internalGetOptions()
 		}
@@ -173,10 +185,10 @@ extension Storefront {
 			return field(field: "options", aliasSuffix: alias) as! [Storefront.SellingPlanGroupOption]
 		}
 
-		/// A list of selling plans in a selling plan group. A selling plan is a 
-		/// representation of how products and variants can be sold and purchased. For 
-		/// example, an individual selling plan could be '6 weeks of prepaid granola, 
-		/// delivered weekly'. 
+		/// A list of selling plans in a selling plan group. A selling plan is a
+		/// representation of how products and variants can be sold and purchased. For
+		/// example, an individual selling plan could be '6 weeks of prepaid granola,
+		/// delivered weekly'.
 		open var sellingPlans: Storefront.SellingPlanConnection {
 			return internalGetSellingPlans()
 		}

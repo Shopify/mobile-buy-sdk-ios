@@ -27,25 +27,25 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields for submitting Apple Pay payment method information for 
-	/// checkout. 
+	/// The input fields for submitting Apple Pay payment method information for
+	/// checkout.
 	open class ApplePayWalletContentInput {
-		/// The customer's billing address. 
+		/// The customer's billing address.
 		open var billingAddress: MailingAddressInput
 
-		/// The data for the Apple Pay wallet. 
+		/// The data for the Apple Pay wallet.
 		open var data: String
 
-		/// The header data for the Apple Pay wallet. 
+		/// The header data for the Apple Pay wallet.
 		open var header: ApplePayWalletHeaderInput
 
-		/// The last digits of the card used to create the payment. 
+		/// The last digits of the card used to create the payment.
 		open var lastDigits: Input<String>
 
-		/// The signature for the Apple Pay wallet. 
+		/// The signature for the Apple Pay wallet.
 		open var signature: String
 
-		/// The version for the Apple Pay wallet. 
+		/// The version for the Apple Pay wallet.
 		open var version: String
 
 		/// Creates the input object.

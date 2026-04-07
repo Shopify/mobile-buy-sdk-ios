@@ -27,11 +27,16 @@
 import Foundation
 
 extension Storefront {
-	/// An amount discounting the line that has been allocated by a discount. 
+	/// The calculated discount amount applied to a line item or shipping line.
+	/// While a
+	/// [`DiscountApplication`](https://shopify.dev/docs/api/storefront/current/interfaces/DiscountApplication)
+	/// captures the discount's rules and intentions, the allocation shows how much
+	/// was actually deducted. Each allocation includes the discounted amount and a
+	/// reference to the originating discount application.
 	open class DiscountAllocationQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = DiscountAllocation
 
-		/// Amount of discount allocated. 
+		/// Amount of discount allocated.
 		@discardableResult
 		open func allocatedAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> DiscountAllocationQuery {
 			let subquery = MoneyV2Query()
@@ -41,7 +46,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The discount this allocated amount originated from. 
+		/// The discount this allocated amount originated from.
 		@discardableResult
 		open func discountApplication(alias: String? = nil, _ subfields: (DiscountApplicationQuery) -> Void) -> DiscountAllocationQuery {
 			let subquery = DiscountApplicationQuery()
@@ -52,7 +57,12 @@ extension Storefront {
 		}
 	}
 
-	/// An amount discounting the line that has been allocated by a discount. 
+	/// The calculated discount amount applied to a line item or shipping line.
+	/// While a
+	/// [`DiscountApplication`](https://shopify.dev/docs/api/storefront/current/interfaces/DiscountApplication)
+	/// captures the discount's rules and intentions, the allocation shows how much
+	/// was actually deducted. Each allocation includes the discounted amount and a
+	/// reference to the originating discount application.
 	open class DiscountAllocation: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = DiscountAllocationQuery
 
@@ -76,7 +86,7 @@ extension Storefront {
 			}
 		}
 
-		/// Amount of discount allocated. 
+		/// Amount of discount allocated.
 		open var allocatedAmount: Storefront.MoneyV2 {
 			return internalGetAllocatedAmount()
 		}
@@ -85,7 +95,7 @@ extension Storefront {
 			return field(field: "allocatedAmount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The discount this allocated amount originated from. 
+		/// The discount this allocated amount originated from.
 		open var discountApplication: DiscountApplication {
 			return internalGetDiscountApplication()
 		}

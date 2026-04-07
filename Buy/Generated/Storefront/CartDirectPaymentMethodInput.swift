@@ -27,20 +27,20 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields for submitting direct payment method information for 
-	/// checkout. 
+	/// The input fields for submitting direct payment method information for
+	/// checkout.
 	open class CartDirectPaymentMethodInput {
-		/// The customer's billing address. 
+		/// The customer's billing address.
 		open var billingAddress: MailingAddressInput
 
-		/// The session ID for the direct payment method used to create the payment. 
+		/// The session ID for the direct payment method used to create the payment.
 		open var sessionId: String
 
-		/// The source of the credit card payment. 
+		/// The source of the credit card payment.
 		open var cardSource: Input<CartCardSource>
 
-		/// Indicates if the customer has accepted the subscription terms. Defaults to 
-		/// false. 
+		/// Indicates if the customer has accepted the subscription terms. Defaults to
+		/// false.
 		open var acceptedSubscriptionTerms: Input<Bool>
 
 		/// Creates the input object.

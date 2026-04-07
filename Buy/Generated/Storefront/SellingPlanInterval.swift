@@ -27,18 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a valid selling plan interval. 
+	/// Represents a valid selling plan interval.
 	public enum SellingPlanInterval: String {
-		/// Day interval. 
+		/// Day interval.
 		case day = "DAY"
 
-		/// Month interval. 
+		/// Month interval.
 		case month = "MONTH"
 
-		/// Week interval. 
+		/// Week interval.
 		case week = "WEEK"
 
-		/// Year interval. 
+		/// Year interval.
 		case year = "YEAR"
 
 		case unknownValue = ""

@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// A media presentation. 
+	/// A media presentation.
 	open class MediaPresentationQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MediaPresentation
 
-		/// A JSON object representing a presentation view. 
+		/// A JSON object representing a presentation view.
 		///
 		/// - parameters:
 		///     - format: The format to transform the settings.
@@ -48,7 +48,8 @@ extension Storefront {
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
+		@available(*, deprecated, message: "MediaPresentation IDs are being deprecated. Access the data directly via the asJson field on the Media type.")
 		@discardableResult
 		open func id(alias: String? = nil) -> MediaPresentationQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -56,7 +57,7 @@ extension Storefront {
 		}
 	}
 
-	/// A media presentation. 
+	/// A media presentation.
 	open class MediaPresentation: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = MediaPresentationQuery
 
@@ -81,7 +82,7 @@ extension Storefront {
 			}
 		}
 
-		/// A JSON object representing a presentation view. 
+		/// A JSON object representing a presentation view.
 		open var asJson: String? {
 			return internalGetAsJson()
 		}
@@ -94,7 +95,8 @@ extension Storefront {
 			return field(field: "asJson", aliasSuffix: alias) as! String?
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
+		@available(*, deprecated, message: "MediaPresentation IDs are being deprecated. Access the data directly via the asJson field on the Media type.")
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}

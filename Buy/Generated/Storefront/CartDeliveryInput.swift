@@ -27,10 +27,10 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields for the cart's delivery properties. 
+	/// The input fields for the cart's delivery properties.
 	open class CartDeliveryInput {
-		/// Selectable addresses to present to the buyer on the cart. The input must 
-		/// not contain more than `250` values. 
+		/// Selectable addresses to present to the buyer on the cart. The input must
+		/// not contain more than `250` values.
 		open var addresses: Input<[CartSelectableAddressInput]>
 
 		/// Creates the input object.

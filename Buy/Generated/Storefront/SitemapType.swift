@@ -27,27 +27,27 @@
 import Foundation
 
 extension Storefront {
-	/// The types of resources potentially present in a sitemap. 
+	/// The types of resources potentially present in a sitemap.
 	public enum SitemapType: String {
-		/// Articles present in the sitemap. 
+		/// Articles present in the sitemap.
 		case article = "ARTICLE"
 
-		/// Blogs present in the sitemap. 
+		/// Blogs present in the sitemap.
 		case blog = "BLOG"
 
-		/// Collections present in the sitemap. 
+		/// Collections present in the sitemap.
 		case collection = "COLLECTION"
 
-		/// Metaobjects present in the sitemap. Only metaobject types with the 
-		/// [`renderable` 
-		/// capability](https://shopify.dev/docs/apps/build/custom-data/metaobjects/use-metaobject-capabilities#render-metaobjects-as-web-pages) 
-		/// are included in sitemap. 
+		/// Metaobjects present in the sitemap. Only metaobject types with the
+		/// [`renderable`
+		/// capability](https://shopify.dev/docs/apps/build/custom-data/metaobjects/use-metaobject-capabilities#render-metaobjects-as-web-pages)
+		/// are included in sitemap.
 		case metaobject = "METAOBJECT"
 
-		/// Pages present in the sitemap. 
+		/// Pages present in the sitemap.
 		case page = "PAGE"
 
-		/// Products present in the sitemap. 
+		/// Products present in the sitemap.
 		case product = "PRODUCT"
 
 		case unknownValue = ""

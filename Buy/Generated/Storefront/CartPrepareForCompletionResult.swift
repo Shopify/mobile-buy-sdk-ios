@@ -26,12 +26,12 @@
 
 import Foundation
 
-/// The result of cart preparation. 
+/// The result of cart preparation.
 public protocol CartPrepareForCompletionResult {
 }
 
 extension Storefront {
-	/// The result of cart preparation. 
+	/// The result of cart preparation.
 	open class CartPrepareForCompletionResultQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartPrepareForCompletionResult
 
@@ -40,7 +40,7 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// The result of cart preparation. 
+		/// The result of cart preparation.
 		@discardableResult
 		open func onCartStatusNotReady(subfields: (CartStatusNotReadyQuery) -> Void) -> CartPrepareForCompletionResultQuery {
 			let subquery = CartStatusNotReadyQuery()
@@ -49,7 +49,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The result of cart preparation. 
+		/// The result of cart preparation.
 		@discardableResult
 		open func onCartStatusReady(subfields: (CartStatusReadyQuery) -> Void) -> CartPrepareForCompletionResultQuery {
 			let subquery = CartStatusReadyQuery()
@@ -58,7 +58,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The result of cart preparation. 
+		/// The result of cart preparation.
 		@discardableResult
 		open func onCartThrottled(subfields: (CartThrottledQuery) -> Void) -> CartPrepareForCompletionResultQuery {
 			let subquery = CartThrottledQuery()
@@ -68,7 +68,7 @@ extension Storefront {
 		}
 	}
 
-	/// The result of cart preparation. 
+	/// The result of cart preparation.
 	open class UnknownCartPrepareForCompletionResult: GraphQL.AbstractResponse, GraphQLObject, CartPrepareForCompletionResult {
 		public typealias Query = CartPrepareForCompletionResultQuery
 

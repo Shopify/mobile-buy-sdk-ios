@@ -27,18 +27,25 @@
 import Foundation
 
 extension Storefront {
-	/// The discount codes applied to the cart. 
+	/// A discount code applied to a
+	/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart).
+	/// Discount codes are case-insensitive and can be added using the
+	/// [`cartDiscountCodesUpdate`](https://shopify.dev/docs/api/storefront/current/mutations/cartDiscountCodesUpdate)
+	/// mutation. The
+	/// [`applicable`](https://shopify.dev/docs/api/storefront/current/objects/CartDiscountCode#field-CartDiscountCode.fields.applicable)
+	/// field indicates whether the code applies to the cart's current contents,
+	/// which might change as items are added or removed.
 	open class CartDiscountCodeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartDiscountCode
 
-		/// Whether the discount code is applicable to the cart's current contents. 
+		/// Whether the discount code is applicable to the cart's current contents.
 		@discardableResult
 		open func applicable(alias: String? = nil) -> CartDiscountCodeQuery {
 			addField(field: "applicable", aliasSuffix: alias)
 			return self
 		}
 
-		/// The code for the discount. 
+		/// The code for the discount.
 		@discardableResult
 		open func code(alias: String? = nil) -> CartDiscountCodeQuery {
 			addField(field: "code", aliasSuffix: alias)
@@ -46,7 +53,14 @@ extension Storefront {
 		}
 	}
 
-	/// The discount codes applied to the cart. 
+	/// A discount code applied to a
+	/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart).
+	/// Discount codes are case-insensitive and can be added using the
+	/// [`cartDiscountCodesUpdate`](https://shopify.dev/docs/api/storefront/current/mutations/cartDiscountCodesUpdate)
+	/// mutation. The
+	/// [`applicable`](https://shopify.dev/docs/api/storefront/current/objects/CartDiscountCode#field-CartDiscountCode.fields.applicable)
+	/// field indicates whether the code applies to the cart's current contents,
+	/// which might change as items are added or removed.
 	open class CartDiscountCode: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CartDiscountCodeQuery
 
@@ -70,7 +84,7 @@ extension Storefront {
 			}
 		}
 
-		/// Whether the discount code is applicable to the cart's current contents. 
+		/// Whether the discount code is applicable to the cart's current contents.
 		open var applicable: Bool {
 			return internalGetApplicable()
 		}
@@ -79,7 +93,7 @@ extension Storefront {
 			return field(field: "applicable", aliasSuffix: alias) as! Bool
 		}
 
-		/// The code for the discount. 
+		/// The code for the discount.
 		open var code: String {
 			return internalGetCode()
 		}

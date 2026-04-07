@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// A fixed amount that's deducted from the original variant price. For 
-	/// example, $10.00 off. 
+	/// A fixed amount that's deducted from the original variant price. For
+	/// example, $10.00 off.
 	open class SellingPlanFixedAmountPriceAdjustmentQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlanFixedAmountPriceAdjustment
 
-		/// The money value of the price adjustment. 
+		/// The money value of the price adjustment.
 		@discardableResult
 		open func adjustmentAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> SellingPlanFixedAmountPriceAdjustmentQuery {
 			let subquery = MoneyV2Query()
@@ -43,8 +43,8 @@ extension Storefront {
 		}
 	}
 
-	/// A fixed amount that's deducted from the original variant price. For 
-	/// example, $10.00 off. 
+	/// A fixed amount that's deducted from the original variant price. For
+	/// example, $10.00 off.
 	open class SellingPlanFixedAmountPriceAdjustment: GraphQL.AbstractResponse, GraphQLObject, SellingPlanPriceAdjustmentValue {
 		public typealias Query = SellingPlanFixedAmountPriceAdjustmentQuery
 
@@ -62,7 +62,7 @@ extension Storefront {
 			}
 		}
 
-		/// The money value of the price adjustment. 
+		/// The money value of the price adjustment.
 		open var adjustmentAmount: Storefront.MoneyV2 {
 			return internalGetAdjustmentAmount()
 		}

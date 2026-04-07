@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// A fixed price adjustment for a variant that's purchased with a selling 
-	/// plan. 
+	/// A fixed price adjustment for a variant that's purchased with a selling
+	/// plan.
 	open class SellingPlanFixedPriceAdjustmentQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlanFixedPriceAdjustment
 
-		/// A new price of the variant when it's purchased with the selling plan. 
+		/// A new price of the variant when it's purchased with the selling plan.
 		@discardableResult
 		open func price(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> SellingPlanFixedPriceAdjustmentQuery {
 			let subquery = MoneyV2Query()
@@ -43,8 +43,8 @@ extension Storefront {
 		}
 	}
 
-	/// A fixed price adjustment for a variant that's purchased with a selling 
-	/// plan. 
+	/// A fixed price adjustment for a variant that's purchased with a selling
+	/// plan.
 	open class SellingPlanFixedPriceAdjustment: GraphQL.AbstractResponse, GraphQLObject, SellingPlanPriceAdjustmentValue {
 		public typealias Query = SellingPlanFixedPriceAdjustmentQuery
 
@@ -62,7 +62,7 @@ extension Storefront {
 			}
 		}
 
-		/// A new price of the variant when it's purchased with the selling plan. 
+		/// A new price of the variant when it's purchased with the selling plan.
 		open var price: Storefront.MoneyV2 {
 			return internalGetPrice()
 		}

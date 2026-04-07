@@ -27,40 +27,40 @@
 import Foundation
 
 extension Storefront {
-	/// Policy that a merchant has configured for their store, such as their refund 
-	/// or privacy policy. 
+	/// Policy that a merchant has configured for their store, such as their refund
+	/// or privacy policy.
 	open class ShopPolicyQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ShopPolicy
 
-		/// Policy text, maximum size of 64kb. 
+		/// Policy text, maximum size of 64kb.
 		@discardableResult
 		open func body(alias: String? = nil) -> ShopPolicyQuery {
 			addField(field: "body", aliasSuffix: alias)
 			return self
 		}
 
-		/// Policy’s handle. 
+		/// Policy’s handle.
 		@discardableResult
 		open func handle(alias: String? = nil) -> ShopPolicyQuery {
 			addField(field: "handle", aliasSuffix: alias)
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> ShopPolicyQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// Policy’s title. 
+		/// Policy’s title.
 		@discardableResult
 		open func title(alias: String? = nil) -> ShopPolicyQuery {
 			addField(field: "title", aliasSuffix: alias)
 			return self
 		}
 
-		/// Public URL to the policy. 
+		/// Public URL to the policy.
 		@discardableResult
 		open func url(alias: String? = nil) -> ShopPolicyQuery {
 			addField(field: "url", aliasSuffix: alias)
@@ -68,8 +68,8 @@ extension Storefront {
 		}
 	}
 
-	/// Policy that a merchant has configured for their store, such as their refund 
-	/// or privacy policy. 
+	/// Policy that a merchant has configured for their store, such as their refund
+	/// or privacy policy.
 	open class ShopPolicy: GraphQL.AbstractResponse, GraphQLObject, MenuItemResource, Node {
 		public typealias Query = ShopPolicyQuery
 
@@ -111,7 +111,7 @@ extension Storefront {
 			}
 		}
 
-		/// Policy text, maximum size of 64kb. 
+		/// Policy text, maximum size of 64kb.
 		open var body: String {
 			return internalGetBody()
 		}
@@ -120,7 +120,7 @@ extension Storefront {
 			return field(field: "body", aliasSuffix: alias) as! String
 		}
 
-		/// Policy’s handle. 
+		/// Policy’s handle.
 		open var handle: String {
 			return internalGetHandle()
 		}
@@ -129,7 +129,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -138,7 +138,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// Policy’s title. 
+		/// Policy’s title.
 		open var title: String {
 			return internalGetTitle()
 		}
@@ -147,7 +147,7 @@ extension Storefront {
 			return field(field: "title", aliasSuffix: alias) as! String
 		}
 
-		/// Public URL to the policy. 
+		/// Public URL to the policy.
 		open var url: URL {
 			return internalGetUrl()
 		}

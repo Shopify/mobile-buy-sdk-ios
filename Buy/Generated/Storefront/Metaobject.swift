@@ -27,11 +27,25 @@
 import Foundation
 
 extension Storefront {
-	/// An instance of a user-defined model based on a MetaobjectDefinition. 
+	/// An instance of [custom structured
+	/// data](https://shopify.dev/docs/apps/build/metaobjects) defined by a
+	/// metaobject definition. Metaobjects store reusable content that extends
+	/// beyond standard Shopify resources, such as size charts, author profiles, or
+	/// custom content sections. Each metaobject contains fields that match the
+	/// types and validation rules specified in its definition.
+	/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+	/// references can point to metaobjects, connecting custom data with products,
+	/// collections, and other resources. If the definition has the `renderable`
+	/// capability, then the
+	/// [`seo`](https://shopify.dev/docs/api/storefront/current/objects/Metaobject#field-Metaobject.fields.seo)
+	/// field provides SEO metadata. If it has the `online_store` capability, then
+	/// the
+	/// [`onlineStoreUrl`](https://shopify.dev/docs/api/storefront/current/objects/Metaobject#field-Metaobject.fields.onlineStoreUrl)
+	/// field returns the public URL.
 	open class MetaobjectQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Metaobject
 
-		/// Accesses a field of the object by key. 
+		/// Accesses a field of the object by key.
 		///
 		/// - parameters:
 		///     - key: The key of the field.
@@ -51,8 +65,8 @@ extension Storefront {
 			return self
 		}
 
-		/// All object fields with defined values. Omitted object keys can be assumed 
-		/// null, and no guarantees are made about field order. 
+		/// All object fields with defined values. Omitted object keys can be assumed
+		/// null, and no guarantees are made about field order.
 		@discardableResult
 		open func fields(alias: String? = nil, _ subfields: (MetaobjectFieldQuery) -> Void) -> MetaobjectQuery {
 			let subquery = MetaobjectFieldQuery()
@@ -62,31 +76,31 @@ extension Storefront {
 			return self
 		}
 
-		/// The unique handle of the metaobject. Useful as a custom ID. 
+		/// The unique handle of the metaobject. Useful as a custom ID.
 		@discardableResult
 		open func handle(alias: String? = nil) -> MetaobjectQuery {
 			addField(field: "handle", aliasSuffix: alias)
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> MetaobjectQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The URL used for viewing the metaobject on the shop's Online Store. Returns 
-		/// `null` if the metaobject definition doesn't have the `online_store` 
-		/// capability. 
+		/// The URL used for viewing the metaobject on the shop's Online Store. Returns
+		/// `null` if the metaobject definition doesn't have the `online_store`
+		/// capability.
 		@discardableResult
 		open func onlineStoreUrl(alias: String? = nil) -> MetaobjectQuery {
 			addField(field: "onlineStoreUrl", aliasSuffix: alias)
 			return self
 		}
 
-		/// The metaobject's SEO information. Returns `null` if the metaobject 
-		/// definition doesn't have the `renderable` capability. 
+		/// The metaobject's SEO information. Returns `null` if the metaobject
+		/// definition doesn't have the `renderable` capability.
 		@discardableResult
 		open func seo(alias: String? = nil, _ subfields: (MetaobjectSEOQuery) -> Void) -> MetaobjectQuery {
 			let subquery = MetaobjectSEOQuery()
@@ -96,15 +110,14 @@ extension Storefront {
 			return self
 		}
 
-		/// The type of the metaobject. Defines the namespace of its associated 
-		/// metafields. 
+		/// The type of the metaobject.
 		@discardableResult
 		open func type(alias: String? = nil) -> MetaobjectQuery {
 			addField(field: "type", aliasSuffix: alias)
 			return self
 		}
 
-		/// The date and time when the metaobject was last updated. 
+		/// The date and time when the metaobject was last updated.
 		@discardableResult
 		open func updatedAt(alias: String? = nil) -> MetaobjectQuery {
 			addField(field: "updatedAt", aliasSuffix: alias)
@@ -112,7 +125,21 @@ extension Storefront {
 		}
 	}
 
-	/// An instance of a user-defined model based on a MetaobjectDefinition. 
+	/// An instance of [custom structured
+	/// data](https://shopify.dev/docs/apps/build/metaobjects) defined by a
+	/// metaobject definition. Metaobjects store reusable content that extends
+	/// beyond standard Shopify resources, such as size charts, author profiles, or
+	/// custom content sections. Each metaobject contains fields that match the
+	/// types and validation rules specified in its definition.
+	/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+	/// references can point to metaobjects, connecting custom data with products,
+	/// collections, and other resources. If the definition has the `renderable`
+	/// capability, then the
+	/// [`seo`](https://shopify.dev/docs/api/storefront/current/objects/Metaobject#field-Metaobject.fields.seo)
+	/// field provides SEO metadata. If it has the `online_store` capability, then
+	/// the
+	/// [`onlineStoreUrl`](https://shopify.dev/docs/api/storefront/current/objects/Metaobject#field-Metaobject.fields.onlineStoreUrl)
+	/// field returns the public URL.
 	open class Metaobject: GraphQL.AbstractResponse, GraphQLObject, MenuItemResource, MetafieldReference, Node, OnlineStorePublishable {
 		public typealias Query = MetaobjectQuery
 
@@ -175,7 +202,7 @@ extension Storefront {
 			}
 		}
 
-		/// Accesses a field of the object by key. 
+		/// Accesses a field of the object by key.
 		open var field: Storefront.MetaobjectField? {
 			return internalGetField()
 		}
@@ -188,8 +215,8 @@ extension Storefront {
 			return field(field: "field", aliasSuffix: alias) as! Storefront.MetaobjectField?
 		}
 
-		/// All object fields with defined values. Omitted object keys can be assumed 
-		/// null, and no guarantees are made about field order. 
+		/// All object fields with defined values. Omitted object keys can be assumed
+		/// null, and no guarantees are made about field order.
 		open var fields: [Storefront.MetaobjectField] {
 			return internalGetFields()
 		}
@@ -198,7 +225,7 @@ extension Storefront {
 			return field(field: "fields", aliasSuffix: alias) as! [Storefront.MetaobjectField]
 		}
 
-		/// The unique handle of the metaobject. Useful as a custom ID. 
+		/// The unique handle of the metaobject. Useful as a custom ID.
 		open var handle: String {
 			return internalGetHandle()
 		}
@@ -207,7 +234,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -216,9 +243,9 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The URL used for viewing the metaobject on the shop's Online Store. Returns 
-		/// `null` if the metaobject definition doesn't have the `online_store` 
-		/// capability. 
+		/// The URL used for viewing the metaobject on the shop's Online Store. Returns
+		/// `null` if the metaobject definition doesn't have the `online_store`
+		/// capability.
 		open var onlineStoreUrl: URL? {
 			return internalGetOnlineStoreUrl()
 		}
@@ -227,8 +254,8 @@ extension Storefront {
 			return field(field: "onlineStoreUrl", aliasSuffix: alias) as! URL?
 		}
 
-		/// The metaobject's SEO information. Returns `null` if the metaobject 
-		/// definition doesn't have the `renderable` capability. 
+		/// The metaobject's SEO information. Returns `null` if the metaobject
+		/// definition doesn't have the `renderable` capability.
 		open var seo: Storefront.MetaobjectSEO? {
 			return internalGetSeo()
 		}
@@ -237,8 +264,7 @@ extension Storefront {
 			return field(field: "seo", aliasSuffix: alias) as! Storefront.MetaobjectSEO?
 		}
 
-		/// The type of the metaobject. Defines the namespace of its associated 
-		/// metafields. 
+		/// The type of the metaobject.
 		open var type: String {
 			return internalGetType()
 		}
@@ -247,7 +273,7 @@ extension Storefront {
 			return field(field: "type", aliasSuffix: alias) as! String
 		}
 
-		/// The date and time when the metaobject was last updated. 
+		/// The date and time when the metaobject was last updated.
 		open var updatedAt: Date {
 			return internalGetUpdatedAt()
 		}

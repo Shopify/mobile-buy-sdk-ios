@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields required for a selected option. 
+	/// The input fields required for a selected option.
 	open class SelectedOptionInput {
-		/// The product option’s name. 
+		/// The product option’s name.
 		open var name: String
 
-		/// The product option’s value. 
+		/// The product option’s value.
 		open var value: String
 
 		/// Creates the input object.

@@ -27,12 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// Information about the options available for one or more line items to be 
-	/// delivered to a specific address. 
+	/// Groups cart line items that share the same delivery destination. Each group
+	/// provides the available
+	/// [`CartDeliveryOption`](https://shopify.dev/docs/api/storefront/current/objects/CartDeliveryOption)
+	/// choices for that address, along with the customer's selected option. Access
+	/// through the
+	/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart)
+	/// object's `deliveryGroups` field. Items are grouped by merchandise type
+	/// (one-time purchase vs subscription), allowing different delivery methods
+	/// for each.
 	open class CartDeliveryGroupQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartDeliveryGroup
 
-		/// A list of cart lines for the delivery group. 
+		/// A list of cart lines for the delivery group.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -74,7 +81,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The destination address for the delivery group. 
+		/// The destination address for the delivery group.
 		@discardableResult
 		open func deliveryAddress(alias: String? = nil, _ subfields: (MailingAddressQuery) -> Void) -> CartDeliveryGroupQuery {
 			let subquery = MailingAddressQuery()
@@ -84,7 +91,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The delivery options available for the delivery group. 
+		/// The delivery options available for the delivery group.
 		@discardableResult
 		open func deliveryOptions(alias: String? = nil, _ subfields: (CartDeliveryOptionQuery) -> Void) -> CartDeliveryGroupQuery {
 			let subquery = CartDeliveryOptionQuery()
@@ -94,21 +101,21 @@ extension Storefront {
 			return self
 		}
 
-		/// The type of merchandise in the delivery group. 
+		/// The type of merchandise in the delivery group.
 		@discardableResult
 		open func groupType(alias: String? = nil) -> CartDeliveryGroupQuery {
 			addField(field: "groupType", aliasSuffix: alias)
 			return self
 		}
 
-		/// The ID for the delivery group. 
+		/// The ID for the delivery group.
 		@discardableResult
 		open func id(alias: String? = nil) -> CartDeliveryGroupQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The selected delivery option for the delivery group. 
+		/// The selected delivery option for the delivery group.
 		@discardableResult
 		open func selectedDeliveryOption(alias: String? = nil, _ subfields: (CartDeliveryOptionQuery) -> Void) -> CartDeliveryGroupQuery {
 			let subquery = CartDeliveryOptionQuery()
@@ -119,8 +126,15 @@ extension Storefront {
 		}
 	}
 
-	/// Information about the options available for one or more line items to be 
-	/// delivered to a specific address. 
+	/// Groups cart line items that share the same delivery destination. Each group
+	/// provides the available
+	/// [`CartDeliveryOption`](https://shopify.dev/docs/api/storefront/current/objects/CartDeliveryOption)
+	/// choices for that address, along with the customer's selected option. Access
+	/// through the
+	/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart)
+	/// object's `deliveryGroups` field. Items are grouped by merchandise type
+	/// (one-time purchase vs subscription), allowing different delivery methods
+	/// for each.
 	open class CartDeliveryGroup: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CartDeliveryGroupQuery
 
@@ -169,7 +183,7 @@ extension Storefront {
 			}
 		}
 
-		/// A list of cart lines for the delivery group. 
+		/// A list of cart lines for the delivery group.
 		open var cartLines: Storefront.BaseCartLineConnection {
 			return internalGetCartLines()
 		}
@@ -182,7 +196,7 @@ extension Storefront {
 			return field(field: "cartLines", aliasSuffix: alias) as! Storefront.BaseCartLineConnection
 		}
 
-		/// The destination address for the delivery group. 
+		/// The destination address for the delivery group.
 		open var deliveryAddress: Storefront.MailingAddress {
 			return internalGetDeliveryAddress()
 		}
@@ -191,7 +205,7 @@ extension Storefront {
 			return field(field: "deliveryAddress", aliasSuffix: alias) as! Storefront.MailingAddress
 		}
 
-		/// The delivery options available for the delivery group. 
+		/// The delivery options available for the delivery group.
 		open var deliveryOptions: [Storefront.CartDeliveryOption] {
 			return internalGetDeliveryOptions()
 		}
@@ -200,7 +214,7 @@ extension Storefront {
 			return field(field: "deliveryOptions", aliasSuffix: alias) as! [Storefront.CartDeliveryOption]
 		}
 
-		/// The type of merchandise in the delivery group. 
+		/// The type of merchandise in the delivery group.
 		open var groupType: Storefront.CartDeliveryGroupType {
 			return internalGetGroupType()
 		}
@@ -209,7 +223,7 @@ extension Storefront {
 			return field(field: "groupType", aliasSuffix: alias) as! Storefront.CartDeliveryGroupType
 		}
 
-		/// The ID for the delivery group. 
+		/// The ID for the delivery group.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -218,7 +232,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The selected delivery option for the delivery group. 
+		/// The selected delivery option for the delivery group.
 		open var selectedDeliveryOption: Storefront.CartDeliveryOption? {
 			return internalGetSelectedDeliveryOption()
 		}

@@ -27,8 +27,8 @@
 import Foundation
 
 extension Storefront {
-	/// The schema’s entry-point for mutations. This acts as the public, top-level 
-	/// API from which all mutation queries must start. 
+	/// The schema’s entry-point for mutations. This acts as the public, top-level
+	/// API from which all mutation queries must start.
 	open class MutationQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Mutation
 
@@ -36,11 +36,14 @@ extension Storefront {
 			return "mutation " + super.description
 		}
 
-		/// Updates the attributes on a cart. 
+		/// Updates the attributes on a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart).
+		/// Attributes are custom key-value pairs that store additional information,
+		/// such as gift messages, special instructions, or order notes.
 		///
 		/// - parameters:
 		///     - attributes: An array of key-value pairs that contains additional information about the cart.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///     - cartId: The ID of the cart.
 		///
@@ -61,7 +64,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Updates the billing address on the cart. 
+		/// Updates the billing address on the cart.
 		///
 		/// - parameters:
 		///     - cartId: The ID of the cart.
@@ -86,10 +89,15 @@ extension Storefront {
 			return self
 		}
 
-		/// Updates customer information associated with a cart. Buyer identity is used 
-		/// to determine [international 
-		/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing) 
-		/// and should match the customer's shipping address. 
+		/// Updates the buyer identity on a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart),
+		/// including contact information, location, and checkout preferences. The
+		/// buyer's country determines [international
+		/// pricing](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/markets/international-pricing)
+		/// and should match their shipping address. Use this mutation to associate a
+		/// logged-in customer via access token, set a B2B company location, or
+		/// configure checkout preferences like delivery method. Preferences prefill
+		/// checkout fields but don't sync back to the cart if overwritten at checkout.
 		///
 		/// - parameters:
 		///     - cartId: The ID of the cart.
@@ -114,7 +122,33 @@ extension Storefront {
 			return self
 		}
 
-		/// Creates a new cart. 
+		/// Creates a clone of the specified cart with all personally identifiable
+		/// information removed.
+		///
+		/// - parameters:
+		///     - cartId: The ID of the cart to clone.
+		///
+		@discardableResult
+		open func cartClone(alias: String? = nil, cartId: GraphQL.ID, _ subfields: (CartClonePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CartClonePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartClone", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Creates a new
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart) for
+		/// a buyer session. You can optionally initialize the cart with merchandise
+		/// lines, discount codes, gift card codes, buyer identity for international
+		/// pricing, and custom attributes. The returned cart includes a `checkoutUrl`
+		/// that directs the buyer to complete their purchase.
 		///
 		/// - parameters:
 		///     - input: The fields used to create a cart.
@@ -136,12 +170,16 @@ extension Storefront {
 			return self
 		}
 
-		/// Adds delivery addresses to the cart. 
+		/// Adds delivery addresses to a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart). A
+		/// cart can have up to 20 delivery addresses. One address can be marked as
+		/// selected for checkout, and addresses can optionally be marked as one-time
+		/// use so they aren't saved to the customer's account.
 		///
 		/// - parameters:
 		///     - cartId: The ID of the cart.
 		///     - addresses: A list of delivery addresses to add to the cart.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -161,12 +199,14 @@ extension Storefront {
 			return self
 		}
 
-		/// Removes delivery addresses from the cart. 
+		/// Removes delivery addresses from a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart) by
+		/// their IDs, allowing batch removal in a single request.
 		///
 		/// - parameters:
 		///     - cartId: The ID of the cart.
 		///     - addressIds: A list of delivery addresses by handle to remove from the cart.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -186,12 +226,48 @@ extension Storefront {
 			return self
 		}
 
-		/// Updates one or more delivery addresses on a cart. 
+		/// Replaces all delivery addresses on a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart) with
+		/// a new set of addresses in a single operation. Unlike
+		/// [`cartDeliveryAddressesUpdate`](https://shopify.dev/docs/api/storefront/current/mutations/cartDeliveryAddressesUpdate),
+		/// which modifies existing addresses, this mutation removes all current
+		/// addresses and sets the provided list as the new delivery addresses. One
+		/// address can be marked as selected, and each address can be flagged for
+		/// one-time use or configured with a specific validation strategy.
+		///
+		/// - parameters:
+		///     - cartId: The ID of the cart.
+		///     - addresses: A list of delivery addresses to replace on the cart.
+		///
+		///        The input must not contain more than `250` values.
+		///
+		@discardableResult
+		open func cartDeliveryAddressesReplace(alias: String? = nil, cartId: GraphQL.ID, addresses: [CartSelectableAddressInput], _ subfields: (CartDeliveryAddressesReplacePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
+
+			args.append("addresses:[\(addresses.map { "\($0.serialize())" }.joined(separator: ","))]")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CartDeliveryAddressesReplacePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartDeliveryAddressesReplace", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Updates one or more delivery addresses on a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart).
+		/// Each address can be modified to change its details, set it as the
+		/// pre-selected address for checkout, or mark it for one-time use so it isn't
+		/// saved to the customer's account.
 		///
 		/// - parameters:
 		///     - cartId: The ID of the cart.
 		///     - addresses: The delivery addresses to update.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -211,12 +287,20 @@ extension Storefront {
 			return self
 		}
 
-		/// Updates the discount codes applied to the cart. 
+		/// Updates the discount codes applied to a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart).
+		/// This mutation replaces all existing discount codes with the provided list,
+		/// so pass an empty array to remove all codes. Discount codes are
+		/// case-insensitive. After updating, check each
+		/// [`CartDiscountCode`](https://shopify.dev/docs/api/storefront/current/objects/CartDiscountCode)
+		/// in the cart's
+		/// [`discountCodes`](https://shopify.dev/docs/api/storefront/current/objects/Cart#field-Cart.fields.discountCodes)
+		/// field to see whether the code is applicable to the cart's current contents.
 		///
 		/// - parameters:
 		///     - cartId: The ID of the cart.
 		///     - discountCodes: The case-insensitive discount codes that the customer added at checkout.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -238,12 +322,47 @@ extension Storefront {
 			return self
 		}
 
-		/// Removes the gift card codes applied to the cart. 
+		/// Adds gift card codes to a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart)
+		/// without replacing any codes already applied. Gift card codes are
+		/// case-insensitive. To replace all gift card codes instead of adding to them,
+		/// use
+		/// [`cartGiftCardCodesUpdate`](https://shopify.dev/docs/api/storefront/current/mutations/cartGiftCardCodesUpdate).
+		///
+		/// - parameters:
+		///     - cartId: The ID of the cart.
+		///     - giftCardCodes: The case-insensitive gift card codes to add.
+		///
+		///        The input must not contain more than `250` values.
+		///
+		@discardableResult
+		open func cartGiftCardCodesAdd(alias: String? = nil, cartId: GraphQL.ID, giftCardCodes: [String], _ subfields: (CartGiftCardCodesAddPayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
+
+			args.append("giftCardCodes:[\(giftCardCodes.map { "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CartGiftCardCodesAddPayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartGiftCardCodesAdd", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Removes gift cards from a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart)
+		/// using their IDs. You can retrieve the IDs of applied gift cards from the
+		/// cart's
+		/// [`appliedGiftCards`](https://shopify.dev/docs/api/storefront/current/objects/Cart#field-Cart.fields.appliedGiftCards)
+		/// field.
 		///
 		/// - parameters:
 		///     - cartId: The ID of the cart.
 		///     - appliedGiftCardIds: The gift cards to remove.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -263,12 +382,15 @@ extension Storefront {
 			return self
 		}
 
-		/// Updates the gift card codes applied to the cart. 
+		/// Updates the gift card codes applied to the cart. Unlike
+		/// [`cartGiftCardCodesAdd`](https://shopify.dev/docs/api/storefront/current/mutations/cartGiftCardCodesAdd),
+		/// which adds codes without replacing existing ones, this mutation sets the
+		/// gift card codes for the cart. Gift card codes are case-insensitive.
 		///
 		/// - parameters:
 		///     - cartId: The ID of the cart.
 		///     - giftCardCodes: The case-insensitive gift card codes.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -288,12 +410,21 @@ extension Storefront {
 			return self
 		}
 
-		/// Adds a merchandise line to the cart. 
+		/// Adds one or more merchandise lines to an existing
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart).
+		/// Each line specifies the [product
+		/// variant](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant)
+		/// to purchase. Quantity defaults to `1` if not provided. You can add up to
+		/// 250 lines in a single request. Use
+		/// [`CartLineInput`](https://shopify.dev/docs/api/storefront/current/input-objects/CartLineInput)
+		/// to configure each line's merchandise, quantity, selling plan, custom
+		/// attributes, and any parent relationships for nested line items such as
+		/// warranties or add-ons.
 		///
 		/// - parameters:
 		///     - cartId: The ID of the cart.
 		///     - lines: A list of merchandise lines to add to the cart.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -313,12 +444,15 @@ extension Storefront {
 			return self
 		}
 
-		/// Removes one or more merchandise lines from the cart. 
+		/// Removes one or more merchandise lines from a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart).
+		/// Accepts up to 250 line IDs per request. Returns the updated cart along with
+		/// any errors or warnings.
 		///
 		/// - parameters:
 		///     - cartId: The ID of the cart.
 		///     - lineIds: The merchandise line IDs to remove.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -338,12 +472,19 @@ extension Storefront {
 			return self
 		}
 
-		/// Updates one or more merchandise lines on a cart. 
+		/// Updates one or more merchandise lines on a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart). You
+		/// can modify the quantity, swap the merchandise, change custom attributes, or
+		/// update the selling plan for each line. You can update a maximum of 250
+		/// lines per request. Omitting the
+		/// [`attributes`](https://shopify.dev/docs/api/storefront/current/mutations/cartLinesUpdate#arguments-lines.fields.attributes)
+		/// field or setting it to null preserves existing line attributes. Pass an
+		/// empty array to clear all attributes from a line.
 		///
 		/// - parameters:
 		///     - cartId: The ID of the cart.
 		///     - lines: The merchandise lines to update.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -363,7 +504,10 @@ extension Storefront {
 			return self
 		}
 
-		/// Deletes a cart metafield. 
+		/// Deletes a cart metafield. > Note: > This mutation won't trigger [Shopify
+		/// Functions](https://shopify.dev/docs/api/functions). The changes won't be
+		/// available to Shopify Functions until the buyer goes to checkout or performs
+		/// another cart interaction that triggers the functions.
 		///
 		/// - parameters:
 		///     - input: The input fields used to delete a cart metafield.
@@ -383,13 +527,21 @@ extension Storefront {
 			return self
 		}
 
-		/// Sets cart metafield values. Cart metafield values will be set regardless if 
-		/// they were previously created or not. Allows a maximum of 25 cart metafields 
-		/// to be set at a time. 
+		/// Sets
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// values on a cart, creating new metafields or updating existing ones.
+		/// Accepts up to 25 metafields per request. Cart metafields can automatically
+		/// copy to order metafields when an order is created, if there's a matching
+		/// order metafield definition with the [cart to order
+		/// copyable](https://shopify.dev/docs/apps/build/metafields/use-metafield-capabilities#cart-to-order-copyable)
+		/// capability enabled. > Note: > This mutation doesn't trigger [Shopify
+		/// Functions](https://shopify.dev/docs/api/functions). Changes aren't
+		/// available to Shopify Functions until the buyer goes to checkout or performs
+		/// another cart interaction that triggers the functions.
 		///
 		/// - parameters:
 		///     - metafields: The list of Cart metafield values to set. Maximum of 25.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -407,7 +559,10 @@ extension Storefront {
 			return self
 		}
 
-		/// Updates the note on the cart. 
+		/// Updates the note on a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart). The
+		/// note is a text field that stores additional information, such as a
+		/// personalized message from the buyer or special instructions for the order.
 		///
 		/// - parameters:
 		///     - cartId: The ID of the cart.
@@ -430,7 +585,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Update the customer's payment method that will be used to checkout. 
+		/// Update the customer's payment method that will be used to checkout.
 		///
 		/// - parameters:
 		///     - cartId: The ID of the cart.
@@ -453,7 +608,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Prepare the cart for cart checkout completion. 
+		/// Prepare the cart for cart checkout completion.
 		///
 		/// - parameters:
 		///     - cartId: The ID of the cart.
@@ -473,7 +628,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Removes personally identifiable information from the cart. 
+		/// Removes personally identifiable information from the cart.
 		///
 		/// - parameters:
 		///     - cartId: The ID of the cart.
@@ -493,12 +648,21 @@ extension Storefront {
 			return self
 		}
 
-		/// Update the selected delivery options for a delivery group. 
+		/// Updates the selected delivery option for one or more
+		/// [`CartDeliveryGroup`](https://shopify.dev/docs/api/storefront/current/objects/CartDeliveryGroup)
+		/// objects in a cart. Each delivery group represents items shipping to a
+		/// specific address and offers multiple delivery options with different costs
+		/// and methods. Use this mutation when a customer chooses their preferred
+		/// shipping method during checkout. The
+		/// [`deliveryOptionHandle`](https://shopify.dev/docs/api/storefront/current/input-objects/CartSelectedDeliveryOptionInput#field-CartSelectedDeliveryOptionInput.fields.deliveryOptionHandle)
+		/// identifies which
+		/// [`CartDeliveryOption`](https://shopify.dev/docs/api/storefront/current/objects/CartDeliveryOption)
+		/// to select for each delivery group.
 		///
 		/// - parameters:
 		///     - cartId: The ID of the cart.
 		///     - selectedDeliveryOptions: The selected delivery options.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -518,7 +682,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Submit the cart for checkout completion. 
+		/// Submit the cart for checkout completion.
 		///
 		/// - parameters:
 		///     - cartId: The ID of the cart.
@@ -542,8 +706,17 @@ extension Storefront {
 			return self
 		}
 
-		/// Creates a customer access token. The customer access token is required to 
-		/// modify the customer object in any way. 
+		/// For legacy customer accounts only. Creates a
+		/// [`CustomerAccessToken`](https://shopify.dev/docs/api/storefront/current/objects/CustomerAccessToken)
+		/// using the customer's email and password. The access token is required to
+		/// read or modify the
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// object, such as updating account information or managing addresses. The
+		/// token has an expiration time. Use
+		/// [`customerAccessTokenRenew`](https://shopify.dev/docs/api/storefront/current/mutations/customerAccessTokenRenew)
+		/// to extend the token before it expires, or create a new token if it's
+		/// already expired. > Caution: > This mutation handles customer credentials.
+		/// Always transmit requests over HTTPS and never log or expose the password.
 		///
 		/// - parameters:
 		///     - input: The fields used to create a customer access token.
@@ -563,11 +736,16 @@ extension Storefront {
 			return self
 		}
 
-		/// Creates a customer access token using a [multipass 
-		/// token](https://shopify.dev/api/multipass) instead of email and password. A 
-		/// customer record is created if the customer doesn't exist. If a customer 
-		/// record already exists but the record is disabled, then the customer record 
-		/// is enabled. 
+		/// Creates a
+		/// [`CustomerAccessToken`](https://shopify.dev/docs/api/storefront/current/objects/CustomerAccessToken)
+		/// using a [multipass token](https://shopify.dev/docs/api/multipass) instead
+		/// of email and password. This enables single sign-on for customers who
+		/// authenticate through an external system. If the customer doesn't exist in
+		/// Shopify, then a new customer record is created automatically. If the
+		/// customer exists but the record is disabled, then the customer record is
+		/// re-enabled. > Caution: > Multipass tokens are only valid for 15 minutes and
+		/// can only be used once. Generate tokens on-the-fly when needed rather than
+		/// in advance.
 		///
 		/// - parameters:
 		///     - multipassToken: A valid [multipass token](https://shopify.dev/api/multipass) to be authenticated.
@@ -587,7 +765,14 @@ extension Storefront {
 			return self
 		}
 
-		/// Permanently destroys a customer access token. 
+		/// Permanently destroys a
+		/// [`CustomerAccessToken`](https://shopify.dev/docs/api/storefront/current/objects/CustomerAccessToken).
+		/// Use this mutation when a customer explicitly signs out or when you need to
+		/// revoke the token. Use
+		/// [`customerAccessTokenCreate`](https://shopify.dev/docs/api/storefront/current/mutations/customerAccessTokenCreate)
+		/// to generate a new token with the customer's credentials. > Caution: > This
+		/// action is irreversible. The customer needs to sign in again to obtain a new
+		/// access token.
 		///
 		/// - parameters:
 		///     - customerAccessToken: The access token used to identify the customer.
@@ -607,9 +792,16 @@ extension Storefront {
 			return self
 		}
 
-		/// Renews a customer access token. Access token renewal must happen *before* a 
-		/// token expires. If a token has already expired, a new one should be created 
-		/// instead via `customerAccessTokenCreate`. 
+		/// Extends the validity of a
+		/// [`CustomerAccessToken`](https://shopify.dev/docs/api/storefront/current/objects/CustomerAccessToken)
+		/// before it expires. The renewed token maintains authenticated access to
+		/// customer operations. Renewal must happen before the token's
+		/// [`expiresAt`](https://shopify.dev/docs/api/storefront/current/objects/CustomerAccessToken#field-CustomerAccessToken.fields.expiresAt)
+		/// time. If a token has already expired, then use
+		/// [`customerAccessTokenCreate`](https://shopify.dev/docs/api/storefront/current/mutations/customerAccessTokenCreate)
+		/// to generate a new token with the customer's credentials. > Caution: > Store
+		/// access tokens securely. Never store tokens in plain text or insecure
+		/// locations, and avoid exposing them in URLs or logs.
 		///
 		/// - parameters:
 		///     - customerAccessToken: The access token used to identify the customer.
@@ -629,7 +821,15 @@ extension Storefront {
 			return self
 		}
 
-		/// Activates a customer. 
+		/// Activates a customer account using an activation token received from the
+		/// [`customerCreate`](https://shopify.dev/docs/api/storefront/current/mutations/customerCreate)
+		/// mutation. The customer sets their password during activation and receives a
+		/// [`CustomerAccessToken`](https://shopify.dev/docs/api/storefront/current/objects/CustomerAccessToken)
+		/// for authenticated access. For a simpler approach that doesn't require
+		/// parsing the activation URL, use
+		/// [`customerActivateByUrl`](https://shopify.dev/docs/api/storefront/current/mutations/customerActivateByUrl)
+		/// instead. > Caution: > This mutation handles customer credentials. Always
+		/// use HTTPS and never log or expose the password or access token.
 		///
 		/// - parameters:
 		///     - id: Specifies the customer to activate.
@@ -652,8 +852,14 @@ extension Storefront {
 			return self
 		}
 
-		/// Activates a customer with the activation url received from 
-		/// `customerCreate`. 
+		/// Activates a customer account using the full activation URL from the
+		/// [`customerCreate`](https://shopify.dev/docs/api/storefront/current/mutations/customerCreate)
+		/// mutation. This approach simplifies activation by accepting the complete URL
+		/// directly, eliminating the need to parse it for the customer ID and
+		/// activation token. Returns a
+		/// [`CustomerAccessToken`](https://shopify.dev/docs/api/storefront/current/objects/CustomerAccessToken)
+		/// for authenticating subsequent requests. > Caution: > Store the returned
+		/// access token securely. It grants access to the customer's account data.
 		///
 		/// - parameters:
 		///     - activationUrl: The customer activation URL.
@@ -676,7 +882,14 @@ extension Storefront {
 			return self
 		}
 
-		/// Creates a new address for a customer. 
+		/// Creates a new
+		/// [`MailingAddress`](https://shopify.dev/docs/api/storefront/current/objects/MailingAddress)
+		/// for a
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer).
+		/// Use the customer's [access
+		/// token](https://shopify.dev/docs/api/storefront/current/mutations/customerAddressCreate#arguments-customerAccessToken)
+		/// to identify them. Successful creation returns the new address. Each
+		/// customer can have multiple addresses.
 		///
 		/// - parameters:
 		///     - customerAccessToken: The access token used to identify the customer.
@@ -699,7 +912,14 @@ extension Storefront {
 			return self
 		}
 
-		/// Permanently deletes the address of an existing customer. 
+		/// Permanently deletes a specific
+		/// [`MailingAddress`](https://shopify.dev/docs/api/storefront/current/objects/MailingAddress)
+		/// for a
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer).
+		/// Requires a valid [customer access
+		/// token](https://shopify.dev/docs/api/storefront/current/mutations/customerAddressDelete#arguments-customerAccessToken)
+		/// to authenticate the request. > Caution: > This action is irreversible. You
+		/// can't recover the deleted address.
 		///
 		/// - parameters:
 		///     - id: Specifies the address to delete.
@@ -722,7 +942,16 @@ extension Storefront {
 			return self
 		}
 
-		/// Updates the address of an existing customer. 
+		/// Updates an existing
+		/// [`MailingAddress`](https://shopify.dev/docs/api/storefront/current/objects/MailingAddress)
+		/// for a
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer).
+		/// Requires a [customer access
+		/// token](https://shopify.dev/docs/api/storefront/current/mutations/customerAddressUpdate#arguments-customerAccessToken)
+		/// to identify the customer, an ID to specify which address to modify, and an
+		/// [`address`](https://shopify.dev/docs/api/storefront/current/input-objects/MailingAddressInput)
+		/// with the updated fields. Successful update returns the updated
+		/// [`MailingAddress`](https://shopify.dev/docs/api/storefront/current/objects/MailingAddress).
 		///
 		/// - parameters:
 		///     - customerAccessToken: The access token used to identify the customer.
@@ -748,7 +977,13 @@ extension Storefront {
 			return self
 		}
 
-		/// Creates a new customer. 
+		/// Creates a new
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// account with the provided contact information and login credentials. The
+		/// customer can then sign in for things such as accessing their account,
+		/// viewing order history, and managing saved addresses. > Caution: > This
+		/// mutation creates customer credentials. Ensure passwords are collected
+		/// securely and never logged or exposed in client-side code.
 		///
 		/// - parameters:
 		///     - input: The fields used to create a new customer.
@@ -768,7 +1003,12 @@ extension Storefront {
 			return self
 		}
 
-		/// Updates the default address of an existing customer. 
+		/// Updates the default address of an existing
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer).
+		/// Requires a [customer access
+		/// token](https://shopify.dev/docs/api/storefront/current/mutations/customerDefaultAddressUpdate#arguments-customerAccessToken)
+		/// to identify the customer and an address ID to specify which address to set
+		/// as the new default.
 		///
 		/// - parameters:
 		///     - customerAccessToken: The access token used to identify the customer.
@@ -791,18 +1031,17 @@ extension Storefront {
 			return self
 		}
 
-		/// Sends a reset password email to the customer. The reset password email 
-		/// contains a reset password URL and token that you can pass to the 
-		/// [`customerResetByUrl`](https://shopify.dev/api/storefront/latest/mutations/customerResetByUrl) 
-		/// or 
-		/// [`customerReset`](https://shopify.dev/api/storefront/latest/mutations/customerReset) 
-		/// mutation to reset the customer password. This mutation is throttled by IP. 
-		/// With private access, you can provide a 
-		/// [`Shopify-Storefront-Buyer-IP`](https://shopify.dev/api/usage/authentication#optional-ip-header) 
-		/// instead of the request IP. The header is case-sensitive and must be sent as 
-		/// `Shopify-Storefront-Buyer-IP`. Make sure that the value provided to 
-		/// `Shopify-Storefront-Buyer-IP` is trusted. Unthrottled access to this 
-		/// mutation presents a security risk. 
+		/// Sends a reset password email to the customer. The email contains a reset
+		/// password URL and token that you can pass to the
+		/// [`customerResetByUrl`](https://shopify.dev/docs/api/storefront/current/mutations/customerResetByUrl)
+		/// or
+		/// [`customerReset`](https://shopify.dev/docs/api/storefront/current/mutations/customerReset)
+		/// mutation to reset the customer's password. This mutation is throttled by
+		/// IP. With private access, you can provide a [`Shopify-Storefront-Buyer-IP`
+		/// header](https://shopify.dev/docs/api/usage/authentication#optional-ip-header)
+		/// instead of the request IP. The header is case-sensitive. > Caution: >
+		/// Ensure the value provided to `Shopify-Storefront-Buyer-IP` is trusted.
+		/// Unthrottled access to this mutation presents a security risk.
 		///
 		/// - parameters:
 		///     - email: The email address of the customer to recover.
@@ -822,10 +1061,19 @@ extension Storefront {
 			return self
 		}
 
-		/// "Resets a customer’s password with the token received from a reset password 
-		/// email. You can send a reset password email with the 
-		/// [`customerRecover`](https://shopify.dev/api/storefront/latest/mutations/customerRecover) 
-		/// mutation." 
+		/// Resets a customer's password using the reset token from a password recovery
+		/// email. On success, returns the updated
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// and a new
+		/// [`CustomerAccessToken`](https://shopify.dev/docs/api/storefront/current/objects/CustomerAccessToken)
+		/// for immediate authentication. Use the
+		/// [`customerRecover`](https://shopify.dev/docs/api/storefront/current/mutations/customerRecover)
+		/// mutation to send the password recovery email that provides the reset token.
+		/// Alternatively, use
+		/// [`customerResetByUrl`](https://shopify.dev/docs/api/storefront/current/mutations/customerResetByUrl)
+		/// if you have the full reset URL instead of the customer ID and token. >
+		/// Caution: > This mutation handles sensitive customer credentials. Validate
+		/// password requirements on the client before submission.
 		///
 		/// - parameters:
 		///     - id: Specifies the customer to reset.
@@ -848,10 +1096,16 @@ extension Storefront {
 			return self
 		}
 
-		/// "Resets a customer’s password with the reset password URL received from a 
-		/// reset password email. You can send a reset password email with the 
-		/// [`customerRecover`](https://shopify.dev/api/storefront/latest/mutations/customerRecover) 
-		/// mutation." 
+		/// Resets a customer's password using the reset URL from a password recovery
+		/// email. The reset URL is generated by the
+		/// [`customerRecover`](https://shopify.dev/docs/api/storefront/current/mutations/customerRecover)
+		/// mutation. On success, returns the updated
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// and a new
+		/// [`CustomerAccessToken`](https://shopify.dev/docs/api/storefront/current/objects/CustomerAccessToken)
+		/// for immediate authentication. > Caution: > This mutation handles customer
+		/// credentials. Ensure the new password is transmitted securely and never
+		/// logged or exposed in client-side code.
 		///
 		/// - parameters:
 		///     - resetUrl: The customer's reset password url.
@@ -874,7 +1128,17 @@ extension Storefront {
 			return self
 		}
 
-		/// Updates an existing customer. 
+		/// Updates a
+		/// [customer's](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// personal information such as name, password, and marketing preferences.
+		/// Requires a valid
+		/// [`CustomerAccessToken`](https://shopify.dev/docs/api/storefront/current/objects/CustomerAccessToken)
+		/// to authenticate the customer making the update. If the customer's password
+		/// is updated, then all previous access tokens become invalid. The mutation
+		/// returns a new access token in the payload to maintain the customer's
+		/// session. > Caution: > Password changes invalidate all existing access
+		/// tokens. Ensure your app handles the new token returned in the response to
+		/// avoid logging the customer out.
 		///
 		/// - parameters:
 		///     - customerAccessToken: The access token used to identify the customer.
@@ -897,7 +1161,19 @@ extension Storefront {
 			return self
 		}
 
-		/// Create a new Shop Pay payment request session. 
+		/// Creates a [Shop Pay payment request
+		/// session](https://shopify.dev/docs/api/storefront/current/objects/ShopPayPaymentRequestSession)
+		/// for processing payments. The session includes a checkout URL where
+		/// customers complete their purchase and a token for subsequent operations
+		/// like submitting the payment. The `sourceIdentifier` must be unique across
+		/// all orders to ensure accurate reconciliation. For a complete integration
+		/// guide including the JavaScript SDK setup and checkout flow, refer to the
+		/// [Shop Component API
+		/// documentation](https://shopify.dev/docs/api/commerce-components/pay). For
+		/// implementation steps, see the [development journey
+		/// guide](https://shopify.dev/docs/api/commerce-components/pay/development-journey).
+		/// For common error scenarios, see the [troubleshooting
+		/// guide](https://shopify.dev/docs/api/commerce-components/pay/troubleshooting-guide).
 		///
 		/// - parameters:
 		///     - sourceIdentifier: A unique identifier for the payment request session.
@@ -920,7 +1196,23 @@ extension Storefront {
 			return self
 		}
 
-		/// Submits a Shop Pay payment request session. 
+		/// Finalizes a [Shop Pay payment request
+		/// session](https://shopify.dev/docs/api/storefront/current/objects/ShopPayPaymentRequestSession).
+		/// Call this mutation after creating a session with
+		/// [`shopPayPaymentRequestSessionCreate`](https://shopify.dev/docs/api/storefront/current/mutations/shopPayPaymentRequestSessionCreate).
+		/// The
+		/// [`idempotencyKey`](https://shopify.dev/docs/api/storefront/current/mutations/shopPayPaymentRequestSessionSubmit#arguments-idempotencyKey)
+		/// argument ensures the payment transaction occurs only once, preventing
+		/// duplicate charges. On success, returns a
+		/// [`ShopPayPaymentRequestReceipt`](https://shopify.dev/docs/api/storefront/current/objects/ShopPayPaymentRequestReceipt)
+		/// with the processing status and a receipt token. For a complete integration
+		/// guide including the JavaScript SDK setup and checkout flow, refer to the
+		/// [Shop Component API
+		/// documentation](https://shopify.dev/docs/api/commerce-components/pay). For
+		/// implementation steps, see the [development journey
+		/// guide](https://shopify.dev/docs/api/commerce-components/pay/development-journey).
+		/// For common error scenarios, see the [troubleshooting
+		/// guide](https://shopify.dev/docs/api/commerce-components/pay/troubleshooting-guide).
 		///
 		/// - parameters:
 		///     - token: A token representing a payment session request.
@@ -952,8 +1244,8 @@ extension Storefront {
 		}
 	}
 
-	/// The schema’s entry-point for mutations. This acts as the public, top-level 
-	/// API from which all mutation queries must start. 
+	/// The schema’s entry-point for mutations. This acts as the public, top-level
+	/// API from which all mutation queries must start.
 	open class Mutation: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = MutationQuery
 
@@ -981,6 +1273,13 @@ extension Storefront {
 				}
 				return try CartBuyerIdentityUpdatePayload(fields: value)
 
+				case "cartClone":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartClonePayload(fields: value)
+
 				case "cartCreate":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -1002,6 +1301,13 @@ extension Storefront {
 				}
 				return try CartDeliveryAddressesRemovePayload(fields: value)
 
+				case "cartDeliveryAddressesReplace":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartDeliveryAddressesReplacePayload(fields: value)
+
 				case "cartDeliveryAddressesUpdate":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -1015,6 +1321,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
 				}
 				return try CartDiscountCodesUpdatePayload(fields: value)
+
+				case "cartGiftCardCodesAdd":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartGiftCardCodesAddPayload(fields: value)
 
 				case "cartGiftCardCodesRemove":
 				if value is NSNull { return nil }
@@ -1231,7 +1544,10 @@ extension Storefront {
 			}
 		}
 
-		/// Updates the attributes on a cart. 
+		/// Updates the attributes on a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart).
+		/// Attributes are custom key-value pairs that store additional information,
+		/// such as gift messages, special instructions, or order notes.
 		open var cartAttributesUpdate: Storefront.CartAttributesUpdatePayload? {
 			return internalGetCartAttributesUpdate()
 		}
@@ -1244,7 +1560,7 @@ extension Storefront {
 			return field(field: "cartAttributesUpdate", aliasSuffix: alias) as! Storefront.CartAttributesUpdatePayload?
 		}
 
-		/// Updates the billing address on the cart. 
+		/// Updates the billing address on the cart.
 		open var cartBillingAddressUpdate: Storefront.CartBillingAddressUpdatePayload? {
 			return internalGetCartBillingAddressUpdate()
 		}
@@ -1257,10 +1573,15 @@ extension Storefront {
 			return field(field: "cartBillingAddressUpdate", aliasSuffix: alias) as! Storefront.CartBillingAddressUpdatePayload?
 		}
 
-		/// Updates customer information associated with a cart. Buyer identity is used 
-		/// to determine [international 
-		/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing) 
-		/// and should match the customer's shipping address. 
+		/// Updates the buyer identity on a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart),
+		/// including contact information, location, and checkout preferences. The
+		/// buyer's country determines [international
+		/// pricing](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/markets/international-pricing)
+		/// and should match their shipping address. Use this mutation to associate a
+		/// logged-in customer via access token, set a B2B company location, or
+		/// configure checkout preferences like delivery method. Preferences prefill
+		/// checkout fields but don't sync back to the cart if overwritten at checkout.
 		open var cartBuyerIdentityUpdate: Storefront.CartBuyerIdentityUpdatePayload? {
 			return internalGetCartBuyerIdentityUpdate()
 		}
@@ -1273,7 +1594,26 @@ extension Storefront {
 			return field(field: "cartBuyerIdentityUpdate", aliasSuffix: alias) as! Storefront.CartBuyerIdentityUpdatePayload?
 		}
 
-		/// Creates a new cart. 
+		/// Creates a clone of the specified cart with all personally identifiable
+		/// information removed.
+		open var cartClone: Storefront.CartClonePayload? {
+			return internalGetCartClone()
+		}
+
+		open func aliasedCartClone(alias: String) -> Storefront.CartClonePayload? {
+			return internalGetCartClone(alias: alias)
+		}
+
+		func internalGetCartClone(alias: String? = nil) -> Storefront.CartClonePayload? {
+			return field(field: "cartClone", aliasSuffix: alias) as! Storefront.CartClonePayload?
+		}
+
+		/// Creates a new
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart) for
+		/// a buyer session. You can optionally initialize the cart with merchandise
+		/// lines, discount codes, gift card codes, buyer identity for international
+		/// pricing, and custom attributes. The returned cart includes a `checkoutUrl`
+		/// that directs the buyer to complete their purchase.
 		open var cartCreate: Storefront.CartCreatePayload? {
 			return internalGetCartCreate()
 		}
@@ -1286,7 +1626,11 @@ extension Storefront {
 			return field(field: "cartCreate", aliasSuffix: alias) as! Storefront.CartCreatePayload?
 		}
 
-		/// Adds delivery addresses to the cart. 
+		/// Adds delivery addresses to a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart). A
+		/// cart can have up to 20 delivery addresses. One address can be marked as
+		/// selected for checkout, and addresses can optionally be marked as one-time
+		/// use so they aren't saved to the customer's account.
 		open var cartDeliveryAddressesAdd: Storefront.CartDeliveryAddressesAddPayload? {
 			return internalGetCartDeliveryAddressesAdd()
 		}
@@ -1299,7 +1643,9 @@ extension Storefront {
 			return field(field: "cartDeliveryAddressesAdd", aliasSuffix: alias) as! Storefront.CartDeliveryAddressesAddPayload?
 		}
 
-		/// Removes delivery addresses from the cart. 
+		/// Removes delivery addresses from a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart) by
+		/// their IDs, allowing batch removal in a single request.
 		open var cartDeliveryAddressesRemove: Storefront.CartDeliveryAddressesRemovePayload? {
 			return internalGetCartDeliveryAddressesRemove()
 		}
@@ -1312,7 +1658,31 @@ extension Storefront {
 			return field(field: "cartDeliveryAddressesRemove", aliasSuffix: alias) as! Storefront.CartDeliveryAddressesRemovePayload?
 		}
 
-		/// Updates one or more delivery addresses on a cart. 
+		/// Replaces all delivery addresses on a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart) with
+		/// a new set of addresses in a single operation. Unlike
+		/// [`cartDeliveryAddressesUpdate`](https://shopify.dev/docs/api/storefront/current/mutations/cartDeliveryAddressesUpdate),
+		/// which modifies existing addresses, this mutation removes all current
+		/// addresses and sets the provided list as the new delivery addresses. One
+		/// address can be marked as selected, and each address can be flagged for
+		/// one-time use or configured with a specific validation strategy.
+		open var cartDeliveryAddressesReplace: Storefront.CartDeliveryAddressesReplacePayload? {
+			return internalGetCartDeliveryAddressesReplace()
+		}
+
+		open func aliasedCartDeliveryAddressesReplace(alias: String) -> Storefront.CartDeliveryAddressesReplacePayload? {
+			return internalGetCartDeliveryAddressesReplace(alias: alias)
+		}
+
+		func internalGetCartDeliveryAddressesReplace(alias: String? = nil) -> Storefront.CartDeliveryAddressesReplacePayload? {
+			return field(field: "cartDeliveryAddressesReplace", aliasSuffix: alias) as! Storefront.CartDeliveryAddressesReplacePayload?
+		}
+
+		/// Updates one or more delivery addresses on a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart).
+		/// Each address can be modified to change its details, set it as the
+		/// pre-selected address for checkout, or mark it for one-time use so it isn't
+		/// saved to the customer's account.
 		open var cartDeliveryAddressesUpdate: Storefront.CartDeliveryAddressesUpdatePayload? {
 			return internalGetCartDeliveryAddressesUpdate()
 		}
@@ -1325,7 +1695,15 @@ extension Storefront {
 			return field(field: "cartDeliveryAddressesUpdate", aliasSuffix: alias) as! Storefront.CartDeliveryAddressesUpdatePayload?
 		}
 
-		/// Updates the discount codes applied to the cart. 
+		/// Updates the discount codes applied to a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart).
+		/// This mutation replaces all existing discount codes with the provided list,
+		/// so pass an empty array to remove all codes. Discount codes are
+		/// case-insensitive. After updating, check each
+		/// [`CartDiscountCode`](https://shopify.dev/docs/api/storefront/current/objects/CartDiscountCode)
+		/// in the cart's
+		/// [`discountCodes`](https://shopify.dev/docs/api/storefront/current/objects/Cart#field-Cart.fields.discountCodes)
+		/// field to see whether the code is applicable to the cart's current contents.
 		open var cartDiscountCodesUpdate: Storefront.CartDiscountCodesUpdatePayload? {
 			return internalGetCartDiscountCodesUpdate()
 		}
@@ -1338,7 +1716,30 @@ extension Storefront {
 			return field(field: "cartDiscountCodesUpdate", aliasSuffix: alias) as! Storefront.CartDiscountCodesUpdatePayload?
 		}
 
-		/// Removes the gift card codes applied to the cart. 
+		/// Adds gift card codes to a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart)
+		/// without replacing any codes already applied. Gift card codes are
+		/// case-insensitive. To replace all gift card codes instead of adding to them,
+		/// use
+		/// [`cartGiftCardCodesUpdate`](https://shopify.dev/docs/api/storefront/current/mutations/cartGiftCardCodesUpdate).
+		open var cartGiftCardCodesAdd: Storefront.CartGiftCardCodesAddPayload? {
+			return internalGetCartGiftCardCodesAdd()
+		}
+
+		open func aliasedCartGiftCardCodesAdd(alias: String) -> Storefront.CartGiftCardCodesAddPayload? {
+			return internalGetCartGiftCardCodesAdd(alias: alias)
+		}
+
+		func internalGetCartGiftCardCodesAdd(alias: String? = nil) -> Storefront.CartGiftCardCodesAddPayload? {
+			return field(field: "cartGiftCardCodesAdd", aliasSuffix: alias) as! Storefront.CartGiftCardCodesAddPayload?
+		}
+
+		/// Removes gift cards from a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart)
+		/// using their IDs. You can retrieve the IDs of applied gift cards from the
+		/// cart's
+		/// [`appliedGiftCards`](https://shopify.dev/docs/api/storefront/current/objects/Cart#field-Cart.fields.appliedGiftCards)
+		/// field.
 		open var cartGiftCardCodesRemove: Storefront.CartGiftCardCodesRemovePayload? {
 			return internalGetCartGiftCardCodesRemove()
 		}
@@ -1351,7 +1752,10 @@ extension Storefront {
 			return field(field: "cartGiftCardCodesRemove", aliasSuffix: alias) as! Storefront.CartGiftCardCodesRemovePayload?
 		}
 
-		/// Updates the gift card codes applied to the cart. 
+		/// Updates the gift card codes applied to the cart. Unlike
+		/// [`cartGiftCardCodesAdd`](https://shopify.dev/docs/api/storefront/current/mutations/cartGiftCardCodesAdd),
+		/// which adds codes without replacing existing ones, this mutation sets the
+		/// gift card codes for the cart. Gift card codes are case-insensitive.
 		open var cartGiftCardCodesUpdate: Storefront.CartGiftCardCodesUpdatePayload? {
 			return internalGetCartGiftCardCodesUpdate()
 		}
@@ -1364,7 +1768,16 @@ extension Storefront {
 			return field(field: "cartGiftCardCodesUpdate", aliasSuffix: alias) as! Storefront.CartGiftCardCodesUpdatePayload?
 		}
 
-		/// Adds a merchandise line to the cart. 
+		/// Adds one or more merchandise lines to an existing
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart).
+		/// Each line specifies the [product
+		/// variant](https://shopify.dev/docs/api/storefront/current/objects/ProductVariant)
+		/// to purchase. Quantity defaults to `1` if not provided. You can add up to
+		/// 250 lines in a single request. Use
+		/// [`CartLineInput`](https://shopify.dev/docs/api/storefront/current/input-objects/CartLineInput)
+		/// to configure each line's merchandise, quantity, selling plan, custom
+		/// attributes, and any parent relationships for nested line items such as
+		/// warranties or add-ons.
 		open var cartLinesAdd: Storefront.CartLinesAddPayload? {
 			return internalGetCartLinesAdd()
 		}
@@ -1377,7 +1790,10 @@ extension Storefront {
 			return field(field: "cartLinesAdd", aliasSuffix: alias) as! Storefront.CartLinesAddPayload?
 		}
 
-		/// Removes one or more merchandise lines from the cart. 
+		/// Removes one or more merchandise lines from a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart).
+		/// Accepts up to 250 line IDs per request. Returns the updated cart along with
+		/// any errors or warnings.
 		open var cartLinesRemove: Storefront.CartLinesRemovePayload? {
 			return internalGetCartLinesRemove()
 		}
@@ -1390,7 +1806,14 @@ extension Storefront {
 			return field(field: "cartLinesRemove", aliasSuffix: alias) as! Storefront.CartLinesRemovePayload?
 		}
 
-		/// Updates one or more merchandise lines on a cart. 
+		/// Updates one or more merchandise lines on a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart). You
+		/// can modify the quantity, swap the merchandise, change custom attributes, or
+		/// update the selling plan for each line. You can update a maximum of 250
+		/// lines per request. Omitting the
+		/// [`attributes`](https://shopify.dev/docs/api/storefront/current/mutations/cartLinesUpdate#arguments-lines.fields.attributes)
+		/// field or setting it to null preserves existing line attributes. Pass an
+		/// empty array to clear all attributes from a line.
 		open var cartLinesUpdate: Storefront.CartLinesUpdatePayload? {
 			return internalGetCartLinesUpdate()
 		}
@@ -1403,7 +1826,10 @@ extension Storefront {
 			return field(field: "cartLinesUpdate", aliasSuffix: alias) as! Storefront.CartLinesUpdatePayload?
 		}
 
-		/// Deletes a cart metafield. 
+		/// Deletes a cart metafield. > Note: > This mutation won't trigger [Shopify
+		/// Functions](https://shopify.dev/docs/api/functions). The changes won't be
+		/// available to Shopify Functions until the buyer goes to checkout or performs
+		/// another cart interaction that triggers the functions.
 		open var cartMetafieldDelete: Storefront.CartMetafieldDeletePayload? {
 			return internalGetCartMetafieldDelete()
 		}
@@ -1416,9 +1842,17 @@ extension Storefront {
 			return field(field: "cartMetafieldDelete", aliasSuffix: alias) as! Storefront.CartMetafieldDeletePayload?
 		}
 
-		/// Sets cart metafield values. Cart metafield values will be set regardless if 
-		/// they were previously created or not. Allows a maximum of 25 cart metafields 
-		/// to be set at a time. 
+		/// Sets
+		/// [`Metafield`](https://shopify.dev/docs/api/storefront/current/objects/Metafield)
+		/// values on a cart, creating new metafields or updating existing ones.
+		/// Accepts up to 25 metafields per request. Cart metafields can automatically
+		/// copy to order metafields when an order is created, if there's a matching
+		/// order metafield definition with the [cart to order
+		/// copyable](https://shopify.dev/docs/apps/build/metafields/use-metafield-capabilities#cart-to-order-copyable)
+		/// capability enabled. > Note: > This mutation doesn't trigger [Shopify
+		/// Functions](https://shopify.dev/docs/api/functions). Changes aren't
+		/// available to Shopify Functions until the buyer goes to checkout or performs
+		/// another cart interaction that triggers the functions.
 		open var cartMetafieldsSet: Storefront.CartMetafieldsSetPayload? {
 			return internalGetCartMetafieldsSet()
 		}
@@ -1431,7 +1865,10 @@ extension Storefront {
 			return field(field: "cartMetafieldsSet", aliasSuffix: alias) as! Storefront.CartMetafieldsSetPayload?
 		}
 
-		/// Updates the note on the cart. 
+		/// Updates the note on a
+		/// [`Cart`](https://shopify.dev/docs/api/storefront/current/objects/Cart). The
+		/// note is a text field that stores additional information, such as a
+		/// personalized message from the buyer or special instructions for the order.
 		open var cartNoteUpdate: Storefront.CartNoteUpdatePayload? {
 			return internalGetCartNoteUpdate()
 		}
@@ -1444,7 +1881,7 @@ extension Storefront {
 			return field(field: "cartNoteUpdate", aliasSuffix: alias) as! Storefront.CartNoteUpdatePayload?
 		}
 
-		/// Update the customer's payment method that will be used to checkout. 
+		/// Update the customer's payment method that will be used to checkout.
 		open var cartPaymentUpdate: Storefront.CartPaymentUpdatePayload? {
 			return internalGetCartPaymentUpdate()
 		}
@@ -1457,7 +1894,7 @@ extension Storefront {
 			return field(field: "cartPaymentUpdate", aliasSuffix: alias) as! Storefront.CartPaymentUpdatePayload?
 		}
 
-		/// Prepare the cart for cart checkout completion. 
+		/// Prepare the cart for cart checkout completion.
 		open var cartPrepareForCompletion: Storefront.CartPrepareForCompletionPayload? {
 			return internalGetCartPrepareForCompletion()
 		}
@@ -1470,7 +1907,7 @@ extension Storefront {
 			return field(field: "cartPrepareForCompletion", aliasSuffix: alias) as! Storefront.CartPrepareForCompletionPayload?
 		}
 
-		/// Removes personally identifiable information from the cart. 
+		/// Removes personally identifiable information from the cart.
 		open var cartRemovePersonalData: Storefront.CartRemovePersonalDataPayload? {
 			return internalGetCartRemovePersonalData()
 		}
@@ -1483,7 +1920,16 @@ extension Storefront {
 			return field(field: "cartRemovePersonalData", aliasSuffix: alias) as! Storefront.CartRemovePersonalDataPayload?
 		}
 
-		/// Update the selected delivery options for a delivery group. 
+		/// Updates the selected delivery option for one or more
+		/// [`CartDeliveryGroup`](https://shopify.dev/docs/api/storefront/current/objects/CartDeliveryGroup)
+		/// objects in a cart. Each delivery group represents items shipping to a
+		/// specific address and offers multiple delivery options with different costs
+		/// and methods. Use this mutation when a customer chooses their preferred
+		/// shipping method during checkout. The
+		/// [`deliveryOptionHandle`](https://shopify.dev/docs/api/storefront/current/input-objects/CartSelectedDeliveryOptionInput#field-CartSelectedDeliveryOptionInput.fields.deliveryOptionHandle)
+		/// identifies which
+		/// [`CartDeliveryOption`](https://shopify.dev/docs/api/storefront/current/objects/CartDeliveryOption)
+		/// to select for each delivery group.
 		open var cartSelectedDeliveryOptionsUpdate: Storefront.CartSelectedDeliveryOptionsUpdatePayload? {
 			return internalGetCartSelectedDeliveryOptionsUpdate()
 		}
@@ -1496,7 +1942,7 @@ extension Storefront {
 			return field(field: "cartSelectedDeliveryOptionsUpdate", aliasSuffix: alias) as! Storefront.CartSelectedDeliveryOptionsUpdatePayload?
 		}
 
-		/// Submit the cart for checkout completion. 
+		/// Submit the cart for checkout completion.
 		open var cartSubmitForCompletion: Storefront.CartSubmitForCompletionPayload? {
 			return internalGetCartSubmitForCompletion()
 		}
@@ -1509,8 +1955,17 @@ extension Storefront {
 			return field(field: "cartSubmitForCompletion", aliasSuffix: alias) as! Storefront.CartSubmitForCompletionPayload?
 		}
 
-		/// Creates a customer access token. The customer access token is required to 
-		/// modify the customer object in any way. 
+		/// For legacy customer accounts only. Creates a
+		/// [`CustomerAccessToken`](https://shopify.dev/docs/api/storefront/current/objects/CustomerAccessToken)
+		/// using the customer's email and password. The access token is required to
+		/// read or modify the
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// object, such as updating account information or managing addresses. The
+		/// token has an expiration time. Use
+		/// [`customerAccessTokenRenew`](https://shopify.dev/docs/api/storefront/current/mutations/customerAccessTokenRenew)
+		/// to extend the token before it expires, or create a new token if it's
+		/// already expired. > Caution: > This mutation handles customer credentials.
+		/// Always transmit requests over HTTPS and never log or expose the password.
 		open var customerAccessTokenCreate: Storefront.CustomerAccessTokenCreatePayload? {
 			return internalGetCustomerAccessTokenCreate()
 		}
@@ -1523,11 +1978,16 @@ extension Storefront {
 			return field(field: "customerAccessTokenCreate", aliasSuffix: alias) as! Storefront.CustomerAccessTokenCreatePayload?
 		}
 
-		/// Creates a customer access token using a [multipass 
-		/// token](https://shopify.dev/api/multipass) instead of email and password. A 
-		/// customer record is created if the customer doesn't exist. If a customer 
-		/// record already exists but the record is disabled, then the customer record 
-		/// is enabled. 
+		/// Creates a
+		/// [`CustomerAccessToken`](https://shopify.dev/docs/api/storefront/current/objects/CustomerAccessToken)
+		/// using a [multipass token](https://shopify.dev/docs/api/multipass) instead
+		/// of email and password. This enables single sign-on for customers who
+		/// authenticate through an external system. If the customer doesn't exist in
+		/// Shopify, then a new customer record is created automatically. If the
+		/// customer exists but the record is disabled, then the customer record is
+		/// re-enabled. > Caution: > Multipass tokens are only valid for 15 minutes and
+		/// can only be used once. Generate tokens on-the-fly when needed rather than
+		/// in advance.
 		open var customerAccessTokenCreateWithMultipass: Storefront.CustomerAccessTokenCreateWithMultipassPayload? {
 			return internalGetCustomerAccessTokenCreateWithMultipass()
 		}
@@ -1540,7 +2000,14 @@ extension Storefront {
 			return field(field: "customerAccessTokenCreateWithMultipass", aliasSuffix: alias) as! Storefront.CustomerAccessTokenCreateWithMultipassPayload?
 		}
 
-		/// Permanently destroys a customer access token. 
+		/// Permanently destroys a
+		/// [`CustomerAccessToken`](https://shopify.dev/docs/api/storefront/current/objects/CustomerAccessToken).
+		/// Use this mutation when a customer explicitly signs out or when you need to
+		/// revoke the token. Use
+		/// [`customerAccessTokenCreate`](https://shopify.dev/docs/api/storefront/current/mutations/customerAccessTokenCreate)
+		/// to generate a new token with the customer's credentials. > Caution: > This
+		/// action is irreversible. The customer needs to sign in again to obtain a new
+		/// access token.
 		open var customerAccessTokenDelete: Storefront.CustomerAccessTokenDeletePayload? {
 			return internalGetCustomerAccessTokenDelete()
 		}
@@ -1553,9 +2020,16 @@ extension Storefront {
 			return field(field: "customerAccessTokenDelete", aliasSuffix: alias) as! Storefront.CustomerAccessTokenDeletePayload?
 		}
 
-		/// Renews a customer access token. Access token renewal must happen *before* a 
-		/// token expires. If a token has already expired, a new one should be created 
-		/// instead via `customerAccessTokenCreate`. 
+		/// Extends the validity of a
+		/// [`CustomerAccessToken`](https://shopify.dev/docs/api/storefront/current/objects/CustomerAccessToken)
+		/// before it expires. The renewed token maintains authenticated access to
+		/// customer operations. Renewal must happen before the token's
+		/// [`expiresAt`](https://shopify.dev/docs/api/storefront/current/objects/CustomerAccessToken#field-CustomerAccessToken.fields.expiresAt)
+		/// time. If a token has already expired, then use
+		/// [`customerAccessTokenCreate`](https://shopify.dev/docs/api/storefront/current/mutations/customerAccessTokenCreate)
+		/// to generate a new token with the customer's credentials. > Caution: > Store
+		/// access tokens securely. Never store tokens in plain text or insecure
+		/// locations, and avoid exposing them in URLs or logs.
 		open var customerAccessTokenRenew: Storefront.CustomerAccessTokenRenewPayload? {
 			return internalGetCustomerAccessTokenRenew()
 		}
@@ -1568,7 +2042,15 @@ extension Storefront {
 			return field(field: "customerAccessTokenRenew", aliasSuffix: alias) as! Storefront.CustomerAccessTokenRenewPayload?
 		}
 
-		/// Activates a customer. 
+		/// Activates a customer account using an activation token received from the
+		/// [`customerCreate`](https://shopify.dev/docs/api/storefront/current/mutations/customerCreate)
+		/// mutation. The customer sets their password during activation and receives a
+		/// [`CustomerAccessToken`](https://shopify.dev/docs/api/storefront/current/objects/CustomerAccessToken)
+		/// for authenticated access. For a simpler approach that doesn't require
+		/// parsing the activation URL, use
+		/// [`customerActivateByUrl`](https://shopify.dev/docs/api/storefront/current/mutations/customerActivateByUrl)
+		/// instead. > Caution: > This mutation handles customer credentials. Always
+		/// use HTTPS and never log or expose the password or access token.
 		open var customerActivate: Storefront.CustomerActivatePayload? {
 			return internalGetCustomerActivate()
 		}
@@ -1581,8 +2063,14 @@ extension Storefront {
 			return field(field: "customerActivate", aliasSuffix: alias) as! Storefront.CustomerActivatePayload?
 		}
 
-		/// Activates a customer with the activation url received from 
-		/// `customerCreate`. 
+		/// Activates a customer account using the full activation URL from the
+		/// [`customerCreate`](https://shopify.dev/docs/api/storefront/current/mutations/customerCreate)
+		/// mutation. This approach simplifies activation by accepting the complete URL
+		/// directly, eliminating the need to parse it for the customer ID and
+		/// activation token. Returns a
+		/// [`CustomerAccessToken`](https://shopify.dev/docs/api/storefront/current/objects/CustomerAccessToken)
+		/// for authenticating subsequent requests. > Caution: > Store the returned
+		/// access token securely. It grants access to the customer's account data.
 		open var customerActivateByUrl: Storefront.CustomerActivateByUrlPayload? {
 			return internalGetCustomerActivateByUrl()
 		}
@@ -1595,7 +2083,14 @@ extension Storefront {
 			return field(field: "customerActivateByUrl", aliasSuffix: alias) as! Storefront.CustomerActivateByUrlPayload?
 		}
 
-		/// Creates a new address for a customer. 
+		/// Creates a new
+		/// [`MailingAddress`](https://shopify.dev/docs/api/storefront/current/objects/MailingAddress)
+		/// for a
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer).
+		/// Use the customer's [access
+		/// token](https://shopify.dev/docs/api/storefront/current/mutations/customerAddressCreate#arguments-customerAccessToken)
+		/// to identify them. Successful creation returns the new address. Each
+		/// customer can have multiple addresses.
 		open var customerAddressCreate: Storefront.CustomerAddressCreatePayload? {
 			return internalGetCustomerAddressCreate()
 		}
@@ -1608,7 +2103,14 @@ extension Storefront {
 			return field(field: "customerAddressCreate", aliasSuffix: alias) as! Storefront.CustomerAddressCreatePayload?
 		}
 
-		/// Permanently deletes the address of an existing customer. 
+		/// Permanently deletes a specific
+		/// [`MailingAddress`](https://shopify.dev/docs/api/storefront/current/objects/MailingAddress)
+		/// for a
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer).
+		/// Requires a valid [customer access
+		/// token](https://shopify.dev/docs/api/storefront/current/mutations/customerAddressDelete#arguments-customerAccessToken)
+		/// to authenticate the request. > Caution: > This action is irreversible. You
+		/// can't recover the deleted address.
 		open var customerAddressDelete: Storefront.CustomerAddressDeletePayload? {
 			return internalGetCustomerAddressDelete()
 		}
@@ -1621,7 +2123,16 @@ extension Storefront {
 			return field(field: "customerAddressDelete", aliasSuffix: alias) as! Storefront.CustomerAddressDeletePayload?
 		}
 
-		/// Updates the address of an existing customer. 
+		/// Updates an existing
+		/// [`MailingAddress`](https://shopify.dev/docs/api/storefront/current/objects/MailingAddress)
+		/// for a
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer).
+		/// Requires a [customer access
+		/// token](https://shopify.dev/docs/api/storefront/current/mutations/customerAddressUpdate#arguments-customerAccessToken)
+		/// to identify the customer, an ID to specify which address to modify, and an
+		/// [`address`](https://shopify.dev/docs/api/storefront/current/input-objects/MailingAddressInput)
+		/// with the updated fields. Successful update returns the updated
+		/// [`MailingAddress`](https://shopify.dev/docs/api/storefront/current/objects/MailingAddress).
 		open var customerAddressUpdate: Storefront.CustomerAddressUpdatePayload? {
 			return internalGetCustomerAddressUpdate()
 		}
@@ -1634,7 +2145,13 @@ extension Storefront {
 			return field(field: "customerAddressUpdate", aliasSuffix: alias) as! Storefront.CustomerAddressUpdatePayload?
 		}
 
-		/// Creates a new customer. 
+		/// Creates a new
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// account with the provided contact information and login credentials. The
+		/// customer can then sign in for things such as accessing their account,
+		/// viewing order history, and managing saved addresses. > Caution: > This
+		/// mutation creates customer credentials. Ensure passwords are collected
+		/// securely and never logged or exposed in client-side code.
 		open var customerCreate: Storefront.CustomerCreatePayload? {
 			return internalGetCustomerCreate()
 		}
@@ -1647,7 +2164,12 @@ extension Storefront {
 			return field(field: "customerCreate", aliasSuffix: alias) as! Storefront.CustomerCreatePayload?
 		}
 
-		/// Updates the default address of an existing customer. 
+		/// Updates the default address of an existing
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer).
+		/// Requires a [customer access
+		/// token](https://shopify.dev/docs/api/storefront/current/mutations/customerDefaultAddressUpdate#arguments-customerAccessToken)
+		/// to identify the customer and an address ID to specify which address to set
+		/// as the new default.
 		open var customerDefaultAddressUpdate: Storefront.CustomerDefaultAddressUpdatePayload? {
 			return internalGetCustomerDefaultAddressUpdate()
 		}
@@ -1660,18 +2182,17 @@ extension Storefront {
 			return field(field: "customerDefaultAddressUpdate", aliasSuffix: alias) as! Storefront.CustomerDefaultAddressUpdatePayload?
 		}
 
-		/// Sends a reset password email to the customer. The reset password email 
-		/// contains a reset password URL and token that you can pass to the 
-		/// [`customerResetByUrl`](https://shopify.dev/api/storefront/latest/mutations/customerResetByUrl) 
-		/// or 
-		/// [`customerReset`](https://shopify.dev/api/storefront/latest/mutations/customerReset) 
-		/// mutation to reset the customer password. This mutation is throttled by IP. 
-		/// With private access, you can provide a 
-		/// [`Shopify-Storefront-Buyer-IP`](https://shopify.dev/api/usage/authentication#optional-ip-header) 
-		/// instead of the request IP. The header is case-sensitive and must be sent as 
-		/// `Shopify-Storefront-Buyer-IP`. Make sure that the value provided to 
-		/// `Shopify-Storefront-Buyer-IP` is trusted. Unthrottled access to this 
-		/// mutation presents a security risk. 
+		/// Sends a reset password email to the customer. The email contains a reset
+		/// password URL and token that you can pass to the
+		/// [`customerResetByUrl`](https://shopify.dev/docs/api/storefront/current/mutations/customerResetByUrl)
+		/// or
+		/// [`customerReset`](https://shopify.dev/docs/api/storefront/current/mutations/customerReset)
+		/// mutation to reset the customer's password. This mutation is throttled by
+		/// IP. With private access, you can provide a [`Shopify-Storefront-Buyer-IP`
+		/// header](https://shopify.dev/docs/api/usage/authentication#optional-ip-header)
+		/// instead of the request IP. The header is case-sensitive. > Caution: >
+		/// Ensure the value provided to `Shopify-Storefront-Buyer-IP` is trusted.
+		/// Unthrottled access to this mutation presents a security risk.
 		open var customerRecover: Storefront.CustomerRecoverPayload? {
 			return internalGetCustomerRecover()
 		}
@@ -1684,10 +2205,19 @@ extension Storefront {
 			return field(field: "customerRecover", aliasSuffix: alias) as! Storefront.CustomerRecoverPayload?
 		}
 
-		/// "Resets a customer’s password with the token received from a reset password 
-		/// email. You can send a reset password email with the 
-		/// [`customerRecover`](https://shopify.dev/api/storefront/latest/mutations/customerRecover) 
-		/// mutation." 
+		/// Resets a customer's password using the reset token from a password recovery
+		/// email. On success, returns the updated
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// and a new
+		/// [`CustomerAccessToken`](https://shopify.dev/docs/api/storefront/current/objects/CustomerAccessToken)
+		/// for immediate authentication. Use the
+		/// [`customerRecover`](https://shopify.dev/docs/api/storefront/current/mutations/customerRecover)
+		/// mutation to send the password recovery email that provides the reset token.
+		/// Alternatively, use
+		/// [`customerResetByUrl`](https://shopify.dev/docs/api/storefront/current/mutations/customerResetByUrl)
+		/// if you have the full reset URL instead of the customer ID and token. >
+		/// Caution: > This mutation handles sensitive customer credentials. Validate
+		/// password requirements on the client before submission.
 		open var customerReset: Storefront.CustomerResetPayload? {
 			return internalGetCustomerReset()
 		}
@@ -1700,10 +2230,16 @@ extension Storefront {
 			return field(field: "customerReset", aliasSuffix: alias) as! Storefront.CustomerResetPayload?
 		}
 
-		/// "Resets a customer’s password with the reset password URL received from a 
-		/// reset password email. You can send a reset password email with the 
-		/// [`customerRecover`](https://shopify.dev/api/storefront/latest/mutations/customerRecover) 
-		/// mutation." 
+		/// Resets a customer's password using the reset URL from a password recovery
+		/// email. The reset URL is generated by the
+		/// [`customerRecover`](https://shopify.dev/docs/api/storefront/current/mutations/customerRecover)
+		/// mutation. On success, returns the updated
+		/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// and a new
+		/// [`CustomerAccessToken`](https://shopify.dev/docs/api/storefront/current/objects/CustomerAccessToken)
+		/// for immediate authentication. > Caution: > This mutation handles customer
+		/// credentials. Ensure the new password is transmitted securely and never
+		/// logged or exposed in client-side code.
 		open var customerResetByUrl: Storefront.CustomerResetByUrlPayload? {
 			return internalGetCustomerResetByUrl()
 		}
@@ -1716,7 +2252,17 @@ extension Storefront {
 			return field(field: "customerResetByUrl", aliasSuffix: alias) as! Storefront.CustomerResetByUrlPayload?
 		}
 
-		/// Updates an existing customer. 
+		/// Updates a
+		/// [customer's](https://shopify.dev/docs/api/storefront/current/objects/Customer)
+		/// personal information such as name, password, and marketing preferences.
+		/// Requires a valid
+		/// [`CustomerAccessToken`](https://shopify.dev/docs/api/storefront/current/objects/CustomerAccessToken)
+		/// to authenticate the customer making the update. If the customer's password
+		/// is updated, then all previous access tokens become invalid. The mutation
+		/// returns a new access token in the payload to maintain the customer's
+		/// session. > Caution: > Password changes invalidate all existing access
+		/// tokens. Ensure your app handles the new token returned in the response to
+		/// avoid logging the customer out.
 		open var customerUpdate: Storefront.CustomerUpdatePayload? {
 			return internalGetCustomerUpdate()
 		}
@@ -1729,7 +2275,19 @@ extension Storefront {
 			return field(field: "customerUpdate", aliasSuffix: alias) as! Storefront.CustomerUpdatePayload?
 		}
 
-		/// Create a new Shop Pay payment request session. 
+		/// Creates a [Shop Pay payment request
+		/// session](https://shopify.dev/docs/api/storefront/current/objects/ShopPayPaymentRequestSession)
+		/// for processing payments. The session includes a checkout URL where
+		/// customers complete their purchase and a token for subsequent operations
+		/// like submitting the payment. The `sourceIdentifier` must be unique across
+		/// all orders to ensure accurate reconciliation. For a complete integration
+		/// guide including the JavaScript SDK setup and checkout flow, refer to the
+		/// [Shop Component API
+		/// documentation](https://shopify.dev/docs/api/commerce-components/pay). For
+		/// implementation steps, see the [development journey
+		/// guide](https://shopify.dev/docs/api/commerce-components/pay/development-journey).
+		/// For common error scenarios, see the [troubleshooting
+		/// guide](https://shopify.dev/docs/api/commerce-components/pay/troubleshooting-guide).
 		open var shopPayPaymentRequestSessionCreate: Storefront.ShopPayPaymentRequestSessionCreatePayload? {
 			return internalGetShopPayPaymentRequestSessionCreate()
 		}
@@ -1742,7 +2300,23 @@ extension Storefront {
 			return field(field: "shopPayPaymentRequestSessionCreate", aliasSuffix: alias) as! Storefront.ShopPayPaymentRequestSessionCreatePayload?
 		}
 
-		/// Submits a Shop Pay payment request session. 
+		/// Finalizes a [Shop Pay payment request
+		/// session](https://shopify.dev/docs/api/storefront/current/objects/ShopPayPaymentRequestSession).
+		/// Call this mutation after creating a session with
+		/// [`shopPayPaymentRequestSessionCreate`](https://shopify.dev/docs/api/storefront/current/mutations/shopPayPaymentRequestSessionCreate).
+		/// The
+		/// [`idempotencyKey`](https://shopify.dev/docs/api/storefront/current/mutations/shopPayPaymentRequestSessionSubmit#arguments-idempotencyKey)
+		/// argument ensures the payment transaction occurs only once, preventing
+		/// duplicate charges. On success, returns a
+		/// [`ShopPayPaymentRequestReceipt`](https://shopify.dev/docs/api/storefront/current/objects/ShopPayPaymentRequestReceipt)
+		/// with the processing status and a receipt token. For a complete integration
+		/// guide including the JavaScript SDK setup and checkout flow, refer to the
+		/// [Shop Component API
+		/// documentation](https://shopify.dev/docs/api/commerce-components/pay). For
+		/// implementation steps, see the [development journey
+		/// guide](https://shopify.dev/docs/api/commerce-components/pay/development-journey).
+		/// For common error scenarios, see the [troubleshooting
+		/// guide](https://shopify.dev/docs/api/commerce-components/pay/troubleshooting-guide).
 		open var shopPayPaymentRequestSessionSubmit: Storefront.ShopPayPaymentRequestSessionSubmitPayload? {
 			return internalGetShopPayPaymentRequestSessionSubmit()
 		}
@@ -1777,6 +2351,12 @@ extension Storefront {
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
+					case "cartClone":
+					if let value = internalGetCartClone() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "cartCreate":
 					if let value = internalGetCartCreate() {
 						response.append(value)
@@ -1795,6 +2375,12 @@ extension Storefront {
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
+					case "cartDeliveryAddressesReplace":
+					if let value = internalGetCartDeliveryAddressesReplace() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "cartDeliveryAddressesUpdate":
 					if let value = internalGetCartDeliveryAddressesUpdate() {
 						response.append(value)
@@ -1803,6 +2389,12 @@ extension Storefront {
 
 					case "cartDiscountCodesUpdate":
 					if let value = internalGetCartDiscountCodesUpdate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "cartGiftCardCodesAdd":
+					if let value = internalGetCartGiftCardCodesAdd() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

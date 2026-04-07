@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Return type for `cartLinesRemove` mutation. 
+	/// Return type for `cartLinesRemove` mutation.
 	open class CartLinesRemovePayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartLinesRemovePayload
 
-		/// The updated cart. 
+		/// The updated cart.
 		@discardableResult
 		open func cart(alias: String? = nil, _ subfields: (CartQuery) -> Void) -> CartLinesRemovePayloadQuery {
 			let subquery = CartQuery()
@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (CartUserErrorQuery) -> Void) -> CartLinesRemovePayloadQuery {
 			let subquery = CartUserErrorQuery()
@@ -51,7 +51,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of warnings that occurred during the mutation. 
+		/// A list of warnings that occurred during the mutation.
 		@discardableResult
 		open func warnings(alias: String? = nil, _ subfields: (CartWarningQuery) -> Void) -> CartLinesRemovePayloadQuery {
 			let subquery = CartWarningQuery()
@@ -62,7 +62,7 @@ extension Storefront {
 		}
 	}
 
-	/// Return type for `cartLinesRemove` mutation. 
+	/// Return type for `cartLinesRemove` mutation.
 	open class CartLinesRemovePayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CartLinesRemovePayloadQuery
 
@@ -93,7 +93,7 @@ extension Storefront {
 			}
 		}
 
-		/// The updated cart. 
+		/// The updated cart.
 		open var cart: Storefront.Cart? {
 			return internalGetCart()
 		}
@@ -102,7 +102,7 @@ extension Storefront {
 			return field(field: "cart", aliasSuffix: alias) as! Storefront.Cart?
 		}
 
-		/// The list of errors that occurred from executing the mutation. 
+		/// The list of errors that occurred from executing the mutation.
 		open var userErrors: [Storefront.CartUserError] {
 			return internalGetUserErrors()
 		}
@@ -111,7 +111,7 @@ extension Storefront {
 			return field(field: "userErrors", aliasSuffix: alias) as! [Storefront.CartUserError]
 		}
 
-		/// A list of warnings that occurred during the mutation. 
+		/// A list of warnings that occurred during the mutation.
 		open var warnings: [Storefront.CartWarning] {
 			return internalGetWarnings()
 		}

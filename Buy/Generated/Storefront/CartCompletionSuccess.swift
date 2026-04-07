@@ -27,32 +27,32 @@
 import Foundation
 
 extension Storefront {
-	/// A successful completion to checkout a cart and a created order. 
+	/// A successful completion to checkout a cart and a created order.
 	open class CartCompletionSuccessQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartCompletionSuccess
 
-		/// The date and time when the job completed. 
+		/// The date and time when the job completed.
 		@discardableResult
 		open func completedAt(alias: String? = nil) -> CartCompletionSuccessQuery {
 			addField(field: "completedAt", aliasSuffix: alias)
 			return self
 		}
 
-		/// The ID of the cart completion attempt. 
+		/// The ID of the cart completion attempt.
 		@discardableResult
 		open func id(alias: String? = nil) -> CartCompletionSuccessQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The ID of the order that's created in Shopify. 
+		/// The ID of the order that's created in Shopify.
 		@discardableResult
 		open func orderId(alias: String? = nil) -> CartCompletionSuccessQuery {
 			addField(field: "orderId", aliasSuffix: alias)
 			return self
 		}
 
-		/// The URL of the order confirmation in Shopify. 
+		/// The URL of the order confirmation in Shopify.
 		@discardableResult
 		open func orderUrl(alias: String? = nil) -> CartCompletionSuccessQuery {
 			addField(field: "orderUrl", aliasSuffix: alias)
@@ -60,7 +60,7 @@ extension Storefront {
 		}
 	}
 
-	/// A successful completion to checkout a cart and a created order. 
+	/// A successful completion to checkout a cart and a created order.
 	open class CartCompletionSuccess: GraphQL.AbstractResponse, GraphQLObject, CartCompletionAttemptResult {
 		public typealias Query = CartCompletionSuccessQuery
 
@@ -97,7 +97,7 @@ extension Storefront {
 			}
 		}
 
-		/// The date and time when the job completed. 
+		/// The date and time when the job completed.
 		open var completedAt: Date? {
 			return internalGetCompletedAt()
 		}
@@ -106,7 +106,7 @@ extension Storefront {
 			return field(field: "completedAt", aliasSuffix: alias) as! Date?
 		}
 
-		/// The ID of the cart completion attempt. 
+		/// The ID of the cart completion attempt.
 		open var id: String {
 			return internalGetId()
 		}
@@ -115,7 +115,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! String
 		}
 
-		/// The ID of the order that's created in Shopify. 
+		/// The ID of the order that's created in Shopify.
 		open var orderId: GraphQL.ID {
 			return internalGetOrderId()
 		}
@@ -124,7 +124,7 @@ extension Storefront {
 			return field(field: "orderId", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The URL of the order confirmation in Shopify. 
+		/// The URL of the order confirmation in Shopify.
 		open var orderUrl: URL {
 			return internalGetOrderUrl()
 		}

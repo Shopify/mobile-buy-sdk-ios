@@ -27,13 +27,13 @@
 import Foundation
 
 extension Storefront {
-	/// Cart submit for checkout completion is throttled. 
+	/// Cart submit for checkout completion is throttled.
 	open class SubmitThrottledQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SubmitThrottled
 
-		/// UTC date time string that indicates the time after which clients should 
-		/// make their next poll request. Any poll requests sent before this time will 
-		/// be ignored. Use this value to schedule the next poll request. 
+		/// UTC date time string that indicates the time after which clients should
+		/// make their next poll request. Any poll requests sent before this time will
+		/// be ignored. Use this value to schedule the next poll request.
 		@discardableResult
 		open func pollAfter(alias: String? = nil) -> SubmitThrottledQuery {
 			addField(field: "pollAfter", aliasSuffix: alias)
@@ -41,7 +41,7 @@ extension Storefront {
 		}
 	}
 
-	/// Cart submit for checkout completion is throttled. 
+	/// Cart submit for checkout completion is throttled.
 	open class SubmitThrottled: GraphQL.AbstractResponse, GraphQLObject, CartSubmitForCompletionResult {
 		public typealias Query = SubmitThrottledQuery
 
@@ -59,9 +59,9 @@ extension Storefront {
 			}
 		}
 
-		/// UTC date time string that indicates the time after which clients should 
-		/// make their next poll request. Any poll requests sent before this time will 
-		/// be ignored. Use this value to schedule the next poll request. 
+		/// UTC date time string that indicates the time after which clients should
+		/// make their next poll request. Any poll requests sent before this time will
+		/// be ignored. Use this value to schedule the next poll request.
 		open var pollAfter: Date {
 			return internalGetPollAfter()
 		}

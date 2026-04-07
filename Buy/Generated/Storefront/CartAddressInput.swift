@@ -27,13 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields to provide exactly one of a variety of delivery address 
-	/// types. 
+	/// Specifies a delivery address for a cart. Provide either a
+	/// [`deliveryAddress`](https://shopify.dev/docs/api/storefront/current/input-objects/CartAddressInput#fields-deliveryAddress)
+	/// with full address details, or a
+	/// [`copyFromCustomerAddressId`](https://shopify.dev/docs/api/storefront/current/input-objects/CartAddressInput#fields-copyFromCustomerAddressId)
+	/// to copy from an existing customer address. Used by
+	/// [`CartSelectableAddressInput`](https://shopify.dev/docs/api/storefront/current/input-objects/CartSelectableAddressInput)
+	/// and
+	/// [`CartSelectableAddressUpdateInput`](https://shopify.dev/docs/api/storefront/current/input-objects/CartSelectableAddressUpdateInput).
 	open class CartAddressInput {
-		/// A delivery address stored on this cart. 
+		/// A delivery address stored on this cart.
 		open var deliveryAddress: Input<CartDeliveryAddressInput>
 
-		/// Copies details from the customer address to an address on this cart. 
+		/// Copies details from the customer address to an address on this cart.
 		open var copyFromCustomerAddressId: Input<GraphQL.ID>
 
 		/// Creates the input object.

@@ -27,11 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// Cart is not ready for payment update and completion. 
+	/// Cart is not ready for payment update and completion.
 	open class CartStatusNotReadyQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartStatusNotReady
 
-		/// The result of cart preparation for completion. 
+		/// The result of cart preparation for completion.
 		@discardableResult
 		open func cart(alias: String? = nil, _ subfields: (CartQuery) -> Void) -> CartStatusNotReadyQuery {
 			let subquery = CartQuery()
@@ -41,8 +41,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The list of errors that caused the cart to not be ready for payment update 
-		/// and completion. 
+		/// The list of errors that caused the cart to not be ready for payment update
+		/// and completion.
 		@discardableResult
 		open func errors(alias: String? = nil, _ subfields: (CartOperationErrorQuery) -> Void) -> CartStatusNotReadyQuery {
 			let subquery = CartOperationErrorQuery()
@@ -53,7 +53,7 @@ extension Storefront {
 		}
 	}
 
-	/// Cart is not ready for payment update and completion. 
+	/// Cart is not ready for payment update and completion.
 	open class CartStatusNotReady: GraphQL.AbstractResponse, GraphQLObject, CartPrepareForCompletionResult {
 		public typealias Query = CartStatusNotReadyQuery
 
@@ -78,7 +78,7 @@ extension Storefront {
 			}
 		}
 
-		/// The result of cart preparation for completion. 
+		/// The result of cart preparation for completion.
 		open var cart: Storefront.Cart? {
 			return internalGetCart()
 		}
@@ -87,8 +87,8 @@ extension Storefront {
 			return field(field: "cart", aliasSuffix: alias) as! Storefront.Cart?
 		}
 
-		/// The list of errors that caused the cart to not be ready for payment update 
-		/// and completion. 
+		/// The list of errors that caused the cart to not be ready for payment update
+		/// and completion.
 		open var errors: [Storefront.CartOperationError] {
 			return internalGetErrors()
 		}

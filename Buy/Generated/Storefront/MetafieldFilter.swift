@@ -27,18 +27,20 @@
 import Foundation
 
 extension Storefront {
-	/// A filter used to view a subset of products in a collection matching a 
-	/// specific metafield value. Only the following metafield types are currently 
-	/// supported: - `number_integer` - `number_decimal` - `single_line_text_field` 
-	/// - `boolean` as of 2022-04. 
+	/// Filters products in a collection by matching a specific metafield value.
+	/// Used by the
+	/// [`ProductFilter`](https://shopify.dev/docs/api/storefront/current/input-objects/ProductFilter)
+	/// input's `productMetafield` and `variantMetafield` fields. Supports the
+	/// following metafield types: `number_integer`, `number_decimal`,
+	/// `single_line_text_field`, and `boolean`.
 	open class MetafieldFilter {
-		/// The namespace of the metafield to filter on. 
+		/// The namespace of the metafield to filter on.
 		open var namespace: String
 
-		/// The key of the metafield to filter on. 
+		/// The key of the metafield to filter on.
 		open var key: String
 
-		/// The value of the metafield. 
+		/// The value of the metafield.
 		open var value: String
 
 		/// Creates the input object.

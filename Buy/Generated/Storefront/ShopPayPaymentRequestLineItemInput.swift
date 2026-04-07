@@ -27,41 +27,41 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields to create a line item for a Shop Pay payment request. 
+	/// The input fields to create a line item for a Shop Pay payment request.
 	open class ShopPayPaymentRequestLineItemInput {
-		/// The label of the line item. 
+		/// The label of the line item.
 		open var label: Input<String>
 
-		/// The quantity of the line item. 
+		/// The quantity of the line item.
 		open var quantity: Int32
 
-		/// The SKU of the line item. 
+		/// The SKU of the line item.
 		open var sku: Input<String>
 
-		/// Whether the line item requires shipping. 
+		/// Whether the line item requires shipping.
 		open var requiresShipping: Input<Bool>
 
-		/// The image of the line item. 
+		/// The image of the line item.
 		open var image: Input<ShopPayPaymentRequestImageInput>
 
-		/// The original line price for the line item. 
+		/// The original line price for the line item.
 		open var originalLinePrice: Input<MoneyInput>
 
-		/// The final line price for the line item. 
+		/// The final line price for the line item.
 		open var finalLinePrice: Input<MoneyInput>
 
-		/// The line discounts for the line item. The input must not contain more than 
-		/// `250` values. 
+		/// The line discounts for the line item. The input must not contain more than
+		/// `250` values.
 		open var lineDiscounts: Input<[ShopPayPaymentRequestDiscountInput]>
 
-		/// The original item price for the line item. 
+		/// The original item price for the line item.
 		open var originalItemPrice: Input<MoneyInput>
 
-		/// The final item price for the line item. 
+		/// The final item price for the line item.
 		open var finalItemPrice: Input<MoneyInput>
 
-		/// The item discounts for the line item. The input must not contain more than 
-		/// `250` values. 
+		/// The item discounts for the line item. The input must not contain more than
+		/// `250` values.
 		open var itemDiscounts: Input<[ShopPayPaymentRequestDiscountInput]>
 
 		/// Creates the input object.

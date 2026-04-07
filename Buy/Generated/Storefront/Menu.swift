@@ -27,27 +27,37 @@
 import Foundation
 
 extension Storefront {
-	/// A [navigation 
-	/// menu](https://help.shopify.com/manual/online-store/menus-and-links) 
-	/// representing a hierarchy of hyperlinks (items). 
+	/// A navigation structure for building store
+	/// [menus](https://help.shopify.com/manual/online-store/menus-and-links). Each
+	/// menu contains
+	/// [`MenuItem`](https://shopify.dev/docs/api/storefront/current/objects/MenuItem)
+	/// objects that can be nested to create multi-level navigation hierarchies.
+	/// Menu items can link to
+	/// [collections](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+	/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product),
+	/// [pages](https://shopify.dev/docs/api/storefront/current/objects/Page),
+	/// [blogs](https://shopify.dev/docs/api/storefront/current/objects/Blog), or
+	/// external URLs. Use the
+	/// [`menu`](https://shopify.dev/docs/api/storefront/current/queries/menu)
+	/// query to retrieve a menu by its handle.
 	open class MenuQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Menu
 
-		/// The menu's handle. 
+		/// The menu's handle.
 		@discardableResult
 		open func handle(alias: String? = nil) -> MenuQuery {
 			addField(field: "handle", aliasSuffix: alias)
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> MenuQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The menu's child items. 
+		/// The menu's child items.
 		@discardableResult
 		open func items(alias: String? = nil, _ subfields: (MenuItemQuery) -> Void) -> MenuQuery {
 			let subquery = MenuItemQuery()
@@ -57,14 +67,14 @@ extension Storefront {
 			return self
 		}
 
-		/// The count of items on the menu. 
+		/// The count of items on the menu.
 		@discardableResult
 		open func itemsCount(alias: String? = nil) -> MenuQuery {
 			addField(field: "itemsCount", aliasSuffix: alias)
 			return self
 		}
 
-		/// The menu's title. 
+		/// The menu's title.
 		@discardableResult
 		open func title(alias: String? = nil) -> MenuQuery {
 			addField(field: "title", aliasSuffix: alias)
@@ -72,9 +82,19 @@ extension Storefront {
 		}
 	}
 
-	/// A [navigation 
-	/// menu](https://help.shopify.com/manual/online-store/menus-and-links) 
-	/// representing a hierarchy of hyperlinks (items). 
+	/// A navigation structure for building store
+	/// [menus](https://help.shopify.com/manual/online-store/menus-and-links). Each
+	/// menu contains
+	/// [`MenuItem`](https://shopify.dev/docs/api/storefront/current/objects/MenuItem)
+	/// objects that can be nested to create multi-level navigation hierarchies.
+	/// Menu items can link to
+	/// [collections](https://shopify.dev/docs/api/storefront/current/objects/Collection),
+	/// [products](https://shopify.dev/docs/api/storefront/current/objects/Product),
+	/// [pages](https://shopify.dev/docs/api/storefront/current/objects/Page),
+	/// [blogs](https://shopify.dev/docs/api/storefront/current/objects/Blog), or
+	/// external URLs. Use the
+	/// [`menu`](https://shopify.dev/docs/api/storefront/current/queries/menu)
+	/// query to retrieve a menu by its handle.
 	open class Menu: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = MenuQuery
 
@@ -116,7 +136,7 @@ extension Storefront {
 			}
 		}
 
-		/// The menu's handle. 
+		/// The menu's handle.
 		open var handle: String {
 			return internalGetHandle()
 		}
@@ -125,7 +145,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -134,7 +154,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The menu's child items. 
+		/// The menu's child items.
 		open var items: [Storefront.MenuItem] {
 			return internalGetItems()
 		}
@@ -143,7 +163,7 @@ extension Storefront {
 			return field(field: "items", aliasSuffix: alias) as! [Storefront.MenuItem]
 		}
 
-		/// The count of items on the menu. 
+		/// The count of items on the menu.
 		open var itemsCount: Int32 {
 			return internalGetItemsCount()
 		}
@@ -152,7 +172,7 @@ extension Storefront {
 			return field(field: "itemsCount", aliasSuffix: alias) as! Int32
 		}
 
-		/// The menu's title. 
+		/// The menu's title.
 		open var title: String {
 			return internalGetTitle()
 		}

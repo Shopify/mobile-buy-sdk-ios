@@ -26,12 +26,20 @@
 
 import Foundation
 
-/// A resource that the metafield belongs to. 
+/// The Shopify resource that owns a metafield. Returned by the `Metafield`
+/// object's
+/// [`parentResource`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.parentResource)
+/// field, enabling traversal from a metafield back to the resource it's
+/// attached to.
 public protocol MetafieldParentResource {
 }
 
 extension Storefront {
-	/// A resource that the metafield belongs to. 
+	/// The Shopify resource that owns a metafield. Returned by the `Metafield`
+	/// object's
+	/// [`parentResource`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.parentResource)
+	/// field, enabling traversal from a metafield back to the resource it's
+	/// attached to.
 	open class MetafieldParentResourceQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MetafieldParentResource
 
@@ -40,7 +48,11 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// A resource that the metafield belongs to. 
+		/// The Shopify resource that owns a metafield. Returned by the `Metafield`
+		/// object's
+		/// [`parentResource`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.parentResource)
+		/// field, enabling traversal from a metafield back to the resource it's
+		/// attached to.
 		@discardableResult
 		open func onArticle(subfields: (ArticleQuery) -> Void) -> MetafieldParentResourceQuery {
 			let subquery = ArticleQuery()
@@ -49,7 +61,11 @@ extension Storefront {
 			return self
 		}
 
-		/// A resource that the metafield belongs to. 
+		/// The Shopify resource that owns a metafield. Returned by the `Metafield`
+		/// object's
+		/// [`parentResource`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.parentResource)
+		/// field, enabling traversal from a metafield back to the resource it's
+		/// attached to.
 		@discardableResult
 		open func onBlog(subfields: (BlogQuery) -> Void) -> MetafieldParentResourceQuery {
 			let subquery = BlogQuery()
@@ -58,7 +74,11 @@ extension Storefront {
 			return self
 		}
 
-		/// A resource that the metafield belongs to. 
+		/// The Shopify resource that owns a metafield. Returned by the `Metafield`
+		/// object's
+		/// [`parentResource`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.parentResource)
+		/// field, enabling traversal from a metafield back to the resource it's
+		/// attached to.
 		@discardableResult
 		open func onCart(subfields: (CartQuery) -> Void) -> MetafieldParentResourceQuery {
 			let subquery = CartQuery()
@@ -67,7 +87,11 @@ extension Storefront {
 			return self
 		}
 
-		/// A resource that the metafield belongs to. 
+		/// The Shopify resource that owns a metafield. Returned by the `Metafield`
+		/// object's
+		/// [`parentResource`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.parentResource)
+		/// field, enabling traversal from a metafield back to the resource it's
+		/// attached to.
 		@discardableResult
 		open func onCollection(subfields: (CollectionQuery) -> Void) -> MetafieldParentResourceQuery {
 			let subquery = CollectionQuery()
@@ -76,7 +100,11 @@ extension Storefront {
 			return self
 		}
 
-		/// A resource that the metafield belongs to. 
+		/// The Shopify resource that owns a metafield. Returned by the `Metafield`
+		/// object's
+		/// [`parentResource`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.parentResource)
+		/// field, enabling traversal from a metafield back to the resource it's
+		/// attached to.
 		@discardableResult
 		open func onCompany(subfields: (CompanyQuery) -> Void) -> MetafieldParentResourceQuery {
 			let subquery = CompanyQuery()
@@ -85,7 +113,11 @@ extension Storefront {
 			return self
 		}
 
-		/// A resource that the metafield belongs to. 
+		/// The Shopify resource that owns a metafield. Returned by the `Metafield`
+		/// object's
+		/// [`parentResource`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.parentResource)
+		/// field, enabling traversal from a metafield back to the resource it's
+		/// attached to.
 		@discardableResult
 		open func onCompanyLocation(subfields: (CompanyLocationQuery) -> Void) -> MetafieldParentResourceQuery {
 			let subquery = CompanyLocationQuery()
@@ -94,7 +126,11 @@ extension Storefront {
 			return self
 		}
 
-		/// A resource that the metafield belongs to. 
+		/// The Shopify resource that owns a metafield. Returned by the `Metafield`
+		/// object's
+		/// [`parentResource`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.parentResource)
+		/// field, enabling traversal from a metafield back to the resource it's
+		/// attached to.
 		@discardableResult
 		open func onCustomer(subfields: (CustomerQuery) -> Void) -> MetafieldParentResourceQuery {
 			let subquery = CustomerQuery()
@@ -103,7 +139,11 @@ extension Storefront {
 			return self
 		}
 
-		/// A resource that the metafield belongs to. 
+		/// The Shopify resource that owns a metafield. Returned by the `Metafield`
+		/// object's
+		/// [`parentResource`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.parentResource)
+		/// field, enabling traversal from a metafield back to the resource it's
+		/// attached to.
 		@discardableResult
 		open func onLocation(subfields: (LocationQuery) -> Void) -> MetafieldParentResourceQuery {
 			let subquery = LocationQuery()
@@ -112,7 +152,11 @@ extension Storefront {
 			return self
 		}
 
-		/// A resource that the metafield belongs to. 
+		/// The Shopify resource that owns a metafield. Returned by the `Metafield`
+		/// object's
+		/// [`parentResource`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.parentResource)
+		/// field, enabling traversal from a metafield back to the resource it's
+		/// attached to.
 		@discardableResult
 		open func onMarket(subfields: (MarketQuery) -> Void) -> MetafieldParentResourceQuery {
 			let subquery = MarketQuery()
@@ -121,7 +165,11 @@ extension Storefront {
 			return self
 		}
 
-		/// A resource that the metafield belongs to. 
+		/// The Shopify resource that owns a metafield. Returned by the `Metafield`
+		/// object's
+		/// [`parentResource`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.parentResource)
+		/// field, enabling traversal from a metafield back to the resource it's
+		/// attached to.
 		@discardableResult
 		open func onOrder(subfields: (OrderQuery) -> Void) -> MetafieldParentResourceQuery {
 			let subquery = OrderQuery()
@@ -130,7 +178,11 @@ extension Storefront {
 			return self
 		}
 
-		/// A resource that the metafield belongs to. 
+		/// The Shopify resource that owns a metafield. Returned by the `Metafield`
+		/// object's
+		/// [`parentResource`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.parentResource)
+		/// field, enabling traversal from a metafield back to the resource it's
+		/// attached to.
 		@discardableResult
 		open func onPage(subfields: (PageQuery) -> Void) -> MetafieldParentResourceQuery {
 			let subquery = PageQuery()
@@ -139,7 +191,11 @@ extension Storefront {
 			return self
 		}
 
-		/// A resource that the metafield belongs to. 
+		/// The Shopify resource that owns a metafield. Returned by the `Metafield`
+		/// object's
+		/// [`parentResource`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.parentResource)
+		/// field, enabling traversal from a metafield back to the resource it's
+		/// attached to.
 		@discardableResult
 		open func onProduct(subfields: (ProductQuery) -> Void) -> MetafieldParentResourceQuery {
 			let subquery = ProductQuery()
@@ -148,7 +204,11 @@ extension Storefront {
 			return self
 		}
 
-		/// A resource that the metafield belongs to. 
+		/// The Shopify resource that owns a metafield. Returned by the `Metafield`
+		/// object's
+		/// [`parentResource`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.parentResource)
+		/// field, enabling traversal from a metafield back to the resource it's
+		/// attached to.
 		@discardableResult
 		open func onProductVariant(subfields: (ProductVariantQuery) -> Void) -> MetafieldParentResourceQuery {
 			let subquery = ProductVariantQuery()
@@ -157,7 +217,11 @@ extension Storefront {
 			return self
 		}
 
-		/// A resource that the metafield belongs to. 
+		/// The Shopify resource that owns a metafield. Returned by the `Metafield`
+		/// object's
+		/// [`parentResource`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.parentResource)
+		/// field, enabling traversal from a metafield back to the resource it's
+		/// attached to.
 		@discardableResult
 		open func onSellingPlan(subfields: (SellingPlanQuery) -> Void) -> MetafieldParentResourceQuery {
 			let subquery = SellingPlanQuery()
@@ -166,7 +230,11 @@ extension Storefront {
 			return self
 		}
 
-		/// A resource that the metafield belongs to. 
+		/// The Shopify resource that owns a metafield. Returned by the `Metafield`
+		/// object's
+		/// [`parentResource`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.parentResource)
+		/// field, enabling traversal from a metafield back to the resource it's
+		/// attached to.
 		@discardableResult
 		open func onShop(subfields: (ShopQuery) -> Void) -> MetafieldParentResourceQuery {
 			let subquery = ShopQuery()
@@ -176,7 +244,11 @@ extension Storefront {
 		}
 	}
 
-	/// A resource that the metafield belongs to. 
+	/// The Shopify resource that owns a metafield. Returned by the `Metafield`
+	/// object's
+	/// [`parentResource`](https://shopify.dev/docs/api/storefront/current/objects/Metafield#field-Metafield.fields.parentResource)
+	/// field, enabling traversal from a metafield back to the resource it's
+	/// attached to.
 	open class UnknownMetafieldParentResource: GraphQL.AbstractResponse, GraphQLObject, MetafieldParentResource {
 		public typealias Query = MetafieldParentResourceQuery
 

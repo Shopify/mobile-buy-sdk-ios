@@ -27,25 +27,29 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields for a cart metafield value to set. 
+	/// The input fields for a cart metafield value to set. Cart metafields will be
+	/// copied to order metafields at order creation time if there is a matching
+	/// order metafield definition with the [`cart to order
+	/// copyable`](https://shopify.dev/docs/apps/build/metafields/use-metafield-capabilities#cart-to-order-copyable)
+	/// capability enabled.
 	open class CartInputMetafieldInput {
-		/// The key name of the metafield. 
+		/// The key name of the metafield.
 		open var key: String
 
-		/// The data to store in the cart metafield. The data is always stored as a 
-		/// string, regardless of the metafield's type. 
+		/// The data to store in the cart metafield. The data is always stored as a
+		/// string, regardless of the metafield's type.
 		open var value: String
 
-		/// The type of data that the cart metafield stores. The type of data must be a 
-		/// [supported type](https://shopify.dev/apps/metafields/types). 
+		/// The type of data that the cart metafield stores. The type of data must be a
+		/// [supported type](https://shopify.dev/apps/metafields/types).
 		open var type: String
 
 		/// Creates the input object.
 		///
 		/// - parameters:
 		///     - key: The key name of the metafield.
-		///     - value: The data to store in the cart metafield. The data is always stored as a string, regardless of the metafield's type. 
-		///     - type: The type of data that the cart metafield stores. The type of data must be a [supported type](https://shopify.dev/apps/metafields/types). 
+		///     - value: The data to store in the cart metafield. The data is always stored as a string, regardless of the metafield's type.
+		///     - type: The type of data that the cart metafield stores. The type of data must be a [supported type](https://shopify.dev/apps/metafields/types).
 		///
 		public static func create(key: String, value: String, type: String) -> CartInputMetafieldInput {
 			return CartInputMetafieldInput(key: key, value: value, type: type)
@@ -55,8 +59,8 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - key: The key name of the metafield.
-		///     - value: The data to store in the cart metafield. The data is always stored as a string, regardless of the metafield's type. 
-		///     - type: The type of data that the cart metafield stores. The type of data must be a [supported type](https://shopify.dev/apps/metafields/types). 
+		///     - value: The data to store in the cart metafield. The data is always stored as a string, regardless of the metafield's type.
+		///     - type: The type of data that the cart metafield stores. The type of data must be a [supported type](https://shopify.dev/apps/metafields/types).
 		///
 		public init(key: String, value: String, type: String) {
 			self.key = key

@@ -27,26 +27,33 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields to update the Customer information. 
+	/// The input fields for updating a
+	/// [`Customer`](https://shopify.dev/docs/api/storefront/current/objects/Customer).
+	/// Used by the
+	/// [`customerUpdate`](https://shopify.dev/docs/api/storefront/current/mutations/customerUpdate)
+	/// mutation. > Caution: > Updating the password invalidates all existing
+	/// access tokens, including the one used to perform the mutation. The response
+	/// returns a new access token. Ensure your app handles the new token returned
+	/// in the response to avoid logging the customer out.
 	open class CustomerUpdateInput {
-		/// The customer’s first name. 
+		/// The customer’s first name.
 		open var firstName: Input<String>
 
-		/// The customer’s last name. 
+		/// The customer’s last name.
 		open var lastName: Input<String>
 
-		/// The customer’s email. 
+		/// The customer’s email.
 		open var email: Input<String>
 
-		/// A unique phone number for the customer. Formatted using E.164 standard. For 
-		/// example, _+16135551111_. To remove the phone number, specify `null`. 
+		/// A unique phone number for the customer. Formatted using E.164 standard. For
+		/// example, _+16135551111_. To remove the phone number, specify `null`.
 		open var phone: Input<String>
 
-		/// The login password used by the customer. 
+		/// The login password used by the customer.
 		open var password: Input<String>
 
-		/// Indicates whether the customer has consented to be sent marketing material 
-		/// via email. 
+		/// Indicates whether the customer has consented to be sent marketing material
+		/// via email.
 		open var acceptsMarketing: Input<Bool>
 
 		/// Creates the input object.
@@ -55,7 +62,7 @@ extension Storefront {
 		///     - firstName: The customer’s first name.
 		///     - lastName: The customer’s last name.
 		///     - email: The customer’s email.
-		///     - phone: A unique phone number for the customer.  Formatted using E.164 standard. For example, _+16135551111_. To remove the phone number, specify `null`. 
+		///     - phone: A unique phone number for the customer.  Formatted using E.164 standard. For example, _+16135551111_. To remove the phone number, specify `null`.
 		///     - password: The login password used by the customer.
 		///     - acceptsMarketing: Indicates whether the customer has consented to be sent marketing material via email.
 		///
@@ -78,7 +85,7 @@ extension Storefront {
 		///     - firstName: The customer’s first name.
 		///     - lastName: The customer’s last name.
 		///     - email: The customer’s email.
-		///     - phone: A unique phone number for the customer.  Formatted using E.164 standard. For example, _+16135551111_. To remove the phone number, specify `null`. 
+		///     - phone: A unique phone number for the customer.  Formatted using E.164 standard. For example, _+16135551111_. To remove the phone number, specify `null`.
 		///     - password: The login password used by the customer.
 		///     - acceptsMarketing: Indicates whether the customer has consented to be sent marketing material via email.
 		///

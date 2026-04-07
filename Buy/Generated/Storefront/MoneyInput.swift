@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	/// The input fields for a monetary value with currency. 
+	/// The input fields for a monetary value with currency.
 	open class MoneyInput {
-		/// Decimal money amount. 
+		/// Decimal money amount.
 		open var amount: Decimal
 
-		/// Currency of the money. 
+		/// Currency of the money.
 		open var currencyCode: CurrencyCode
 
 		/// Creates the input object.

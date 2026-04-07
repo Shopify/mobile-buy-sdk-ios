@@ -27,27 +27,41 @@
 import Foundation
 
 extension Storefront {
-	/// A product variant represents a different version of a product, such as 
-	/// differing sizes or differing colors. 
+	/// A specific version of a
+	/// [product](https://shopify.dev/docs/api/storefront/current/objects/Product)
+	/// available for sale, differentiated by options like size or color. For
+	/// example, a small blue t-shirt and a large blue t-shirt are separate
+	/// variants of the same product. For more information, see the docs on
+	/// [Shopify's product
+	/// model](https://shopify.dev/docs/apps/build/product-merchandising/products-and-collections).
+	/// For products with quantity rules, variants enforce minimum, maximum, and
+	/// increment constraints on purchases. Variants also support subscriptions and
+	/// pre-orders through [selling plan
+	/// allocations](https://shopify.dev/docs/api/storefront/current/objects/SellingPlanAllocation)
+	/// objects, bundle configurations through [product variant
+	/// components](https://shopify.dev/docs/api/storefront/current/objects/ProductVariantComponent)
+	/// objects, and [shop pay installments
+	/// pricing](https://shopify.dev/docs/api/storefront/current/objects/ShopPayInstallmentsPricing)
+	/// for flexible payment options.
 	open class ProductVariantQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ProductVariant
 
-		/// Indicates if the product variant is available for sale. 
+		/// Indicates if the product variant is available for sale.
 		@discardableResult
 		open func availableForSale(alias: String? = nil) -> ProductVariantQuery {
 			addField(field: "availableForSale", aliasSuffix: alias)
 			return self
 		}
 
-		/// The barcode (for example, ISBN, UPC, or GTIN) associated with the variant. 
+		/// The barcode (for example, ISBN, UPC, or GTIN) associated with the variant.
 		@discardableResult
 		open func barcode(alias: String? = nil) -> ProductVariantQuery {
 			addField(field: "barcode", aliasSuffix: alias)
 			return self
 		}
 
-		/// The compare at price of the variant. This can be used to mark a variant as 
-		/// on sale, when `compareAtPrice` is higher than `price`. 
+		/// The compare at price of the variant. This can be used to mark a variant as
+		/// on sale, when `compareAtPrice` is higher than `price`.
 		@discardableResult
 		open func compareAtPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ProductVariantQuery {
 			let subquery = MoneyV2Query()
@@ -57,8 +71,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The compare at price of the variant. This can be used to mark a variant as 
-		/// on sale, when `compareAtPriceV2` is higher than `priceV2`. 
+		/// The compare at price of the variant. This can be used to mark a variant as
+		/// on sale, when `compareAtPriceV2` is higher than `priceV2`.
 		@available(*, deprecated, message: "Use `compareAtPrice` instead.")
 		@discardableResult
 		open func compareAtPriceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ProductVariantQuery {
@@ -69,8 +83,8 @@ extension Storefront {
 			return self
 		}
 
-		/// List of bundles components included in the variant considering only fixed 
-		/// bundles. 
+		/// List of bundles components included in the variant considering only fixed
+		/// bundles.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -107,15 +121,15 @@ extension Storefront {
 			return self
 		}
 
-		/// Whether a product is out of stock but still available for purchase (used 
-		/// for backorders). 
+		/// Whether a product is out of stock but still available for purchase (used
+		/// for backorders).
 		@discardableResult
 		open func currentlyNotInStock(alias: String? = nil) -> ProductVariantQuery {
 			addField(field: "currentlyNotInStock", aliasSuffix: alias)
 			return self
 		}
 
-		/// List of bundles that include this variant considering only fixed bundles. 
+		/// List of bundles that include this variant considering only fixed bundles.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -152,15 +166,15 @@ extension Storefront {
 			return self
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		@discardableResult
 		open func id(alias: String? = nil) -> ProductVariantQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// Image associated with the product variant. This field falls back to the 
-		/// product image if no image is available. 
+		/// Image associated with the product variant. This field falls back to the
+		/// product image if no image is available.
 		@discardableResult
 		open func image(alias: String? = nil, _ subfields: (ImageQuery) -> Void) -> ProductVariantQuery {
 			let subquery = ImageQuery()
@@ -170,9 +184,9 @@ extension Storefront {
 			return self
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		///
 		/// - parameters:
 		///     - namespace: The container the metafield belongs to. If omitted, the app-reserved namespace will be used.
@@ -197,12 +211,12 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		///
 		/// - parameters:
 		///     - identifiers: The list of metafields to retrieve by namespace and key.
-		///        
+		///
 		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
@@ -220,7 +234,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The product variant’s price. 
+		/// The product variant’s price.
 		@discardableResult
 		open func price(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ProductVariantQuery {
 			let subquery = MoneyV2Query()
@@ -230,7 +244,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The product variant’s price. 
+		/// The product variant’s price.
 		@available(*, deprecated, message: "Use `price` instead.")
 		@discardableResult
 		open func priceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ProductVariantQuery {
@@ -241,7 +255,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The product object that the product variant belongs to. 
+		/// The product object that the product variant belongs to.
 		@discardableResult
 		open func product(alias: String? = nil, _ subfields: (ProductQuery) -> Void) -> ProductVariantQuery {
 			let subquery = ProductQuery()
@@ -251,14 +265,14 @@ extension Storefront {
 			return self
 		}
 
-		/// The total sellable quantity of the variant for online sales channels. 
+		/// The total sellable quantity of the variant for online sales channels.
 		@discardableResult
 		open func quantityAvailable(alias: String? = nil) -> ProductVariantQuery {
 			addField(field: "quantityAvailable", aliasSuffix: alias)
 			return self
 		}
 
-		/// A list of quantity breaks for the product variant. 
+		/// A list of quantity breaks for the product variant.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -295,7 +309,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The quantity rule for the product variant in a given context. 
+		/// The quantity rule for the product variant in a given context.
 		@discardableResult
 		open func quantityRule(alias: String? = nil, _ subfields: (QuantityRuleQuery) -> Void) -> ProductVariantQuery {
 			let subquery = QuantityRuleQuery()
@@ -305,24 +319,24 @@ extension Storefront {
 			return self
 		}
 
-		/// Whether a product variant requires components. The default value is 
-		/// `false`. If `true`, then the product variant can only be purchased as a 
-		/// parent bundle with components. 
+		/// Whether a product variant requires components. The default value is
+		/// `false`. If `true`, then the product variant can only be purchased as a
+		/// parent bundle with components.
 		@discardableResult
 		open func requiresComponents(alias: String? = nil) -> ProductVariantQuery {
 			addField(field: "requiresComponents", aliasSuffix: alias)
 			return self
 		}
 
-		/// Whether a customer needs to provide a shipping address when placing an 
-		/// order for the product variant. 
+		/// Whether a customer needs to provide a shipping address when placing an
+		/// order for the product variant.
 		@discardableResult
 		open func requiresShipping(alias: String? = nil) -> ProductVariantQuery {
 			addField(field: "requiresShipping", aliasSuffix: alias)
 			return self
 		}
 
-		/// List of product options applied to the variant. 
+		/// List of product options applied to the variant.
 		@discardableResult
 		open func selectedOptions(alias: String? = nil, _ subfields: (SelectedOptionQuery) -> Void) -> ProductVariantQuery {
 			let subquery = SelectedOptionQuery()
@@ -332,9 +346,9 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents an association between a variant and a selling plan. Selling 
-		/// plan allocations describe which selling plans are available for each 
-		/// variant, and what their impact is on pricing. 
+		/// Represents an association between a variant and a selling plan. Selling
+		/// plan allocations describe which selling plans are available for each
+		/// variant, and what their impact is on pricing.
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -376,7 +390,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The Shop Pay Installments pricing information for the product variant. 
+		/// The Shop Pay Installments pricing information for the product variant.
 		@discardableResult
 		open func shopPayInstallmentsPricing(alias: String? = nil, _ subfields: (ShopPayInstallmentsProductVariantPricingQuery) -> Void) -> ProductVariantQuery {
 			let subquery = ShopPayInstallmentsProductVariantPricingQuery()
@@ -386,14 +400,14 @@ extension Storefront {
 			return self
 		}
 
-		/// The SKU (stock keeping unit) associated with the variant. 
+		/// The SKU (stock keeping unit) associated with the variant.
 		@discardableResult
 		open func sku(alias: String? = nil) -> ProductVariantQuery {
 			addField(field: "sku", aliasSuffix: alias)
 			return self
 		}
 
-		/// The in-store pickup availability of this variant by location. 
+		/// The in-store pickup availability of this variant by location.
 		///
 		/// - parameters:
 		///     - near: Used to sort results based on proximity to the provided location.
@@ -440,21 +454,21 @@ extension Storefront {
 			return self
 		}
 
-		/// Whether tax is charged when the product variant is sold. 
+		/// Whether tax is charged when the product variant is sold.
 		@discardableResult
 		open func taxable(alias: String? = nil) -> ProductVariantQuery {
 			addField(field: "taxable", aliasSuffix: alias)
 			return self
 		}
 
-		/// The product variant’s title. 
+		/// The product variant’s title.
 		@discardableResult
 		open func title(alias: String? = nil) -> ProductVariantQuery {
 			addField(field: "title", aliasSuffix: alias)
 			return self
 		}
 
-		/// The unit price value for the variant based on the variant's measurement. 
+		/// The unit price value for the variant based on the variant's measurement.
 		@discardableResult
 		open func unitPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ProductVariantQuery {
 			let subquery = MoneyV2Query()
@@ -464,7 +478,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The unit price measurement for the variant. 
+		/// The unit price measurement for the variant.
 		@discardableResult
 		open func unitPriceMeasurement(alias: String? = nil, _ subfields: (UnitPriceMeasurementQuery) -> Void) -> ProductVariantQuery {
 			let subquery = UnitPriceMeasurementQuery()
@@ -474,15 +488,15 @@ extension Storefront {
 			return self
 		}
 
-		/// The weight of the product variant in the unit system specified with 
-		/// `weight_unit`. 
+		/// The weight of the product variant in the unit system specified with
+		/// `weight_unit`.
 		@discardableResult
 		open func weight(alias: String? = nil) -> ProductVariantQuery {
 			addField(field: "weight", aliasSuffix: alias)
 			return self
 		}
 
-		/// Unit of measurement for weight. 
+		/// Unit of measurement for weight.
 		@discardableResult
 		open func weightUnit(alias: String? = nil) -> ProductVariantQuery {
 			addField(field: "weightUnit", aliasSuffix: alias)
@@ -490,8 +504,22 @@ extension Storefront {
 		}
 	}
 
-	/// A product variant represents a different version of a product, such as 
-	/// differing sizes or differing colors. 
+	/// A specific version of a
+	/// [product](https://shopify.dev/docs/api/storefront/current/objects/Product)
+	/// available for sale, differentiated by options like size or color. For
+	/// example, a small blue t-shirt and a large blue t-shirt are separate
+	/// variants of the same product. For more information, see the docs on
+	/// [Shopify's product
+	/// model](https://shopify.dev/docs/apps/build/product-merchandising/products-and-collections).
+	/// For products with quantity rules, variants enforce minimum, maximum, and
+	/// increment constraints on purchases. Variants also support subscriptions and
+	/// pre-orders through [selling plan
+	/// allocations](https://shopify.dev/docs/api/storefront/current/objects/SellingPlanAllocation)
+	/// objects, bundle configurations through [product variant
+	/// components](https://shopify.dev/docs/api/storefront/current/objects/ProductVariantComponent)
+	/// objects, and [shop pay installments
+	/// pricing](https://shopify.dev/docs/api/storefront/current/objects/ShopPayInstallmentsPricing)
+	/// for flexible payment options.
 	open class ProductVariant: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, Merchandise, MetafieldParentResource, MetafieldReference, Node {
 		public typealias Query = ProductVariantQuery
 
@@ -698,7 +726,7 @@ extension Storefront {
 			}
 		}
 
-		/// Indicates if the product variant is available for sale. 
+		/// Indicates if the product variant is available for sale.
 		open var availableForSale: Bool {
 			return internalGetAvailableForSale()
 		}
@@ -707,7 +735,7 @@ extension Storefront {
 			return field(field: "availableForSale", aliasSuffix: alias) as! Bool
 		}
 
-		/// The barcode (for example, ISBN, UPC, or GTIN) associated with the variant. 
+		/// The barcode (for example, ISBN, UPC, or GTIN) associated with the variant.
 		open var barcode: String? {
 			return internalGetBarcode()
 		}
@@ -716,8 +744,8 @@ extension Storefront {
 			return field(field: "barcode", aliasSuffix: alias) as! String?
 		}
 
-		/// The compare at price of the variant. This can be used to mark a variant as 
-		/// on sale, when `compareAtPrice` is higher than `price`. 
+		/// The compare at price of the variant. This can be used to mark a variant as
+		/// on sale, when `compareAtPrice` is higher than `price`.
 		open var compareAtPrice: Storefront.MoneyV2? {
 			return internalGetCompareAtPrice()
 		}
@@ -726,8 +754,8 @@ extension Storefront {
 			return field(field: "compareAtPrice", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
-		/// The compare at price of the variant. This can be used to mark a variant as 
-		/// on sale, when `compareAtPriceV2` is higher than `priceV2`. 
+		/// The compare at price of the variant. This can be used to mark a variant as
+		/// on sale, when `compareAtPriceV2` is higher than `priceV2`.
 		@available(*, deprecated, message: "Use `compareAtPrice` instead.")
 		open var compareAtPriceV2: Storefront.MoneyV2? {
 			return internalGetCompareAtPriceV2()
@@ -737,8 +765,8 @@ extension Storefront {
 			return field(field: "compareAtPriceV2", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
-		/// List of bundles components included in the variant considering only fixed 
-		/// bundles. 
+		/// List of bundles components included in the variant considering only fixed
+		/// bundles.
 		open var components: Storefront.ProductVariantComponentConnection {
 			return internalGetComponents()
 		}
@@ -751,8 +779,8 @@ extension Storefront {
 			return field(field: "components", aliasSuffix: alias) as! Storefront.ProductVariantComponentConnection
 		}
 
-		/// Whether a product is out of stock but still available for purchase (used 
-		/// for backorders). 
+		/// Whether a product is out of stock but still available for purchase (used
+		/// for backorders).
 		open var currentlyNotInStock: Bool {
 			return internalGetCurrentlyNotInStock()
 		}
@@ -761,7 +789,7 @@ extension Storefront {
 			return field(field: "currentlyNotInStock", aliasSuffix: alias) as! Bool
 		}
 
-		/// List of bundles that include this variant considering only fixed bundles. 
+		/// List of bundles that include this variant considering only fixed bundles.
 		open var groupedBy: Storefront.ProductVariantConnection {
 			return internalGetGroupedBy()
 		}
@@ -774,7 +802,7 @@ extension Storefront {
 			return field(field: "groupedBy", aliasSuffix: alias) as! Storefront.ProductVariantConnection
 		}
 
-		/// A globally-unique ID. 
+		/// A globally-unique ID.
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -783,8 +811,8 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// Image associated with the product variant. This field falls back to the 
-		/// product image if no image is available. 
+		/// Image associated with the product variant. This field falls back to the
+		/// product image if no image is available.
 		open var image: Storefront.Image? {
 			return internalGetImage()
 		}
@@ -793,9 +821,9 @@ extension Storefront {
 			return field(field: "image", aliasSuffix: alias) as! Storefront.Image?
 		}
 
-		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data), 
-		/// including its `namespace` and `key`, that's associated with a Shopify 
-		/// resource for the purposes of adding and storing additional information. 
+		/// A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+		/// including its `namespace` and `key`, that's associated with a Shopify
+		/// resource for the purposes of adding and storing additional information.
 		open var metafield: Storefront.Metafield? {
 			return internalGetMetafield()
 		}
@@ -808,8 +836,8 @@ extension Storefront {
 			return field(field: "metafield", aliasSuffix: alias) as! Storefront.Metafield?
 		}
 
-		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant 
-		/// associates with a Shopify resource. 
+		/// A list of [custom fields](/docs/apps/build/custom-data) that a merchant
+		/// associates with a Shopify resource.
 		open var metafields: [Storefront.Metafield?] {
 			return internalGetMetafields()
 		}
@@ -822,7 +850,7 @@ extension Storefront {
 			return field(field: "metafields", aliasSuffix: alias) as! [Storefront.Metafield?]
 		}
 
-		/// The product variant’s price. 
+		/// The product variant’s price.
 		open var price: Storefront.MoneyV2 {
 			return internalGetPrice()
 		}
@@ -831,7 +859,7 @@ extension Storefront {
 			return field(field: "price", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The product variant’s price. 
+		/// The product variant’s price.
 		@available(*, deprecated, message: "Use `price` instead.")
 		open var priceV2: Storefront.MoneyV2 {
 			return internalGetPriceV2()
@@ -841,7 +869,7 @@ extension Storefront {
 			return field(field: "priceV2", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The product object that the product variant belongs to. 
+		/// The product object that the product variant belongs to.
 		open var product: Storefront.Product {
 			return internalGetProduct()
 		}
@@ -850,7 +878,7 @@ extension Storefront {
 			return field(field: "product", aliasSuffix: alias) as! Storefront.Product
 		}
 
-		/// The total sellable quantity of the variant for online sales channels. 
+		/// The total sellable quantity of the variant for online sales channels.
 		open var quantityAvailable: Int32? {
 			return internalGetQuantityAvailable()
 		}
@@ -859,7 +887,7 @@ extension Storefront {
 			return field(field: "quantityAvailable", aliasSuffix: alias) as! Int32?
 		}
 
-		/// A list of quantity breaks for the product variant. 
+		/// A list of quantity breaks for the product variant.
 		open var quantityPriceBreaks: Storefront.QuantityPriceBreakConnection {
 			return internalGetQuantityPriceBreaks()
 		}
@@ -872,7 +900,7 @@ extension Storefront {
 			return field(field: "quantityPriceBreaks", aliasSuffix: alias) as! Storefront.QuantityPriceBreakConnection
 		}
 
-		/// The quantity rule for the product variant in a given context. 
+		/// The quantity rule for the product variant in a given context.
 		open var quantityRule: Storefront.QuantityRule {
 			return internalGetQuantityRule()
 		}
@@ -881,9 +909,9 @@ extension Storefront {
 			return field(field: "quantityRule", aliasSuffix: alias) as! Storefront.QuantityRule
 		}
 
-		/// Whether a product variant requires components. The default value is 
-		/// `false`. If `true`, then the product variant can only be purchased as a 
-		/// parent bundle with components. 
+		/// Whether a product variant requires components. The default value is
+		/// `false`. If `true`, then the product variant can only be purchased as a
+		/// parent bundle with components.
 		open var requiresComponents: Bool {
 			return internalGetRequiresComponents()
 		}
@@ -892,8 +920,8 @@ extension Storefront {
 			return field(field: "requiresComponents", aliasSuffix: alias) as! Bool
 		}
 
-		/// Whether a customer needs to provide a shipping address when placing an 
-		/// order for the product variant. 
+		/// Whether a customer needs to provide a shipping address when placing an
+		/// order for the product variant.
 		open var requiresShipping: Bool {
 			return internalGetRequiresShipping()
 		}
@@ -902,7 +930,7 @@ extension Storefront {
 			return field(field: "requiresShipping", aliasSuffix: alias) as! Bool
 		}
 
-		/// List of product options applied to the variant. 
+		/// List of product options applied to the variant.
 		open var selectedOptions: [Storefront.SelectedOption] {
 			return internalGetSelectedOptions()
 		}
@@ -911,9 +939,9 @@ extension Storefront {
 			return field(field: "selectedOptions", aliasSuffix: alias) as! [Storefront.SelectedOption]
 		}
 
-		/// Represents an association between a variant and a selling plan. Selling 
-		/// plan allocations describe which selling plans are available for each 
-		/// variant, and what their impact is on pricing. 
+		/// Represents an association between a variant and a selling plan. Selling
+		/// plan allocations describe which selling plans are available for each
+		/// variant, and what their impact is on pricing.
 		open var sellingPlanAllocations: Storefront.SellingPlanAllocationConnection {
 			return internalGetSellingPlanAllocations()
 		}
@@ -926,7 +954,7 @@ extension Storefront {
 			return field(field: "sellingPlanAllocations", aliasSuffix: alias) as! Storefront.SellingPlanAllocationConnection
 		}
 
-		/// The Shop Pay Installments pricing information for the product variant. 
+		/// The Shop Pay Installments pricing information for the product variant.
 		open var shopPayInstallmentsPricing: Storefront.ShopPayInstallmentsProductVariantPricing? {
 			return internalGetShopPayInstallmentsPricing()
 		}
@@ -935,7 +963,7 @@ extension Storefront {
 			return field(field: "shopPayInstallmentsPricing", aliasSuffix: alias) as! Storefront.ShopPayInstallmentsProductVariantPricing?
 		}
 
-		/// The SKU (stock keeping unit) associated with the variant. 
+		/// The SKU (stock keeping unit) associated with the variant.
 		open var sku: String? {
 			return internalGetSku()
 		}
@@ -944,7 +972,7 @@ extension Storefront {
 			return field(field: "sku", aliasSuffix: alias) as! String?
 		}
 
-		/// The in-store pickup availability of this variant by location. 
+		/// The in-store pickup availability of this variant by location.
 		open var storeAvailability: Storefront.StoreAvailabilityConnection {
 			return internalGetStoreAvailability()
 		}
@@ -957,7 +985,7 @@ extension Storefront {
 			return field(field: "storeAvailability", aliasSuffix: alias) as! Storefront.StoreAvailabilityConnection
 		}
 
-		/// Whether tax is charged when the product variant is sold. 
+		/// Whether tax is charged when the product variant is sold.
 		open var taxable: Bool {
 			return internalGetTaxable()
 		}
@@ -966,7 +994,7 @@ extension Storefront {
 			return field(field: "taxable", aliasSuffix: alias) as! Bool
 		}
 
-		/// The product variant’s title. 
+		/// The product variant’s title.
 		open var title: String {
 			return internalGetTitle()
 		}
@@ -975,7 +1003,7 @@ extension Storefront {
 			return field(field: "title", aliasSuffix: alias) as! String
 		}
 
-		/// The unit price value for the variant based on the variant's measurement. 
+		/// The unit price value for the variant based on the variant's measurement.
 		open var unitPrice: Storefront.MoneyV2? {
 			return internalGetUnitPrice()
 		}
@@ -984,7 +1012,7 @@ extension Storefront {
 			return field(field: "unitPrice", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
-		/// The unit price measurement for the variant. 
+		/// The unit price measurement for the variant.
 		open var unitPriceMeasurement: Storefront.UnitPriceMeasurement? {
 			return internalGetUnitPriceMeasurement()
 		}
@@ -993,8 +1021,8 @@ extension Storefront {
 			return field(field: "unitPriceMeasurement", aliasSuffix: alias) as! Storefront.UnitPriceMeasurement?
 		}
 
-		/// The weight of the product variant in the unit system specified with 
-		/// `weight_unit`. 
+		/// The weight of the product variant in the unit system specified with
+		/// `weight_unit`.
 		open var weight: Double? {
 			return internalGetWeight()
 		}
@@ -1003,7 +1031,7 @@ extension Storefront {
 			return field(field: "weight", aliasSuffix: alias) as! Double?
 		}
 
-		/// Unit of measurement for weight. 
+		/// Unit of measurement for weight.
 		open var weightUnit: Storefront.WeightUnit {
 			return internalGetWeightUnit()
 		}

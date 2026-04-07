@@ -27,18 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// The recurring delivery policy for the selling plan. 
+	/// The recurring delivery policy for the selling plan.
 	open class SellingPlanRecurringDeliveryPolicyQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlanRecurringDeliveryPolicy
 
-		/// The delivery frequency, it can be either: day, week, month or year. 
+		/// The delivery frequency, it can be either: day, week, month or year.
 		@discardableResult
 		open func interval(alias: String? = nil) -> SellingPlanRecurringDeliveryPolicyQuery {
 			addField(field: "interval", aliasSuffix: alias)
 			return self
 		}
 
-		/// The number of intervals between deliveries. 
+		/// The number of intervals between deliveries.
 		@discardableResult
 		open func intervalCount(alias: String? = nil) -> SellingPlanRecurringDeliveryPolicyQuery {
 			addField(field: "intervalCount", aliasSuffix: alias)
@@ -46,7 +46,7 @@ extension Storefront {
 		}
 	}
 
-	/// The recurring delivery policy for the selling plan. 
+	/// The recurring delivery policy for the selling plan.
 	open class SellingPlanRecurringDeliveryPolicy: GraphQL.AbstractResponse, GraphQLObject, SellingPlanDeliveryPolicy {
 		public typealias Query = SellingPlanRecurringDeliveryPolicyQuery
 
@@ -70,7 +70,7 @@ extension Storefront {
 			}
 		}
 
-		/// The delivery frequency, it can be either: day, week, month or year. 
+		/// The delivery frequency, it can be either: day, week, month or year.
 		open var interval: Storefront.SellingPlanInterval {
 			return internalGetInterval()
 		}
@@ -79,7 +79,7 @@ extension Storefront {
 			return field(field: "interval", aliasSuffix: alias) as! Storefront.SellingPlanInterval
 		}
 
-		/// The number of intervals between deliveries. 
+		/// The number of intervals between deliveries.
 		open var intervalCount: Int32 {
 			return internalGetIntervalCount()
 		}
